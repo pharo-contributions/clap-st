@@ -16,6 +16,8 @@ ClapScratchTest >> testFooBarBaz [
 		add: (ClapPositional withName: 'two');
 		matchOn: argv.
 	
+	argv should receive next exactly: 3.
+	
 	matches should not be isMismatch.
 	matches should be includesKey: 'one'.
 	(matches at: 'one') should equal: 'bar'.
@@ -78,6 +80,8 @@ ClapScratchTest >> testHelloWorld [
 	matches := (ClapCommand withName: 'hello')
 		add: (ClapPositional withName: 'who');
 		matchOn: argv.
+	
+	argv should receive next twice.
 	
 	matches should not be isMismatch.
 	matches alias should equal: 'hello'.
