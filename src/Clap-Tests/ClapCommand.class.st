@@ -36,15 +36,18 @@ ClapCommand >> initialize [
 ]
 
 { #category : #matching }
-ClapCommand >> matchWithAlias: aString [ 
-	^ ClapCommandMatch of: self withAlias: aString
+ClapCommand >> matchOn: aStream [
+	^ aStream peek = self canonicalName
+		ifTrue: [ | match |
+			match := self matchWithAlias: aStream next.
+			arguments do: [ :each | (each matchOn: aStream) addTo: match ].
+			match ]
+		ifFalse: [ self mismatch ]
 ]
 
 { #category : #matching }
-ClapCommand >> matchesOn: aStream [
-	^ aStream peek = self canonicalName
-		ifTrue: [ self matchWithAlias: aStream next ]
-		ifFalse: [ self mismatch ]
+ClapCommand >> matchWithAlias: aString [ 
+	^ ClapCommandMatch of: self withAlias: aString
 ]
 
 { #category : #matching }

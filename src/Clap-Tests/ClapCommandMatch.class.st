@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'command',
-		'alias'
+		'alias',
+		'arguments'
 	],
 	#category : 'Clap-Tests'
 }
@@ -15,15 +16,37 @@ ClapCommandMatch class >> of: aCommand withAlias: usedAlias [
 		alias: usedAlias
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ClapCommandMatch >> alias [
 	^ alias
+]
+
+{ #category : #'as yet unclassified' }
+ClapCommandMatch >> at: canonicalName [
+	^ (arguments at: canonicalName) value
+]
+
+{ #category : #accessing }
+ClapCommandMatch >> at: canonicalName put: aMatch [
+	arguments
+		at: canonicalName
+		put: aMatch
 ]
 
 { #category : #initialization }
 ClapCommandMatch >> command: aCommand alias: aString [ 
 	command := aCommand.
 	alias := aString
+]
+
+{ #category : #testing }
+ClapCommandMatch >> includesKey: canonicalName [
+	^ arguments includesKey: canonicalName
+]
+
+{ #category : #initialization }
+ClapCommandMatch >> initialize [
+	arguments := Dictionary new
 ]
 
 { #category : #testing }

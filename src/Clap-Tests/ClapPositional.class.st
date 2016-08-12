@@ -14,7 +14,19 @@ ClapPositional class >> withName: aString [
 		yourself
 ]
 
+{ #category : #accessing }
+ClapPositional >> canonicalName [
+	^ canonicalName
+]
+
 { #category : #initialization }
 ClapPositional >> canonicalName: aString [ 
 	canonicalName := aString
+]
+
+{ #category : #matching }
+ClapPositional >> matchOn: aStream [
+	^ aStream atEnd
+		ifTrue: [ self mismatch ]
+		ifFalse: [ ClapPositionalMatch of: self value: aStream next ]
 ]
