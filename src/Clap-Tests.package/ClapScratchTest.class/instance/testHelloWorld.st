@@ -9,6 +9,8 @@ testHelloWorld
 		add: (ClapPositional withName: 'who');
 		matchOn: argv.
 	
+	argv should receive next twice.
+	
 	matches should not be isMismatch.
 	matches alias should equal: 'hello'.
 	matches should be includesKey: 'who'.

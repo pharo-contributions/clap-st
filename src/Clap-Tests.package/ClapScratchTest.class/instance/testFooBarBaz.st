@@ -10,6 +10,8 @@ testFooBarBaz
 		add: (ClapPositional withName: 'two');
 		matchOn: argv.
 	
+	argv should receive next exactly: 3.
+	
 	matches should not be isMismatch.
 	matches should be includesKey: 'one'.
 	(matches at: 'one') should equal: 'bar'.
