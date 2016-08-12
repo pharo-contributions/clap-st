@@ -8,7 +8,7 @@ testHello
 	argv stub peek willReturn: 'hello'.
 	argv stub next willReturn: 'hello'.
 	
-	matches := hello matchesOn: argv.
+	matches := hello matchOn: argv.
 	
 	argv should receive next.
 	matches should not be isMismatch.

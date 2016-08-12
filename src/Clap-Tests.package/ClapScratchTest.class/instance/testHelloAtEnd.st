@@ -6,7 +6,7 @@ testHelloAtEnd
 	argv := Mock named: 'argv'.
 	argv stub peek willReturn: nil.
 	
-	matches := hello matchesOn: argv.
+	matches := hello matchOn: argv.
 	
 	argv should not receive next.
 	matches should be isMismatch

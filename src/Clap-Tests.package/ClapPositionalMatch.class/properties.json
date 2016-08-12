@@ -6,8 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"command" ],
-	"name" : "ClapMismatch",
+		"positional",
+		"value" ],
+	"name" : "ClapPositionalMatch",
 	"pools" : [
 		 ],
 	"super" : "Object",

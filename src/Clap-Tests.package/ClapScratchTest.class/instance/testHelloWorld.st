@@ -1,6 +1,5 @@
 tests
 testHelloWorld
-	<expectedFailure>
 	| matches argv |
 	argv := Mock named: 'argv'.
 	argv stub peek willReturnValueFrom: #('hello' 'world').
@@ -8,8 +7,9 @@ testHelloWorld
 		
 	matches := (ClapCommand withName: 'hello')
 		add: (ClapPositional withName: 'who');
-		matchesOn: argv.
+		matchOn: argv.
 	
 	matches should not be isMismatch.
+	matches alias should equal: 'hello'.
 	matches should be includesKey: 'who'.
 	(matches at: 'who') should equal: 'world'
