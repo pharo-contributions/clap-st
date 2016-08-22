@@ -1,12 +1,11 @@
 tests
 testHelloMismatch
-	| hello argv matches |
-	hello := ClapCommand withName: 'hello'.
-	
+	| argv matches |
 	argv := Mock named: 'argv'.
 	argv stub peek willReturn: 'foo'.
 	
-	matches := hello matchOn: argv.
+	matches := (ClapCommand withName: 'hello')
+		matchOn: argv.
 	
 	argv should not receive next.
 	matches should be isMismatch

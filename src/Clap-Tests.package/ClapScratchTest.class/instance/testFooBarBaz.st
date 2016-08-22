@@ -13,6 +13,7 @@ testFooBarBaz
 	argv should receive next exactly: 3.
 	
 	matches should not be isMismatch.
+	matches alias should equal: 'foo'.
 	matches should be includesKey: 'one'.
 	(matches at: 'one') should equal: 'bar'.
 	matches should be includesKey: 'two'.

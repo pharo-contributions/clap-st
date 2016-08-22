@@ -1,5 +1,5 @@
 matching
 matchOn: aStream
 	^ aStream atEnd
-		ifTrue: [ self mismatch ]
+		ifTrue: [ self absent ]
 		ifFalse: [ ClapPositionalMatch of: self value: aStream next ]
