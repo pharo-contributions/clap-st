@@ -28,7 +28,7 @@ ClapPositionalMatch >> positional: aPositional value: aString [
 	value := aString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ClapPositionalMatch >> value [
 	^ value
 ]

@@ -15,7 +15,7 @@ ClapCommand class >> withName: aString [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ClapCommand >> add: arg [ 
 	arguments add: arg
 ]

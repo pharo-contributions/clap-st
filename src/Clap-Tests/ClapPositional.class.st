@@ -2,7 +2,8 @@ Class {
 	#name : #ClapPositional,
 	#superclass : #Object,
 	#instVars : [
-		'canonicalName'
+		'canonicalName',
+		'defaultValue'
 	],
 	#category : 'Clap-Tests'
 }
@@ -12,6 +13,13 @@ ClapPositional class >> withName: aString [
 	^ self new
 		canonicalName: aString;
 		yourself
+]
+
+{ #category : #matching }
+ClapPositional >> absent [
+	^ defaultValue
+		ifNil: [ self mismatch ]
+		ifNotNil: [ ClapPositionalMatch of: self value: defaultValue ]
 ]
 
 { #category : #accessing }
@@ -24,9 +32,14 @@ ClapPositional >> canonicalName: aString [
 	canonicalName := aString
 ]
 
+{ #category : #accessing }
+ClapPositional >> default: aValue [
+	defaultValue := aValue
+]
+
 { #category : #matching }
 ClapPositional >> matchOn: aStream [
 	^ aStream atEnd
-		ifTrue: [ self mismatch ]
+		ifTrue: [ self absent ]
 		ifFalse: [ ClapPositionalMatch of: self value: aStream next ]
 ]

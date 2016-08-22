@@ -21,7 +21,7 @@ ClapCommandMatch >> alias [
 	^ alias
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ClapCommandMatch >> at: canonicalName [
 	^ (arguments at: canonicalName) value
 ]
