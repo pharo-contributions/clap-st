@@ -15,13 +15,6 @@ ClapPositional class >> withName: aString [
 		yourself
 ]
 
-{ #category : #matching }
-ClapPositional >> absent [
-	^ defaultValue
-		ifNil: [ self mismatch ]
-		ifNotNil: [ ClapPositionalMatch of: self value: defaultValue ]
-]
-
 { #category : #accessing }
 ClapPositional >> canonicalName [
 	^ canonicalName
@@ -32,7 +25,7 @@ ClapPositional >> canonicalName: aString [
 	canonicalName := aString
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ClapPositional >> default: aValue [
 	defaultValue := aValue
 ]
@@ -40,6 +33,11 @@ ClapPositional >> default: aValue [
 { #category : #matching }
 ClapPositional >> matchOn: aStream [
 	^ aStream atEnd
-		ifTrue: [ self absent ]
+		ifTrue: [ self mismatch ]
 		ifFalse: [ ClapPositionalMatch of: self value: aStream next ]
+]
+
+{ #category : #matching }
+ClapPositional >> mismatch [
+	^ ClapMismatch for: self
 ]

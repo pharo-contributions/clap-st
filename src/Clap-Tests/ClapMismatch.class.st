@@ -2,22 +2,27 @@ Class {
 	#name : #ClapMismatch,
 	#superclass : #Object,
 	#instVars : [
-		'command'
+		'specification'
 	],
 	#category : 'Clap-Tests'
 }
 
 { #category : #'instance creation' }
 ClapMismatch class >> for: aCommand [ 
-	^ self new command: aCommand
-]
-
-{ #category : #initialization }
-ClapMismatch >> command: aCommand [
-	command := aCommand
+	^ self new specification: aCommand
 ]
 
 { #category : #testing }
 ClapMismatch >> isMismatch [
 	^ true
+]
+
+{ #category : #accessing }
+ClapMismatch >> specification [
+	^ specification
+]
+
+{ #category : #initialization }
+ClapMismatch >> specification: anArgumentSpec [
+	specification := anArgumentSpec
 ]

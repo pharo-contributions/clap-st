@@ -73,7 +73,7 @@ ClapScratchTest >> testHelloDefault [
 	argv should receive next once.
 	matches should not be isMismatch.
 	matches alias should equal: 'hello'.
-	(matches at: 'who') should equal: 'someone'
+	(matches at: 'who') value should equal: 'someone'
 ]
 
 { #category : #tests }

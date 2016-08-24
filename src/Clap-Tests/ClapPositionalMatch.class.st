@@ -2,7 +2,7 @@ Class {
 	#name : #ClapPositionalMatch,
 	#superclass : #Object,
 	#instVars : [
-		'positional',
+		'specification',
 		'value'
 	],
 	#category : 'Clap-Tests'
@@ -11,20 +11,30 @@ Class {
 { #category : #'instance creation' }
 ClapPositionalMatch class >> of: aPositional value: aString [ 
 	^ self new
-		positional: aPositional
+		specification: aPositional
 		value: aString
 ]
 
 { #category : #matching }
 ClapPositionalMatch >> addTo: aCommandMatch [
 	aCommandMatch
-		at: positional canonicalName
+		at: specification canonicalName
 		put: self
 ]
 
+{ #category : #testing }
+ClapPositionalMatch >> isMismatch [
+	^ false
+]
+
+{ #category : #accessing }
+ClapPositionalMatch >> specification [
+	^ specification
+]
+
 { #category : #initialization }
-ClapPositionalMatch >> positional: aPositional value: aString [ 
-	positional := aPositional.
+ClapPositionalMatch >> specification: anArgumentSpec value: aString [ 
+	specification := anArgumentSpec.
 	value := aString
 ]
 
