@@ -1,3 +1,3 @@
 instance creation
 for: aCommand 
-	^ self new command: aCommand
+	^ self new specification: aCommand

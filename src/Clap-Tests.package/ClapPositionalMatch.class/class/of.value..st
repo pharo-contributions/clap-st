@@ -1,5 +1,5 @@
 instance creation
 of: aPositional value: aString 
 	^ self new
-		positional: aPositional
+		specification: aPositional
 		value: aString

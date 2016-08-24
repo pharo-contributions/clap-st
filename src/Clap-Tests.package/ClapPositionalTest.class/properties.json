@@ -6,9 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"specification" ],
-	"name" : "ClapMismatch",
+		"argv" ],
+	"name" : "ClapPositionalTest",
 	"pools" : [
 		 ],
-	"super" : "Object",
+	"super" : "TestCase",
 	"type" : "normal" }

@@ -1,5 +1,5 @@
 matching
 addTo: aCommandMatch
 	aCommandMatch
-		at: positional canonicalName
+		at: specification canonicalName
 		put: self
