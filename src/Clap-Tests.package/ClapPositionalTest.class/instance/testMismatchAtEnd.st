@@ -1,11 +1,10 @@
 tests
 testMismatchAtEnd
-	| arg match |
-	arg := ClapPositional withName: 'foo'.
+	| match |
 	argv stub atEnd willReturn: true.
 	
-	match := arg matchOn: argv.
+	match := subject matchOn: argv.
 	
 	argv should not receive next.
 	match should be isMismatch.
-	match specification should be: arg
+	match specification should be: subject
