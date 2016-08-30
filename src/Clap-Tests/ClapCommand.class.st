@@ -2,10 +2,10 @@ Class {
 	#name : #ClapCommand,
 	#superclass : #Object,
 	#instVars : [
-		'name',
+		'canonicalName',
 		'arguments'
 	],
-	#category : 'Clap-Tests'
+	#category : 'Clap-Tests-Scratch'
 }
 
 { #category : #'instance creation' }
@@ -22,12 +22,12 @@ ClapCommand >> add: arg [
 
 { #category : #accessing }
 ClapCommand >> canonicalName [
-	^ name
+	^ canonicalName
 ]
 
 { #category : #accessing }
 ClapCommand >> canonicalName: aString [ 
-	name := aString
+	canonicalName := aString
 ]
 
 { #category : #initialization }

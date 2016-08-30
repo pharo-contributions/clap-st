@@ -6,7 +6,7 @@ Class {
 		'alias',
 		'arguments'
 	],
-	#category : 'Clap-Tests'
+	#category : 'Clap-Tests-Scratch'
 }
 
 { #category : #'instance creation' }
