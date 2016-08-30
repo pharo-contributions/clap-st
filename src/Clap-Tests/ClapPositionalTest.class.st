@@ -21,7 +21,7 @@ ClapPositionalTest >> testCanonicalName [
 ]
 
 { #category : #tests }
-ClapPositionalTest >> testMatch [
+ClapPositionalTest >> testMatches [
 	| match |
 	argv stub atEnd willReturn: false.
 	argv stub next willReturn: 'bar'.
@@ -35,7 +35,7 @@ ClapPositionalTest >> testMatch [
 ]
 
 { #category : #tests }
-ClapPositionalTest >> testMismatchAtEnd [
+ClapPositionalTest >> testMismatchesAtEnd [
 	| match |
 	argv stub atEnd willReturn: true.
 	

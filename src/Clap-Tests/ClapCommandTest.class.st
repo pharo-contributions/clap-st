@@ -20,7 +20,7 @@ ClapCommandTest >> testCanonicalName [
 ]
 
 { #category : #tests }
-ClapCommandTest >> testMatch [
+ClapCommandTest >> testMatches [
 	| match |
 	argv stub peek willReturn: 'foo'.
 	argv stub next willReturn: 'foo'.
@@ -30,4 +30,15 @@ ClapCommandTest >> testMatch [
 	argv should receive next.
 	match should not be isMismatch.
 	match alias should equal: 'foo'
+]
+
+{ #category : #tests }
+ClapCommandTest >> testMismatchesAtEnd [
+	| match |
+	argv stub peek willReturn: nil.
+	
+	match := subject matchOn: argv.
+	
+	argv should not receive next.
+	match should be isMismatch
 ]
