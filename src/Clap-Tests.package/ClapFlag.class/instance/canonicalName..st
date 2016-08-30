@@ -1,3 +1,3 @@
-accessing
+initialization
 canonicalName: aString 
 	canonicalName := aString

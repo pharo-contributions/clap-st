@@ -1,15 +1,15 @@
 {
-	"category" : "Clap-Tests-Scratch",
+	"category" : "Clap-Tests-Unit",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"canonicalName",
-		"defaultValue" ],
-	"name" : "ClapPositional",
+		"argv",
+		"subject" ],
+	"name" : "ClapFlagTest",
 	"pools" : [
 		 ],
-	"super" : "Object",
+	"super" : "TestCase",
 	"type" : "normal" }

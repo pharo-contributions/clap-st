@@ -6,9 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"canonicalName",
-		"defaultValue" ],
-	"name" : "ClapPositional",
+		"flag",
+		"alias" ],
+	"name" : "ClapFlagMatch",
 	"pools" : [
 		 ],
 	"super" : "Object",

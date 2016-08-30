@@ -1,12 +1,12 @@
 {
-	"category" : "Clap-Tests",
+	"category" : "Clap-Tests-Scratch",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"name",
+		"canonicalName",
 		"arguments" ],
 	"name" : "ClapCommand",
 	"pools" : [
