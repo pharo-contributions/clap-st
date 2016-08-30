@@ -27,37 +27,6 @@ ClapScratchTest >> testFooBarBaz [
 ]
 
 { #category : #tests }
-ClapScratchTest >> testHello [
-	| hello argv matches |
-	hello := ClapCommand withName: 'hello'.
-	hello canonicalName should equal: 'hello'.
-	
-	argv := Mock named: 'argv'.
-	argv stub peek willReturn: 'hello'.
-	argv stub next willReturn: 'hello'.
-	
-	matches := hello matchOn: argv.
-	
-	argv should receive next.
-	matches should not be isMismatch.
-	matches alias should equal: 'hello'
-]
-
-{ #category : #tests }
-ClapScratchTest >> testHelloAtEnd [
-	| hello argv matches |
-	hello := ClapCommand withName: 'hello'.
-	
-	argv := Mock named: 'argv'.
-	argv stub peek willReturn: nil.
-	
-	matches := hello matchOn: argv.
-	
-	argv should not receive next.
-	matches should be isMismatch
-]
-
-{ #category : #tests }
 ClapScratchTest >> testHelloDefault [
 	| argv matches |
 	argv := Mock named: 'argv'.
@@ -74,36 +43,4 @@ ClapScratchTest >> testHelloDefault [
 	matches should not be isMismatch.
 	matches alias should equal: 'hello'.
 	(matches at: 'who') value should equal: 'someone'
-]
-
-{ #category : #tests }
-ClapScratchTest >> testHelloMismatch [
-	| argv matches |
-	argv := Mock named: 'argv'.
-	argv stub peek willReturn: 'foo'.
-	
-	matches := (ClapCommand withName: 'hello')
-		matchOn: argv.
-	
-	argv should not receive next.
-	matches should be isMismatch
-]
-
-{ #category : #tests }
-ClapScratchTest >> testHelloWorld [
-	| matches argv |
-	argv := Mock named: 'argv'.
-	argv stub peek willReturnValueFrom: #('hello' 'world').
-	argv stub next willReturnValueFrom: #('hello' 'world').
-		
-	matches := (ClapCommand withName: 'hello')
-		add: (ClapPositional withName: 'who');
-		matchOn: argv.
-	
-	argv should receive next twice.
-	
-	matches should not be isMismatch.
-	matches alias should equal: 'hello'.
-	matches should be includesKey: 'who'.
-	(matches at: 'who') should equal: 'world'
 ]
