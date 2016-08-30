@@ -1,5 +1,5 @@
 tests
-testMismatchAtEnd
+testMismatchesAtEnd
 	| match |
 	argv stub atEnd willReturn: true.
 	

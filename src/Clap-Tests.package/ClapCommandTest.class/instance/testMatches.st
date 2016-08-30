@@ -1,5 +1,5 @@
 tests
-testMatch
+testMatches
 	| match |
 	argv stub peek willReturn: 'foo'.
 	argv stub next willReturn: 'foo'.

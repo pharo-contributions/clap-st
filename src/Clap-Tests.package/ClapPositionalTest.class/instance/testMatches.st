@@ -1,5 +1,5 @@
 tests
-testMatch
+testMatches
 	| match |
 	argv stub atEnd willReturn: false.
 	argv stub next willReturn: 'bar'.
