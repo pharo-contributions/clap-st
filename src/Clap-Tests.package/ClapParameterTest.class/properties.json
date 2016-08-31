@@ -6,9 +6,10 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		 ],
-	"name" : "ClapCommandTest",
+		"argv",
+		"subject" ],
+	"name" : "ClapParameterTest",
 	"pools" : [
 		 ],
-	"super" : "ClapParameterTest",
+	"super" : "TestCase",
 	"type" : "normal" }
