@@ -1,0 +1,3 @@
+accessing
+shortForm
+	^ '-' , self shortName
