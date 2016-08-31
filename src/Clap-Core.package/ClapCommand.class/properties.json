@@ -1,13 +1,14 @@
 {
-	"category" : "Clap-Tests-Scratch",
+	"category" : "Clap-Core",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"specification" ],
-	"name" : "ClapMismatch",
+		"canonicalName",
+		"arguments" ],
+	"name" : "ClapCommand",
 	"pools" : [
 		 ],
 	"super" : "Object",

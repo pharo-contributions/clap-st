@@ -1,14 +1,15 @@
 {
-	"category" : "Clap-Tests-Scratch",
+	"category" : "Clap-Core",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"specification",
-		"value" ],
-	"name" : "ClapPositionalMatch",
+		"command",
+		"alias",
+		"arguments" ],
+	"name" : "ClapCommandMatch",
 	"pools" : [
 		 ],
 	"super" : "Object",

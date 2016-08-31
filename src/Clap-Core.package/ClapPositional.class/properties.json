@@ -1,5 +1,5 @@
 {
-	"category" : "Clap-Tests-Scratch",
+	"category" : "Clap-Core",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
@@ -7,8 +7,8 @@
 	"commentStamp" : "",
 	"instvars" : [
 		"canonicalName",
-		"arguments" ],
-	"name" : "ClapCommand",
+		"defaultValue" ],
+	"name" : "ClapPositional",
 	"pools" : [
 		 ],
 	"super" : "Object",
