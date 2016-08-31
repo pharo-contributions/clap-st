@@ -1,22 +1,12 @@
 Class {
 	#name : #ClapCommandTest,
-	#superclass : #TestCase,
-	#instVars : [
-		'argv',
-		'subject'
-	],
+	#superclass : #ClapParameterTest,
 	#category : 'Clap-Tests-Unit'
 }
 
 { #category : #running }
-ClapCommandTest >> setUp [
-	subject := ClapCommand withName: 'foo'.
-	argv := Mock named: 'argv'
-]
-
-{ #category : #tests }
-ClapCommandTest >> testCanonicalName [
-	subject canonicalName should equal: 'foo'
+ClapCommandTest >> classToTest [
+	^ ClapCommand
 ]
 
 { #category : #tests }
@@ -46,17 +36,6 @@ ClapCommandTest >> testMatchesWithSinglePositional [
 	match alias should equal: 'foo'.
 	match should be includesKey: 'bar'. "FIXME not sure about the dictionary protocol"
 	(match at: 'bar') should equal: 'valueforbar'
-]
-
-{ #category : #tests }
-ClapCommandTest >> testMismatchesAtEnd [
-	| match |
-	argv stub peek willReturn: nil.
-	
-	match := subject matchOn: argv.
-	
-	argv should not receive next.
-	match should be isMismatch
 ]
 
 { #category : #tests }

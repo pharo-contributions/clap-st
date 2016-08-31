@@ -1,22 +1,12 @@
 Class {
 	#name : #ClapFlagTest,
-	#superclass : #TestCase,
-	#instVars : [
-		'argv',
-		'subject'
-	],
+	#superclass : #ClapParameterTest,
 	#category : 'Clap-Tests-Unit'
 }
 
 { #category : #running }
-ClapFlagTest >> setUp [
-	subject := ClapFlag withName: 'foo'.
-	argv := Mock named: 'argv'
-]
-
-{ #category : #tests }
-ClapFlagTest >> testCanonicalName [
-	subject canonicalName should equal: 'foo'
+ClapFlagTest >> classToTest [
+	^ ClapFlag
 ]
 
 { #category : #tests }

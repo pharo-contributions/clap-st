@@ -43,6 +43,11 @@ ClapFlag >> matchWithAlias: aString [
 	^ ClapFlagMatch of: self withAlias: aString
 ]
 
+{ #category : #matching }
+ClapFlag >> mismatch [
+	^ ClapMismatch for: self
+]
+
 { #category : #accessing }
 ClapFlag >> shortForm [
 	^ '-' , self shortName

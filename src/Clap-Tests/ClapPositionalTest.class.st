@@ -1,23 +1,12 @@
 Class {
 	#name : #ClapPositionalTest,
-	#superclass : #TestCase,
-	#instVars : [
-		'argv',
-		'subject'
-	],
+	#superclass : #ClapParameterTest,
 	#category : 'Clap-Tests-Unit'
 }
 
 { #category : #running }
-ClapPositionalTest >> setUp [
-	subject := ClapPositional withName: 'foo'.
-	argv := Mock named: 'argv'
-
-]
-
-{ #category : #tests }
-ClapPositionalTest >> testCanonicalName [
-	subject canonicalName should equal: 'foo'
+ClapPositionalTest >> classToTest [
+	^ ClapPositional
 ]
 
 { #category : #tests }
@@ -32,16 +21,4 @@ ClapPositionalTest >> testMatches [
 	match should not be isMismatch.
 	match specification should be: subject.
 	match value should equal: 'bar'
-]
-
-{ #category : #tests }
-ClapPositionalTest >> testMismatchesAtEnd [
-	| match |
-	argv stub atEnd willReturn: true.
-	
-	match := subject matchOn: argv.
-	
-	argv should not receive next.
-	match should be isMismatch.
-	match specification should be: subject
 ]
