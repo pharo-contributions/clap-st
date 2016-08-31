@@ -5,7 +5,7 @@ Class {
 		'canonicalName',
 		'defaultValue'
 	],
-	#category : 'Clap-Tests-Scratch'
+	#category : 'Clap-Core'
 }
 
 { #category : #'as yet unclassified' }

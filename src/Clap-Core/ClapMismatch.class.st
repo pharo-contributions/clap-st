@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'specification'
 	],
-	#category : 'Clap-Tests-Scratch'
+	#category : 'Clap-Core'
 }
 
 { #category : #'instance creation' }

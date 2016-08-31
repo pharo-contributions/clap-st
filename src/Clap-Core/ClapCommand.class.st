@@ -5,7 +5,7 @@ Class {
 		'canonicalName',
 		'arguments'
 	],
-	#category : 'Clap-Tests-Scratch'
+	#category : 'Clap-Core'
 }
 
 { #category : #'instance creation' }
