@@ -1,3 +1,3 @@
-running
+accessing
 classToTest
 	^ ClapPositional
