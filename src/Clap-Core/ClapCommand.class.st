@@ -1,33 +1,15 @@
 Class {
 	#name : #ClapCommand,
-	#superclass : #Object,
+	#superclass : #ClapParameter,
 	#instVars : [
-		'canonicalName',
 		'arguments'
 	],
 	#category : 'Clap-Core'
 }
 
-{ #category : #'instance creation' }
-ClapCommand class >> withName: aString [ 
-	^ self new
-		canonicalName: aString;
-		yourself
-]
-
 { #category : #accessing }
 ClapCommand >> add: arg [ 
 	arguments add: arg
-]
-
-{ #category : #accessing }
-ClapCommand >> canonicalName [
-	^ canonicalName
-]
-
-{ #category : #accessing }
-ClapCommand >> canonicalName: aString [ 
-	canonicalName := aString
 ]
 
 { #category : #initialization }
@@ -48,9 +30,4 @@ ClapCommand >> matchOn: aStream [
 { #category : #matching }
 ClapCommand >> matchWithAlias: aString [ 
 	^ ClapCommandMatch of: self withAlias: aString
-]
-
-{ #category : #matching }
-ClapCommand >> mismatch [
-	^ ClapMismatch for: self
 ]

@@ -1,28 +1,8 @@
 Class {
 	#name : #ClapFlag,
-	#superclass : #Object,
-	#instVars : [
-		'canonicalName'
-	],
+	#superclass : #ClapParameter,
 	#category : 'Clap-Core'
 }
-
-{ #category : #'instance creation' }
-ClapFlag class >> withName: aString [ 
-	^ self new
-		canonicalName: aString;
-		yourself
-]
-
-{ #category : #accessing }
-ClapFlag >> canonicalName [
-	^ canonicalName
-]
-
-{ #category : #initialization }
-ClapFlag >> canonicalName: aString [ 
-	canonicalName := aString
-]
 
 { #category : #accessing }
 ClapFlag >> longForm [
@@ -41,11 +21,6 @@ ClapFlag >> matchOn: aStream [
 { #category : #matching }
 ClapFlag >> matchWithAlias: aString [ 
 	^ ClapFlagMatch of: self withAlias: aString
-]
-
-{ #category : #matching }
-ClapFlag >> mismatch [
-	^ ClapMismatch for: self
 ]
 
 { #category : #accessing }

@@ -2,7 +2,7 @@ Class {
 	#name : #ClapFlagMatch,
 	#superclass : #Object,
 	#instVars : [
-		'flag',
+		'specification',
 		'alias'
 	],
 	#category : 'Clap-Core'
@@ -11,19 +11,13 @@ Class {
 { #category : #'instance creation' }
 ClapFlagMatch class >> of: aFlag withAlias: usedAlias [ 
 	^ self new
-		flag: aFlag
+		specification: aFlag
 		alias: usedAlias
 ]
 
 { #category : #accessing }
 ClapFlagMatch >> alias [
 	^ alias
-]
-
-{ #category : #initialization }
-ClapFlagMatch >> flag: aFlag alias: aString [ 
-	flag := aFlag.
-	alias := aString
 ]
 
 { #category : #testing }
@@ -33,5 +27,11 @@ ClapFlagMatch >> isMismatch [
 
 { #category : #accessing }
 ClapFlagMatch >> specification [
-	^ flag
+	^ specification
+]
+
+{ #category : #initialization }
+ClapFlagMatch >> specification: aFlag alias: aString [ 
+	specification := aFlag.
+	alias := aString
 ]

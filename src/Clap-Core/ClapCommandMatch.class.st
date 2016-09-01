@@ -2,9 +2,9 @@ Class {
 	#name : #ClapCommandMatch,
 	#superclass : #Object,
 	#instVars : [
-		'command',
 		'alias',
-		'arguments'
+		'arguments',
+		'specification'
 	],
 	#category : 'Clap-Core'
 }
@@ -12,7 +12,7 @@ Class {
 { #category : #'instance creation' }
 ClapCommandMatch class >> of: aCommand withAlias: usedAlias [ 
 	^ self new
-		command: aCommand
+		specification: aCommand
 		alias: usedAlias
 ]
 
@@ -33,12 +33,6 @@ ClapCommandMatch >> at: canonicalName put: aMatch [
 		put: aMatch
 ]
 
-{ #category : #initialization }
-ClapCommandMatch >> command: aCommand alias: aString [ 
-	command := aCommand.
-	alias := aString
-]
-
 { #category : #testing }
 ClapCommandMatch >> includesKey: canonicalName [
 	^ arguments includesKey: canonicalName
@@ -52,4 +46,15 @@ ClapCommandMatch >> initialize [
 { #category : #testing }
 ClapCommandMatch >> isMismatch [
 	^ false
+]
+
+{ #category : #accessing }
+ClapCommandMatch >> specification [
+	^ specification
+]
+
+{ #category : #initialization }
+ClapCommandMatch >> specification: aCommand alias: aString [ 
+	specification := aCommand.
+	alias := aString
 ]
