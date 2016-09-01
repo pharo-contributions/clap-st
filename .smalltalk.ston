@@ -1,0 +1,12 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'Clap',
+      #directory : 'src',
+      #platforms : [ #pharo ]
+    }
+  ],
+  #testing : {
+    #categories : [ 'Clap-*' ]
+  }
+}
