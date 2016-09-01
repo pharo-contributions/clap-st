@@ -1,0 +1,14 @@
+{
+	"category" : "BaselineOfClap",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		 ],
+	"name" : "BaselineOfClap",
+	"pools" : [
+		 ],
+	"super" : "BaselineOf",
+	"type" : "normal" }
