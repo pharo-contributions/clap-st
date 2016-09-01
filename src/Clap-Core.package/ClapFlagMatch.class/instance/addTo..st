@@ -1,5 +1,5 @@
 adding
-addTo: aCommandMatch
-	aCommandMatch
+addTo: parentMatch 
+	parentMatch
 		at: specification canonicalName
 		put: self
