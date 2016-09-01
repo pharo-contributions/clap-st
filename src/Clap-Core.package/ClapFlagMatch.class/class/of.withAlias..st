@@ -1,5 +1,5 @@
 instance creation
 of: aFlag withAlias: usedAlias 
 	^ self new
-		flag: aFlag
+		specification: aFlag
 		alias: usedAlias

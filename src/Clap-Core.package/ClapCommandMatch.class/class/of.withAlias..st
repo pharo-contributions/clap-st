@@ -1,5 +1,5 @@
 instance creation
 of: aCommand withAlias: usedAlias 
 	^ self new
-		command: aCommand
+		specification: aCommand
 		alias: usedAlias

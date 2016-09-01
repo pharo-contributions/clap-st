@@ -6,10 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"canonicalName",
-		"defaultValue" ],
+		 ],
 	"name" : "ClapPositional",
 	"pools" : [
 		 ],
-	"super" : "Object",
+	"super" : "ClapParameter",
 	"type" : "normal" }

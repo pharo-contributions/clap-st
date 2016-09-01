@@ -6,9 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"arguments" ],
-	"name" : "ClapCommand",
+		"canonicalName" ],
+	"name" : "ClapParameter",
 	"pools" : [
 		 ],
-	"super" : "ClapParameter",
+	"super" : "Object",
 	"type" : "normal" }
