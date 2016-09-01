@@ -15,7 +15,7 @@ ClapPositionalMatch class >> of: aPositional value: aString [
 		value: aString
 ]
 
-{ #category : #matching }
+{ #category : #adding }
 ClapPositionalMatch >> addTo: aCommandMatch [
 	aCommandMatch
 		at: specification canonicalName

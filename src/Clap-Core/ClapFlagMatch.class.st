@@ -15,6 +15,13 @@ ClapFlagMatch class >> of: aFlag withAlias: usedAlias [
 		alias: usedAlias
 ]
 
+{ #category : #adding }
+ClapFlagMatch >> addTo: parentMatch [ 
+	parentMatch
+		at: specification canonicalName
+		put: self
+]
+
 { #category : #accessing }
 ClapFlagMatch >> alias [
 	^ alias
