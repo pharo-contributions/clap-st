@@ -13,6 +13,11 @@ ClapParameterTest class >> isAbstract [
 	^ self == ClapParameterTest
 ]
 
+{ #category : #accessing }
+ClapParameterTest >> classToTest [
+	^ self subclassResponsibility
+]
+
 { #category : #running }
 ClapParameterTest >> setUp [
 	subject := self classToTest withName: 'foo'.

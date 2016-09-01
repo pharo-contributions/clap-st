@@ -4,7 +4,7 @@ Class {
 	#category : 'Clap-Tests-Unit'
 }
 
-{ #category : #running }
+{ #category : #accessing }
 ClapPositionalTest >> classToTest [
 	^ ClapPositional
 ]
