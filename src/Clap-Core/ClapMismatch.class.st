@@ -12,6 +12,11 @@ ClapMismatch class >> for: aCommand [
 	^ self new specification: aCommand
 ]
 
+{ #category : #'as yet unclassified' }
+ClapMismatch >> addTo: parentMatch [ 
+	"this match failed, so do nothing"
+]
+
 { #category : #testing }
 ClapMismatch >> isMismatch [
 	^ true
