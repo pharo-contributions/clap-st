@@ -1,20 +1,28 @@
 Class {
 	#name : #ClapCommand,
-	#superclass : #ClapParameter,
+	#superclass : #ClapParameterized,
 	#instVars : [
-		'arguments'
+		'subcommands',
+		'flags'
 	],
 	#category : 'Clap-Core'
 }
 
-{ #category : #accessing }
-ClapCommand >> add: arg [ 
-	arguments add: arg
+{ #category : #adding }
+ClapCommand >> addFlag: aFlag [
+	flags add: aFlag
+]
+
+{ #category : #adding }
+ClapCommand >> addSubcommand: aCommand [
+	subcommands add: aCommand
 ]
 
 { #category : #initialization }
 ClapCommand >> initialize [
-	arguments := OrderedCollection new
+	super initialize.
+	subcommands := OrderedCollection new.
+	flags := OrderedCollection new
 ]
 
 { #category : #matching }
@@ -22,7 +30,7 @@ ClapCommand >> matchOn: aStream [
 	^ aStream peek = self canonicalName
 		ifTrue: [ | match |
 			match := self matchWithAlias: aStream next.
-			arguments do: [ :each | (each matchOn: aStream) addTo: match ].
+			positionals do: [ :each | (each matchOn: aStream) addTo: match ].
 			match ]
 		ifFalse: [ self mismatch ]
 ]

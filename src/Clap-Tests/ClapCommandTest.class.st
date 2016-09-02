@@ -25,7 +25,7 @@ ClapCommandTest >> testMatches [
 { #category : #tests }
 ClapCommandTest >> testMatchesWithSinglePositional [
 	| match |
-	subject add: (ClapPositional withName: 'bar').
+	subject addPositional: (ClapPositional withName: 'bar').
 	argv stub peek willReturnValueFrom: #('foo' 'valueforbar').
 	argv stub next willReturnValueFrom: #('foo' 'valueforbar').
 	

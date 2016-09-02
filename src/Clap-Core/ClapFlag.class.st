@@ -1,6 +1,6 @@
 Class {
 	#name : #ClapFlag,
-	#superclass : #ClapParameter,
+	#superclass : #ClapParameterized,
 	#category : 'Clap-Core'
 }
 
