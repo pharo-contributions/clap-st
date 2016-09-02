@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'alternatives'
 	],
-	#category : 'Clap-Core'
+	#category : 'Clap-Core-Support'
 }
 
 { #category : #adding }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'canonicalName'
 	],
-	#category : 'Clap-Core'
+	#category : 'Clap-Core-Parameters'
 }
 
 { #category : #'instance creation' }

@@ -5,7 +5,7 @@ Class {
 		'specification',
 		'value'
 	],
-	#category : 'Clap-Core'
+	#category : 'Clap-Core-Matches'
 }
 
 { #category : #'instance creation' }

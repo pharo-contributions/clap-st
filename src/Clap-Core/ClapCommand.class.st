@@ -5,7 +5,7 @@ Class {
 		'subcommands',
 		'flags'
 	],
-	#category : 'Clap-Core'
+	#category : 'Clap-Core-Parameters'
 }
 
 { #category : #adding }

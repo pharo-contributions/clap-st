@@ -1,7 +1,7 @@
 Class {
 	#name : #ClapFlag,
 	#superclass : #ClapParameterized,
-	#category : 'Clap-Core'
+	#category : 'Clap-Core-Parameters'
 }
 
 { #category : #accessing }

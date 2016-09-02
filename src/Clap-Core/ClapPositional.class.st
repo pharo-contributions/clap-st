@@ -1,7 +1,7 @@
 Class {
 	#name : #ClapPositional,
 	#superclass : #ClapParameter,
-	#category : 'Clap-Core'
+	#category : 'Clap-Core-Parameters'
 }
 
 { #category : #matching }
