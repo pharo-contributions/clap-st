@@ -1,0 +1,14 @@
+{
+	"category" : "Clap-Core",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"alternatives" ],
+	"name" : "ClapAlternative",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }
