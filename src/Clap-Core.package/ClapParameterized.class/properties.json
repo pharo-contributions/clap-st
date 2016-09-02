@@ -6,9 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		 ],
-	"name" : "ClapFlag",
+		"positionals" ],
+	"name" : "ClapParameterized",
 	"pools" : [
 		 ],
-	"super" : "ClapParameterized",
+	"super" : "ClapParameter",
 	"type" : "normal" }

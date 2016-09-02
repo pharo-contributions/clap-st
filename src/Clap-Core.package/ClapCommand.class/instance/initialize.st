@@ -1,3 +1,5 @@
 initialization
 initialize
-	arguments := OrderedCollection new
+	super initialize.
+	subcommands := OrderedCollection new.
+	flags := OrderedCollection new
