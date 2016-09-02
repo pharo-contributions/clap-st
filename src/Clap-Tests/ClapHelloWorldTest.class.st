@@ -42,7 +42,6 @@ ClapHelloWorldTest >> testHelloWorld [
 
 { #category : #tests }
 ClapHelloWorldTest >> testShouting [
-	<expectedFailure "flags are now stored separately from positionals">
 	| argv match |
 	argv := #('hello' '--shout' 'world') readStream.
 	
