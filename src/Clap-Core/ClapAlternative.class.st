@@ -19,11 +19,19 @@ ClapAlternative >> initialize [
 
 { #category : #matching }
 ClapAlternative >> matchOn: aStream [ 
-	alternatives
-		do: [ :each | | match |
-			match := each matchOn: aStream.
-			match isMismatch not ifTrue: [ ^ match ] ].
+	self
+		matchesOn: aStream
+		do: [ :match | ^ match ].
 	^ self mismatch
+]
+
+{ #category : #matching }
+ClapAlternative >> matchesOn: aStream do: aBlock [ 
+	alternatives do: [ :each |
+		| match |
+		match := each matchOn: aStream.
+		match isMismatch
+			ifFalse: [ aBlock cull: match ] ]
 ]
 
 { #category : #matching }

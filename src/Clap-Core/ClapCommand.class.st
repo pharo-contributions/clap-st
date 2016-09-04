@@ -22,7 +22,7 @@ ClapCommand >> addSubcommand: aCommand [
 ClapCommand >> initialize [
 	super initialize.
 	subcommands := OrderedCollection new.
-	flags := OrderedCollection new
+	flags := ClapAlternative new
 ]
 
 { #category : #matching }
@@ -38,15 +38,11 @@ ClapCommand >> matchOn: aStream [
 ]
 
 { #category : #matching }
-ClapCommand >> matchOn: aStream flagsFor: aMatch [
-	[ aStream atEnd ] whileFalse: [
-		| matchingFlag |
-		flags
-			detect: [ :each |
-				matchingFlag := each matchOn: aStream.
-				matchingFlag isMismatch not ]
-			ifFound: [ matchingFlag addTo: aMatch ]
-			ifNone: [ ^ self ] ]
+ClapCommand >> matchOn: aStream flagsFor: parentMatch [
+	flags
+		matchesOn: aStream
+		do: [ :match | match addTo: parentMatch ]
+
 ]
 
 { #category : #matching }
