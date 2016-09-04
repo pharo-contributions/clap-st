@@ -32,6 +32,66 @@ ClapAlternativeTest >> setUp [
 ]
 
 { #category : #tests }
+ClapAlternativeTest >> testMatchesIterationBoth [
+	| block |
+	(flagOne stub matchOn: argv) willReturn: okMatch.
+	(flagTwo stub matchOn: argv) willReturn: okMatch.
+	block := Mock named: 'aBlock'.
+	
+	subject matchesOn: argv do: block.
+	
+	(block should receive cull: okMatch) twice
+]
+
+{ #category : #tests }
+ClapAlternativeTest >> testMatchesIterationFirst [
+	| block |
+	(flagOne stub matchOn: argv) willReturn: okMatch.
+	(flagTwo stub matchOn: argv) willReturn: mismatch.
+	block := Mock named: 'aBlock'.
+	
+	subject matchesOn: argv do: block.
+	
+	(block should receive cull: okMatch) once
+]
+
+{ #category : #tests }
+ClapAlternativeTest >> testMatchesIterationNone [
+	| block |
+	(flagOne stub matchOn: argv) willReturn: mismatch.
+	(flagTwo stub matchOn: argv) willReturn: mismatch.
+	block := Mock named: 'aBlock'.
+	
+	subject matchesOn: argv do: block.
+	
+	block should not receive cull: okMatch
+]
+
+{ #category : #tests }
+ClapAlternativeTest >> testMatchesIterationSecond [
+	| block |
+	(flagOne stub matchOn: argv) willReturn: mismatch.
+	(flagTwo stub matchOn: argv) willReturn: okMatch.
+	block := Mock named: 'aBlock'.
+	
+	subject matchesOn: argv do: block.
+	
+	(block should receive cull: okMatch) once
+]
+
+{ #category : #tests }
+ClapAlternativeTest >> testMatchingBoth [
+	| match |
+	(flagOne stub matchOn: argv) willReturn: okMatch.
+	(flagTwo stub matchOn: argv) willReturn: okMatch.
+	
+	match := subject matchOn: argv.
+	
+	match should not be isMismatch.
+	match should be: okMatch
+]
+
+{ #category : #tests }
 ClapAlternativeTest >> testMatchingFirst [
 	| match |
 	(flagOne stub matchOn: argv) willReturn: okMatch.

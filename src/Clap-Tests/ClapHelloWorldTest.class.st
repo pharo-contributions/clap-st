@@ -19,9 +19,9 @@ ClapHelloWorldTest >> setUp [
 ClapHelloWorldTest >> testHello [
 	| argv match |
 	argv := #('hello') readStream.
-	
+
 	match := hello matchOn: argv.
-	
+
 	match should not be isMismatch.
 	match should not be includesKey: 'shout'.
 	match should not be includesKey: 'who'
@@ -31,9 +31,9 @@ ClapHelloWorldTest >> testHello [
 ClapHelloWorldTest >> testHelloWorld [
 	| argv match |
 	argv := #('hello' 'world') readStream.
-	
+
 	match := hello matchOn: argv.
-	
+
 	match should not be isMismatch.
 	match should not be includesKey: 'shout'.
 	match should be includesKey: 'who'.
@@ -44,9 +44,9 @@ ClapHelloWorldTest >> testHelloWorld [
 ClapHelloWorldTest >> testShouting [
 	| argv match |
 	argv := #('hello' '--shout' 'world') readStream.
-	
+
 	match := hello matchOn: argv.
-	
+
 	match should not be isMismatch.
 	match should be includesKey: 'shout'.
 	match should be includesKey: 'who'
@@ -57,9 +57,9 @@ ClapHelloWorldTest >> testShoutingAfterthought [
 	<expectedFailure "parsing should not follow declaration order">
 	| argv match |
 	argv := #('hello' 'world' '-s') readStream.
-	
+
 	match := hello matchOn: argv.
-	
+
 	match should not be isMismatch.
 	match should be includesKey: 'shout'.
 	match should be includesKey: 'who'
