@@ -1,7 +1,7 @@
 matching
-matchesOn: aStream do: aBlock 
-	alternatives do: [ :each |
-		| match |
-		match := each matchOn: aStream.
+matchesOn: aStream do: aBlock
+	| match |
+	[
+		match := self matchOn: aStream.
 		match isMismatch
-			ifFalse: [ aBlock cull: match ] ]
+	] whileFalse: [ aBlock cull: match ]

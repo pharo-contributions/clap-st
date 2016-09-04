@@ -1,6 +1,8 @@
 matching
 matchOn: aStream 
-	self
-		matchesOn: aStream
-		do: [ :match | ^ match ].
+	alternatives do: [ :each |
+		| match |
+		match := each matchOn: aStream.
+		match isMismatch
+			ifFalse: [ ^ match ] ].
 	^ self mismatch
