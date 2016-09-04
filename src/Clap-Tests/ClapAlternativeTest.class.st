@@ -24,6 +24,10 @@ ClapAlternativeTest >> setUp [
 	
 	flagOne := Mock named: 'one'.
 	flagTwo := Mock named: 'two'.
+
+	"Default return values, important for tests which exercise matching loops"
+	(flagOne stub matchOn: argv) willReturn: mismatch.
+	(flagTwo stub matchOn: argv) willReturn: mismatch.
 	
 	subject := ClapAlternative new
 		add: flagOne;
@@ -34,8 +38,8 @@ ClapAlternativeTest >> setUp [
 { #category : #tests }
 ClapAlternativeTest >> testMatchesIterationBoth [
 	| block |
-	(flagOne stub matchOn: argv) willReturn: okMatch.
-	(flagTwo stub matchOn: argv) willReturn: okMatch.
+	(flagOne stub matchOn: argv) willReturn: okMatch; useOnce.
+	(flagTwo stub matchOn: argv) willReturn: okMatch; useOnce.
 	block := Mock named: 'aBlock'.
 	
 	subject matchesOn: argv do: block.
@@ -46,8 +50,7 @@ ClapAlternativeTest >> testMatchesIterationBoth [
 { #category : #tests }
 ClapAlternativeTest >> testMatchesIterationFirst [
 	| block |
-	(flagOne stub matchOn: argv) willReturn: okMatch.
-	(flagTwo stub matchOn: argv) willReturn: mismatch.
+	(flagOne stub matchOn: argv) willReturn: okMatch; useOnce.
 	block := Mock named: 'aBlock'.
 	
 	subject matchesOn: argv do: block.
@@ -58,8 +61,6 @@ ClapAlternativeTest >> testMatchesIterationFirst [
 { #category : #tests }
 ClapAlternativeTest >> testMatchesIterationNone [
 	| block |
-	(flagOne stub matchOn: argv) willReturn: mismatch.
-	(flagTwo stub matchOn: argv) willReturn: mismatch.
 	block := Mock named: 'aBlock'.
 	
 	subject matchesOn: argv do: block.
@@ -70,8 +71,7 @@ ClapAlternativeTest >> testMatchesIterationNone [
 { #category : #tests }
 ClapAlternativeTest >> testMatchesIterationSecond [
 	| block |
-	(flagOne stub matchOn: argv) willReturn: mismatch.
-	(flagTwo stub matchOn: argv) willReturn: okMatch.
+	(flagTwo stub matchOn: argv) willReturn: okMatch; useOnce.
 	block := Mock named: 'aBlock'.
 	
 	subject matchesOn: argv do: block.
@@ -95,7 +95,6 @@ ClapAlternativeTest >> testMatchingBoth [
 ClapAlternativeTest >> testMatchingFirst [
 	| match |
 	(flagOne stub matchOn: argv) willReturn: okMatch.
-	(flagTwo stub matchOn: argv) willReturn: mismatch.
 	
 	match := subject matchOn: argv.
 	
@@ -105,9 +104,6 @@ ClapAlternativeTest >> testMatchingFirst [
 { #category : #tests }
 ClapAlternativeTest >> testMatchingNone [
 	| match |
-	(flagOne stub matchOn: argv) willReturn: mismatch.
-	(flagTwo stub matchOn: argv) willReturn: mismatch.
-	
 	match := subject matchOn: argv.
 	
 	match should be isMismatch
@@ -116,7 +112,6 @@ ClapAlternativeTest >> testMatchingNone [
 { #category : #tests }
 ClapAlternativeTest >> testMatchingSecond [
 	| match |
-	(flagOne stub matchOn: argv) willReturn: mismatch.
 	(flagTwo stub matchOn: argv) willReturn: okMatch.
 	
 	match := subject matchOn: argv.
