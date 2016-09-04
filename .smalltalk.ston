@@ -7,6 +7,9 @@ SmalltalkCISpec {
     }
   ],
   #testing : {
-    #categories : [ 'Clap-*' ]
+    #categories : [ 'Clap-*' ],
+    #coverage : {
+      #categories : [ 'Clap-*' ]
+    }
   }
 }
