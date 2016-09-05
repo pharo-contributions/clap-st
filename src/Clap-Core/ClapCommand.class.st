@@ -21,7 +21,7 @@ ClapCommand >> addSubcommand: aCommand [
 { #category : #initialization }
 ClapCommand >> initialize [
 	super initialize.
-	subcommands := OrderedCollection new.
+	subcommands := ClapAlternative new.
 	flags := ClapAlternative new
 ]
 
