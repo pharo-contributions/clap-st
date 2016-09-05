@@ -6,11 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"argv",
-		"subject",
-		"okMatch" ],
-	"name" : "ClapScratchTest",
+		"stack" ],
+	"name" : "ClapQueue",
 	"pools" : [
 		 ],
-	"super" : "TestCase",
+	"super" : "Object",
 	"type" : "normal" }
