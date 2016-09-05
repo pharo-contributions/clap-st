@@ -1,9 +1,12 @@
 tests
 testMatchesWithSinglePositional
+	<expectedFailure "positionals are still WIP">
 	| match |
 	subject addPositional: (ClapPositional withName: 'bar').
 	argv stub peek willReturnValueFrom: #('foo' 'valueforbar').
 	argv stub next willReturnValueFrom: #('foo' 'valueforbar').
+	argv stub atEnd willReturn: true.
+	argv stub atEnd willReturn: false; useOnce.
 	
 	match := subject matchOn: argv.
 	
