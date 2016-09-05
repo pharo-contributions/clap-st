@@ -1,3 +1,3 @@
 initialization
 initialize
-	positionals := OrderedCollection new
+	positionals := ClapQueue new

@@ -1,5 +1,5 @@
 initialization
 initialize
 	super initialize.
-	subcommands := OrderedCollection new.
+	subcommands := ClapAlternative new.
 	flags := ClapAlternative new

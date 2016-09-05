@@ -1,3 +1,7 @@
 matching
 matchOn: aStream positionalsFor: match
-	positionals do: [ :each | (each matchOn: aStream) addTo: match ]
+	[ | arg |
+		arg := positionals matchOn: aStream.
+		arg addTo: match.
+		arg isMismatch
+	] whileFalse
