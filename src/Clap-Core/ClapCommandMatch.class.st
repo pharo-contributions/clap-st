@@ -1,10 +1,9 @@
 Class {
 	#name : #ClapCommandMatch,
-	#superclass : #Object,
+	#superclass : #ClapMatch,
 	#instVars : [
 		'alias',
-		'arguments',
-		'specification'
+		'arguments'
 	],
 	#category : 'Clap-Core-Matches'
 }
@@ -41,16 +40,6 @@ ClapCommandMatch >> includesKey: canonicalName [
 { #category : #initialization }
 ClapCommandMatch >> initialize [
 	arguments := Dictionary new
-]
-
-{ #category : #testing }
-ClapCommandMatch >> isMismatch [
-	^ false
-]
-
-{ #category : #accessing }
-ClapCommandMatch >> specification [
-	^ specification
 ]
 
 { #category : #initialization }

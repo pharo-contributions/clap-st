@@ -1,9 +1,6 @@
 Class {
 	#name : #ClapMismatch,
-	#superclass : #Object,
-	#instVars : [
-		'specification'
-	],
+	#superclass : #ClapMatch,
 	#category : 'Clap-Core-Support'
 }
 
@@ -18,16 +15,11 @@ ClapMismatch >> addTo: parentMatch [
 ]
 
 { #category : #testing }
+ClapMismatch >> ifMismatch: aBlock [
+	^ aBlock cull: self
+]
+
+{ #category : #testing }
 ClapMismatch >> isMismatch [
 	^ true
-]
-
-{ #category : #accessing }
-ClapMismatch >> specification [
-	^ specification
-]
-
-{ #category : #initialization }
-ClapMismatch >> specification: anArgumentSpec [
-	specification := anArgumentSpec
 ]

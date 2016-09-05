@@ -1,8 +1,7 @@
 Class {
 	#name : #ClapPositionalMatch,
-	#superclass : #Object,
+	#superclass : #ClapMatch,
 	#instVars : [
-		'specification',
 		'value'
 	],
 	#category : 'Clap-Core-Matches'
@@ -13,23 +12,6 @@ ClapPositionalMatch class >> of: aPositional value: aString [
 	^ self new
 		specification: aPositional
 		value: aString
-]
-
-{ #category : #adding }
-ClapPositionalMatch >> addTo: aCommandMatch [
-	aCommandMatch
-		at: specification canonicalName
-		put: self
-]
-
-{ #category : #testing }
-ClapPositionalMatch >> isMismatch [
-	^ false
-]
-
-{ #category : #accessing }
-ClapPositionalMatch >> specification [
-	^ specification
 ]
 
 { #category : #initialization }

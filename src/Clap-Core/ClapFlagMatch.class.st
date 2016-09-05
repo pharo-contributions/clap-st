@@ -1,8 +1,7 @@
 Class {
 	#name : #ClapFlagMatch,
-	#superclass : #Object,
+	#superclass : #ClapMatch,
 	#instVars : [
-		'specification',
 		'alias'
 	],
 	#category : 'Clap-Core-Matches'
@@ -15,26 +14,9 @@ ClapFlagMatch class >> of: aFlag withAlias: usedAlias [
 		alias: usedAlias
 ]
 
-{ #category : #adding }
-ClapFlagMatch >> addTo: parentMatch [ 
-	parentMatch
-		at: specification canonicalName
-		put: self
-]
-
 { #category : #accessing }
 ClapFlagMatch >> alias [
 	^ alias
-]
-
-{ #category : #testing }
-ClapFlagMatch >> isMismatch [
-	^ false
-]
-
-{ #category : #accessing }
-ClapFlagMatch >> specification [
-	^ specification
 ]
 
 { #category : #initialization }
