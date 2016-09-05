@@ -54,7 +54,6 @@ ClapHelloWorldTest >> testShouting [
 
 { #category : #tests }
 ClapHelloWorldTest >> testShoutingAfterthought [
-	<expectedFailure "parsing should not follow declaration order">
 	| argv match |
 	argv := #('hello' 'world' '-s') readStream.
 

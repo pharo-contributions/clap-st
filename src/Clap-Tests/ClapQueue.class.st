@@ -7,6 +7,16 @@ Class {
 	#category : 'Clap-Tests-Scratch'
 }
 
+{ #category : #accessing }
+ClapQueue >> add: aParameter [ 
+	stack addLast: aParameter
+]
+
+{ #category : #enumerating }
+ClapQueue >> do: aBlockClosure [ 
+	self shouldBeImplemented.
+]
+
 { #category : #initialization }
 ClapQueue >> initialize [
 	stack := Stack new
