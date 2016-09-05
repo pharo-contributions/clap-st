@@ -7,10 +7,9 @@
 	"commentStamp" : "",
 	"instvars" : [
 		"alias",
-		"arguments",
-		"specification" ],
+		"arguments" ],
 	"name" : "ClapCommandMatch",
 	"pools" : [
 		 ],
-	"super" : "Object",
+	"super" : "ClapMatch",
 	"type" : "normal" }

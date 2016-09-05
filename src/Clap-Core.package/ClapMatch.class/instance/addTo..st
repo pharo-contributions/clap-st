@@ -1,5 +1,5 @@
 adding
-addTo: parentMatch 
+addTo: parentMatch
 	parentMatch
 		at: specification canonicalName
 		put: self

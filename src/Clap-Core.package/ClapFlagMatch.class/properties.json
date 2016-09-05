@@ -6,10 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"specification",
 		"alias" ],
 	"name" : "ClapFlagMatch",
 	"pools" : [
 		 ],
-	"super" : "Object",
+	"super" : "ClapMatch",
 	"type" : "normal" }

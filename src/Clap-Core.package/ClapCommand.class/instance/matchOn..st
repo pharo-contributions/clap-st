@@ -1,10 +1,16 @@
 matching
 matchOn: aStream
-	^ aStream peek = self canonicalName
-		ifTrue: [ | match |
-			match := self matchWithAlias: aStream next.
-			self matchOn: aStream flagsFor: match.
-			self matchOn: aStream subcommandsFor: match.
-			self matchOn: aStream positionalsFor: match.
-			match ]
-		ifFalse: [ self mismatch ]
+	| match args |
+	aStream peek = self canonicalName
+		ifFalse: [ ^ self mismatch ].
+	
+	match := self matchWithAlias: aStream next.
+	args := ClapAlternative new
+		add: flags;
+		add: subcommands;
+		add: positionals.
+
+	[ aStream atEnd ]
+		whileFalse: [ (args matchOn: aStream) addTo: match ].
+
+	^ match
