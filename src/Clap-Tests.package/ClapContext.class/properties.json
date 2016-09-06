@@ -1,0 +1,15 @@
+{
+	"category" : "Clap-Tests-Scratch",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"arguments",
+		"deferred" ],
+	"name" : "ClapContext",
+	"pools" : [
+		 ],
+	"super" : "Object",
+	"type" : "normal" }
