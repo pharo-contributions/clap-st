@@ -20,6 +20,15 @@ ClapScratchTest >> setUp [
 ]
 
 { #category : #tests }
+ClapScratchTest >> testEmptyContext [
+	| ctx |
+	ctx := ClapContext on: argv.
+	
+	ctx matchDeferred should be isMismatch.
+	argv should not receive next
+]
+
+{ #category : #tests }
 ClapScratchTest >> testEmptyQueueMismatches [
 	| match |
 	argv stub atEnd willReturn: false.
@@ -43,4 +52,19 @@ ClapScratchTest >> testMatchingQueueEmpties [
 	argv should receive next.
 	match should not be isMismatch.
 	subject should be isEmpty
+]
+
+{ #category : #tests }
+ClapScratchTest >> testPositionalContext [
+	| ctx arg parent |
+	arg := ClapPositional withName: 'foo'.
+	(arg stub matchOn: argv) willReturn: okMatch.
+	parent := Mock named: 'parent'.
+	ctx := ClapContext on: argv.
+	ctx defer: arg for: parent.
+
+	ctx matchDeferred.
+
+	arg should receive matchOn: argv.
+	okMatch should receive addTo: parent
 ]
