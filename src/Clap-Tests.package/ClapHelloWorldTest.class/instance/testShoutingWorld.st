@@ -1,10 +1,10 @@
 tests
-testShouting
+testShoutingWorld
 	| argv match |
-	argv := #('hello' '--shout') readStream.
+	argv := #('hello' '--shout' 'world') readStream.
 
 	match := hello matchOn: argv.
 
 	match should not be isMismatch.
 	match should be includesKey: 'shout'.
-	match should not be includesKey: 'who'
+	match should be includesKey: 'who'
