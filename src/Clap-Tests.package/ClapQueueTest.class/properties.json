@@ -7,8 +7,9 @@
 	"commentStamp" : "",
 	"instvars" : [
 		"subject",
-		"argv" ],
-	"name" : "ClapParameterTest",
+		"argv",
+		"okMatch" ],
+	"name" : "ClapQueueTest",
 	"pools" : [
 		 ],
 	"super" : "TestCase",

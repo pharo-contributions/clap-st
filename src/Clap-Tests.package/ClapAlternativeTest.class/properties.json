@@ -6,12 +6,12 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
+		"subject",
 		"argv",
 		"okMatch",
 		"mismatch",
 		"flagOne",
-		"flagTwo",
-		"subject" ],
+		"flagTwo" ],
 	"name" : "ClapAlternativeTest",
 	"pools" : [
 		 ],

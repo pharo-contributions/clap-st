@@ -1,13 +1,12 @@
 tests
 testPositionalContext
-	| ctx arg parent |
+	| arg parent |
 	arg := ClapPositional withName: 'foo'.
 	(arg stub matchOn: argv) willReturn: okMatch.
 	parent := Mock named: 'parent'.
-	ctx := ClapContext on: argv.
-	ctx defer: arg for: parent.
-
-	ctx matchDeferred.
+	
+	subject defer: arg for: parent.
+	subject matchDeferred.
 
 	arg should receive matchOn: argv.
 	okMatch should receive addTo: parent

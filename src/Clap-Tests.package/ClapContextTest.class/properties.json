@@ -1,14 +1,16 @@
 {
-	"category" : "Clap-Tests-Scratch",
+	"category" : "Clap-Tests-Unit",
 	"classinstvars" : [
 		 ],
 	"classvars" : [
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"stack" ],
-	"name" : "ClapQueue",
+		"subject",
+		"argv",
+		"okMatch" ],
+	"name" : "ClapContextTest",
 	"pools" : [
 		 ],
-	"super" : "Object",
+	"super" : "TestCase",
 	"type" : "normal" }
