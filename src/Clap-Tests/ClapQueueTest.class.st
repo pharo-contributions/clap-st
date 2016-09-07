@@ -3,8 +3,7 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'subject',
-		'argv',
-		'okMatch'
+		'argv'
 	],
 	#category : 'Clap-Tests-Unit'
 }
@@ -12,9 +11,6 @@ Class {
 { #category : #running }
 ClapQueueTest >> setUp [
 	argv := Mock named: 'argv'.
-	okMatch := Mock named: 'match'.
-	okMatch stub isMismatch willReturn: false.
-	okMatch stub ifMismatch: Any.
 	
 	subject := ClapQueue new
 ]
@@ -34,13 +30,14 @@ ClapQueueTest >> testEmptyQueueMismatches [
 ClapQueueTest >> testMatchingQueueEmpties [
 	| match arg |
 	argv stub atEnd willReturn: false.
-	argv next willReturn: 'foo'.
+	argv stub next willReturn: 'foo'.
 	arg := ClapPositional withName: 'arg'.
-	subject push: arg.
 	
+	subject push: arg.
 	match := subject matchOn: argv.
 	
 	argv should receive next.
 	match should not be isMismatch.
+	match value should equal: 'foo'.
 	subject should be isEmpty
 ]
