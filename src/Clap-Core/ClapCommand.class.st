@@ -45,19 +45,6 @@ ClapCommand >> matchOn: aStream [
 ]
 
 { #category : #matching }
-ClapCommand >> matchOn: aStream flagsFor: parentMatch [
-	flags
-		matchesOn: aStream
-		do: [ :match | match addTo: parentMatch ]
-
-]
-
-{ #category : #matching }
-ClapCommand >> matchOn: aStream subcommandsFor: aMatch [
-	"self notYetImplemented"
-]
-
-{ #category : #matching }
 ClapCommand >> matchWithAlias: aString [ 
 	^ ClapCommandMatch of: self withAlias: aString
 ]
