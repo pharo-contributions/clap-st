@@ -43,7 +43,19 @@ ClapHelloWorldTest >> testHelloWorld [
 { #category : #tests }
 ClapHelloWorldTest >> testShouting [
 	| argv match |
-	argv := #('hello' '--shout' 'world') readStream.
+	argv := #('hello' '--shout') readStream.
+
+	match := hello matchOn: argv.
+
+	match should not be isMismatch.
+	match should be includesKey: 'shout'.
+	match should not be includesKey: 'who'
+]
+
+{ #category : #tests }
+ClapHelloWorldTest >> testShoutingAfterthought [
+	| argv match |
+	argv := #('hello' 'world' '-s') readStream.
 
 	match := hello matchOn: argv.
 
@@ -53,9 +65,9 @@ ClapHelloWorldTest >> testShouting [
 ]
 
 { #category : #tests }
-ClapHelloWorldTest >> testShoutingAfterthought [
+ClapHelloWorldTest >> testShoutingWorld [
 	| argv match |
-	argv := #('hello' 'world' '-s') readStream.
+	argv := #('hello' '--shout' 'world') readStream.
 
 	match := hello matchOn: argv.
 
