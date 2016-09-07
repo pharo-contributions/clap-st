@@ -2,8 +2,8 @@ Class {
 	#name : #ClapParameterTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'argv',
-		'subject'
+		'subject',
+		'argv'
 	],
 	#category : 'Clap-Tests-Unit'
 }

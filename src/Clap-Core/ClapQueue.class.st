@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'stack'
 	],
-	#category : 'Clap-Tests-Scratch'
+	#category : 'Clap-Core-Support'
 }
 
 { #category : #accessing }

@@ -5,7 +5,7 @@ Class {
 		'arguments',
 		'deferred'
 	],
-	#category : 'Clap-Tests-Scratch'
+	#category : 'Clap-Core-Support'
 }
 
 { #category : #'instance creation' }

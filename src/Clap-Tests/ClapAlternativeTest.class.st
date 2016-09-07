@@ -2,12 +2,12 @@ Class {
 	#name : #ClapAlternativeTest,
 	#superclass : #TestCase,
 	#instVars : [
+		'subject',
 		'argv',
 		'okMatch',
 		'mismatch',
 		'flagOne',
-		'flagTwo',
-		'subject'
+		'flagTwo'
 	],
 	#category : 'Clap-Tests-Unit'
 }

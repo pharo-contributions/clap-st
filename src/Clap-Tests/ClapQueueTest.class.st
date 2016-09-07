@@ -1,16 +1,16 @@
 Class {
-	#name : #ClapScratchTest,
+	#name : #ClapQueueTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'argv',
 		'subject',
+		'argv',
 		'okMatch'
 	],
-	#category : 'Clap-Tests-Scratch'
+	#category : 'Clap-Tests-Unit'
 }
 
 { #category : #running }
-ClapScratchTest >> setUp [
+ClapQueueTest >> setUp [
 	argv := Mock named: 'argv'.
 	okMatch := Mock named: 'match'.
 	okMatch stub isMismatch willReturn: false.
@@ -20,16 +20,7 @@ ClapScratchTest >> setUp [
 ]
 
 { #category : #tests }
-ClapScratchTest >> testEmptyContext [
-	| ctx |
-	ctx := ClapContext on: argv.
-	
-	ctx matchDeferred should be isMismatch.
-	argv should not receive next
-]
-
-{ #category : #tests }
-ClapScratchTest >> testEmptyQueueMismatches [
+ClapQueueTest >> testEmptyQueueMismatches [
 	| match |
 	argv stub atEnd willReturn: false.
 	
@@ -40,7 +31,7 @@ ClapScratchTest >> testEmptyQueueMismatches [
 ]
 
 { #category : #tests }
-ClapScratchTest >> testMatchingQueueEmpties [
+ClapQueueTest >> testMatchingQueueEmpties [
 	| match arg |
 	argv stub atEnd willReturn: false.
 	argv next willReturn: 'foo'.
@@ -52,19 +43,4 @@ ClapScratchTest >> testMatchingQueueEmpties [
 	argv should receive next.
 	match should not be isMismatch.
 	subject should be isEmpty
-]
-
-{ #category : #tests }
-ClapScratchTest >> testPositionalContext [
-	| ctx arg parent |
-	arg := ClapPositional withName: 'foo'.
-	(arg stub matchOn: argv) willReturn: okMatch.
-	parent := Mock named: 'parent'.
-	ctx := ClapContext on: argv.
-	ctx defer: arg for: parent.
-
-	ctx matchDeferred.
-
-	arg should receive matchOn: argv.
-	okMatch should receive addTo: parent
 ]
