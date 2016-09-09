@@ -24,6 +24,22 @@ ClapCommandTest >> testMatches [
 ]
 
 { #category : #tests }
+ClapCommandTest >> testMatchesWithSingleFlag [
+	| match |
+	subject addFlag: (ClapFlag withName: 'bar').
+	argv stub peek willReturnValueFrom: #('foo' '--bar').
+	argv stub next willReturnValueFrom: #('foo' '--bar').
+	argv stub atEnd willReturn: true.
+	argv stub atEnd willReturn: false; use: 3.
+	
+	match := subject matchOn: argv.
+	
+	argv should receive next twice.
+	match should not be isMismatch.
+	match should be includesKey: 'bar'
+]
+
+{ #category : #tests }
 ClapCommandTest >> testMatchesWithSinglePositional [
 	| match |
 	subject addPositional: (ClapPositional withName: 'bar').
@@ -39,6 +55,22 @@ ClapCommandTest >> testMatchesWithSinglePositional [
 	match alias should equal: 'foo'.
 	match should be includesKey: 'bar'. "FIXME not sure about the dictionary protocol"
 	(match at: 'bar') should equal: 'valueforbar'
+]
+
+{ #category : #tests }
+ClapCommandTest >> testMatchesWithSingleSubcommand [
+	| match |
+	subject addSubcommand: (ClapCommand withName: 'bar').
+	argv stub peek willReturnValueFrom: #('foo' 'bar').
+	argv stub next willReturnValueFrom: #('foo' 'bar').
+	argv stub atEnd willReturn: true.
+	argv stub atEnd willReturn: false; use: 3.
+	
+	match := subject matchOn: argv.
+	
+	argv should receive next twice.
+	match should not be isMismatch.
+	match should be includesKey: 'bar'
 ]
 
 { #category : #tests }
