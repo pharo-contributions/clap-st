@@ -1,0 +1,14 @@
+{
+	"category" : "Clap-Tests-Integration",
+	"classinstvars" : [
+		 ],
+	"classvars" : [
+		 ],
+	"commentStamp" : "",
+	"instvars" : [
+		"clap" ],
+	"name" : "ClapSubcommandsTest",
+	"pools" : [
+		 ],
+	"super" : "TestCase",
+	"type" : "normal" }
