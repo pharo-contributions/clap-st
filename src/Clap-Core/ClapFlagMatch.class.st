@@ -1,6 +1,6 @@
 Class {
 	#name : #ClapFlagMatch,
-	#superclass : #ClapMatch,
+	#superclass : #ClapParameterizedMatch,
 	#instVars : [
 		'alias'
 	],

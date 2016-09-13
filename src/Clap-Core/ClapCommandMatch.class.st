@@ -1,9 +1,8 @@
 Class {
 	#name : #ClapCommandMatch,
-	#superclass : #ClapMatch,
+	#superclass : #ClapParameterizedMatch,
 	#instVars : [
-		'alias',
-		'arguments'
+		'alias'
 	],
 	#category : 'Clap-Core-Matches'
 }
@@ -18,28 +17,6 @@ ClapCommandMatch class >> of: aCommand withAlias: usedAlias [
 { #category : #accessing }
 ClapCommandMatch >> alias [
 	^ alias
-]
-
-{ #category : #accessing }
-ClapCommandMatch >> at: canonicalName [
-	^ (arguments at: canonicalName) value
-]
-
-{ #category : #accessing }
-ClapCommandMatch >> at: canonicalName put: aMatch [
-	arguments
-		at: canonicalName
-		put: aMatch
-]
-
-{ #category : #testing }
-ClapCommandMatch >> includesKey: canonicalName [
-	^ arguments includesKey: canonicalName
-]
-
-{ #category : #initialization }
-ClapCommandMatch >> initialize [
-	arguments := Dictionary new
 ]
 
 { #category : #initialization }
