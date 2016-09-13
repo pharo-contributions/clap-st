@@ -10,5 +10,5 @@
 	"name" : "ClapFlagMatch",
 	"pools" : [
 		 ],
-	"super" : "ClapMatch",
+	"super" : "ClapParameterizedMatch",
 	"type" : "normal" }

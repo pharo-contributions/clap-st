@@ -6,9 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"alias" ],
-	"name" : "ClapCommandMatch",
+		"arguments" ],
+	"name" : "ClapParameterizedMatch",
 	"pools" : [
 		 ],
-	"super" : "ClapParameterizedMatch",
+	"super" : "ClapMatch",
 	"type" : "normal" }
