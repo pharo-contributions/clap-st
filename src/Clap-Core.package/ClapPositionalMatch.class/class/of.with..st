@@ -1,5 +1,5 @@
 instance creation
-of: aPositional value: aString 
+of: aPositional with: aString 
 	^ self new
 		specification: aPositional
-		value: aString
+		word: aString

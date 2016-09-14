@@ -4,7 +4,7 @@ matchOn: aStream
 	aStream peek = self canonicalName
 		ifFalse: [ ^ self mismatch ].
 	
-	match := self matchWithAlias: aStream next.
+	match := self matchWord: aStream next.
 	args := ClapAlternative new
 		add: flags;
 		add: subcommands;

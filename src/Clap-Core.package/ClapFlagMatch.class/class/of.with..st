@@ -1,5 +1,5 @@
 instance creation
-of: aFlag withAlias: usedAlias 
+of: aFlag with: usedAlias 
 	^ self new
 		specification: aFlag
-		alias: usedAlias
+		word: usedAlias

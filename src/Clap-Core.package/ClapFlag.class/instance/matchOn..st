@@ -4,7 +4,7 @@ matchOn: aStream
 	word := aStream peek.
 	^ (word = self shortForm or: [ word = self longForm ])
 		ifTrue: [ | match |
-			match := self matchWithAlias: aStream next.
+			match := self matchWord: aStream next.
 			self matchOn: aStream positionalsFor: match.
 			^ match ]
 		ifFalse: [ self mismatch ]

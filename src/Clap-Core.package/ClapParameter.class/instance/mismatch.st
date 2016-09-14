@@ -1,3 +1,3 @@
 matching
 mismatch
-	^ ClapMismatch for: self
+	^ ClapMismatch specification: self
