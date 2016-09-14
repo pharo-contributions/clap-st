@@ -9,4 +9,4 @@ testMatchesShortForm
 	argv should receive next once.
 	match should not be isMismatch.
 	match specification should be: subject.
-	match alias should equal: '-f'
+	match word should equal: '-f'

@@ -11,6 +11,6 @@ testMatchesWithSinglePositional
 	
 	argv should receive next twice.
 	match should not be isMismatch.
-	match alias should equal: 'foo'.
+	match word should equal: 'foo'.
 	match should be includesKey: 'bar'. "FIXME not sure about the dictionary protocol"
-	(match at: 'bar') should equal: 'valueforbar'
+	(match at: 'bar') word should equal: 'valueforbar'

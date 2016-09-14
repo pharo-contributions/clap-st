@@ -9,4 +9,4 @@ testMatches
 	
 	argv should receive next.
 	match should not be isMismatch.
-	match alias should equal: 'foo'
+	match word should equal: 'foo'

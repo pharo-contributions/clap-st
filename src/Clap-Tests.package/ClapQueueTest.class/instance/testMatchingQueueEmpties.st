@@ -10,5 +10,5 @@ testMatchingQueueEmpties
 	
 	argv should receive next.
 	match should not be isMismatch.
-	match value should equal: 'foo'.
+	match word should equal: 'foo'.
 	subject should be isEmpty

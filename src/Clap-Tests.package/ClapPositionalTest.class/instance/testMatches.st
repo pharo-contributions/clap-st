@@ -9,4 +9,4 @@ testMatches
 	argv should receive next once.
 	match should not be isMismatch.
 	match specification should be: subject.
-	match value should equal: 'bar'
+	match word should equal: 'bar'

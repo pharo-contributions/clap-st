@@ -9,4 +9,4 @@ testMatchesLongForm
 	argv should receive next once.
 	match should not be isMismatch.
 	match specification should be: subject.
-	match alias should equal: '--foo'
+	match word should equal: '--foo'
