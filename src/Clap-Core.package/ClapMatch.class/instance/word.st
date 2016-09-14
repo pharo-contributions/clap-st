@@ -1,3 +1,3 @@
 accessing
-alias
+word
 	^ word
