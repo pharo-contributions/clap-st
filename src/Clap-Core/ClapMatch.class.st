@@ -8,6 +8,13 @@ Class {
 	#category : 'Clap-Core-Matches'
 }
 
+{ #category : #'instance creation' }
+ClapMatch class >> of: aSpecification with: aWord [
+	^ self new
+		specification: aSpecification;
+		word: aWord
+]
+
 { #category : #adding }
 ClapMatch >> addTo: parentMatch [
 	parentMatch
@@ -35,8 +42,12 @@ ClapMatch >> specification: anArgumentSpec [
 	specification := anArgumentSpec
 ]
 
+{ #category : #accessing }
+ClapMatch >> word [
+	^ word
+]
+
 { #category : #initialization }
-ClapMatch >> specification: anArgumentSpec word: aString [ 
-	specification := anArgumentSpec.
+ClapMatch >> word: aString [
 	word := aString
 ]

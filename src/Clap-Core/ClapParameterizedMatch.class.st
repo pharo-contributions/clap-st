@@ -9,7 +9,7 @@ Class {
 
 { #category : #accessing }
 ClapParameterizedMatch >> at: canonicalName [
-	^ (arguments at: canonicalName) value
+	^ arguments at: canonicalName
 ]
 
 { #category : #accessing }

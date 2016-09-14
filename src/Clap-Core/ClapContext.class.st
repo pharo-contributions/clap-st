@@ -19,7 +19,7 @@ ClapContext >> arguments: aStream [
 	arguments := aStream
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #matching }
 ClapContext >> defer: aParameter for: parentParameter [ 
 	deferred push: aParameter -> parentParameter
 ]
