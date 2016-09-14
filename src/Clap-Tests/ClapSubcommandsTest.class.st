@@ -30,7 +30,7 @@ ClapSubcommandsTest >> testRootPositionalBeforeSubcommand [
 	match should be includesKey: 'directory'.
 	match should be includesKey: 'this'.
 	match should not be includesKey: 'that'.
-	(match at: 'directory') value should equal: 'foo/bar/baz'.
+	(match at: 'directory') word should equal: 'foo/bar/baz'.
 
 ]
 

@@ -37,7 +37,7 @@ ClapHelloWorldTest >> testHelloWorld [
 	match should not be isMismatch.
 	match should not be includesKey: 'shout'.
 	match should be includesKey: 'who'.
-	(match at: 'who') should equal: 'world'
+	(match at: 'who') word should equal: 'world'
 ]
 
 { #category : #tests }
