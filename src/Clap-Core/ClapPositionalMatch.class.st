@@ -1,26 +1,17 @@
 Class {
 	#name : #ClapPositionalMatch,
 	#superclass : #ClapMatch,
-	#instVars : [
-		'value'
-	],
 	#category : 'Clap-Core-Matches'
 }
 
 { #category : #'instance creation' }
-ClapPositionalMatch class >> of: aPositional value: aString [ 
+ClapPositionalMatch class >> of: aPositional with: aString [ 
 	^ self new
 		specification: aPositional
-		value: aString
-]
-
-{ #category : #initialization }
-ClapPositionalMatch >> specification: anArgumentSpec value: aString [ 
-	specification := anArgumentSpec.
-	value := aString
+		word: aString
 ]
 
 { #category : #accessing }
 ClapPositionalMatch >> value [
-	^ value
+	^ word
 ]

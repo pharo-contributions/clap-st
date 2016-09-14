@@ -38,5 +38,5 @@ ClapAlternative >> matchesOn: aStream do: aBlock [
 
 { #category : #matching }
 ClapAlternative >> mismatch [
-	^ ClapMismatch for: self
+	^ ClapMismatch specification: self
 ]

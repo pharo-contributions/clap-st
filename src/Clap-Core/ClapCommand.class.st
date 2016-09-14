@@ -25,13 +25,18 @@ ClapCommand >> initialize [
 	flags := ClapAlternative new
 ]
 
+{ #category : #accessing }
+ClapCommand >> matchClass [
+	^ ClapCommandMatch
+]
+
 { #category : #matching }
 ClapCommand >> matchOn: aStream [
 	| match args |
 	aStream peek = self canonicalName
 		ifFalse: [ ^ self mismatch ].
 	
-	match := self matchWithAlias: aStream next.
+	match := self matchWord: aStream next.
 	args := ClapAlternative new
 		add: flags;
 		add: subcommands;
@@ -42,9 +47,4 @@ ClapCommand >> matchOn: aStream [
 
 	^ match
 
-]
-
-{ #category : #matching }
-ClapCommand >> matchWithAlias: aString [ 
-	^ ClapCommandMatch of: self withAlias: aString
 ]

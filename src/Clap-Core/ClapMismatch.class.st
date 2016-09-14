@@ -5,8 +5,8 @@ Class {
 }
 
 { #category : #'instance creation' }
-ClapMismatch class >> for: aCommand [ 
-	^ self new specification: aCommand
+ClapMismatch class >> specification: aParameter [ 
+	^ self new specification: aParameter
 ]
 
 { #category : #adding }

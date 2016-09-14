@@ -41,7 +41,7 @@ ClapQueue >> matchOn: aStream [
 
 { #category : #matching }
 ClapQueue >> mismatch [
-	^ ClapMismatch for: self
+	^ ClapMismatch specification: self
 ]
 
 { #category : #accessing }

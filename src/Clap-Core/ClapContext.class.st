@@ -46,5 +46,5 @@ ClapContext >> matchDeferred [
 
 { #category : #matching }
 ClapContext >> mismatch [
-	^ ClapMismatch for: self
+	^ ClapMismatch specification: self
 ]

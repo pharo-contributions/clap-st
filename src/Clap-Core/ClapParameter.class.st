@@ -24,12 +24,24 @@ ClapParameter >> canonicalName: aString [
 	canonicalName := aString
 ]
 
+{ #category : #accessing }
+ClapParameter >> matchClass [
+	^ self subclassResponsibility
+]
+
 { #category : #matching }
 ClapParameter >> matchOn: aStream [ 
 	^ self subclassResponsibility
 ]
 
 { #category : #matching }
+ClapParameter >> matchWord: aString [
+	^ self matchClass
+		of: self
+		with: aString
+]
+
+{ #category : #matching }
 ClapParameter >> mismatch [
-	^ ClapMismatch for: self
+	^ ClapMismatch specification: self
 ]

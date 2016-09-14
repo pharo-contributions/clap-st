@@ -2,7 +2,8 @@ Class {
 	#name : #ClapMatch,
 	#superclass : #Object,
 	#instVars : [
-		'specification'
+		'specification',
+		'word'
 	],
 	#category : 'Clap-Core-Matches'
 }
@@ -32,4 +33,10 @@ ClapMatch >> specification [
 { #category : #initialization }
 ClapMatch >> specification: anArgumentSpec [
 	specification := anArgumentSpec
+]
+
+{ #category : #initialization }
+ClapMatch >> specification: anArgumentSpec word: aString [ 
+	specification := anArgumentSpec.
+	word := aString
 ]
