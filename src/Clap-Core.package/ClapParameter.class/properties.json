@@ -6,7 +6,8 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"canonicalName" ],
+		"canonicalName",
+		"meaningBlock" ],
 	"name" : "ClapParameter",
 	"pools" : [
 		 ],
