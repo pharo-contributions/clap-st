@@ -2,7 +2,8 @@ Class {
 	#name : #ClapParameter,
 	#superclass : #Object,
 	#instVars : [
-		'canonicalName'
+		'canonicalName',
+		'meaningBlock'
 	],
 	#category : 'Clap-Core-Parameters'
 }
@@ -24,6 +25,11 @@ ClapParameter >> canonicalName: aString [
 	canonicalName := aString
 ]
 
+{ #category : #evaluating }
+ClapParameter >> defaultMeaningOf: aMatch [
+	^ aMatch word
+]
+
 { #category : #accessing }
 ClapParameter >> matchClass [
 	^ self subclassResponsibility
@@ -39,6 +45,18 @@ ClapParameter >> matchWord: aString [
 	^ self matchClass
 		of: self
 		with: aString
+]
+
+{ #category : #initialization }
+ClapParameter >> meaning: aBlock [
+	meaningBlock := aBlock
+]
+
+{ #category : #evaluating }
+ClapParameter >> meaningOf: aMatch [
+	^ meaningBlock
+		ifNil: [ self defaultMeaningOf: aMatch ]
+		ifNotNil: [ meaningBlock cull: aMatch ]
 ]
 
 { #category : #matching }

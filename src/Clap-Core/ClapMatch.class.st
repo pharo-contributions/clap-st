@@ -42,6 +42,11 @@ ClapMatch >> specification: anArgumentSpec [
 	specification := anArgumentSpec
 ]
 
+{ #category : #evaluating }
+ClapMatch >> value [
+	^ specification meaningOf: self
+]
+
 { #category : #accessing }
 ClapMatch >> word [
 	^ word
