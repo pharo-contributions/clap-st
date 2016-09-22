@@ -1,3 +1,3 @@
 evaluating
 defaultMeaningOf: aMatch
-	^ aMatch
+	^ aMatch word

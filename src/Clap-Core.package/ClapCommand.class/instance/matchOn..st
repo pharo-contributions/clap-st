@@ -5,6 +5,7 @@ matchOn: aStream
 		ifFalse: [ ^ self mismatch ].
 	
 	match := self matchWord: aStream next.
+	self flag: 'FIXME: should build whole alternative/queues for this matching only'.
 	args := ClapAlternative new
 		add: flags;
 		add: subcommands;
