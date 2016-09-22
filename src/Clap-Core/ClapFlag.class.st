@@ -4,6 +4,12 @@ Class {
 	#category : 'Clap-Core-Parameters'
 }
 
+{ #category : #'as yet unclassified' }
+ClapFlag >> defaultMeaningOf: aMatch [
+	^ positionals collect: [ :each |
+		(aMatch at: each canonicalName) value ]
+]
+
 { #category : #accessing }
 ClapFlag >> longForm [
 	^ '--' , self canonicalName

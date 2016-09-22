@@ -4,6 +4,11 @@ Class {
 	#category : 'Clap-Core-Parameters'
 }
 
+{ #category : #evaluating }
+ClapPositional >> defaultMeaningOf: aMatch [
+	^ aMatch word
+]
+
 { #category : #accessing }
 ClapPositional >> matchClass [
 	^ ClapPositionalMatch

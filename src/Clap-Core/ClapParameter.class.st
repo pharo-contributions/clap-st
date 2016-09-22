@@ -27,7 +27,7 @@ ClapParameter >> canonicalName: aString [
 
 { #category : #evaluating }
 ClapParameter >> defaultMeaningOf: aMatch [
-	^ aMatch word
+	^ aMatch
 ]
 
 { #category : #accessing }
