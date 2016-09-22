@@ -1,5 +1,5 @@
 tests
-testAdding
+testAddingToParentAddsByName
 	| parent specName |
 	specName := Mock new.
 	specification stub canonicalName willReturn: specName.
