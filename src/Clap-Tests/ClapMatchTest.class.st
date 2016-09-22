@@ -28,7 +28,7 @@ ClapMatchTest >> testAccessing [
 ]
 
 { #category : #tests }
-ClapMatchTest >> testAdding [
+ClapMatchTest >> testAddingToParentAddsByName [
 	| parent specName |
 	specName := Mock new.
 	specification stub canonicalName willReturn: specName.
@@ -41,7 +41,7 @@ ClapMatchTest >> testAdding [
 ]
 
 { #category : #'as yet unclassified' }
-ClapMatchTest >> testMismatching [
+ClapMatchTest >> testMatchesAreNotMismatches [
 	subject isMismatch should be: false.
 	subject ifMismatch: [ self fail ]
 ]
