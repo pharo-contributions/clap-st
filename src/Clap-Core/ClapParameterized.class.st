@@ -17,16 +17,26 @@ ClapParameterized >> addPositional: aPositional [
 	positionals add: aPositional
 ]
 
-{ #category : #initialization }
-ClapParameterized >> initialize [
-	positionals := ClapQueue new
+{ #category : #accessing }
+ClapParameterized >> atName: specName [
+	^ self
+		positionalNamed: specName
+		ifNone: [ nil ]
 ]
 
-{ #category : #matching }
-ClapParameterized >> matchOn: aStream positionalsFor: match [
-	[ | arg |
-		arg := positionals matchOn: aStream.
-		arg addTo: match.
-		arg isMismatch
-	] whileFalse
+{ #category : #initialization }
+ClapParameterized >> initialize [
+	positionals := OrderedCollection new
+]
+
+{ #category : #accessing }
+ClapParameterized >> positionalNamed: specName ifNone: aBlock [
+	^ positionals
+		detect: [ :arg | arg canonicalName = specName ]
+		ifNone: aBlock
+]
+
+{ #category : #accessing }
+ClapParameterized >> positionals [
+	^ ClapQueue withAll: positionals
 ]

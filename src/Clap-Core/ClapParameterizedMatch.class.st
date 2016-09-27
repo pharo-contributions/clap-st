@@ -8,23 +8,26 @@ Class {
 }
 
 { #category : #accessing }
-ClapParameterizedMatch >> at: canonicalName [
-	^ arguments at: canonicalName
+ClapParameterizedMatch >> at: aSpec [
+	^ arguments detect: [ :arg | arg specification = aSpec ]
 ]
 
 { #category : #accessing }
-ClapParameterizedMatch >> at: canonicalName put: aMatch [
-	arguments
-		at: canonicalName
-		put: aMatch
+ClapParameterizedMatch >> atName: canonicalName [
+	^ self at: (specification atName: canonicalName)
 ]
 
 { #category : #testing }
 ClapParameterizedMatch >> includesKey: canonicalName [
-	^ arguments includesKey: canonicalName
+	^ arguments anySatisfy: [ :arg | arg specification canonicalName = canonicalName ]
 ]
 
 { #category : #initialization }
 ClapParameterizedMatch >> initialize [
-	arguments := Dictionary new
+	arguments := OrderedCollection new
+]
+
+{ #category : #accessing }
+ClapParameterizedMatch >> recordParameterMatch: aMatch [
+	arguments add: aMatch
 ]

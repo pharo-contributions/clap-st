@@ -4,10 +4,10 @@ Class {
 	#category : 'Clap-Core-Parameters'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #evaluating }
 ClapFlag >> defaultMeaningOf: aMatch [
 	^ positionals collect: [ :each |
-		(aMatch at: each canonicalName) value ]
+		(aMatch atName: each canonicalName) value ]
 ]
 
 { #category : #accessing }
@@ -27,7 +27,9 @@ ClapFlag >> matchOn: aStream [
 	^ (word = self shortForm or: [ word = self longForm ])
 		ifTrue: [ | match |
 			match := self matchWord: aStream next.
-			self matchOn: aStream positionalsFor: match.
+			self positionals
+				matchesOn: aStream
+				do: [ :each | each recordIn: match ].
 			^ match ]
 		ifFalse: [ self mismatch ]
 ]

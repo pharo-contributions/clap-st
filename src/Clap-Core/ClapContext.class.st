@@ -11,7 +11,7 @@ Class {
 { #category : #'instance creation' }
 ClapContext class >> on: argumentStream [ 
 	^ self new
-		arguments: argumentStream
+		arguments: argumentStream readStream
 ]
 
 { #category : #initialization }
@@ -19,9 +19,14 @@ ClapContext >> arguments: aStream [
 	arguments := aStream
 ]
 
+{ #category : #testing }
+ClapContext >> atEnd [
+	^ arguments atEnd
+]
+
 { #category : #matching }
-ClapContext >> defer: aParameter for: parentParameter [ 
-	deferred push: aParameter -> parentParameter
+ClapContext >> defer: aParameter for: parentMatch [ 
+	deferred push: aParameter -> parentMatch
 ]
 
 { #category : #initialization }
@@ -40,11 +45,21 @@ ClapContext >> matchDeferred [
 		deferred push: top.
 		self mismatch ].
 	
-	match addTo: top value.
+	match recordIn: top value.
 	^ match
 ]
 
 { #category : #matching }
 ClapContext >> mismatch [
 	^ ClapMismatch specification: self
+]
+
+{ #category : #accessing }
+ClapContext >> next [
+	^ arguments next
+]
+
+{ #category : #accessing }
+ClapContext >> peek [
+	^ arguments peek
 ]

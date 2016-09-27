@@ -18,11 +18,30 @@ ClapCommand >> addSubcommand: aCommand [
 	subcommands add: aCommand
 ]
 
+{ #category : #accessing }
+ClapCommand >> atName: specName [
+	^ self subcommandNamed: specName ifNone:
+		[ self flagNamed: specName ifNone:
+			[ super atName: specName ] ]
+]
+
+{ #category : #accessing }
+ClapCommand >> flagNamed: specName ifNone: aBlock [
+	^ flags
+		detect: [ :flag | flag canonicalName = specName ]
+		ifNone: aBlock
+]
+
+{ #category : #accessing }
+ClapCommand >> flags [
+	^ ClapAlternative withAll: flags
+]
+
 { #category : #initialization }
 ClapCommand >> initialize [
 	super initialize.
-	subcommands := ClapAlternative new.
-	flags := ClapAlternative new
+	subcommands := OrderedCollection new.
+	flags := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -37,15 +56,26 @@ ClapCommand >> matchOn: aStream [
 		ifFalse: [ ^ self mismatch ].
 	
 	match := self matchWord: aStream next.
-	self flag: 'FIXME: should build whole alternative/queues for this matching only'.
 	args := ClapAlternative new
-		add: flags;
-		add: subcommands;
-		add: positionals.
+		add: self flags;
+		add: self subcommands;
+		add: self positionals.
 
 	[ aStream atEnd ]
-		whileFalse: [ (args matchOn: aStream) addTo: match ].
+		whileFalse: [ (args matchOn: aStream) recordIn: match ].
 
 	^ match
 
+]
+
+{ #category : #accessing }
+ClapCommand >> subcommandNamed: specName ifNone: aBlock [
+	^ subcommands
+		detect: [ :cmd | cmd canonicalName = specName ]
+		ifNone: aBlock
+]
+
+{ #category : #accessing }
+ClapCommand >> subcommands [
+	^ ClapAlternative withAll: subcommands
 ]

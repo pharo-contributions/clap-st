@@ -12,6 +12,8 @@ Class {
 { #category : #running }
 ClapContextTest >> setUp [
 	argv := Mock named: 'argv'.
+	argv stub readStream willReturnYourself.
+	
 	okMatch := Mock named: 'match'.
 	okMatch stub isMismatch willReturn: false.
 	okMatch stub ifMismatch: Any.
@@ -36,5 +38,5 @@ ClapContextTest >> testPositionalContext [
 	subject matchDeferred.
 
 	arg should receive matchOn: argv.
-	okMatch should receive addTo: parent
+	okMatch should receive recordIn: parent
 ]

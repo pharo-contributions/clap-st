@@ -15,13 +15,6 @@ ClapMatch class >> of: aSpecification with: aWord [
 		word: aWord
 ]
 
-{ #category : #adding }
-ClapMatch >> addTo: parentMatch [
-	parentMatch
-		at: specification canonicalName
-		put: self
-]
-
 { #category : #testing }
 ClapMatch >> ifMismatch: aBlock [
 	^ self
@@ -30,6 +23,11 @@ ClapMatch >> ifMismatch: aBlock [
 { #category : #testing }
 ClapMatch >> isMismatch [
 	^ false
+]
+
+{ #category : #adding }
+ClapMatch >> recordIn: parentMatch [
+	parentMatch recordParameterMatch: self
 ]
 
 { #category : #accessing }

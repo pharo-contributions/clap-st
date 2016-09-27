@@ -22,35 +22,35 @@ ClapSubcommandsTest >> setUp [
 { #category : #running }
 ClapSubcommandsTest >> testRootPositionalBeforeSubcommand [
 	| argv match |
-	argv := ReadStream on: #('clap' '--directory' 'foo/bar/baz' 'this').
+	argv := ClapContext on: #('clap' '--directory' 'foo/bar/baz' 'this').
 	match := clap matchOn: argv.
 	
 	match should not be isMismatch.
 	match should be includesKey: 'directory'.
 	match should be includesKey: 'this'.
 	match should not be includesKey: 'that'.
-	((match at: 'directory') at: 'DIR') value should equal: 'foo/bar/baz'.
+	((match atName: 'directory') atName: 'DIR') value should equal: 'foo/bar/baz'.
 
 ]
 
 { #category : #running }
 ClapSubcommandsTest >> testThis [
 	| argv match |
-	argv := ReadStream on: #('clap' 'this').
+	argv := ClapContext on: #('clap' 'this').
 	match := clap matchOn: argv.
 	
 	match should not be isMismatch.
 	match should not be includesKey: 'directory'.
 	match should be includesKey: 'this'.
 	match should not be includesKey: 'that'.
-	(match at: 'this') should not be isMismatch.
-	(match at: 'this') should not be includesKey: 'slow'
+	(match atName: 'this') should not be isMismatch.
+	(match atName: 'this') should not be includesKey: 'slow'
 ]
 
 { #category : #running }
 ClapSubcommandsTest >> testWrongCommandMismatches [
 	| argv match |
-	argv := ReadStream on: #('foo' '-d' 'bar/baz/qux' 'this').
+	argv := ClapContext on: #('foo' '-d' 'bar/baz/qux' 'this').
 	match := clap matchOn: argv.
 	
 	match should be isMismatch

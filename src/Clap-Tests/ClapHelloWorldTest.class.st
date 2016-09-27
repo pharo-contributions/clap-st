@@ -18,7 +18,7 @@ ClapHelloWorldTest >> setUp [
 { #category : #tests }
 ClapHelloWorldTest >> testHello [
 	| argv match |
-	argv := #('hello') readStream.
+	argv := ClapContext on: #('hello').
 
 	match := hello matchOn: argv.
 
@@ -30,20 +30,20 @@ ClapHelloWorldTest >> testHello [
 { #category : #tests }
 ClapHelloWorldTest >> testHelloWorld [
 	| argv match |
-	argv := #('hello' 'world') readStream.
+	argv := ClapContext on: #('hello' 'world').
 
 	match := hello matchOn: argv.
 
 	match should not be isMismatch.
 	match should not be includesKey: 'shout'.
 	match should be includesKey: 'who'.
-	(match at: 'who') word should equal: 'world'
+	(match atName: 'who') word should equal: 'world'
 ]
 
 { #category : #tests }
 ClapHelloWorldTest >> testShouting [
 	| argv match |
-	argv := #('hello' '--shout') readStream.
+	argv := ClapContext on: #('hello' '--shout').
 
 	match := hello matchOn: argv.
 
@@ -55,7 +55,7 @@ ClapHelloWorldTest >> testShouting [
 { #category : #tests }
 ClapHelloWorldTest >> testShoutingAfterthought [
 	| argv match |
-	argv := #('hello' 'world' '-s') readStream.
+	argv := ClapContext on: #('hello' 'world' '-s').
 
 	match := hello matchOn: argv.
 
@@ -67,7 +67,7 @@ ClapHelloWorldTest >> testShoutingAfterthought [
 { #category : #tests }
 ClapHelloWorldTest >> testShoutingWorld [
 	| argv match |
-	argv := #('hello' '--shout' 'world') readStream.
+	argv := ClapContext on: #('hello' '--shout' 'world').
 
 	match := hello matchOn: argv.
 

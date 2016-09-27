@@ -9,11 +9,6 @@ ClapMismatch class >> specification: aParameter [
 	^ self new specification: aParameter
 ]
 
-{ #category : #adding }
-ClapMismatch >> addTo: parentMatch [ 
-	"this match failed, so do nothing"
-]
-
 { #category : #testing }
 ClapMismatch >> ifMismatch: aBlock [
 	^ aBlock cull: self
@@ -22,4 +17,9 @@ ClapMismatch >> ifMismatch: aBlock [
 { #category : #testing }
 ClapMismatch >> isMismatch [
 	^ true
+]
+
+{ #category : #adding }
+ClapMismatch >> recordIn: parentMatch [ 
+	"this match failed, so do nothing"
 ]

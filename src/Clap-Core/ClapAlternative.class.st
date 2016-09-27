@@ -7,9 +7,19 @@ Class {
 	#category : 'Clap-Core-Support'
 }
 
+{ #category : #'instance creation' }
+ClapAlternative class >> withAll: parameters [
+	^ self new addAll: parameters
+]
+
 { #category : #adding }
 ClapAlternative >> add: aParameter [
 	alternatives add: aParameter
+]
+
+{ #category : #adding }
+ClapAlternative >> addAll: parameters [
+	alternatives addAll: parameters
 ]
 
 { #category : #initialization }
