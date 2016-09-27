@@ -1,3 +1,3 @@
 testing
 includesKey: canonicalName
-	^ arguments includesKey: canonicalName
+	^ arguments anySatisfy: [ :arg | arg specification canonicalName = canonicalName ]

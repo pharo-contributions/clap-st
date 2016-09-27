@@ -1,11 +1,11 @@
 tests
 testHelloWorld
 	| argv match |
-	argv := #('hello' 'world') readStream.
+	argv := ClapContext on: #('hello' 'world').
 
 	match := hello matchOn: argv.
 
 	match should not be isMismatch.
 	match should not be includesKey: 'shout'.
 	match should be includesKey: 'who'.
-	(match at: 'who') word should equal: 'world'
+	(match atName: 'who') word should equal: 'world'

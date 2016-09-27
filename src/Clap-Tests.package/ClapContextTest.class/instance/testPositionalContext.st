@@ -9,4 +9,4 @@ testPositionalContext
 	subject matchDeferred.
 
 	arg should receive matchOn: argv.
-	okMatch should receive addTo: parent
+	okMatch should receive recordIn: parent

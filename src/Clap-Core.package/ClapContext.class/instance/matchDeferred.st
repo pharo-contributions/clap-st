@@ -9,5 +9,5 @@ matchDeferred
 		deferred push: top.
 		self mismatch ].
 	
-	match addTo: top value.
+	match recordIn: top value.
 	^ match

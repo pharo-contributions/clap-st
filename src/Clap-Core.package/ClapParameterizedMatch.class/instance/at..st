@@ -1,3 +1,3 @@
 accessing
-at: canonicalName
-	^ arguments at: canonicalName
+at: aSpec
+	^ arguments detect: [ :arg | arg specification = aSpec ]

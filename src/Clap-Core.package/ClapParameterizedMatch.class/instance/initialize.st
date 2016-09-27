@@ -1,3 +1,3 @@
 initialization
 initialize
-	arguments := Dictionary new
+	arguments := OrderedCollection new

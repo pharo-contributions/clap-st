@@ -1,4 +1,4 @@
-as yet unclassified
+evaluating
 defaultMeaningOf: aMatch
 	^ positionals collect: [ :each |
-		(aMatch at: each canonicalName) value ]
+		(aMatch atName: each canonicalName) value ]

@@ -4,8 +4,8 @@ testAddingToParentAddsByName
 	specName := Mock new.
 	specification stub canonicalName willReturn: specName.
 	parent := Mock named: 'parent'.
-	(parent stub at: specName put: subject) willReturnYourself.
+	(parent stub recordParameterMatch: subject) willReturnYourself.
 	
-	subject addTo: parent.
+	subject recordIn: parent.
 	
-	(parent should receive at: specName put: subject) once
+	(parent should receive recordParameterMatch: subject) once

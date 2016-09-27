@@ -1,7 +1,7 @@
 tests
 testShoutingWorld
 	| argv match |
-	argv := #('hello' '--shout' 'world') readStream.
+	argv := ClapContext on: #('hello' '--shout' 'world').
 
 	match := hello matchOn: argv.
 

@@ -1,4 +1,4 @@
 instance creation
 on: argumentStream 
 	^ self new
-		arguments: argumentStream
+		arguments: argumentStream readStream
