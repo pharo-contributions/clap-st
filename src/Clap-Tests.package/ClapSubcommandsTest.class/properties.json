@@ -6,7 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"clap" ],
+		"clap",
+		"dirFlag",
+		"slowFlag" ],
 	"name" : "ClapSubcommandsTest",
 	"pools" : [
 		 ],

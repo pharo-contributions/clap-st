@@ -1,10 +1,13 @@
 running
 setUp
+	dirFlag := (ClapFlag withName: 'directory')
+		addPositional: (ClapPositional withName: 'DIR').
+	slowFlag := ClapFlag withName: 'slow'.
+	
 	clap := (ClapCommand withName: 'clap')
-		addFlag: ((ClapFlag withName: 'directory')
-			addPositional: (ClapPositional withName: 'DIR'));
+		addFlag: dirFlag;
 		addSubcommand: ((ClapCommand withName: 'this')
-			addFlag: (ClapFlag withName: 'slow'));
+			addFlag: slowFlag);
 		addSubcommand: ((ClapCommand withName: 'that')
 			addFlag: (ClapFlag withName: 'encore');
 			addPositional: (ClapPositional withName: 'clappee'))
