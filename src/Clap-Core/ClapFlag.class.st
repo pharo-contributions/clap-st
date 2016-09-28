@@ -7,7 +7,7 @@ Class {
 { #category : #evaluating }
 ClapFlag >> defaultMeaningOf: aMatch [
 	^ positionals collect: [ :each |
-		(aMatch atName: each canonicalName) value ]
+		(aMatch at: each) value ]
 ]
 
 { #category : #accessing }

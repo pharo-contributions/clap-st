@@ -13,11 +13,6 @@ ClapQueue class >> withAll: parameters [
 ]
 
 { #category : #accessing }
-ClapQueue >> add: aParameter [ 
-	stack addLast: aParameter
-]
-
-{ #category : #accessing }
 ClapQueue >> addAll: parameters [
 	stack addAll: parameters
 ]

@@ -2,21 +2,50 @@ Class {
 	#name : #ClapSubcommandsTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'clap'
+		'clap',
+		'dirFlag',
+		'slowFlag'
 	],
 	#category : 'Clap-Tests-Integration'
 }
 
 { #category : #running }
 ClapSubcommandsTest >> setUp [
+	dirFlag := (ClapFlag withName: 'directory')
+		addPositional: (ClapPositional withName: 'DIR').
+	slowFlag := ClapFlag withName: 'slow'.
+	
 	clap := (ClapCommand withName: 'clap')
-		addFlag: ((ClapFlag withName: 'directory')
-			addPositional: (ClapPositional withName: 'DIR'));
+		addFlag: dirFlag;
 		addSubcommand: ((ClapCommand withName: 'this')
-			addFlag: (ClapFlag withName: 'slow'));
+			addFlag: slowFlag);
 		addSubcommand: ((ClapCommand withName: 'that')
 			addFlag: (ClapFlag withName: 'encore');
 			addPositional: (ClapPositional withName: 'clappee'))
+]
+
+{ #category : #running }
+ClapSubcommandsTest >> testFlagValue [
+	| argv match |
+	slowFlag meaning: [ :flag | flag isMismatch not ].
+	
+	argv := ClapContext on: #('clap' 'this' '--slow').
+	match := clap matchOn: argv.
+	
+	((match atName: 'this') at: slowFlag) value should be: true.
+
+]
+
+{ #category : #running }
+ClapSubcommandsTest >> testParameterizedFlagValue [
+	| argv match |
+	dirFlag meaning: [ :flag | Path from: (flag atName: 'DIR') value ].
+	
+	argv := ClapContext on: #('clap' '--directory' 'foo/bar/baz').
+	match := clap matchOn: argv.
+	
+	(match at: dirFlag) value should equal: (Path * 'foo' / 'bar' / 'baz').
+
 ]
 
 { #category : #running }
@@ -30,6 +59,7 @@ ClapSubcommandsTest >> testRootPositionalBeforeSubcommand [
 	match should be includesKey: 'this'.
 	match should not be includesKey: 'that'.
 	((match atName: 'directory') atName: 'DIR') value should equal: 'foo/bar/baz'.
+	(match at: dirFlag) value should equal: #( 'foo/bar/baz' )
 
 ]
 
