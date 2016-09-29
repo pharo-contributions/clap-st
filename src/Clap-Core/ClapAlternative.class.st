@@ -1,16 +1,11 @@
 Class {
 	#name : #ClapAlternative,
-	#superclass : #Object,
+	#superclass : #ClapMatcher,
 	#instVars : [
 		'alternatives'
 	],
 	#category : 'Clap-Core-Support'
 }
-
-{ #category : #'instance creation' }
-ClapAlternative class >> withAll: parameters [
-	^ self new addAll: parameters
-]
 
 { #category : #adding }
 ClapAlternative >> add: aParameter [

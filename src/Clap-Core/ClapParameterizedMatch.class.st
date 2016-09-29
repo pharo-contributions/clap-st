@@ -27,6 +27,12 @@ ClapParameterizedMatch >> initialize [
 	arguments := OrderedCollection new
 ]
 
+{ #category : #evaluating }
+ClapParameterizedMatch >> positionalValues [
+	^ specification positionals
+		collect: [ :each | (self at: each) value ]
+]
+
 { #category : #accessing }
 ClapParameterizedMatch >> recordParameterMatch: aMatch [
 	arguments add: aMatch

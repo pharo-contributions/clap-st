@@ -1,16 +1,11 @@
 Class {
 	#name : #ClapQueue,
-	#superclass : #Object,
+	#superclass : #ClapMatcher,
 	#instVars : [
 		'stack'
 	],
 	#category : 'Clap-Core-Support'
 }
-
-{ #category : #'instance creation' }
-ClapQueue class >> withAll: parameters [
-	^ self new addAll: parameters
-]
 
 { #category : #accessing }
 ClapQueue >> addAll: parameters [

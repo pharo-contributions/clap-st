@@ -38,5 +38,5 @@ ClapParameterized >> positionalNamed: specName ifNone: aBlock [
 
 { #category : #accessing }
 ClapParameterized >> positionals [
-	^ ClapQueue withAll: positionals
+	^ positionals
 ]

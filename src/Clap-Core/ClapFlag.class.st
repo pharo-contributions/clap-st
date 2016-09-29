@@ -6,8 +6,7 @@ Class {
 
 { #category : #evaluating }
 ClapFlag >> defaultMeaningOf: aMatch [
-	^ positionals collect: [ :each |
-		(aMatch at: each) value ]
+	^ aMatch isMismatch not
 ]
 
 { #category : #accessing }
@@ -27,7 +26,7 @@ ClapFlag >> matchOn: aStream [
 	^ (word = self shortForm or: [ word = self longForm ])
 		ifTrue: [ | match |
 			match := self matchWord: aStream next.
-			self positionals
+			(ClapQueue withAll: positionals)
 				matchesOn: aStream
 				do: [ :each | each recordIn: match ].
 			^ match ]
