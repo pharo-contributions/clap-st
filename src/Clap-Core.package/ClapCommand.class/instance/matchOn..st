@@ -6,9 +6,9 @@ matchOn: aStream
 	
 	match := self matchWord: aStream next.
 	args := ClapAlternative new
-		add: self flags;
-		add: self subcommands;
-		add: self positionals.
+		addAll: flags;
+		addAll: subcommands;
+		add: (ClapQueue withAll: positionals).
 
 	[ aStream atEnd ]
 		whileFalse: [ (args matchOn: aStream) recordIn: match ].

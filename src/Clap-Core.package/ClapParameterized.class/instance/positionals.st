@@ -1,3 +1,3 @@
 accessing
 positionals
-	^ ClapQueue withAll: positionals
+	^ positionals

@@ -6,9 +6,9 @@
 		 ],
 	"commentStamp" : "",
 	"instvars" : [
-		"alternatives" ],
-	"name" : "ClapAlternative",
+		 ],
+	"name" : "ClapMatcher",
 	"pools" : [
 		 ],
-	"super" : "ClapMatcher",
+	"super" : "Object",
 	"type" : "normal" }

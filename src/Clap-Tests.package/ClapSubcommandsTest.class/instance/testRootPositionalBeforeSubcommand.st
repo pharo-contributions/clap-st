@@ -9,4 +9,4 @@ testRootPositionalBeforeSubcommand
 	match should be includesKey: 'this'.
 	match should not be includesKey: 'that'.
 	((match atName: 'directory') atName: 'DIR') value should equal: 'foo/bar/baz'.
-	(match at: dirFlag) value should equal: #( 'foo/bar/baz' )
+	(match at: dirFlag) positionalValues should equal: #( 'foo/bar/baz' )

@@ -10,5 +10,5 @@
 	"name" : "ClapQueue",
 	"pools" : [
 		 ],
-	"super" : "Object",
+	"super" : "ClapMatcher",
 	"type" : "normal" }
