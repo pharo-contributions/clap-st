@@ -1,6 +1,6 @@
 matching
 matchOn: aStream
-	| match args |
+	| match args subMatch |
 	aStream peek = self canonicalName
 		ifFalse: [ ^ self mismatch ].
 	
@@ -10,7 +10,7 @@ matchOn: aStream
 		addAll: subcommands;
 		add: (ClapQueue withAll: positionals).
 
-	[ aStream atEnd ]
-		whileFalse: [ (args matchOn: aStream) recordIn: match ].
+	[ subMatch := args matchOn: aStream. subMatch isMismatch ]
+		whileFalse: [ subMatch recordIn: match ].
 
 	^ match
