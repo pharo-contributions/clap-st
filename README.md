@@ -7,6 +7,20 @@ this is an independent implementation.
 
 Currently still in the design discovery phase; tests use [Mocketry](http://smalltalkhub.com/#!/~dionisiy/Mocketry).
 
+### Loading instructions
+
+In your preferred terminal & shell:
+```
+git clone https://github.com/cdlm/clap-st.git
+cd clap-st
+curl get.pharo.org/alpha | bash
+```
+…and then, in the image just downloaded, open a workspace and evaluate:
+```
+Metacello new baseline: 'Clap';
+   repository: 'gitlocal://./src';
+   load.
+```
 
 [travis]: https://travis-ci.org/cdlm/clap-st
 [travis-status]: https://travis-ci.org/cdlm/clap-st.svg?branch=master
