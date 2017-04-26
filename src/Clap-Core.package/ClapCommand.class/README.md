@@ -14,5 +14,5 @@ If you want to add a subcommand:
 	
 Example for the eval command: 
 	(ClapCommand withName: 'eval')
-		addFlag: 'help';
-		addPositional: 'smalltalk expression'.
+		addFlag: ClapFlag withName: 'help';
+		addPositional: ClapPositionnal withName: 'smalltalk 		expression'.
