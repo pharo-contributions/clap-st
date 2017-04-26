@@ -1,14 +1,11 @@
 {
-	"category" : "Clap-Core-Matches",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
-	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "ClapPositionalMatch",
-	"pools" : [
-		 ],
+	"commentStamp" : "ClementMastin 4/28/2017 10:50",
 	"super" : "ClapMatch",
-	"type" : "normal" }
+	"category" : "Clap-Core-Matches",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "ClapPositionalMatch",
+	"type" : "normal"
+}

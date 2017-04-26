@@ -1,14 +1,13 @@
 {
-	"category" : "Clap-Core-Parameters",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
-	"commentStamp" : "",
-	"instvars" : [
-		"positionals" ],
-	"name" : "ClapParameterized",
-	"pools" : [
-		 ],
+	"commentStamp" : "ClementMastin 4/28/2017 11:00",
 	"super" : "ClapParameter",
-	"type" : "normal" }
+	"category" : "Clap-Core-Parameters",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"positionals"
+	],
+	"name" : "ClapParameterized",
+	"type" : "normal"
+}

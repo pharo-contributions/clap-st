@@ -1,14 +1,11 @@
 {
-	"category" : "Clap-Core-Support",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
-	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "ClapMatcher",
-	"pools" : [
-		 ],
+	"commentStamp" : "ClementMastin 4/28/2017 13:59",
 	"super" : "Object",
-	"type" : "normal" }
+	"category" : "Clap-Core-Support",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "ClapMatcher",
+	"type" : "normal"
+}
