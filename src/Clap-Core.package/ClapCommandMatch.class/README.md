@@ -1,0 +1,1 @@
+I am a class which represents a successful match with a command.This class contains an array of ClapMatch subclass for each successful match of an element of the command.

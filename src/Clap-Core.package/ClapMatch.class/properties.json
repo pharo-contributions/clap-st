@@ -1,15 +1,14 @@
 {
+	"commentStamp" : "ClementMastin 4/14/2017 16:07",
+	"super" : "Object",
 	"category" : "Clap-Core-Matches",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
-	"commentStamp" : "",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"specification",
-		"word" ],
+		"word"
+	],
 	"name" : "ClapMatch",
-	"pools" : [
-		 ],
-	"super" : "Object",
-	"type" : "normal" }
+	"type" : "normal"
+}

@@ -1,0 +1,1 @@
+I am a class which represents a successful math with a flag.

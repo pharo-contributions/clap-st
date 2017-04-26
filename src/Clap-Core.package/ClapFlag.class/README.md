@@ -1,0 +1,1 @@
+I am a class which represent a flag which is accepted in a command.

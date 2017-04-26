@@ -1,0 +1,1 @@
+I am an abstract class which represents a command with parameters

@@ -1,15 +1,14 @@
 {
+	"commentStamp" : "ClementMastin 4/14/2017 16:09",
+	"super" : "ClapParameterized",
 	"category" : "Clap-Core-Parameters",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
-	"commentStamp" : "",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"subcommands",
-		"flags" ],
+		"flags"
+	],
 	"name" : "ClapCommand",
-	"pools" : [
-		 ],
-	"super" : "ClapParameterized",
-	"type" : "normal" }
+	"type" : "normal"
+}

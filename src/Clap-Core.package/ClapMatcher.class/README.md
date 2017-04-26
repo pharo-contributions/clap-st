@@ -1,0 +1,1 @@
+I am an abstract class which stocks many ClapCommand

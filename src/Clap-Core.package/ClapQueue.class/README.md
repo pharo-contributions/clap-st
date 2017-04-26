@@ -1,0 +1,1 @@
+I am a ClapMatcher subclass and I stock ClapCommand classes in a stack, so when matchOn: is invoqued, it invoque the matchOn: method of the ClapCommand which is at the top of the stack.If the matching is successful, it pops the ClapCommand, else if keeps the ClapCommand at the top
