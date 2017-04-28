@@ -1,1 +1,1 @@
-I am a class which represent a flag which is accepted in a command.
+I represent a class which represent a flag which is accepted in a command.

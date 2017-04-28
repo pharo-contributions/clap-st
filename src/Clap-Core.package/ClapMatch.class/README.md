@@ -1,1 +1,1 @@
-I am an abstract class which represents a successful match.
+I represent an abstract class which represents a successful match.

@@ -1,1 +1,1 @@
-I am a class which represents a successful math with a flag.
+I represent a class which represents a successful match with a flag.

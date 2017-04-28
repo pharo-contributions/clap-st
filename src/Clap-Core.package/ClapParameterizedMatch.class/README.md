@@ -1,1 +1,1 @@
-I am an abstract class for commands with parameters matching
+I represent an abstract class for commands with parameters matching.

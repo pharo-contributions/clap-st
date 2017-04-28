@@ -1,13 +1,13 @@
-I am a class which represents all elements(flags, positionals...) of a command, i.e. all elements this command can accept.
+I represent a class which represents all elements(flags, positionals...) of a command, i.e. all elements this command can accept.
 
 To create a new instance of this class, you must write this:
-	ClapCommand withName: <commandName>
+	ClapCommand withName: <CommandName>
 	
 And after, if you want to add a flag:
-	addFlag: <flagName>
+	addFlag: ClapFlag withName: <FlagName>
 	
 If you want to add a positional:
-	addPositional: <positionalName>
+	addPositional: ClapPositional withName: <PositionalName>
 	
 If you want to add a subcommand:
 	addSubCommand: <subCommand>

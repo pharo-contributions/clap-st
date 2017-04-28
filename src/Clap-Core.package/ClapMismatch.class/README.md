@@ -1,1 +1,1 @@
-I am a class which represents a failed match
+I represent a class which represents a failed match.
