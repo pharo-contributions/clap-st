@@ -1,14 +1,11 @@
 {
-	"category" : "Clap-Tests-Unit",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
-	"instvars" : [
-		 ],
-	"name" : "ClapParameterizedMatchTest",
-	"pools" : [
-		 ],
 	"super" : "ClapMatchTest",
-	"type" : "normal" }
+	"category" : "Clap-Tests-Unit",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "ClapParameterizedMatchTest",
+	"type" : "normal"
+}
