@@ -1,5 +1,6 @@
 matching
 matchOn: aStream
-	^ aStream atEnd
-		ifTrue: [ self mismatch ]
-		ifFalse: [ self matchWord: aStream next ]
+	| word |
+	word := aStream peek.
+	word isNil ifTrue: [ ^ self mismatch ].
+	(word beginsWith: '-') ifTrue: [ ^ self mismatch ] ifFalse: [ ^ self matchWord: aStream next ]

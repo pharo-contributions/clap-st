@@ -1,0 +1,13 @@
+{
+	"instance" : {
+		"subcommandNamed:ifNone:" : " 5/23/2017 14:39:06",
+		"initialize" : " 5/23/2017 14:39:06",
+		"addFlag:" : " 5/23/2017 14:39:06",
+		"matchClass" : " 5/23/2017 14:39:06",
+		"flagNamed:ifNone:" : " 5/23/2017 14:39:06",
+		"addSubcommand:" : " 5/23/2017 14:39:06",
+		"matchOn:" : "ClementMastin 5/23/2017 14:44",
+		"atName:" : " 5/23/2017 14:39:06"
+	},
+	"class" : { }
+}
