@@ -7,4 +7,8 @@ baseline: spec
 			versionString: #stable ];
 
 		package: 'Clap-Core';
-		package: 'Clap-Tests' with: [ spec requires: #('Clap-Core' 'Mocketry') ] ]
+		package: 'Clap-Tests' with: [ spec requires: #('Clap-Core' 'Mocketry') ];
+
+		group: 'default' with: #(development);
+		group: 'core' with: #('Clap-Core');
+		group: 'development' with: #('Clap-Tests') ]
