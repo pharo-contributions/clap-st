@@ -1,5 +1,5 @@
 "
-I represent an abstract class for a command and its syntax.
+I am an abstract class that specifies a parameter that could be recognized in the input.
 "
 Class {
 	#name : #ClapParameter,

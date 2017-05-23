@@ -1,5 +1,5 @@
 "
-I represent an abstract class which represents a command with parameters.
+I am an abstract class specifying a parameter with nested parameters.
 "
 Class {
 	#name : #ClapParameterized,
