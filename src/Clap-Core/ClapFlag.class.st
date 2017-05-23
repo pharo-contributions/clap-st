@@ -1,3 +1,6 @@
+"
+I represent a class which represent a flag which is accepted in a command.
+"
 Class {
 	#name : #ClapFlag,
 	#superclass : #ClapParameterized,

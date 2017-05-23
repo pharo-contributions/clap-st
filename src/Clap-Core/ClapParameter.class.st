@@ -1,3 +1,6 @@
+"
+I represent an abstract class for a command and its syntax.
+"
 Class {
 	#name : #ClapParameter,
 	#superclass : #Object,

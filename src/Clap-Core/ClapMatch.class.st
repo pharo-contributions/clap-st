@@ -1,3 +1,6 @@
+"
+I represent an abstract class which represents a successful match.
+"
 Class {
 	#name : #ClapMatch,
 	#superclass : #Object,

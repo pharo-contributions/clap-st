@@ -1,3 +1,6 @@
+"
+I represent an abstract class for commands with parameters matching.
+"
 Class {
 	#name : #ClapParameterizedMatch,
 	#superclass : #ClapMatch,
