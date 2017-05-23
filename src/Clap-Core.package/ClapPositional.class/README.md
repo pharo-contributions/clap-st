@@ -1,1 +1,1 @@
-I represent a class which represent a positional which is accepted in a command.
+I represent a positional parameter, i.e. that matches based on its position in the input instead of on a keyword.

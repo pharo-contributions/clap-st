@@ -1,1 +1,1 @@
-I represent a successful match with a positional.
+I represent the successful match of a positional parameter.

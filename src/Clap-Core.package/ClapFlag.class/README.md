@@ -1,1 +1,3 @@
-I represent a class which represent a flag which is accepted in a command.
+I represent a flag.
+
+Flags can appear in any order in the input and are recognized by their form, starting with dashes (e.g. `--foo` in long form or `-f` in short form).

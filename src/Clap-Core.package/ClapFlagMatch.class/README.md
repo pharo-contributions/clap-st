@@ -1,1 +1,1 @@
-I represent a class which represents a successful match with a flag.
+I represent a successful match of a flag and its arguments, if any.
