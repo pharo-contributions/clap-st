@@ -1,0 +1,1 @@
+I represent a class which represent a positional which is accepted in a command.

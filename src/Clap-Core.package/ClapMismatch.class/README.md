@@ -1,0 +1,1 @@
+I represent a class which represents a failed match.
