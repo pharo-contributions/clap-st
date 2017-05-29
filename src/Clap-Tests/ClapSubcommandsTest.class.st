@@ -69,12 +69,8 @@ ClapSubcommandsTest >> testRootPositionalfterSubcommand [
 	argv := ClapContext on: #('clap' 'this' '--directory' 'foo/bar/baz').
 	match := clap matchOn: argv.
 	
-	match should not be isMismatch.
-	match should be includesKey: 'directory'.
-	match should be includesKey: 'this'.
-	match should not be includesKey: 'that'.
-	((match atName: 'directory') atName: 'DIR') value should equal: 'foo/bar/baz'.
-	(match at: dirFlag) positionalValues should equal: #( 'foo/bar/baz' )
+	match should be isMismatch.
+	
 
 ]
 
@@ -103,7 +99,6 @@ ClapSubcommandsTest >> testWrongCommandMismatches [
 
 { #category : #running }
 ClapSubcommandsTest >> testWrongFlagMismatches [
-	<expectedFailure "matching stops before the flag and declares success">
 	| argv match |
 	argv := ClapContext on: #('clap' '-f' 'bar/baz/qux' 'this').
 	match := clap matchOn: argv.

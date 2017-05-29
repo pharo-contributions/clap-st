@@ -30,11 +30,12 @@ ClapCommandTest >> testMatchesWithSingleFlag [
 	argv stub peek willReturnValueFrom: #('foo' '--bar').
 	argv stub next willReturnValueFrom: #('foo' '--bar').
 	argv stub atEnd willReturn: true.
-	argv stub atEnd willReturn: false; use: 3.
+	argv stub atEnd willReturn: false; use: 1.
 	
 	match := subject matchOn: argv.
 	
 	argv should receive next twice.
+	argv should receive atEnd twice.
 	match should not be isMismatch.
 	match should be includesKey: 'bar'
 ]
@@ -46,11 +47,12 @@ ClapCommandTest >> testMatchesWithSinglePositional [
 	argv stub peek willReturnValueFrom: #('foo' 'valueforbar').
 	argv stub next willReturnValueFrom: #('foo' 'valueforbar').
 	argv stub atEnd willReturn: true.
-	argv stub atEnd willReturn: false; use: 3.
+	argv stub atEnd willReturn: false; use: 2.
 	
 	match := subject matchOn: argv.
 	
 	argv should receive next twice.
+	argv should receive atEnd exactly: 3.
 	match should not be isMismatch.
 	match word should equal: 'foo'.
 	match should be includesKey: 'bar'. "FIXME not sure about the dictionary protocol"
@@ -64,13 +66,28 @@ ClapCommandTest >> testMatchesWithSingleSubcommand [
 	argv stub peek willReturnValueFrom: #('foo' 'bar').
 	argv stub next willReturnValueFrom: #('foo' 'bar').
 	argv stub atEnd willReturn: true.
-	argv stub atEnd willReturn: false; use: 3.
+	argv stub atEnd willReturn: false; use: 1.
 	
 	match := subject matchOn: argv.
 	
 	argv should receive next twice.
+	argv should receive atEnd exactly: 3.
 	match should not be isMismatch.
 	match should be includesKey: 'bar'
+]
+
+{ #category : #tests }
+ClapCommandTest >> testMatchesWithWrongFlag [
+	| match |
+	subject addFlag: (ClapFlag withName: 'bar').
+	argv stub peek willReturnValueFrom: #('foo' '--methods' 'Object').
+	argv stub next willReturnValueFrom: #('foo' '--methods' 'Object').
+	argv stub atEnd willReturn: false.
+	
+	match := subject matchOn: argv.
+	
+	match should be isMismatch.
+
 ]
 
 { #category : #tests }
