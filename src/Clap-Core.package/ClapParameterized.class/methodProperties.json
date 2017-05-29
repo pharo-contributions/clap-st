@@ -1,0 +1,12 @@
+{
+	"instance" : {
+		"atName:" : " 5/23/2017 14:39:06",
+		"initialize" : " 5/23/2017 14:39:06",
+		"addPositional:" : " 5/23/2017 14:39:06",
+		"positionals" : " 5/23/2017 14:39:06",
+		"positionalNamed:ifNone:" : " 5/23/2017 14:39:06"
+	},
+	"class" : {
+		"isAbstract" : " 5/23/2017 14:39:06"
+	}
+}

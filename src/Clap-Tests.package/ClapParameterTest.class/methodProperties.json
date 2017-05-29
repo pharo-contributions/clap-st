@@ -1,0 +1,11 @@
+{
+	"instance" : {
+		"testCanonicalName" : " 5/23/2017 14:39:10",
+		"testMismatchesAtEnd" : " 5/23/2017 14:39:10",
+		"setUp" : " 5/23/2017 14:39:10",
+		"classToTest" : " 5/23/2017 14:39:10"
+	},
+	"class" : {
+		"isAbstract" : " 5/23/2017 14:39:10"
+	}
+}

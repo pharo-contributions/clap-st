@@ -1,19 +1,18 @@
 {
-	"category" : "Clap-Tests-Unit",
-	"classinstvars" : [
-		 ],
-	"classvars" : [
-		 ],
 	"commentStamp" : "",
+	"super" : "TestCase",
+	"category" : "Clap-Tests-Unit",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
 	"instvars" : [
 		"subject",
 		"argv",
 		"okMatch",
 		"mismatch",
 		"flagOne",
-		"flagTwo" ],
+		"flagTwo"
+	],
 	"name" : "ClapAlternativeTest",
-	"pools" : [
-		 ],
-	"super" : "TestCase",
-	"type" : "normal" }
+	"type" : "normal"
+}
