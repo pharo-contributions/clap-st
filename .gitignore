@@ -1,4 +1,7 @@
-Pharo.changes
-Pharo.image
+*.changes
+*.image
+pharo
+pharo-ui
+pharo-vm/
 github-cache/
 pharo-local/
