@@ -49,6 +49,15 @@ ClapSubcommandsTest >> testParameterizedFlagValue [
 ]
 
 { #category : #running }
+ClapSubcommandsTest >> testRootPositionalAfterSubcommand [
+	| argv match |
+	argv := ClapContext on: #('clap' 'this' '--directory' 'foo/bar/baz').
+	match := clap matchOn: argv.
+	
+	match should be isMismatch.
+]
+
+{ #category : #running }
 ClapSubcommandsTest >> testRootPositionalBeforeSubcommand [
 	| argv match |
 	argv := ClapContext on: #('clap' '--directory' 'foo/bar/baz' 'this').
@@ -60,17 +69,6 @@ ClapSubcommandsTest >> testRootPositionalBeforeSubcommand [
 	match should not be includesKey: 'that'.
 	((match atName: 'directory') atName: 'DIR') value should equal: 'foo/bar/baz'.
 	(match at: dirFlag) positionalValues should equal: #( 'foo/bar/baz' )
-
-]
-
-{ #category : #running }
-ClapSubcommandsTest >> testRootPositionalfterSubcommand [
-	| argv match |
-	argv := ClapContext on: #('clap' 'this' '--directory' 'foo/bar/baz').
-	match := clap matchOn: argv.
-	
-	match should be isMismatch.
-	
 
 ]
 
