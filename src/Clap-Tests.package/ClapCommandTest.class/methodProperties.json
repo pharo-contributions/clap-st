@@ -1,12 +1,11 @@
 {
 	"instance" : {
-		"testMatchesWithSingleFlag" : "ClementMastin 5/23/2017 15:04",
-		"testMismatchesDifferentAlias" : " 5/23/2017 14:39:10",
-		"testMatchesWithSinglePositional" : "ClementMastin 5/23/2017 15:07",
-		"testMatchesWithSingleSubcommand" : "ClementMastin 5/23/2017 15:09",
-		"classToTest" : " 5/23/2017 14:39:10",
-		"testMatchesWithWrongFlag" : "ClementMastin 5/23/2017 15:35",
-		"testMatches" : " 5/23/2017 14:39:10"
+		"testMatchesWithSingleFlag" : " 5/30/2017 14:37:40",
+		"testMismatchesDifferentAlias" : " 5/30/2017 14:37:40",
+		"testMatchesWithSinglePositional" : " 5/30/2017 14:37:40",
+		"testMatchesWithSingleSubcommand" : " 5/30/2017 14:37:40",
+		"classToTest" : " 5/30/2017 14:37:40",
+		"testMatches" : " 5/30/2017 14:37:40"
 	},
 	"class" : { }
 }

@@ -1,13 +1,13 @@
 {
 	"instance" : {
-		"subcommandNamed:ifNone:" : " 5/23/2017 14:39:06",
-		"initialize" : " 5/23/2017 14:39:06",
-		"addFlag:" : " 5/23/2017 14:39:06",
-		"matchClass" : " 5/23/2017 14:39:06",
-		"flagNamed:ifNone:" : " 5/23/2017 14:39:06",
-		"addSubcommand:" : " 5/23/2017 14:39:06",
-		"matchOn:" : "ClementMastin 5/23/2017 14:44",
-		"atName:" : " 5/23/2017 14:39:06"
+		"subcommandNamed:ifNone:" : " 5/30/2017 14:37:35",
+		"initialize" : " 5/30/2017 14:37:35",
+		"addFlag:" : " 5/30/2017 14:37:35",
+		"matchClass" : " 5/30/2017 14:37:35",
+		"flagNamed:ifNone:" : " 5/30/2017 14:37:35",
+		"addSubcommand:" : " 5/30/2017 14:37:35",
+		"matchOn:" : " 5/30/2017 14:37:35",
+		"atName:" : " 5/30/2017 14:37:35"
 	},
 	"class" : { }
 }

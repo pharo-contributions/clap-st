@@ -1,6 +1,6 @@
 {
 	"commentStamp" : "",
-	"super" : "ClapParameterTest",
+	"super" : "ClapAbstractFlagTest",
 	"category" : "Clap-Tests-Unit",
 	"classinstvars" : [ ],
 	"pools" : [ ],

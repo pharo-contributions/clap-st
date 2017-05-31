@@ -1,11 +1,13 @@
 {
-	"commentStamp" : "DamienPollet 5/23/2017 15:26",
-	"super" : "ClapParameterized",
-	"category" : "Clap-Core-Parameters",
-	"classinstvars" : [ ],
-	"pools" : [ ],
+	"classtraitcomposition" : "TFlag classTrait",
 	"classvars" : [ ],
 	"instvars" : [ ],
 	"name" : "ClapFlag",
-	"type" : "normal"
+	"commentStamp" : "DamienPollet 5/23/2017 15:26",
+	"super" : "ClapAbstractFlag",
+	"traitcomposition" : "TFlag",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "Clap-Core-Parameters"
 }

@@ -1,0 +1,1 @@
+I represent an abstract class for flags

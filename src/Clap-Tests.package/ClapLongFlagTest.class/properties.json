@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ClapAbstractFlagTest",
+	"category" : "Clap-Tests-Unit",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "ClapLongFlagTest",
+	"type" : "normal"
+}

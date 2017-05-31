@@ -10,6 +10,7 @@ matchOn: aStream
 		addAll: subcommands;
 		add: (ClapQueue withAll: positionals).
 
-	[ aStream atEnd ] whileFalse: [ subMatch := args matchOn: aStream. subMatch isMismatch ifTrue: [ ^ self mismatch ]. subMatch recordIn: match ].
+	[ subMatch := args matchOn: aStream. subMatch isMismatch ]
+		whileFalse: [ subMatch recordIn: match ].
 
 	^ match

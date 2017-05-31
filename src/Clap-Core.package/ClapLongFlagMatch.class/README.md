@@ -1,0 +1,1 @@
+I represent a successful match of a long flag and its arguments, if any.

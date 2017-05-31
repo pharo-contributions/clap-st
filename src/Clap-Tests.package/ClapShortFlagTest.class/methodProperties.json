@@ -1,0 +1,8 @@
+{
+	"instance" : {
+		"testMatchesShortForm" : "ClementMastin 5/30/2017 15:50",
+		"testLongFormMismatch" : "ClementMastin 5/31/2017 09:22",
+		"classToTest" : "ClementMastin 5/30/2017 15:50"
+	},
+	"class" : { }
+}

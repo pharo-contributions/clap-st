@@ -1,3 +1,0 @@
-accessing
-longForm
-	^ '--' , self canonicalName

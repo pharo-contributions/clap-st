@@ -1,9 +1,8 @@
 {
 	"instance" : {
-		"testMatchesLongForm" : " 5/23/2017 14:39:10",
-		"testMatchesShortForm" : " 5/23/2017 14:39:10",
-		"testDefaultMeaningNoArguments" : " 5/23/2017 14:39:10",
-		"classToTest" : " 5/23/2017 14:39:10"
+		"testMatchesLongForm" : " 5/30/2017 14:37:40",
+		"testMatchesShortForm" : " 5/30/2017 14:37:40",
+		"classToTest" : " 5/30/2017 14:37:40"
 	},
 	"class" : { }
 }
