@@ -4,19 +4,17 @@ For example,  imagine you have two ways to execute the command eval with the hel
 
 To create the first way:
 	f1 := ClapFlag withName: 'h'
-	
+
 To create the second one:
 	f2 := ClapFlag withName: 'help'
-	
+
 To create the ClapAlternative:
 	alternative := ClapAlternative new add: f1; add: f2
-	
+
 And when you create your command:
 	(ClapCommand withName: 'eval')
 		addFlag: alternative;
 		addPositional: (ClapPositional withName: 'exp')
-
-	
 		
 This class stores these ways in an OrderedCollection called alternatives, so the first instance you add to the ClapAlternative will be evaluated first and so forth when the matchOn: method is invoked.
 

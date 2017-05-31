@@ -6,9 +6,10 @@ testMatchesWithSinglePositional
 	argv stub next willReturnValueFrom: #('foo' 'valueforbar').
 	argv stub atEnd willReturn: true.
 	argv stub atEnd willReturn: false; use: 3.
-	
+
 	match := subject matchOn: argv.
-	
+
+	argv should receive atEnd exactly: 4.
 	argv should receive next twice.
 	match should not be isMismatch.
 	match word should equal: 'foo'.
