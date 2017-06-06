@@ -1,0 +1,1 @@
+I represent a set of methods to access to the long or short form of a flag
