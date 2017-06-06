@@ -1,0 +1,1 @@
+I represent a class which represents the state of a flag which accepts only long form.

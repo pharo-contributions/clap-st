@@ -1,0 +1,1 @@
+I represent an abstract class which represents the state of a flag

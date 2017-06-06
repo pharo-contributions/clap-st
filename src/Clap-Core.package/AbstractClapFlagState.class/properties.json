@@ -1,13 +1,13 @@
 {
-	"commentStamp" : "ClementMastin 6/6/2017 12:02",
-	"super" : "ClapParameterized",
+	"commentStamp" : "ClementMastin 6/6/2017 11:57",
+	"super" : "Object",
 	"category" : "Clap-Core-Parameters",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"state"
+		"name"
 	],
-	"name" : "ClapFlag",
+	"name" : "AbstractClapFlagState",
 	"type" : "normal"
 }

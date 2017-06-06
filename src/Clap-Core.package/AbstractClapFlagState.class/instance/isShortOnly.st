@@ -1,0 +1,3 @@
+accessing
+isShortOnly
+	^ self subclassResponsibility

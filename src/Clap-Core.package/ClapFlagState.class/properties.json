@@ -1,0 +1,13 @@
+{
+	"classtraitcomposition" : "TFlagStateTrait classTrait",
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "ClapFlagState",
+	"commentStamp" : "ClementMastin 6/6/2017 12:10",
+	"super" : "AbstractClapFlagState",
+	"traitcomposition" : "TFlagStateTrait",
+	"type" : "normal",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"category" : "Clap-Core-Parameters"
+}
