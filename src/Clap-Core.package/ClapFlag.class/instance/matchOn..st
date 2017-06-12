@@ -2,7 +2,7 @@ matching
 matchOn: aStream
 	| word |
 	word := aStream peek.
-	^ (word = self shortForm or: [ word = self longForm ])
+	^ (identifiers includes: word)
 		ifTrue: [ | match |
 			match := self matchWord: aStream next.
 			(ClapQueue withAll: positionals)
