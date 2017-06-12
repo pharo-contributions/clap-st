@@ -7,4 +7,6 @@ If you want to add an identifier for your flag:
 	
 If you want to remove an identifier:
 	flag removeIdentifier: <aName>
-And it raises an exception if the flag doesn't contain the identifier
+And it raises an exception if the flag doesn't contain the identifier.
+
+If your flag doesn't contain identifiers and you send to it the matchOn: message, it will raise an exception.
