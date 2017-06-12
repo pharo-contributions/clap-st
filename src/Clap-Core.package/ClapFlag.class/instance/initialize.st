@@ -1,4 +1,4 @@
 initialization
 initialize
 	super initialize.
-	identifiers := Set newFrom: #()
+	alias := Set newFrom: #()

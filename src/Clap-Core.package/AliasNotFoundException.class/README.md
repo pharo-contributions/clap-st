@@ -1,0 +1,1 @@
+I am AliasNotFoundException, an Error signaled when you try to remove an alias which doesn't exist in a flag

@@ -1,3 +1,3 @@
 accessing
 shortForm
-	^ '-' , self shortName
+	^ shortForm

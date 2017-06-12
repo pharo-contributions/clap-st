@@ -1,11 +1,11 @@
 {
-	"commentStamp" : "",
+	"commentStamp" : "ClementMastin 6/12/2017 14:38",
 	"super" : "Error",
 	"category" : "Clap-Core-Exception",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "NoIdentifiers",
+	"name" : "AliasNotFoundException",
 	"type" : "normal"
 }

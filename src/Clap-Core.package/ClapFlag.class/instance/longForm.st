@@ -1,3 +1,3 @@
 accessing
 longForm
-	^ '--' , self canonicalName
+	^ longForm

@@ -1,7 +1,7 @@
 tests
-testRemoveIdentifiers
+testRemoveLongForm
 	| match |
-	subject removeIdentifier: '--foo'.
+	subject longForm: ''.
 	argv stub peek willReturn: '--foo'.
 	argv stub next willReturn: '--foo'.
 	match := subject matchOn: argv.

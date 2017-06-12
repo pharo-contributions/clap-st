@@ -1,11 +1,11 @@
 {
-	"commentStamp" : "",
+	"commentStamp" : "ClementMastin 6/12/2017 14:40",
 	"super" : "Error",
 	"category" : "Clap-Core-Exception",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [ ],
-	"name" : "IdentifierNotFound",
+	"name" : "ShortInsteadOfLongException",
 	"type" : "normal"
 }

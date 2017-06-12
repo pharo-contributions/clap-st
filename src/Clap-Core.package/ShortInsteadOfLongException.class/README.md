@@ -1,0 +1,1 @@
+I am ShortInsteadOfLongException, an Error signaled when you try to put the long form of a flag under a short form
