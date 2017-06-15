@@ -1,4 +1,5 @@
 initialization
 initialize
 	super initialize.
-	alias := Set newFrom: #()
+	shortForm := ShortForm new.
+	longForm := LongForm new
