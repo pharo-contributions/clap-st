@@ -1,3 +1,3 @@
 adding
-add: aWord
-	self subclassResponsibility 
+add: words
+	self subclassResponsibility

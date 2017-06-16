@@ -7,8 +7,7 @@
 	"classvars" : [ ],
 	"instvars" : [
 		"shortForm",
-		"longForm",
-		"alias"
+		"longForm"
 	],
 	"name" : "ClapFlag",
 	"type" : "normal"

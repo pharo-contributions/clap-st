@@ -1,0 +1,3 @@
+accessing
+longName
+	^ '--' , self canonicalName 

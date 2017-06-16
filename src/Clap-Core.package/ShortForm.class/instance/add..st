@@ -1,5 +1,7 @@
 adding
-add: aWord
-	(aWord matchesRegex: '(-|\+)[:alpha:]')
-		ifFalse: [ LongInsteadOfShortException signal ].
-		aliases add: aWord
+add: words
+	words
+		do: [ :w | 
+			(w matchesRegex: '(-|\+)[[:alpha:]]*')
+				ifFalse: [ LongInsteadOfShortException signal ].
+			self add: w ]
