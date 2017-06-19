@@ -1,0 +1,3 @@
+private
+stopMatching
+	^ self mismatch
