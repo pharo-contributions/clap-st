@@ -1,3 +1,0 @@
-accessing
-peek
-	^ arguments peek

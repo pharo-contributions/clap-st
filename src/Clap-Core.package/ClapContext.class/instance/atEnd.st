@@ -1,3 +1,0 @@
-testing
-atEnd
-	^ arguments atEnd

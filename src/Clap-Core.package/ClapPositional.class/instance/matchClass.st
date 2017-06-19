@@ -1,3 +1,0 @@
-accessing
-matchClass
-	^ ClapPositionalMatch

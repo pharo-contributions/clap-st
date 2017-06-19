@@ -1,1 +1,0 @@
-I am an abstract class specifying a parameter with nested parameters.

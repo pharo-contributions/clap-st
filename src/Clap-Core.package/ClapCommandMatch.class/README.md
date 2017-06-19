@@ -1,1 +1,0 @@
-I represent the successful match of a (sub)command, and its arguments if any.
