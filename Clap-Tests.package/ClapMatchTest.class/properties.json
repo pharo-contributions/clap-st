@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "TestCase",
+	"category" : "Clap-Tests-Unit",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"subject",
+		"specification",
+		"word"
+	],
+	"name" : "ClapMatchTest",
+	"type" : "normal"
+}

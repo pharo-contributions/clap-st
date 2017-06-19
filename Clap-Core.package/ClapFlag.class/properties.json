@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "DamienPollet 5/23/2017 15:26",
+	"super" : "ClapParameterized",
+	"category" : "Clap-Core-Parameters",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "ClapFlag",
+	"type" : "normal"
+}

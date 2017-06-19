@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "",
+	"super" : "TestCase",
+	"category" : "Clap-Tests-Integration",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"hello"
+	],
+	"name" : "ClapHelloWorldTest",
+	"type" : "normal"
+}

@@ -1,0 +1,1 @@
+I represent a ClapMatcher subclass and I store in a stack all the positional parameters of a command according to which order you want it should be tested. When the method matchOn: is invoked, the element at the top of the stack will be tested and if its matched, its removed, else, it stays at the top. 

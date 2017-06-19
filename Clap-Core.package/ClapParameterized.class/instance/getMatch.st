@@ -1,0 +1,3 @@
+private
+getMatch
+	^ self subclassResponsibility 

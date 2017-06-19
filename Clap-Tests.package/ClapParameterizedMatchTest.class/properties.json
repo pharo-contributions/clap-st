@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ClapMatchTest",
+	"category" : "Clap-Tests-Unit",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "ClapParameterizedMatchTest",
+	"type" : "normal"
+}

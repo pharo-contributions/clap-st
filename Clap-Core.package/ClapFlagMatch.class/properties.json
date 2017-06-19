@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "DamienPollet 5/23/2017 15:15",
+	"super" : "ClapParameterizedMatch",
+	"category" : "Clap-Core-Matches",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "ClapFlagMatch",
+	"type" : "normal"
+}
