@@ -7,6 +7,6 @@ matchOn: aStream
 		whileFalse: [ | subMatch |
 			subMatch := args matchOn: aStream.
 			subMatch isMismatch
-				ifTrue: [ ^ self getMatch ].
+				ifTrue: [ ^ self stopMatching ].
 			subMatch recordIn: match ].
 	^ match

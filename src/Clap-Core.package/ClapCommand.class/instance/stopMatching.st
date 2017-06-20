@@ -1,3 +1,3 @@
 private
-getMatch
+stopMatching
 	^ self mismatch
