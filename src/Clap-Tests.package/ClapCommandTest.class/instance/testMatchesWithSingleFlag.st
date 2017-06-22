@@ -9,7 +9,6 @@ testMatchesWithSingleFlag
 		willReturn: false;
 		use: 1.
 	match := subject matchOn: argv.
-	"argv should receive next twice."
-	"argv should receive atEnd twice."
+	argv should receive next twice.
 	match should not be isMismatch.
 	match should be includesKey: 'bar'
