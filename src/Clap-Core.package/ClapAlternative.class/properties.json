@@ -6,7 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"alternatives"
+		"alternatives",
+		"compulsories"
 	],
 	"name" : "ClapAlternative",
 	"type" : "normal"

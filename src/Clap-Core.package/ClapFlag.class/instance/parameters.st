@@ -1,3 +1,3 @@
 accessing
 parameters
-	^ ClapQueue withAll: positionals
+	^ super parameters add: (ClapQueue withAll: positionals)

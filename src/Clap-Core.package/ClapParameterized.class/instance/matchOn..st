@@ -1,7 +1,9 @@
 matching
 matchOn: aStream
 	| args |
-	(self matchCanonicalName: aStream) ifTrue: [ match := self matchWord: aStream next] ifFalse: [ ^ self mismatch ].
+	(self matchCanonicalName: aStream)
+		ifTrue: [ match := self matchWord: aStream next ]
+		ifFalse: [ ^ self mismatch ].
 	args := self parameters.
 	[ aStream atEnd ]
 		whileFalse: [ | subMatch |
@@ -9,4 +11,5 @@ matchOn: aStream
 			subMatch isMismatch
 				ifTrue: [ ^ self stopMatching ].
 			subMatch recordIn: match ].
+	args hasCompulsories ifTrue: [ ^ self mismatch ].
 	^ match
