@@ -1,3 +1,4 @@
 initialization
 initialize
-	positionals := OrderedCollection new
+	positionals := OrderedCollection new.
+	compulsories := OrderedCollection new

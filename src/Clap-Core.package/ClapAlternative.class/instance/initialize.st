@@ -1,3 +1,4 @@
 initialization
 initialize
-	alternatives := OrderedCollection new
+	alternatives := OrderedCollection new.
+	compulsories := OrderedCollection new

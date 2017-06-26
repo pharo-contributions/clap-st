@@ -1,0 +1,1 @@
+I am a class which represent a compulsory parameter in a command. I use the decorator pattern to put compulsory an argument

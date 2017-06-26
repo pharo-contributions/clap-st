@@ -1,13 +1,14 @@
 {
 	"commentStamp" : "DamienPollet 5/23/2017 15:31",
-	"super" : "ClapParameter",
+	"super" : "ClapNoCompulsory",
 	"category" : "Clap-Core-Parameters",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
 		"positionals",
-		"match"
+		"match",
+		"compulsories"
 	],
 	"name" : "ClapParameterized",
 	"type" : "normal"

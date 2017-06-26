@@ -1,3 +1,3 @@
 accessing
 parameters
-	^ self subclassResponsibility 
+	^ ClapAlternative new addCompulsories: compulsories 

@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "ClementMastin 6/26/2017 15:37",
+	"super" : "ClapParameter",
+	"category" : "Clap-Core-Parameters",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"argument"
+	],
+	"name" : "ClapCompulsory",
+	"type" : "normal"
+}
