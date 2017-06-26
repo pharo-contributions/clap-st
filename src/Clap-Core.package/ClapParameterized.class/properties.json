@@ -6,7 +6,8 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"positionals"
+		"positionals",
+		"match"
 	],
 	"name" : "ClapParameterized",
 	"type" : "normal"
