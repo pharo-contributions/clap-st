@@ -1,3 +1,3 @@
 doc
 docName
-	^ '[' , (parameter canonicalName) , ']'
+	^ '[' , parameter docName , ']'
