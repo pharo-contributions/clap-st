@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ClapCommand",
+	"category" : "Clap-Core-Main-Exemple",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "Main",
+	"type" : "normal"
+}

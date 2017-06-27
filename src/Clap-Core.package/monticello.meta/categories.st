@@ -1,4 +1,5 @@
 SystemOrganization addCategory: #'Clap-Core'!
+SystemOrganization addCategory: 'Clap-Core-Main-Exemple'!
 SystemOrganization addCategory: 'Clap-Core-Matches'!
 SystemOrganization addCategory: 'Clap-Core-Parameters'!
 SystemOrganization addCategory: 'Clap-Core-Support'!

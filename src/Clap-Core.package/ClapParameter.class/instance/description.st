@@ -1,0 +1,3 @@
+doc
+description
+	^ self subclassResponsibility 
