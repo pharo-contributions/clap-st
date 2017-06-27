@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ClapFlag",
+	"category" : "Clap-Core-Main-Exemple",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "STONFlag",
+	"type" : "normal"
+}

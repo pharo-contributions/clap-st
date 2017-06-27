@@ -1,0 +1,14 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Clap-Core-Parameters",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"groupName",
+		"parameters"
+	],
+	"name" : "ClapGroup",
+	"type" : "normal"
+}
