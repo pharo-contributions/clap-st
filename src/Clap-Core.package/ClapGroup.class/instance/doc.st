@@ -1,10 +1,7 @@
 doc
 doc
-	Stdio stdout
-		<< groupName;
-		lf.
-	Stdio stdout
-		<< ':';
-		lf;
-		crlf.
-	parameters do: [ :p | p doc.Stdio stdout crlf ]
+	parameters
+		do: [ :p | 
+			Stdio stdout << p docName.
+			Stdio stdout << '    '.
+			Stdio stdout << p description;lf;crlf ]
