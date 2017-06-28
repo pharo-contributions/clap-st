@@ -1,14 +1,13 @@
 {
 	"commentStamp" : "",
-	"super" : "Object",
+	"super" : "ClapCategory",
 	"category" : "Clap-Core-Parameters",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"optional",
-		"name"
+		"positional"
 	],
-	"name" : "ClapCategory",
+	"name" : "ClapPositionalGroup",
 	"type" : "normal"
 }
