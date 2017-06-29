@@ -2,8 +2,9 @@ doc
 doc
 	groupList
 		do: [ :g | 
-			g doc.
+			Stdio stdout << g docName.
 			Stdio stdout << ' ' ].
 	Stdio stdout
-		<< '';lf;
+		<< '';
+		lf;
 		crlf

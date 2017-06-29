@@ -1,0 +1,3 @@
+setting
+asOptional
+	optional := true

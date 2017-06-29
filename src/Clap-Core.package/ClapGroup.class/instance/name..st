@@ -1,3 +1,3 @@
 setting
 name: aString
-	groupName := aString
+	name := aString

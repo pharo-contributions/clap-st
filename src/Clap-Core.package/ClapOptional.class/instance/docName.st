@@ -1,3 +1,0 @@
-doc
-docName
-	^ '[' , parameter docName , ']'
