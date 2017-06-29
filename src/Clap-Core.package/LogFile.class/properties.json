@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "",
+	"super" : "ClapPositional",
+	"category" : "Clap-Core-Main-Exemple",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "LogFile",
+	"type" : "normal"
+}
