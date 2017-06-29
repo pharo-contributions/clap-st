@@ -4,7 +4,4 @@ doc
 		do: [ :g | 
 			Stdio stdout << g docName.
 			Stdio stdout << ' ' ].
-	Stdio stdout
-		<< '';
-		lf;
-		crlf
+		Stdio stdout lf
