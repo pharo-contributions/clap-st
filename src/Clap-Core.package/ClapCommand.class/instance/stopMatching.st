@@ -1,3 +1,3 @@
 private
 stopMatching
-	^ self mismatch
+	^ self mismatch mustStop: true
