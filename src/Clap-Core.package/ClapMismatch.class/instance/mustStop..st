@@ -1,3 +1,3 @@
 setting
 mustStop: aBoolean
-	mustStop := aBoolean
+	stop := aBoolean

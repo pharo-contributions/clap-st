@@ -1,4 +1,4 @@
 initialization
 initialize
 	super initialize.
-	mustStop := false
+	stop := false

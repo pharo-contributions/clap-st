@@ -6,7 +6,7 @@
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"mustStop"
+		"stop"
 	],
 	"name" : "ClapMismatch",
 	"type" : "normal"
