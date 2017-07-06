@@ -1,3 +1,0 @@
-setting
-asOptional
-	optional := true
