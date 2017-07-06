@@ -1,3 +1,6 @@
 doc
 docName
-	^ self shortForm , ',' , self longForm
+	| s |
+	s := self longForm , ',' , self shortForm.
+	positionals do: [ :p | s := s , ' ' , p docName ].
+	^ s

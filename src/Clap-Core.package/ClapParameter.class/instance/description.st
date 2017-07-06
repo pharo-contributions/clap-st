@@ -1,3 +1,3 @@
-doc
+accessing
 description
-	^ self subclassResponsibility 
+	^ description

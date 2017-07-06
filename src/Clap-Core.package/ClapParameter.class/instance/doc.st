@@ -1,4 +1,3 @@
 doc
 doc
-	^ self subclassResponsibility 
-	
+	Stdio << self docName;<< '    ';<< self description;lf

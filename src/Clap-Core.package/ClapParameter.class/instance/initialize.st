@@ -1,3 +1,3 @@
 initialization
 initialize
-	optional := false
+	description := ''

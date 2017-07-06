@@ -1,3 +1,0 @@
-doc
-docAsOptional
-	^ '[' , self name ,  ']'
