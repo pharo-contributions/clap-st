@@ -1,7 +1,7 @@
 {
 	"commentStamp" : "",
 	"super" : "ClapCommand",
-	"category" : "Clap-Core-Main-Exemple",
+	"category" : "Clap-Core-DocExample",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
