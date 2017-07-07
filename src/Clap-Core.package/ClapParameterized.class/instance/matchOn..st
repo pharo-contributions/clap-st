@@ -1,12 +1,19 @@
 matching
 matchOn: aStream
 	| args |
-	(self matchCanonicalName: aStream) ifTrue: [ match := self matchWord: aStream next] ifFalse: [ ^ self mismatch ].
+	(self matchCanonicalName: aStream)
+		ifTrue: [ match := self matchWord: aStream next ]
+		ifFalse: [ ^ self mismatch ].
 	args := self parameters.
+	pos := positionals deepCopy.
 	[ aStream atEnd ]
-		whileFalse: [ | subMatch |
-			subMatch := args matchOn: aStream.
-			subMatch isMismatch
-				ifTrue: [ ^ self stopMatching ].
-			subMatch recordIn: match ].
+		whileFalse: [ | submatch |
+			(self looksLikeFlag: aStream)
+				ifTrue: [ submatch := self matchFlag: aStream ]
+				ifFalse: [ (self looksLikeCommand: aStream)
+						ifTrue: [ submatch := self matchCommand: aStream ]
+						ifFalse: [ submatch := self matchPositional: aStream ] ].
+			submatch isMismatch
+				ifTrue: [ ^ self stopMatching  ].
+			submatch recordIn: match ].
 	^ match

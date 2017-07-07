@@ -1,3 +1,3 @@
 accessing
-atName: canonicalName
-	^ self at: (specification atName: canonicalName)
+atName: aCanonicalName
+	^ arguments detect: [ :arg | arg specification canonicalName = aCanonicalName ]

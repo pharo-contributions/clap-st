@@ -1,0 +1,3 @@
+matching
+looksLikeCommand: aStream
+	^ false
