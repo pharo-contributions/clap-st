@@ -1,13 +1,13 @@
 {
-	"commentStamp" : "DamienPollet 5/23/2017 15:30",
+	"commentStamp" : "DamienPollet 7/12/2017 16:55",
 	"super" : "ClapParameterized",
 	"category" : "Clap-Core-Parameters",
 	"classinstvars" : [ ],
 	"pools" : [ ],
 	"classvars" : [ ],
 	"instvars" : [
-		"subcommands",
-		"flags"
+		"flags",
+		"subcommands"
 	],
 	"name" : "ClapCommand",
 	"type" : "normal"

@@ -1,0 +1,15 @@
+{
+	"commentStamp" : "",
+	"super" : "Object",
+	"category" : "Clap-Core-Support",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"parameter",
+		"arguments",
+		"currentMatch"
+	],
+	"name" : "ClapParser",
+	"type" : "normal"
+}
