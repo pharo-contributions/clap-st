@@ -1,1 +1,1 @@
-I represent a positional parameter, i.e. that matches based on its position in the input instead of on a keyword.
+I represent a positional parameter, i.e. a single word recognized by its position in the input rather than because it follows a keyword.

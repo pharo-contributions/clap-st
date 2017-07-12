@@ -1,1 +1,1 @@
-I am an abstract class that specifies a parameter that could be recognized in the input.
+I am an abstract class that specifies a command line "parameter", by which we mean a unit of meaning rather than a single word. My subclasses implement the various kinds of parameters.

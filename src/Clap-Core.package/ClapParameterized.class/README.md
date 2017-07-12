@@ -1,1 +1,1 @@
-I am an abstract class specifying a parameter with nested parameters.
+I am an abstract class for parameters that accept positionals.
