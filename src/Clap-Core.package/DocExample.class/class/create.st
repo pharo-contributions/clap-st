@@ -1,7 +1,7 @@
 instance creation
 create
 	| main subcommand subsubcommand ston utf |
-	main := self withName: 'main'.
+	main := ClapCommand withName: 'main'.
 	ston := (ClapFlag withName: 'ston') addPositional: (ClapPositional withName: 'object').
 	ston description: 'Prints at STON format'.
 	main addFlag: ston.

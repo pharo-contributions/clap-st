@@ -8,8 +8,7 @@
 	"instvars" : [
 		"subcommands",
 		"flags",
-		"patterns",
-		"groups"
+		"patterns"
 	],
 	"name" : "ClapCommand",
 	"type" : "normal"

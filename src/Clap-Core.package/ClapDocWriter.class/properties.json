@@ -1,0 +1,13 @@
+{
+	"commentStamp" : "ClementMastin 7/17/2017 11:19",
+	"super" : "Object",
+	"category" : "Clap-Core-DocWriter",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"stream"
+	],
+	"name" : "ClapDocWriter",
+	"type" : "normal"
+}
