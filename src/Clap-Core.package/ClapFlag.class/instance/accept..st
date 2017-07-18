@@ -1,3 +1,3 @@
 doc
 accept: aVisitor
-	^ aVisitor printFlag: self
+	^ aVisitor visitFlag: self

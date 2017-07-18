@@ -1,3 +1,3 @@
 doc
 accept: aVisitor
-	^ aVisitor printPositional: self
+	^ aVisitor visitPositional: self
