@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "ClementMastin 7/18/2017 14:31",
+	"super" : "Object",
+	"category" : "Clap-Core-DocExample",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "SimpleCommandDocExample",
+	"type" : "normal"
+}

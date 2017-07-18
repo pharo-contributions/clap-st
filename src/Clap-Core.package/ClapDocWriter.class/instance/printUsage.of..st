@@ -1,5 +1,6 @@
 doc
 printUsage: aString of: aCommand
+	"Prints the usage category, i.e all the possible syntaxes"
 	| aux |
 	aux := aCommand accept: self.
 	aCommand flags do: [ :f | aux := aux , (f accept: self) ].

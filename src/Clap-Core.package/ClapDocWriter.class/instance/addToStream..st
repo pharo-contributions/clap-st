@@ -1,4 +1,3 @@
 adding
 addToStream: aString
-	stream
-		nextPutAll: aString
+	stream nextPutAll: aString
