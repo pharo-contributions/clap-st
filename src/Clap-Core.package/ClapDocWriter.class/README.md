@@ -1,0 +1,1 @@
+I represent a class using the DP Visitor in order to generate command doc
