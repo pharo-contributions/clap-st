@@ -5,3 +5,4 @@ pharo-ui
 pharo-vm/
 github-cache/
 pharo-local/
+*.sources
