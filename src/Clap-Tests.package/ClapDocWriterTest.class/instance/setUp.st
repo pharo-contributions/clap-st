@@ -8,4 +8,5 @@ setUp
 	flag description: 'force removing'.
 	argv := (ClapCommand withName: 'foo')
 		addPositional: pos;
-		addFlag: flag
+		addFlag: flag.
+	newLine := subject newLineString

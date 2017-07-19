@@ -1,7 +1,7 @@
 tests
 testPrintElementsOf
 	| expected |
-	expected := String cr , 'OPTIONS:' , String cr.
-	expected := expected , '--force,-f ' , String tab , 'force removing' , String cr.
+	expected := newLine , 'OPTIONS:' , newLine.
+	expected := expected , '--force,-f ' , String tab , 'force removing' , newLine.
 	subject printCategory: 'OPTIONS:' of: argv flags.
 	subject stream contents should equal: expected
