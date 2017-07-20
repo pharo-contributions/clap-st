@@ -8,7 +8,7 @@
 	"instvars" : [
 		"parameter",
 		"arguments",
-		"currentMatch"
+		"match"
 	],
 	"name" : "ClapParser",
 	"type" : "normal"

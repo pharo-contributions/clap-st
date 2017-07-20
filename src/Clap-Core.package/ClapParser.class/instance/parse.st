@@ -1,6 +1,7 @@
 initialization
 parse
-	arguments do: [ :word |
-		currentMatch := currentMatch recognize: word ].
+	arguments do: [ :word | |wordMatch|
+		wordMatch := match recognize: word.
+		wordMatch recordIn: match ].
 	
-	^ currentMatch recognizeEnd
+	^ match recognizeEnd
