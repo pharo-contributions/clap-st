@@ -1,0 +1,11 @@
+{
+	"commentStamp" : "RajulaVineetReddy 8/19/2017 07:11",
+	"super" : "ClapCommandLineHandler",
+	"category" : "ClapCommandLineHandler",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [ ],
+	"name" : "CatalogClapHandler",
+	"type" : "normal"
+}

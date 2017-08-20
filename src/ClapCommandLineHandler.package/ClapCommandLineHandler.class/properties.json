@@ -1,0 +1,18 @@
+{
+	"commentStamp" : "RajulaVineetReddy 8/3/2017 02:59",
+	"super" : "Object",
+	"category" : "ClapCommandLineHandler",
+	"classinstvars" : [ ],
+	"pools" : [ ],
+	"classvars" : [ ],
+	"instvars" : [
+		"session",
+		"stderr",
+		"stdout",
+		"commandLine",
+		"match",
+		"handlerCollector"
+	],
+	"name" : "ClapCommandLineHandler",
+	"type" : "normal"
+}

@@ -1,0 +1,1 @@
+I test the base handler class of the ClapCommandLineHandler class.
