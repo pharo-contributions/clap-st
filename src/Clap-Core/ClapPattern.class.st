@@ -12,11 +12,9 @@ ClapPattern >> doc [
 	groupList
 		do: [ :g | 
 			g doc.
-			Stdio stdout
-				<< ' ';
-				lf ].
+			Stdio stdout << ' ' ].
 	Stdio stdout
-		<< '';
+		<< '';lf;
 		crlf
 ]
 

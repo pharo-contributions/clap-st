@@ -30,7 +30,8 @@ Class {
 	#instVars : [
 		'subcommands',
 		'flags',
-		'patterns'
+		'patterns',
+		'groups'
 	],
 	#category : 'Clap-Core-Parameters'
 }
@@ -68,7 +69,13 @@ ClapCommand >> generateDoc [
 ClapCommand >> initialize [
 	super initialize.
 	subcommands := OrderedCollection new.
-	flags := OrderedCollection new
+	flags := OrderedCollection new.
+	groups := ClapGroup newFrom: #()
+]
+
+{ #category : #accessing }
+ClapCommand >> isCommand [
+	^ true
 ]
 
 { #category : #matching }

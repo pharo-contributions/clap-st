@@ -20,6 +20,11 @@ ClapFlag >> docName [
 ]
 
 { #category : #accessing }
+ClapFlag >> isFlag [
+	^ true
+]
+
+{ #category : #accessing }
 ClapFlag >> longForm [
 	^ '--' , self canonicalName
 ]

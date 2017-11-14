@@ -50,6 +50,16 @@ ClapParameter >> docName [
 ]
 
 { #category : #accessing }
+ClapParameter >> isCommand [
+	^ false
+]
+
+{ #category : #accessing }
+ClapParameter >> isFlag [
+	^ false
+]
+
+{ #category : #accessing }
 ClapParameter >> matchClass [
 	^ self subclassResponsibility
 ]
