@@ -9,6 +9,11 @@ Class {
 	#category : 'Clap-Core-Parameters'
 }
 
+{ #category : #doc }
+ClapFlag >> accept: aVisitor [
+	^ aVisitor printFlag: self
+]
+
 { #category : #evaluating }
 ClapFlag >> defaultMeaningOf: aMatch [
 	^ aMatch isMismatch not

@@ -1,13 +1,16 @@
+"
+I represent a class which is a command example for doc generation.
+"
 Class {
-	#name : #Main,
-	#superclass : #ClapCommand,
+	#name : #DocExample,
+	#superclass : #Object,
 	#category : 'Clap-Core-DocExample'
 }
 
 { #category : #'instance creation' }
-Main class >> create [
+DocExample class >> create [
 	| main subcommand subsubcommand ston utf |
-	main := self withName: 'main'.
+	main := ClapCommand withName: 'main'.
 	ston := (ClapFlag withName: 'ston') addPositional: (ClapPositional withName: 'object').
 	ston description: 'Prints at STON format'.
 	main addFlag: ston.

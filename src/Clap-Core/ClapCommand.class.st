@@ -30,11 +30,15 @@ Class {
 	#instVars : [
 		'subcommands',
 		'flags',
-		'patterns',
-		'groups'
+		'patterns'
 	],
 	#category : 'Clap-Core-Parameters'
 }
+
+{ #category : #doc }
+ClapCommand >> accept: aVisitor [
+	 ^ aVisitor printCommand: self
+]
 
 { #category : #adding }
 ClapCommand >> addFlag: aFlag [
@@ -60,16 +64,9 @@ ClapCommand >> flagNamed: specName ifNone: aBlock [
 		ifNone: aBlock
 ]
 
-{ #category : #doc }
-ClapCommand >> generateDoc [
-	Stdio stdout
-		<< 'USAGE:';
-		lf.
-	self printUsage: ''.
-	Stdio stdout lf.
-	self print: 'OPTIONS:' elementsOf: flags.
-	self print: 'ARGS:' elementsOf: positionals.
-	self print: 'COMMANDS:' elementsOf: subcommands
+{ #category : #accessing }
+ClapCommand >> flags [
+	^ flags
 ]
 
 { #category : #initialization }
@@ -98,33 +95,6 @@ ClapCommand >> parameters [
 		add: (ClapQueue withAll: positionals)
 ]
 
-{ #category : #doc }
-ClapCommand >> print: category elementsOf: args [
-	args size > 0
-		ifTrue: [ Stdio stdout
-				<< category;
-				lf.
-			args
-				do: [ :a | 
-					Stdio stdout
-						<< a docName;<< '    ';<< a description;
-						lf ].
-			Stdio stdout lf ]
-]
-
-{ #category : #doc }
-ClapCommand >> printUsage: aString [
-	| s |
-	s := aString , self canonicalName , ' '.
-	flags do: [ :f | s := s , f docName , ' ' ].
-	positionals do: [ :p | s := s , p docName , ' ' ].
-	subcommands do: [ :sc | sc printUsage: s ].
-	subcommands size = 0
-		ifTrue: [ Stdio stdout
-				<< s;
-				lf ]
-]
-
 { #category : #private }
 ClapCommand >> stopMatching [
 	^ self mismatch
@@ -135,4 +105,9 @@ ClapCommand >> subcommandNamed: specName ifNone: aBlock [
 	^ subcommands
 		detect: [ :cmd | cmd canonicalName = specName ]
 		ifNone: aBlock
+]
+
+{ #category : #accessing }
+ClapCommand >> subcommands [
+	^ subcommands
 ]

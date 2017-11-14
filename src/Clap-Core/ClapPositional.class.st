@@ -7,6 +7,11 @@ Class {
 	#category : 'Clap-Core-Parameters'
 }
 
+{ #category : #doc }
+ClapPositional >> accept: aVisitor [
+	^ aVisitor printPositional: self
+]
+
 { #category : #evaluating }
 ClapPositional >> defaultMeaningOf: aMatch [
 	^ aMatch word

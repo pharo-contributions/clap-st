@@ -19,6 +19,11 @@ ClapParameter class >> withName: aString [
 		yourself
 ]
 
+{ #category : #doc }
+ClapParameter >> accept: aVisitor [
+	^ self subclassResponsibility
+]
+
 { #category : #accessing }
 ClapParameter >> canonicalName [
 	^ canonicalName
