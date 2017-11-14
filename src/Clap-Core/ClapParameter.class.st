@@ -33,6 +33,22 @@ ClapParameter >> defaultMeaningOf: aMatch [
 	^ aMatch
 ]
 
+{ #category : #doc }
+ClapParameter >> description [
+	^ self subclassResponsibility 
+]
+
+{ #category : #doc }
+ClapParameter >> doc [
+	^ self subclassResponsibility 
+	
+]
+
+{ #category : #doc }
+ClapParameter >> docName [
+	^ canonicalName 
+]
+
 { #category : #accessing }
 ClapParameter >> matchClass [
 	^ self subclassResponsibility

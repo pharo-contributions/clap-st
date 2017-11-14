@@ -12,6 +12,18 @@ ClapPositional >> defaultMeaningOf: aMatch [
 	^ aMatch word
 ]
 
+{ #category : #doc }
+ClapPositional >> doc [
+	Stdio stdout << '<';lf.
+	Stdio stdout << (self canonicalName);lf.
+	Stdio stdout << '>';lf
+]
+
+{ #category : #doc }
+ClapPositional >> docName [
+	^ '<', canonicalName , '>'
+]
+
 { #category : #accessing }
 ClapPositional >> matchClass [
 	^ ClapPositionalMatch

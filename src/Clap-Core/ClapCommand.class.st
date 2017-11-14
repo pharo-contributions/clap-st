@@ -29,7 +29,8 @@ Class {
 	#superclass : #ClapParameterized,
 	#instVars : [
 		'subcommands',
-		'flags'
+		'flags',
+		'patterns'
 	],
 	#category : 'Clap-Core-Parameters'
 }
@@ -56,6 +57,11 @@ ClapCommand >> flagNamed: specName ifNone: aBlock [
 	^ flags
 		detect: [ :flag | flag canonicalName = specName ]
 		ifNone: aBlock
+]
+
+{ #category : #doc }
+ClapCommand >> generateDoc [
+	
 ]
 
 { #category : #initialization }
