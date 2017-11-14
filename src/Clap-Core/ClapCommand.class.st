@@ -29,8 +29,7 @@ Class {
 	#superclass : #ClapParameterized,
 	#instVars : [
 		'subcommands',
-		'flags',
-		'patterns'
+		'flags'
 	],
 	#category : 'Clap-Core-Parameters'
 }
