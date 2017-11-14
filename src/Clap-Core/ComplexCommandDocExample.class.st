@@ -2,13 +2,13 @@
 I represent a class which is a command example for doc generation.
 "
 Class {
-	#name : #DocExample,
+	#name : #ComplexCommandDocExample,
 	#superclass : #Object,
 	#category : 'Clap-Core-DocExample'
 }
 
 { #category : #'instance creation' }
-DocExample class >> create [
+ComplexCommandDocExample class >> create [
 	| main subcommand subsubcommand ston utf |
 	main := ClapCommand withName: 'main'.
 	ston := (ClapFlag withName: 'ston') addPositional: (ClapPositional withName: 'object').

@@ -37,7 +37,7 @@ Class {
 
 { #category : #doc }
 ClapCommand >> accept: aVisitor [
-	 ^ aVisitor printCommand: self
+	^ aVisitor visitCommand: self
 ]
 
 { #category : #adding }

@@ -9,7 +9,7 @@ Class {
 
 { #category : #doc }
 ClapPositional >> accept: aVisitor [
-	^ aVisitor printPositional: self
+	^ aVisitor visitPositional: self
 ]
 
 { #category : #evaluating }

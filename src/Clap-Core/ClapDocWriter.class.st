@@ -17,35 +17,51 @@ ClapDocWriter class >> new: aStream [
 
 { #category : #adding }
 ClapDocWriter >> addToStream: aString [
-	stream
-		nextPutAll: aString
+	stream nextPutAll: aString
 ]
 
 { #category : #doc }
 ClapDocWriter >> generateDoc: aCommand [
-	| categories args |
-	categories := #('OPTIONS:' 'ARGS:' 'COMMANDS:').
-	args := self takeArgs: aCommand.
+	"The main method to generate doc"
+
+	
 	self addToStream: 'USAGE:' , String cr.
 	self printUsage: '' of: aCommand.
-	categories do: [ :c | self printCategory: c of: (args at: (categories indexOf: c)).
-		 ]
+	self printOptions: aCommand.
+	self printArgs: aCommand.
+	self printCommands: aCommand
+]
+
+{ #category : #doc }
+ClapDocWriter >> printArgs: aCommand [
+	"Prints the list of positionals"
+	self printCategory: 'ARGS:' of: aCommand positionals
 ]
 
 { #category : #doc }
 ClapDocWriter >> printCategory: aString of: args [
+	"A generic method to print a list of args according to the type"
 	args size = 0
 		ifFalse: [ self addToStream: String cr , aString , String cr.
-			args do: [ :a | self addToStream: (a accept: self) , String tab , a description , String cr ] ]
+			args
+				do: [ :a | self addToStream: (a accept: self) , String tab , a description , String cr ] ]
 ]
 
 { #category : #doc }
 ClapDocWriter >> printCommand: aCommand [
+	"Returns the command name to print it"
 	^ aCommand canonicalName , ' '
 ]
 
 { #category : #doc }
+ClapDocWriter >> printCommands: aCommand [
+	"Prints the list of subcommands"
+	self printCategory: 'COMMANDS:' of: aCommand subcommands
+]
+
+{ #category : #doc }
 ClapDocWriter >> printFlag: aFlag [
+	"Returns the flag name formatting to print it in the doc"
 	| s |
 	s := aFlag longForm , ',' , aFlag shortForm , ' '.
 	aFlag positionals do: [ :p | s := s , (p accept: self) ].
@@ -53,12 +69,20 @@ ClapDocWriter >> printFlag: aFlag [
 ]
 
 { #category : #doc }
+ClapDocWriter >> printOptions: aCommand [
+	"Prints the list of flags"
+	self printCategory: 'OPTIONS:' of: aCommand flags
+]
+
+{ #category : #doc }
 ClapDocWriter >> printPositional: aPositional [
+	"Returns the positional name formatting to print it in the doc"
 	^ '<' , aPositional canonicalName , '> '
 ]
 
 { #category : #doc }
 ClapDocWriter >> printUsage: aString of: aCommand [
+	"Prints the usage category, i.e all the possible syntaxes"
 	| aux |
 	aux := aCommand accept: self.
 	aCommand flags do: [ :f | aux := aux , (f accept: self) ].
@@ -78,10 +102,17 @@ ClapDocWriter >> stream: aStream [
 	stream := aStream
 ]
 
-{ #category : #private }
-ClapDocWriter >> takeArgs: aCommand [
-	| c |
-	c := OrderedCollection new.
-	c add: aCommand flags; add: aCommand positionals; add: aCommand subcommands.
-	^ c
+{ #category : #visiting }
+ClapDocWriter >> visitCommand: aCommand [
+	^ self printCommand: aCommand
+]
+
+{ #category : #visiting }
+ClapDocWriter >> visitFlag: aCommand [
+	^ self printFlag: aCommand
+]
+
+{ #category : #visiting }
+ClapDocWriter >> visitPositional: aCommand [
+	^ self printPositional: aCommand
 ]

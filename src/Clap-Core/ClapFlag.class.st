@@ -11,7 +11,7 @@ Class {
 
 { #category : #doc }
 ClapFlag >> accept: aVisitor [
-	^ aVisitor printFlag: self
+	^ aVisitor visitFlag: self
 ]
 
 { #category : #evaluating }
