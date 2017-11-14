@@ -56,15 +56,6 @@ ClapAlternative >> matchOn: aStream [
 ]
 
 { #category : #matching }
-ClapAlternative >> matchesOn: aStream do: aBlock [
-	| match |
-	[
-		match := self matchOn: aStream.
-		match isMismatch
-	] whileFalse: [ aBlock cull: match ]
-]
-
-{ #category : #matching }
 ClapAlternative >> mismatch [
 	^ ClapMismatch specification: self
 ]
