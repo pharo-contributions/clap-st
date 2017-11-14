@@ -36,50 +36,6 @@ ClapAlternativeTest >> setUp [
 ]
 
 { #category : #tests }
-ClapAlternativeTest >> testMatchesIterationBoth [
-	| block |
-	(flagOne stub matchOn: argv) willReturn: okMatch; useOnce.
-	(flagTwo stub matchOn: argv) willReturn: okMatch; useOnce.
-	block := Mock named: 'aBlock'.
-	
-	subject matchesOn: argv do: block.
-	
-	(block should receive cull: okMatch) twice
-]
-
-{ #category : #tests }
-ClapAlternativeTest >> testMatchesIterationFirst [
-	| block |
-	(flagOne stub matchOn: argv) willReturn: okMatch; useOnce.
-	block := Mock named: 'aBlock'.
-	
-	subject matchesOn: argv do: block.
-	
-	(block should receive cull: okMatch) once
-]
-
-{ #category : #tests }
-ClapAlternativeTest >> testMatchesIterationNone [
-	| block |
-	block := Mock named: 'aBlock'.
-	
-	subject matchesOn: argv do: block.
-	
-	block should not receive cull: okMatch
-]
-
-{ #category : #tests }
-ClapAlternativeTest >> testMatchesIterationSecond [
-	| block |
-	(flagTwo stub matchOn: argv) willReturn: okMatch; useOnce.
-	block := Mock named: 'aBlock'.
-	
-	subject matchesOn: argv do: block.
-	
-	(block should receive cull: okMatch) once
-]
-
-{ #category : #tests }
 ClapAlternativeTest >> testMatchingBoth [
 	| match |
 	(flagOne stub matchOn: argv) willReturn: okMatch.
