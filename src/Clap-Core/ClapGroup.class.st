@@ -1,16 +1,11 @@
 Class {
 	#name : #ClapGroup,
-	#superclass : #Object,
+	#superclass : #ClapCategory,
 	#instVars : [
 		'parameters'
 	],
 	#category : 'Clap-Core-Parameters'
 }
-
-{ #category : #private }
-ClapGroup >> check: aParameter [
-	^ self subclassResponsibility 
-]
 
 { #category : #doc }
 ClapGroup >> doc [

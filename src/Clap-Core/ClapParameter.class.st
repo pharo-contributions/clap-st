@@ -60,6 +60,11 @@ ClapParameter >> isFlag [
 ]
 
 { #category : #accessing }
+ClapParameter >> isPositional [
+	^ false
+]
+
+{ #category : #accessing }
 ClapParameter >> matchClass [
 	^ self subclassResponsibility
 ]
