@@ -9,10 +9,13 @@ Class {
 
 { #category : #doc }
 ClapGroup >> doc [
+	Stdio stdout << name asUppercase.
+			Stdio stdout
+				<< ':';
+				lf;
+				crlf.
 	parameters
 		do: [ :p | 
-			Stdio stdout << name asUppercase.
-			Stdio stdout << ':';lf;crlf.
 			Stdio stdout << p docName.
 			Stdio stdout << '    '.
 			Stdio stdout
@@ -23,12 +26,13 @@ ClapGroup >> doc [
 
 { #category : #initialization }
 ClapGroup >> initialize [
-	super initialize
+	super initialize.
+	parameters := OrderedCollection new
 ]
 
 { #category : #setting }
 ClapGroup >> name: aString [
-	groupName := aString
+	name := aString
 ]
 
 { #category : #setting }

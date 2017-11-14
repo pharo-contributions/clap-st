@@ -42,6 +42,16 @@ ClapCommand >> addFlag: aFlag [
 ]
 
 { #category : #adding }
+ClapCommand >> addGroup: aGroup [
+	groups add: aGroup
+]
+
+{ #category : #adding }
+ClapCommand >> addPattern: aPattern [
+	patterns add: aPattern
+]
+
+{ #category : #adding }
 ClapCommand >> addSubcommand: aCommand [
 	subcommands add: aCommand
 ]
@@ -62,7 +72,23 @@ ClapCommand >> flagNamed: specName ifNone: aBlock [
 
 { #category : #doc }
 ClapCommand >> generateDoc [
-	
+	Stdio stdout
+		<< 'USAGE:';
+		lf;
+		crlf.
+	patterns
+		do: [ :p | 
+			Stdio stdout << self canonicalName.
+			Stdio stdout << ' '.
+			p doc.
+			Stdio stdout
+				lf;
+				crlf ].
+	Stdio stdout
+		<< '';
+		lf;
+		crlf.
+	groups do: [ :g | g doc ]
 ]
 
 { #category : #initialization }
@@ -70,7 +96,8 @@ ClapCommand >> initialize [
 	super initialize.
 	subcommands := OrderedCollection new.
 	flags := OrderedCollection new.
-	groups := ClapGroup newFrom: #()
+	groups := OrderedCollection new.
+	patterns := OrderedCollection new
 ]
 
 { #category : #accessing }
