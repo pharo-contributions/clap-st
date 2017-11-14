@@ -3,7 +3,8 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'subject',
-		'argv'
+		'argv',
+		'newLine'
 	],
 	#category : 'Clap-Tests-Unit'
 }
@@ -18,14 +19,15 @@ ClapDocWriterTest >> setUp [
 	flag description: 'force removing'.
 	argv := (ClapCommand withName: 'foo')
 		addPositional: pos;
-		addFlag: flag
+		addFlag: flag.
+	newLine := subject newLineString
 ]
 
 { #category : #tests }
 ClapDocWriterTest >> testPrintElementsOf [
 	| expected |
-	expected := String cr , 'OPTIONS:' , String cr.
-	expected := expected , '--force,-f ' , String tab , 'force removing' , String cr.
+	expected := newLine , 'OPTIONS:' , newLine.
+	expected := expected , '--force,-f ' , String tab , 'force removing' , newLine.
 	subject printCategory: 'OPTIONS:' of: argv flags.
 	subject stream contents should equal: expected
 ]
@@ -33,7 +35,7 @@ ClapDocWriterTest >> testPrintElementsOf [
 { #category : #tests }
 ClapDocWriterTest >> testPrintUsage [
 	| expected |
-	expected := 'foo --force,-f <class> ' , String cr.
+	expected := 'foo --force,-f <class> ' , newLine.
 	subject printUsage: '' of: argv.
 	subject stream contents should equal: expected
 ]
@@ -41,8 +43,8 @@ ClapDocWriterTest >> testPrintUsage [
 { #category : #tests }
 ClapDocWriterTest >> testPrintUsageOfSubcommandWithMultipleSubcommands [
 	| expected subcommand |
-	expected := 'foo --force,-f <class> git add ' , String cr.
-	expected := expected , 'foo --force,-f <class> git brench ' , String cr.
+	expected := 'foo --force,-f <class> git add ' , newLine.
+	expected := expected , 'foo --force,-f <class> git brench ' , newLine.
 	subcommand := (ClapCommand withName: 'git')
 		addSubcommand: (ClapCommand withName: 'add');
 		addSubcommand: (ClapCommand withName: 'brench').
