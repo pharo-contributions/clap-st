@@ -19,14 +19,6 @@ ClapFlag >> defaultMeaningOf: aMatch [
 	^ aMatch isMismatch not
 ]
 
-{ #category : #doc }
-ClapFlag >> docName [
-	| s |
-	s := self longForm , ',' , self shortForm.
-	positionals do: [ :p | s := s , ' ' , p docName ].
-	^ s
-]
-
 { #category : #accessing }
 ClapFlag >> longForm [
 	^ '--' , self canonicalName

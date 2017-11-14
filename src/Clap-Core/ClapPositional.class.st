@@ -17,11 +17,6 @@ ClapPositional >> defaultMeaningOf: aMatch [
 	^ aMatch word
 ]
 
-{ #category : #doc }
-ClapPositional >> docName [
-	^ '<', canonicalName , '>'
-]
-
 { #category : #accessing }
 ClapPositional >> matchClass [
 	^ ClapPositionalMatch

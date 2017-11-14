@@ -49,16 +49,6 @@ ClapParameter >> description: aString [
 	description := aString
 ]
 
-{ #category : #doc }
-ClapParameter >> doc [
-	Stdio << self docName;<< '    ';<< self description;lf
-]
-
-{ #category : #doc }
-ClapParameter >> docName [
-	^ canonicalName 
-]
-
 { #category : #initialization }
 ClapParameter >> initialize [
 	description := ''
