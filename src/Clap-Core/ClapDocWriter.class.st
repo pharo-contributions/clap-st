@@ -24,12 +24,17 @@ ClapDocWriter >> addToStream: aString [
 ClapDocWriter >> generateDoc: aCommand [
 	"The main method to generate doc"
 
-	
-	self addToStream: 'USAGE:' , String cr.
+	self addToStream: 'USAGE:' , self newLineString .
 	self printUsage: '' of: aCommand.
 	self printOptions: aCommand.
 	self printArgs: aCommand.
 	self printCommands: aCommand
+]
+
+{ #category : #private }
+ClapDocWriter >> newLineString [
+	"Put the line return char in the stream according to the OS"
+	^ OSPlatform current lineEnding
 ]
 
 { #category : #doc }
@@ -41,10 +46,11 @@ ClapDocWriter >> printArgs: aCommand [
 { #category : #doc }
 ClapDocWriter >> printCategory: aString of: args [
 	"A generic method to print a list of args according to the type"
+
 	args size = 0
-		ifFalse: [ self addToStream: String cr , aString , String cr.
+		ifFalse: [ self addToStream: self newLineString , aString , self newLineString.
 			args
-				do: [ :a | self addToStream: (a accept: self) , String tab , a description , String cr ] ]
+				do: [ :a | self addToStream: (a accept: self) , String tab , a description , self newLineString ] ]
 ]
 
 { #category : #doc }
@@ -83,13 +89,14 @@ ClapDocWriter >> printPositional: aPositional [
 { #category : #doc }
 ClapDocWriter >> printUsage: aString of: aCommand [
 	"Prints the usage category, i.e all the possible syntaxes"
+
 	| aux |
 	aux := aCommand accept: self.
 	aCommand flags do: [ :f | aux := aux , (f accept: self) ].
 	aCommand positionals do: [ :p | aux := aux , (p accept: self) ].
 	aCommand subcommands do: [ :sc | self printUsage: aString , aux of: sc ].
 	aCommand subcommands size = 0
-		ifTrue: [ self addToStream: aString , aux , String cr ]
+		ifTrue: [ self addToStream: aString , aux , self newLineString  ]
 ]
 
 { #category : #accessing }
