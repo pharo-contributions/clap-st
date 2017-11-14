@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'optional',
-		'name'
+		'name',
+		'parameter'
 	],
 	#category : 'Clap-Core-Parameters'
 }
@@ -36,8 +37,8 @@ ClapCategory >> docAsOptional [
 { #category : #doc }
 ClapCategory >> docName [
 	^ optional
-		ifTrue: [  self docAsOptional ]
-		ifFalse: [ name ]
+		ifTrue: [ self docAsOptional ]
+		ifFalse: [ self name ]
 ]
 
 { #category : #initialization }
@@ -48,4 +49,9 @@ ClapCategory >> initialize [
 { #category : #accessing }
 ClapCategory >> name [
 	^ name
+]
+
+{ #category : #setting }
+ClapCategory >> name: aName [
+	name := aName
 ]

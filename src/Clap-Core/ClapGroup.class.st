@@ -31,11 +31,6 @@ ClapGroup >> initialize [
 ]
 
 { #category : #setting }
-ClapGroup >> name: aString [
-	name := aString
-]
-
-{ #category : #setting }
 ClapGroup >> put: aParameter [
 	(self check: aParameter) ifFalse: [ ^ 0 ].
 	parameters add: aParameter 

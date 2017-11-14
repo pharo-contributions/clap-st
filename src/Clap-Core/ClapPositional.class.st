@@ -13,17 +13,6 @@ ClapPositional >> defaultMeaningOf: aMatch [
 ]
 
 { #category : #doc }
-ClapPositional >> doc [
-	Stdio stdout
-		<< '<'.
-	Stdio stdout
-		<< self canonicalName.
-	Stdio stdout
-		<< '>';
-		lf
-]
-
-{ #category : #doc }
 ClapPositional >> docName [
 	^ '<', canonicalName , '>'
 ]
