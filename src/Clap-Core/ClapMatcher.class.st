@@ -11,12 +11,3 @@ Class {
 ClapMatcher class >> withAll: parameters [
 	^ self new addAll: parameters
 ]
-
-{ #category : #matching }
-ClapMatcher >> matchesOn: aStream do: aBlock [
-	| match |
-	[
-		match := self matchOn: aStream.
-		match isMismatch
-	] whileFalse: [ aBlock cull: match ]
-]
