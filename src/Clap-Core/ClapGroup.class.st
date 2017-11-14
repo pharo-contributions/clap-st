@@ -2,7 +2,7 @@ Class {
 	#name : #ClapGroup,
 	#superclass : #Object,
 	#instVars : [
-		'groupName',
+		'canonicalName',
 		'parameters'
 	],
 	#category : 'Clap-Core-Parameters'

@@ -9,7 +9,7 @@ Class {
 
 { #category : #doc }
 ClapOptional >> docName [
-	^ '[' , (parameter canonicalName) , ']'
+	^ '[' , parameter docName , ']'
 ]
 
 { #category : #setting }

@@ -14,6 +14,11 @@ ClapFlag >> defaultMeaningOf: aMatch [
 	^ aMatch isMismatch not
 ]
 
+{ #category : #doc }
+ClapFlag >> docName [
+	^ self shortForm , ',' , self longForm
+]
+
 { #category : #accessing }
 ClapFlag >> longForm [
 	^ '--' , self canonicalName
