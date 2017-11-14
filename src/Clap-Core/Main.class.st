@@ -1,7 +1,7 @@
 Class {
 	#name : #Main,
 	#superclass : #ClapCommand,
-	#category : 'Clap-Core-Main-Exemple'
+	#category : 'Clap-Core-DocExample'
 }
 
 { #category : #'instance creation' }
