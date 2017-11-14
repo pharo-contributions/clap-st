@@ -30,6 +30,7 @@ ClapParameterized >> atName: specName [
 
 { #category : #initialization }
 ClapParameterized >> initialize [
+	super initialize.
 	positionals := OrderedCollection new
 ]
 

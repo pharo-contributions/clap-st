@@ -42,16 +42,6 @@ ClapCommand >> addFlag: aFlag [
 ]
 
 { #category : #adding }
-ClapCommand >> addGroup: aGroup [
-	groups add: aGroup
-]
-
-{ #category : #adding }
-ClapCommand >> addPattern: aPattern [
-	patterns add: aPattern
-]
-
-{ #category : #adding }
 ClapCommand >> addSubcommand: aCommand [
 	subcommands add: aCommand
 ]
@@ -74,21 +64,12 @@ ClapCommand >> flagNamed: specName ifNone: aBlock [
 ClapCommand >> generateDoc [
 	Stdio stdout
 		<< 'USAGE:';
-		lf;
-		crlf.
-	patterns
-		do: [ :p | 
-			Stdio stdout << self canonicalName.
-			Stdio stdout << ' '.
-			p doc.
-			Stdio stdout
-				lf;
-				crlf ].
-	Stdio stdout
-		<< '';
-		lf;
-		crlf.
-	groups do: [ :g | g doc ]
+		lf.
+	self printUsage: ''.
+	Stdio stdout lf.
+	self print: 'OPTIONS:' elementsOf: flags.
+	self print: 'ARGS:' elementsOf: positionals.
+	self print: 'COMMANDS:' elementsOf: subcommands
 ]
 
 { #category : #initialization }
@@ -96,13 +77,6 @@ ClapCommand >> initialize [
 	super initialize.
 	subcommands := OrderedCollection new.
 	flags := OrderedCollection new.
-	groups := OrderedCollection new.
-	patterns := OrderedCollection new
-]
-
-{ #category : #accessing }
-ClapCommand >> isCommand [
-	^ true
 ]
 
 { #category : #matching }
@@ -122,6 +96,33 @@ ClapCommand >> parameters [
 		addAll: flags;
 		addAll: subcommands;
 		add: (ClapQueue withAll: positionals)
+]
+
+{ #category : #doc }
+ClapCommand >> print: category elementsOf: args [
+	args size > 0
+		ifTrue: [ Stdio stdout
+				<< category;
+				lf.
+			args
+				do: [ :a | 
+					Stdio stdout
+						<< a docName;<< '    ';<< a description;
+						lf ].
+			Stdio stdout lf ]
+]
+
+{ #category : #doc }
+ClapCommand >> printUsage: aString [
+	| s |
+	s := aString , self canonicalName , ' '.
+	flags do: [ :f | s := s , f docName , ' ' ].
+	positionals do: [ :p | s := s , p docName , ' ' ].
+	subcommands do: [ :sc | sc printUsage: s ].
+	subcommands size = 0
+		ifTrue: [ Stdio stdout
+				<< s;
+				lf ]
 ]
 
 { #category : #private }

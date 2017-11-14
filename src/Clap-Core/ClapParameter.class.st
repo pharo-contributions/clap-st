@@ -6,7 +6,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'canonicalName',
-		'meaningBlock'
+		'meaningBlock',
+		'description'
 	],
 	#category : 'Clap-Core-Parameters'
 }
@@ -33,15 +34,19 @@ ClapParameter >> defaultMeaningOf: aMatch [
 	^ aMatch
 ]
 
-{ #category : #doc }
+{ #category : #accessing }
 ClapParameter >> description [
-	^ self subclassResponsibility 
+	^ description
+]
+
+{ #category : #setting }
+ClapParameter >> description: aString [
+	description := aString
 ]
 
 { #category : #doc }
 ClapParameter >> doc [
-	^ self subclassResponsibility 
-	
+	Stdio << self docName;<< '    ';<< self description;lf
 ]
 
 { #category : #doc }
@@ -49,19 +54,9 @@ ClapParameter >> docName [
 	^ canonicalName 
 ]
 
-{ #category : #accessing }
-ClapParameter >> isCommand [
-	^ false
-]
-
-{ #category : #accessing }
-ClapParameter >> isFlag [
-	^ false
-]
-
-{ #category : #accessing }
-ClapParameter >> isPositional [
-	^ false
+{ #category : #initialization }
+ClapParameter >> initialize [
+	description := ''
 ]
 
 { #category : #accessing }

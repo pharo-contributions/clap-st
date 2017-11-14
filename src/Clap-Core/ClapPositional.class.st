@@ -18,11 +18,6 @@ ClapPositional >> docName [
 ]
 
 { #category : #accessing }
-ClapPositional >> isPositional [
-	^ true
-]
-
-{ #category : #accessing }
 ClapPositional >> matchClass [
 	^ ClapPositionalMatch
 ]

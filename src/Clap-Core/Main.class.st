@@ -6,17 +6,19 @@ Class {
 
 { #category : #'instance creation' }
 Main class >> create [
-	| main ston utf pattern group |
+	| main subcommand subsubcommand ston utf |
 	main := self withName: 'main'.
-	ston := STONFlag create.
-	utf := UT8Flag create.
-	pattern := ClapPattern new.
-	group := ClapFlagGroup withName: 'FORMAT'.
-	group
-		put: ston;
-		put: utf.
-	pattern add: group.
-	main addGroup: group.
-	main addPattern: pattern.
+	ston := (ClapFlag withName: 'ston') addPositional: (ClapPositional withName: 'object').
+	ston description: 'Prints at STON format'.
+	main addFlag: ston.
+	utf := (ClapFlag withName: 'utf8') description: 'Prints at UTF-8 format'.
+	main addFlag: utf.
+	subcommand := ClapCommand withName: 'git'.
+	subcommand addPositional: (ClapPositional withName: 'class').
+	subsubcommand := ClapCommand withName: 'man'.
+	subcommand addSubcommand: (ClapCommand withName: 'add').
+	subcommand addSubcommand: subsubcommand.
+	main addSubcommand: subcommand.
+	main addSubcommand: (ClapCommand withName: 'other').
 	^ main
 ]

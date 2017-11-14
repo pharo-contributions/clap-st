@@ -16,12 +16,10 @@ ClapFlag >> defaultMeaningOf: aMatch [
 
 { #category : #doc }
 ClapFlag >> docName [
-	^ self shortForm , ',' , self longForm
-]
-
-{ #category : #accessing }
-ClapFlag >> isFlag [
-	^ true
+	| s |
+	s := self longForm , ',' , self shortForm.
+	positionals do: [ :p | s := s , ' ' , p docName ].
+	^ s
 ]
 
 { #category : #accessing }
