@@ -19,23 +19,21 @@ ClapFlag >> longForm [
 	^ '--' , self canonicalName
 ]
 
+{ #category : #matching }
+ClapFlag >> matchCanonicalName: aStream [
+	| word |
+	word := aStream peek.
+	^ word = self longForm or: word = self shortForm
+]
+
 { #category : #accessing }
 ClapFlag >> matchClass [
 	^ ClapFlagMatch
 ]
 
-{ #category : #matching }
-ClapFlag >> matchOn: aStream [
-	| word |
-	word := aStream peek.
-	^ (word = self shortForm or: [ word = self longForm ])
-		ifTrue: [ | match |
-			match := self matchWord: aStream next.
-			(ClapQueue withAll: positionals)
-				matchesOn: aStream
-				do: [ :each | each recordIn: match ].
-			^ match ]
-		ifFalse: [ self mismatch ]
+{ #category : #accessing }
+ClapFlag >> parameters [
+	^ ClapQueue withAll: positionals
 ]
 
 { #category : #accessing }
@@ -46,4 +44,9 @@ ClapFlag >> shortForm [
 { #category : #accessing }
 ClapFlag >> shortName [
 	^ self canonicalName copyFrom: 1 to: 1
+]
+
+{ #category : #private }
+ClapFlag >> stopMatching [
+	^ match
 ]
