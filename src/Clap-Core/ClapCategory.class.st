@@ -1,6 +1,10 @@
 Class {
 	#name : #ClapCategory,
 	#superclass : #Object,
+	#instVars : [
+		'optional',
+		'name'
+	],
 	#category : 'Clap-Core-Parameters'
 }
 
