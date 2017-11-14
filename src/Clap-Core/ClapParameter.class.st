@@ -61,6 +61,15 @@ ClapParameter >> matchClass [
 
 { #category : #matching }
 ClapParameter >> matchOn: aStream [ 
+	| premise |
+	premise := self matchPremiseOn: aStream.
+	premise isMismatch ifTrue: [ ^ premise ].
+	
+	^ self with: premise matchOn: aStream
+]
+
+{ #category : #matching }
+ClapParameter >> matchPremiseOn: aStream [ 
 	^ self subclassResponsibility
 ]
 
@@ -86,4 +95,9 @@ ClapParameter >> meaningOf: aMatch [
 { #category : #matching }
 ClapParameter >> mismatch [
 	^ ClapMismatch specification: self
+]
+
+{ #category : #matching }
+ClapParameter >> with: premiseMatch matchOn: aStream [ 
+	^ self subclassResponsibility
 ]

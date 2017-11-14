@@ -90,11 +90,44 @@ ClapCommandTest >> testMatchesWithWrongFlag [
 ]
 
 { #category : #tests }
+ClapCommandTest >> testMatchingPremise [
+	| premiseMatch fullMatch |
+	argv stub peek willReturn: 'foo'.
+	argv stub next willReturn: 'foo'.
+	argv stub atEnd willReturn: true.
+	
+	premiseMatch := subject matchPremiseOn: argv.
+	
+	argv should receive next.
+	premiseMatch should not be isMismatch.
+	premiseMatch specification should be: subject.
+	premiseMatch word should equal: 'foo'.
+	
+	fullMatch := subject with: premiseMatch matchOn: argv.
+	
+	fullMatch should be: premiseMatch.
+	fullMatch should not be isMismatch.
+	fullMatch word should equal: 'foo'
+]
+
+{ #category : #tests }
 ClapCommandTest >> testMismatchesDifferentAlias [
 	| match |
 	argv stub peek willReturn: 'fooNOT'.
 	
 	match := subject matchOn: argv.
+	
+	argv should not receive next.
+	match should be isMismatch
+]
+
+{ #category : #tests }
+ClapCommandTest >> testWrongPremise [
+	| match |
+	argv stub peek willReturn: 'fooNOT'.
+	argv stub next willReturn: 'fooNOT'.
+	
+	match := subject matchPremiseOn: argv.
 	
 	argv should not receive next.
 	match should be isMismatch

@@ -41,17 +41,10 @@ ClapParameterized >> matchCanonicalName: aStream [
 ]
 
 { #category : #matching }
-ClapParameterized >> matchOn: aStream [
-	| args |
-	(self matchCanonicalName: aStream) ifTrue: [ match := self matchWord: aStream next] ifFalse: [ ^ self mismatch ].
-	args := self parameters.
-	[ aStream atEnd ]
-		whileFalse: [ | subMatch |
-			subMatch := args matchOn: aStream.
-			subMatch isMismatch
-				ifTrue: [ ^ self stopMatching ].
-			subMatch recordIn: match ].
-	^ match
+ClapParameterized >> matchPremiseOn: aStream [
+	^ (self matchCanonicalName: aStream)
+		ifTrue: [ self matchWord: aStream next]
+		ifFalse: [ self mismatch ]
 ]
 
 { #category : #accessing }
@@ -74,4 +67,17 @@ ClapParameterized >> positionals [
 { #category : #private }
 ClapParameterized >> stopMatching [
 	^ self subclassResponsibility 
+]
+
+{ #category : #matching }
+ClapParameterized >> with: partialMatch matchOn: aStream [
+	| args |
+	args := self parameters.
+	[ aStream atEnd ]
+		whileFalse: [ | subMatch |
+			subMatch := args matchOn: aStream.
+			subMatch isMismatch
+				ifTrue: [ ^ self stopMatching ].
+			subMatch recordIn: partialMatch ].
+	^ partialMatch
 ]

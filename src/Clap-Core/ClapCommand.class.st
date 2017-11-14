@@ -110,3 +110,8 @@ ClapCommand >> subcommandNamed: specName ifNone: aBlock [
 ClapCommand >> subcommands [
 	^ subcommands
 ]
+
+{ #category : #initialization }
+ClapCommand >> subcommands: aCollection [
+	subcommands := aCollection
+]

@@ -28,3 +28,15 @@ ClapPositional >> matchOn: aStream [
 		ifTrue: [ self mismatch ]
 		ifFalse: [ self matchWord: aStream next ]
 ]
+
+{ #category : #matching }
+ClapPositional >> matchPremiseOn: aStream [
+	^ (aStream atEnd or: [aStream peek beginsWith: '-'])
+		ifTrue: [ self mismatch ]
+		ifFalse: [ self matchWord: aStream next ]
+]
+
+{ #category : #matching }
+ClapPositional >> with: premiseMatch matchOn: aStream [ 
+	^ premiseMatch
+]
