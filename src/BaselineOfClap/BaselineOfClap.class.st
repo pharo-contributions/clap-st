@@ -8,9 +8,7 @@ Class {
 BaselineOfClap >> baseline: spec [
 	<baseline>
 	spec for: #common do: [ spec
-		configuration: 'Mocketry' with: [ spec
-			repository: 'http://smalltalkhub.com/mc/dionisiy/Mocketry/main';
-			versionString: #stable ];
+		baseline: 'Mocketry' with: [ spec repository: 'github://dionisiydk/Mocketry' ];
 
 		package: 'Clap-Core';
 		package: 'Clap-Tests' with: [ spec requires: #('Clap-Core' 'Mocketry') ];
