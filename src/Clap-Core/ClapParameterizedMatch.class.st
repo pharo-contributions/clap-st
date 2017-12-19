@@ -42,3 +42,19 @@ ClapParameterizedMatch >> positionalValues [
 ClapParameterizedMatch >> recordParameterMatch: aMatch [
 	arguments add: aMatch
 ]
+
+{ #category : #parsing }
+ClapParameterizedMatch >> unboundParameters [
+	^ self unboundPositionals
+]
+
+{ #category : #parsing }
+ClapParameterizedMatch >> unboundParametersAmong: parameters [
+	^ parameters
+		select: [ :pos | arguments noneSatisfy: [ :arg | arg specification = pos ] ]
+]
+
+{ #category : #parsing }
+ClapParameterizedMatch >> unboundPositionals [
+	^ self unboundParametersAmong: specification positionals
+]

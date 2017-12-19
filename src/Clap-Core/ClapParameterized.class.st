@@ -5,13 +5,12 @@ Class {
 	#name : #ClapParameterized,
 	#superclass : #ClapParameter,
 	#instVars : [
-		'positionals',
-		'match'
+		'positionals'
 	],
-	#category : 'Clap-Core-Parameters'
+	#category : #'Clap-Core-Parameters'
 }
 
-{ #category : #testing }
+{ #category : #'as yet unclassified' }
 ClapParameterized class >> isAbstract [
 	^ self == ClapParameterized
 ]
@@ -71,13 +70,11 @@ ClapParameterized >> stopMatching [
 
 { #category : #matching }
 ClapParameterized >> with: partialMatch matchOn: aStream [
-	| args |
-	args := self parameters.
-	[ aStream atEnd ]
-		whileFalse: [ | subMatch |
-			subMatch := args matchOn: aStream.
-			subMatch isMismatch
-				ifTrue: [ ^ self stopMatching ].
+	| next |
+	[ next := partialMatch unboundParameters. next isEmpty ]
+		whileNotNil: [ | subMatch |
+			subMatch := next first matchOn: aStream.
+			subMatch ifMismatch: [ ^ partialMatch ].
 			subMatch recordIn: partialMatch ].
 	^ partialMatch
 ]
