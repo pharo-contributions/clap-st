@@ -63,18 +63,33 @@ ClapParameterized >> positionals [
 	^ positionals
 ]
 
-{ #category : #private }
-ClapParameterized >> stopMatching [
-	^ self subclassResponsibility 
+{ #category : #matching }
+ClapParameterized >> with: partialMatch detect: parameters matchOn: aStream ifFound: foundBlock ifNone: noneBlock [
+	partialMatch
+		unboundParametersAmong: parameters
+		do: [ :param | | sub |
+			sub := param matchOn: aStream.
+			sub isMismatch ifFalse: [ ^ foundBlock cull: sub ] ].
+	^ noneBlock value
+]
+
+{ #category : #matching }
+ClapParameterized >> with: partialMatch detectMatchOn: aStream ifFound: foundBlock ifNone: noneBlock [
+	^ self
+		with: partialMatch
+		detect: positionals
+		matchOn: aStream
+		ifFound: foundBlock
+		ifNone: noneBlock
+
 ]
 
 { #category : #matching }
 ClapParameterized >> with: partialMatch matchOn: aStream [
-	| next |
-	[ next := partialMatch unboundParameters. next isEmpty ]
-		whileNotNil: [ | subMatch |
-			subMatch := next first matchOn: aStream.
-			subMatch ifMismatch: [ ^ partialMatch ].
-			subMatch recordIn: partialMatch ].
-	^ partialMatch
+	[ self
+		with: partialMatch
+		detectMatchOn: aStream
+		ifFound: [ :arg | arg recordIn: partialMatch ]
+		ifNone: [ ^ partialMatch ]
+	] repeat
 ]

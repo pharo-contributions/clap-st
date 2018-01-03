@@ -30,6 +30,19 @@ ClapMatch >> isMismatch [
 	^ false
 ]
 
+{ #category : #printing }
+ClapMatch >> printOn: aStream [
+	| needsSeparator |
+	super printOn: aStream.
+	aStream nextPut: $(.
+	needsSeparator := false.
+	self wordsDo: [ :each |
+		needsSeparator ifTrue: [ aStream space ].
+		aStream nextPutAll: each.
+		needsSeparator := true ].
+	aStream nextPut: $)
+]
+
 { #category : #adding }
 ClapMatch >> recordIn: parentMatch [
 	parentMatch recordParameterMatch: self
@@ -58,4 +71,9 @@ ClapMatch >> word [
 { #category : #initialization }
 ClapMatch >> word: aString [
 	word := aString
+]
+
+{ #category : #enumerating }
+ClapMatch >> wordsDo: aBlock [
+	aBlock value: self word
 ]

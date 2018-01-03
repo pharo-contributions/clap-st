@@ -30,10 +30,9 @@ ClapCommandTest >> testMatchesWithSingleFlag [
 	argv stub peek willReturnValueFrom: #('foo' '--bar').
 	argv stub next willReturnValueFrom: #('foo' '--bar').
 	argv stub atEnd willReturn: true.
-	argv stub atEnd
-		willReturn: false;
-		use: 1.
+		
 	match := subject matchOn: argv.
+	
 	argv should receive next twice.
 	match should not be isMismatch.
 	match should be includesKey: 'bar'
@@ -45,12 +44,11 @@ ClapCommandTest >> testMatchesWithSinglePositional [
 	subject addPositional: (ClapPositional withName: 'bar').
 	argv stub peek willReturnValueFrom: #('foo' 'valueforbar').
 	argv stub next willReturnValueFrom: #('foo' 'valueforbar').
-	argv stub atEnd willReturn: true.
-	argv stub atEnd willReturn: false; use: 3.
+	argv stub atEnd willReturnValueFrom: #(false true).
 
 	match := subject matchOn: argv.
 
-	argv should receive atEnd exactly: 4.
+	argv should receive atEnd twice.
 	argv should receive next twice.
 	match should not be isMismatch.
 	match word should equal: 'foo'.
@@ -65,12 +63,11 @@ ClapCommandTest >> testMatchesWithSingleSubcommand [
 	argv stub peek willReturnValueFrom: #('foo' 'bar').
 	argv stub next willReturnValueFrom: #('foo' 'bar').
 	argv stub atEnd willReturn: true.
-	argv stub atEnd willReturn: false; use: 1.
 	
 	match := subject matchOn: argv.
 	
 	argv should receive next twice.
-	argv should receive atEnd exactly: 3.
+	argv should receive atEnd twice.
 	match should not be isMismatch.
 	match should be includesKey: 'bar'
 ]

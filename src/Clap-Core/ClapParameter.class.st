@@ -97,6 +97,15 @@ ClapParameter >> mismatch [
 	^ ClapMismatch specification: self
 ]
 
+{ #category : #printing }
+ClapParameter >> printOn: aStream [
+	super printOn: aStream.
+	aStream
+		nextPut: $(;
+		nextPutAll: self canonicalName;
+		nextPut: $)
+]
+
 { #category : #matching }
 ClapParameter >> with: premiseMatch matchOn: aStream [ 
 	^ self subclassResponsibility

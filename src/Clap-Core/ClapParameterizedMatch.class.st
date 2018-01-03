@@ -18,6 +18,21 @@ ClapParameterizedMatch >> at: aSpec [
 ]
 
 { #category : #accessing }
+ClapParameterizedMatch >> at: aSpec ifAbsent: absentBlock [
+	^ arguments
+		detect: [ :arg | arg specification = aSpec ]
+		ifNone: absentBlock
+]
+
+{ #category : #accessing }
+ClapParameterizedMatch >> at: aSpec ifFound: foundBlock ifAbsent: absentBlock [
+	^ arguments
+		detect: [ :arg | arg specification = aSpec ]
+		ifFound: foundBlock
+		ifNone: absentBlock
+]
+
+{ #category : #accessing }
 ClapParameterizedMatch >> atName: canonicalName [
 	^ self at: (specification atName: canonicalName)
 ]
@@ -55,6 +70,19 @@ ClapParameterizedMatch >> unboundParametersAmong: parameters [
 ]
 
 { #category : #parsing }
+ClapParameterizedMatch >> unboundParametersAmong: parameters do: aBlock [
+	^ parameters do: [ :param |
+		(arguments noneSatisfy: [ :arg | arg specification = param ])
+			ifTrue: [ aBlock cull: param ] ]
+]
+
+{ #category : #parsing }
 ClapParameterizedMatch >> unboundPositionals [
 	^ self unboundParametersAmong: specification positionals
+]
+
+{ #category : #enumerating }
+ClapParameterizedMatch >> wordsDo: aBlock [
+	super wordsDo: aBlock.
+	arguments do: [ :each | each wordsDo: aBlock ]
 ]

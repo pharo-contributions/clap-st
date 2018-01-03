@@ -50,19 +50,3 @@ ClapFlag >> shortForm [
 ClapFlag >> shortName [
 	^ self canonicalName copyFrom: 1 to: 1
 ]
-
-{ #category : #private }
-ClapFlag >> stopMatching [
-	^ match
-]
-
-{ #category : #matching }
-ClapFlag >> with: partialMatch matchOn: aStream [
-	| next |
-	[ next := partialMatch unboundParameters. next isEmpty ]
-		whileFalse: [ | subMatch |
-			subMatch := next first matchOn: aStream.
-			subMatch ifMismatch: [ ^ partialMatch ].
-			subMatch recordIn: partialMatch ].
-	^ partialMatch
-]

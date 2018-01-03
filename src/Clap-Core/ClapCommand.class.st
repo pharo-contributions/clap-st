@@ -28,10 +28,10 @@ Class {
 	#name : #ClapCommand,
 	#superclass : #ClapParameterized,
 	#instVars : [
-		'subcommands',
-		'flags'
+		'flags',
+		'subcommands'
 	],
-	#category : 'Clap-Core-Parameters'
+	#category : #'Clap-Core-Parameters'
 }
 
 { #category : #doc }
@@ -94,11 +94,6 @@ ClapCommand >> parameters [
 		add: (ClapQueue withAll: positionals)
 ]
 
-{ #category : #private }
-ClapCommand >> stopMatching [
-	^ self mismatch
-]
-
 { #category : #accessing }
 ClapCommand >> subcommandNamed: specName ifNone: aBlock [
 	^ subcommands
@@ -111,7 +106,24 @@ ClapCommand >> subcommands [
 	^ subcommands
 ]
 
-{ #category : #initialization }
-ClapCommand >> subcommands: aCollection [
-	subcommands := aCollection
+{ #category : #matching }
+ClapCommand >> with: partialMatch detectMatchOn: aStream ifFound: foundBlock ifNone: noneBlock [
+	^ self
+		with: partialMatch detect: flags matchOn: aStream
+		ifFound: foundBlock ifNone: [
+			super
+				with: partialMatch detectMatchOn: aStream
+				ifFound: foundBlock ifNone: [
+					self
+						with: partialMatch detect: subcommands matchOn: aStream
+						ifFound: foundBlock ifNone: noneBlock ] ]
+]
+
+{ #category : #matching }
+ClapCommand >> with: partialMatch matchOn: aStream [
+	| result |
+	result := super with: partialMatch matchOn: aStream.
+	aStream atEnd ifFalse: [ ^ self mismatch ].
+	
+	^ result
 ]
