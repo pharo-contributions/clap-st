@@ -41,6 +41,27 @@ ClapHelloWorldTest >> testHelloWorld [
 ]
 
 { #category : #tests }
+ClapHelloWorldTest >> testLanguageFlag [
+	| argv match lang |
+	lang := ClapPositional withName: 'language'.
+	hello addFlag: ((ClapFlag withName: 'lang')
+		addPositional: lang;
+		meaning: [ :flag | (flag at: lang) value]).
+	argv := ClapContext on: #('hello' 'monde' '--lang' 'fr' '--shout').
+
+	match := hello matchOn: argv.
+
+	match should not be isMismatch.
+	match should be includesKey: 'shout'.
+	match should be includesKey: 'who'.
+	(match atName: 'who') word should equal: 'monde'.
+	match should be includesKey: 'lang'.
+	(match atName: 'lang') should be includesKey: 'language'.
+	(match atName: 'lang') value should equal: 'fr'
+
+]
+
+{ #category : #tests }
 ClapHelloWorldTest >> testShouting [
 	| argv match |
 	argv := ClapContext on: #('hello' '--shout').
