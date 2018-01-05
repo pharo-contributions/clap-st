@@ -40,13 +40,13 @@ ClapMatchTest >> testAddingToParentAddsByName [
 	(parent should receive recordParameterMatch: subject) once
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ClapMatchTest >> testMatchesAreNotMismatches [
 	subject isMismatch should be: false.
 	subject ifMismatch: [ self fail ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 ClapMatchTest >> testValue [
 	subject value.
 	specification should receive meaningOf: subject
