@@ -47,11 +47,6 @@ ClapParameterized >> matchPremiseOn: aStream [
 ]
 
 { #category : #accessing }
-ClapParameterized >> parameters [
-	^ self subclassResponsibility 
-]
-
-{ #category : #accessing }
 ClapParameterized >> positionalNamed: specName ifNone: aBlock [
 	^ positionals
 		detect: [ :arg | arg canonicalName = specName ]

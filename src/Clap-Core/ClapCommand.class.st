@@ -87,14 +87,6 @@ ClapCommand >> matchClass [
 ]
 
 { #category : #accessing }
-ClapCommand >> parameters [
-	^ ClapAlternative new
-		addAll: flags;
-		addAll: subcommands;
-		add: (ClapQueue withAll: positionals)
-]
-
-{ #category : #accessing }
 ClapCommand >> subcommandNamed: specName ifNone: aBlock [
 	^ subcommands
 		detect: [ :cmd | cmd canonicalName = specName ]

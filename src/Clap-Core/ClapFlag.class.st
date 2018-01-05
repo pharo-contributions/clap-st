@@ -37,11 +37,6 @@ ClapFlag >> matchClass [
 ]
 
 { #category : #accessing }
-ClapFlag >> parameters [
-	^ ClapQueue withAll: positionals
-]
-
-{ #category : #accessing }
 ClapFlag >> shortForm [
 	^ '-' , self shortName
 ]
