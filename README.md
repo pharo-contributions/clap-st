@@ -38,6 +38,6 @@ Metacello new baseline: 'Clap';
 
 ### Contributors
 
-Many thanks to everyone who has contributed to Clap-st in one way or another:
+Many thanks to everyone who has contributed to clap in one way or another:
 
 Clément Mastin, Damien Pollet, Rajula Vineet Reddy
