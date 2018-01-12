@@ -13,7 +13,7 @@ Currently still in the design discovery phase; tests use [Mocketry](http://small
 
 ```smalltalk
 Metacello new baseline: 'Clap';
-    repository: 'github://cdlm/clap-st';
+    repository: 'github://cdlm/clap-st/src';
     load.
 ```
 
