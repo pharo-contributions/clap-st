@@ -14,7 +14,9 @@ Class {
 
 { #category : #accessing }
 ClapParameterizedMatch >> at: aSpec [
-	^ arguments detect: [ :arg | arg specification = aSpec ]
+	^ self
+		at: aSpec
+		ifAbsent: [ ClapAbsentMatch specification: aSpec ]
 ]
 
 { #category : #accessing }
@@ -79,6 +81,10 @@ ClapParameterizedMatch >> unboundParametersAmong: parameters do: aBlock [
 { #category : #parsing }
 ClapParameterizedMatch >> unboundPositionals [
 	^ self unboundParametersAmong: specification positionals
+]
+
+{ #category : #accessing }
+ClapParameterizedMatch >> valueAt: aString [
 ]
 
 { #category : #enumerating }

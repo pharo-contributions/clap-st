@@ -13,8 +13,16 @@ ClapPositional >> accept: aVisitor [
 ]
 
 { #category : #evaluating }
+ClapPositional >> basicMeaningOf: aMatch [
+	^ aMatch isRecognized
+		ifTrue: [ aMatch word ]
+		ifFalse: [ self notYetImplemented ]
+]
+
+{ #category : #evaluating }
 ClapPositional >> defaultMeaningOf: aMatch [
-	^ aMatch word
+	^ defaultMeaningBlock
+		ifNotNil: [ defaultMeaningBlock cull: aMatch ]
 ]
 
 { #category : #accessing }

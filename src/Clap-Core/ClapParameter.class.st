@@ -6,10 +6,12 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'canonicalName',
+		'description',
 		'meaningBlock',
-		'description'
+		'defaultBlock',
+		'defaultMeaningBlock'
 	],
-	#category : 'Clap-Core-Parameters'
+	#category : #'Clap-Core-Parameters'
 }
 
 { #category : #'instance creation' }
@@ -24,6 +26,11 @@ ClapParameter >> accept: aVisitor [
 	^ self subclassResponsibility
 ]
 
+{ #category : #evaluating }
+ClapParameter >> basicMeaningOf: aMatch [
+	^ aMatch
+]
+
 { #category : #accessing }
 ClapParameter >> canonicalName [
 	^ canonicalName
@@ -34,9 +41,9 @@ ClapParameter >> canonicalName: aString [
 	canonicalName := aString
 ]
 
-{ #category : #evaluating }
-ClapParameter >> defaultMeaningOf: aMatch [
-	^ aMatch
+{ #category : #initialization }
+ClapParameter >> defaultMeaning: aBlock [
+	defaultMeaningBlock := aBlock
 ]
 
 { #category : #accessing }
@@ -88,7 +95,7 @@ ClapParameter >> meaning: aBlock [
 { #category : #evaluating }
 ClapParameter >> meaningOf: aMatch [
 	^ meaningBlock
-		ifNil: [ self defaultMeaningOf: aMatch ]
+		ifNil: [ self basicMeaningOf: aMatch ]
 		ifNotNil: [ meaningBlock cull: aMatch ]
 ]
 

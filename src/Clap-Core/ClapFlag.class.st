@@ -15,8 +15,13 @@ ClapFlag >> accept: aVisitor [
 ]
 
 { #category : #evaluating }
-ClapFlag >> defaultMeaningOf: aMatch [
-	^ aMatch isMismatch not
+ClapFlag >> basicMeaningOf: aMatch [
+	^ aMatch isRecognized
+]
+
+{ #category : #evaluating }
+ClapFlag >> defaultMeaningOf: aClapAbsentMatch [ 
+	self shouldBeImplemented.
 ]
 
 { #category : #accessing }

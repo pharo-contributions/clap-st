@@ -22,6 +22,11 @@ ClapMismatch >> isMismatch [
 	^ true
 ]
 
+{ #category : #testing }
+ClapMismatch >> isRecognized [
+	^ false
+]
+
 { #category : #adding }
 ClapMismatch >> recordIn: parentMatch [ 
 	"this match failed, so do nothing"

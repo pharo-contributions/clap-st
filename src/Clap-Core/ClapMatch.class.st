@@ -30,6 +30,11 @@ ClapMatch >> isMismatch [
 	^ false
 ]
 
+{ #category : #testing }
+ClapMatch >> isRecognized [
+	^ true
+]
+
 { #category : #printing }
 ClapMatch >> printOn: aStream [
 	| needsSeparator |

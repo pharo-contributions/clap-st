@@ -9,7 +9,7 @@ ClapCommandLineExamples class >> hello [
 	<commandline>
 	^ (ClapCommand withName: 'hello')
 		addFlag: (ClapFlag withName: 'shout');
-		addPositional: (ClapPositional withName: 'who');
+		addPositional: ((ClapPositional withName: 'who') defaultMeaning: [ 'world' ]);
 		meaning: [ :args |
 			self new
 				doHelloRecipient: (args atName: 'who') value
