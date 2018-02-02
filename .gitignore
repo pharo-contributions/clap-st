@@ -1,3 +1,7 @@
+# any local load script for fari.sh
+*local.st
+
+# general Pharo stuff
 *.changes
 *.image
 *.sources
@@ -6,3 +10,6 @@ pharo-ui
 pharo-vm/
 github-cache/
 pharo-local/
+
+# other noise
+.DS_Store
