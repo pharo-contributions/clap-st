@@ -16,7 +16,7 @@ ClapFlag >> accept: aVisitor [
 
 { #category : #evaluating }
 ClapFlag >> basicMeaningOf: aMatch [
-	^ aMatch isRecognized
+	^ aMatch isExplicit
 ]
 
 { #category : #evaluating }

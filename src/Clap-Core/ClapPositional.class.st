@@ -14,9 +14,9 @@ ClapPositional >> accept: aVisitor [
 
 { #category : #evaluating }
 ClapPositional >> basicMeaningOf: aMatch [
-	^ aMatch isRecognized
+	^ aMatch isExplicit
 		ifTrue: [ aMatch word ]
-		ifFalse: [ self notYetImplemented ]
+		ifFalse: [ self defaultMeaningOf: aMatch ]
 ]
 
 { #category : #evaluating }

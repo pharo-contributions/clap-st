@@ -26,13 +26,13 @@ ClapMatch >> ifMismatch: aBlock [
 ]
 
 { #category : #testing }
-ClapMatch >> isMismatch [
-	^ false
+ClapMatch >> isExplicit [
+	^ true
 ]
 
 { #category : #testing }
-ClapMatch >> isRecognized [
-	^ true
+ClapMatch >> isMismatch [
+	^ false
 ]
 
 { #category : #printing }

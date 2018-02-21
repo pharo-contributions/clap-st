@@ -13,7 +13,7 @@ ClapAbsentMatch class >> specification: aParameter [
 ]
 
 { #category : #testing }
-ClapAbsentMatch >> isRecognized [
+ClapAbsentMatch >> isExplicit [
 	^ false
 ]
 

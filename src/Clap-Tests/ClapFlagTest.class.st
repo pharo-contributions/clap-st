@@ -13,8 +13,7 @@ ClapFlagTest >> classToTest [
 ClapFlagTest >> testDefaultMeaningNoArguments [
 	| match meaning |
 	match := Mock new.
-	match stub isMismatch willReturn: false.
-	match stub isRecognized willReturn: true.
+	match stub isExplicit willReturn: true.
 	
 	meaning := subject meaningOf: match.
 	

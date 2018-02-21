@@ -18,13 +18,13 @@ ClapMismatch >> ifMismatch: aBlock [
 ]
 
 { #category : #testing }
-ClapMismatch >> isMismatch [
-	^ true
+ClapMismatch >> isExplicit [
+	^ false
 ]
 
 { #category : #testing }
-ClapMismatch >> isRecognized [
-	^ false
+ClapMismatch >> isMismatch [
+	^ true
 ]
 
 { #category : #adding }
