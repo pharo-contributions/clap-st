@@ -14,6 +14,7 @@ ClapFlagTest >> testDefaultMeaningNoArguments [
 	| match meaning |
 	match := Mock new.
 	match stub isMismatch willReturn: false.
+	match stub isRecognized willReturn: true.
 	
 	meaning := subject meaningOf: match.
 	
