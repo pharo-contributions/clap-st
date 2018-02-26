@@ -19,11 +19,6 @@ ClapFlag >> accept: aVisitor [
 	^ aVisitor visitFlag: self
 ]
 
-{ #category : #evaluating }
-ClapFlag >> defaultMeaningOf: aClapAbsentMatch [ 
-	self shouldBeImplemented.
-]
-
 { #category : #accessing }
 ClapFlag >> longForm [
 	^ '--' , self canonicalName

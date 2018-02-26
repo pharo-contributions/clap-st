@@ -16,7 +16,7 @@ ClapMeaningsTest >> testArgFlagBasicMeaning [
 		addPositional: (ClapPositional withName: 'bar').
 
 	match := self match: flag on: #('--foo' 'whatever').
-	self assert: match value equals: 'whatever'.
+	self assert: match value.
 
 	match := self match: flag on: #().
 	self deny: match value.
