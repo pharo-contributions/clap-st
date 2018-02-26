@@ -9,14 +9,14 @@ Class {
 	#category : 'Clap-Core-Parameters'
 }
 
+{ #category : #'as yet unclassified' }
+ClapFlag class >> basicMeaning [
+	^ #isExplicit
+]
+
 { #category : #doc }
 ClapFlag >> accept: aVisitor [
 	^ aVisitor visitFlag: self
-]
-
-{ #category : #evaluating }
-ClapFlag >> basicMeaningOf: aMatch [
-	^ aMatch isExplicit
 ]
 
 { #category : #evaluating }

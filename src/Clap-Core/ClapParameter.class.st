@@ -8,11 +8,15 @@ Class {
 		'canonicalName',
 		'description',
 		'meaningBlock',
-		'defaultBlock',
 		'defaultMeaningBlock'
 	],
 	#category : #'Clap-Core-Parameters'
 }
+
+{ #category : #'as yet unclassified' }
+ClapParameter class >> basicMeaning [
+	^ #yourself
+]
 
 { #category : #'instance creation' }
 ClapParameter class >> withName: aString [ 
@@ -24,11 +28,6 @@ ClapParameter class >> withName: aString [
 { #category : #doc }
 ClapParameter >> accept: aVisitor [
 	^ self subclassResponsibility
-]
-
-{ #category : #evaluating }
-ClapParameter >> basicMeaningOf: aMatch [
-	^ aMatch
 ]
 
 { #category : #accessing }
@@ -58,7 +57,8 @@ ClapParameter >> description: aString [
 
 { #category : #initialization }
 ClapParameter >> initialize [
-	description := ''
+	description := ''.
+	meaningBlock := self class basicMeaning
 ]
 
 { #category : #accessing }
@@ -94,9 +94,7 @@ ClapParameter >> meaning: aBlock [
 
 { #category : #evaluating }
 ClapParameter >> meaningOf: aMatch [
-	^ meaningBlock
-		ifNil: [ self basicMeaningOf: aMatch ]
-		ifNotNil: [ meaningBlock cull: aMatch ]
+	^ meaningBlock cull: aMatch
 ]
 
 { #category : #matching }

@@ -7,16 +7,17 @@ Class {
 	#category : 'Clap-Core-Parameters'
 }
 
+{ #category : #'as yet unclassified' }
+ClapPositional class >> basicMeaning [
+	^ [ :match |
+		match isExplicit
+			ifTrue: [ match word ]
+			ifFalse: [ self defaultMeaningOf: match ] ]
+]
+
 { #category : #doc }
 ClapPositional >> accept: aVisitor [
 	^ aVisitor visitPositional: self
-]
-
-{ #category : #evaluating }
-ClapPositional >> basicMeaningOf: aMatch [
-	^ aMatch isExplicit
-		ifTrue: [ aMatch word ]
-		ifFalse: [ self defaultMeaningOf: aMatch ]
 ]
 
 { #category : #evaluating }

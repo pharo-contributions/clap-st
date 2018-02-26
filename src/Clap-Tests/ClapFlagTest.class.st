@@ -10,17 +10,6 @@ ClapFlagTest >> classToTest [
 ]
 
 { #category : #tests }
-ClapFlagTest >> testDefaultMeaningNoArguments [
-	| match meaning |
-	match := Mock new.
-	match stub isExplicit willReturn: true.
-	
-	meaning := subject meaningOf: match.
-	
-	meaning should equal: true
-]
-
-{ #category : #tests }
 ClapFlagTest >> testMatchesLongForm [
 	| match |
 	argv stub peek willReturn: '--foo'.
