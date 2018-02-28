@@ -37,6 +37,11 @@ ClapFlag >> matchClass [
 ]
 
 { #category : #initialization }
+ClapFlag >> meaningCollection [
+	self meaning: [ :match | match positionalValues ]
+]
+
+{ #category : #initialization }
 ClapFlag >> meaningScalar [
 	"Should only be allowed when there's a single positional"
 	self meaning: [ :match | (match at: self positionals first) value ]

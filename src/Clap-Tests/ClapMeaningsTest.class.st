@@ -24,6 +24,25 @@ ClapMeaningsTest >> testArgFlagBasicMeaning [
 ]
 
 { #category : #tests }
+ClapMeaningsTest >> testArgFlagCollectionMeaning [
+	| flag match |
+	flag := (ClapFlag withName: 'foo')
+		addPositional: ((ClapPositional withName: 'bar') defaultMeaning: [#nobar]);
+		addPositional: ((ClapPositional withName: 'baz') defaultMeaning: [#nobaz]);
+		meaningCollection.
+
+	match := self match: flag on: #('--foo' 'whatever 1' 'whatever 2').
+	self assert: match value asArray equals: #('whatever 1' 'whatever 2').
+
+	match := self match: flag on: #('--foo' 'whatever').
+	self assert: match value asArray equals: #('whatever' nobaz).
+
+	match := self match: flag on: #('--foo').
+	self assert: match value asArray equals: #(nobar nobaz).
+
+]
+
+{ #category : #tests }
 ClapMeaningsTest >> testArgFlagScalarMeaning [
 	| flag match |
 	flag := (ClapFlag withName: 'foo')
@@ -36,7 +55,7 @@ ClapMeaningsTest >> testArgFlagScalarMeaning [
 	match := self match: flag on: #('--foo').
 	self assert: match value equals: 'oops'.
 
-	match := self match: flag on: #().
+	match := self match: flag on: #(). "might be wrong, since this is really a mismatch"
 	self assert: match value equals: 'oops'.
 
 ]
