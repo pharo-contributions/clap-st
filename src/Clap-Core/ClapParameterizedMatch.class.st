@@ -83,10 +83,6 @@ ClapParameterizedMatch >> unboundPositionals [
 	^ self unboundParametersAmong: specification positionals
 ]
 
-{ #category : #accessing }
-ClapParameterizedMatch >> valueAt: aString [
-]
-
 { #category : #enumerating }
 ClapParameterizedMatch >> wordsDo: aBlock [
 	super wordsDo: aBlock.

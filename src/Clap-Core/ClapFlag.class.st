@@ -36,6 +36,12 @@ ClapFlag >> matchClass [
 	^ ClapFlagMatch
 ]
 
+{ #category : #initialization }
+ClapFlag >> meaningScalar [
+	"Should only be allowed when there's a single positional"
+	self meaning: [ :match | (match at: self positionals first) value ]
+]
+
 { #category : #accessing }
 ClapFlag >> shortForm [
 	^ '-' , self shortName

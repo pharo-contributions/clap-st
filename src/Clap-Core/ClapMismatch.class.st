@@ -12,6 +12,11 @@ ClapMismatch class >> specification: aParameter [
 	^ self new specification: aParameter
 ]
 
+{ #category : #accessing }
+ClapMismatch >> at: aSpec [
+	^ ClapAbsentMatch specification: aSpec
+]
+
 { #category : #testing }
 ClapMismatch >> ifMismatch: aBlock [
 	^ aBlock cull: self

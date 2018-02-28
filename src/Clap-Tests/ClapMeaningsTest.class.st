@@ -24,6 +24,24 @@ ClapMeaningsTest >> testArgFlagBasicMeaning [
 ]
 
 { #category : #tests }
+ClapMeaningsTest >> testArgFlagScalarMeaning [
+	| flag match |
+	flag := (ClapFlag withName: 'foo')
+		addPositional: ((ClapPositional withName: 'bar') defaultMeaning: ['oops']);
+		meaningScalar.
+
+	match := self match: flag on: #('--foo' 'whatever').
+	self assert: match value equals: 'whatever'.
+
+	match := self match: flag on: #('--foo').
+	self assert: match value equals: 'oops'.
+
+	match := self match: flag on: #().
+	self assert: match value equals: 'oops'.
+
+]
+
+{ #category : #tests }
 ClapMeaningsTest >> testSimpleFlagBasicMeaning [
 	| flag match |
 	flag := ClapFlag withName: 'foo'.
