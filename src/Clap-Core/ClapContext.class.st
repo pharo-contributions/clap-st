@@ -9,10 +9,9 @@ Class {
 	#name : #ClapContext,
 	#superclass : #Object,
 	#instVars : [
-		'arguments',
-		'deferred'
+		'arguments'
 	],
-	#category : 'Clap-Core-Support'
+	#category : #'Clap-Core-Support'
 }
 
 { #category : #'instance creation' }
@@ -29,36 +28,6 @@ ClapContext >> arguments: aStream [
 { #category : #testing }
 ClapContext >> atEnd [
 	^ arguments atEnd
-]
-
-{ #category : #matching }
-ClapContext >> defer: aParameter for: parentMatch [ 
-	deferred push: aParameter -> parentMatch
-]
-
-{ #category : #initialization }
-ClapContext >> initialize [
-	deferred := Stack new
-]
-
-{ #category : #matching }
-ClapContext >> matchDeferred [
-	| top match |
-	deferred ifEmpty: [ ^ self mismatch ].
-	
-	top := deferred pop.
-	match := top key matchOn: arguments.
-	match ifMismatch: [
-		deferred push: top.
-		self mismatch ].
-	
-	match recordIn: top value.
-	^ match
-]
-
-{ #category : #matching }
-ClapContext >> mismatch [
-	^ ClapMismatch specification: self
 ]
 
 { #category : #accessing }
