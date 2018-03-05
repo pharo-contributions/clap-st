@@ -9,7 +9,7 @@ Class {
 	#category : 'Clap-Core-Parameters'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #evaluating }
 ClapFlag class >> basicMeaning [
 	^ #isExplicit
 ]

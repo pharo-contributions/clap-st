@@ -13,7 +13,7 @@ Class {
 	#category : #'Clap-Core-Parameters'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #evaluating }
 ClapParameter class >> basicMeaning [
 	^ #yourself
 ]
@@ -45,6 +45,12 @@ ClapParameter >> defaultMeaning: aBlock [
 	defaultMeaningBlock := aBlock
 ]
 
+{ #category : #evaluating }
+ClapParameter >> defaultMeaningOf: aMatch [
+	^ defaultMeaningBlock
+		ifNotNil: [ defaultMeaningBlock cull: aMatch ]
+]
+
 { #category : #accessing }
 ClapParameter >> description [
 	^ description
@@ -58,7 +64,8 @@ ClapParameter >> description: aString [
 { #category : #initialization }
 ClapParameter >> initialize [
 	description := ''.
-	meaningBlock := self class basicMeaning
+	meaningBlock := self class basicMeaning.
+	defaultMeaningBlock := meaningBlock
 ]
 
 { #category : #accessing }

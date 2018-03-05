@@ -10,7 +10,7 @@ Class {
 	#category : #'Clap-Core-Parameters'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 ClapParameterized class >> isAbstract [
 	^ self == ClapParameterized
 ]

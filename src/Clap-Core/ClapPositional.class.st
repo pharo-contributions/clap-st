@@ -7,7 +7,7 @@ Class {
 	#category : 'Clap-Core-Parameters'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #evaluating }
 ClapPositional class >> basicMeaning [
 	^ [ :match |
 		match isExplicit
@@ -18,12 +18,6 @@ ClapPositional class >> basicMeaning [
 { #category : #doc }
 ClapPositional >> accept: aVisitor [
 	^ aVisitor visitPositional: self
-]
-
-{ #category : #evaluating }
-ClapPositional >> defaultMeaningOf: aMatch [
-	^ defaultMeaningBlock
-		ifNotNil: [ defaultMeaningBlock cull: aMatch ]
 ]
 
 { #category : #accessing }
