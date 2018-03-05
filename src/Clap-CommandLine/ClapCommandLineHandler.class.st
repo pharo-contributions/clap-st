@@ -11,24 +11,31 @@ ClapCommandLineHandler class >> commandName [
 
 { #category : #activation }
 ClapCommandLineHandler >> activate [
-	| context match command |
-	context := ClapContext on: self arguments.
-	
-	command := self subcommands
-		detect: [ :each |
-			match := each matchPremiseOn: context.
-			match isMismatch not ]
-		ifNone: [ ^ self noneMatched ].
+	[ [ | context match command |
+			context := ClapContext on: self arguments.
 
-	command with: match matchOn: context.
-	self stdout
-		nextPutAll: match printString;
-		lf.
+			command := self subcommands
+				detect: [ :each |
+					match := each matchPremiseOn: context.
+					match isMismatch not ]
+				ifNone: [ ^ self noneMatched ].
 
-	match value.
+			command with: match matchOn: context.
+			match value.
 	
-	"If we reach here, then all went well"
-	self exitSuccess
+			"If we reach here, then all went well"
+			self exitSuccess
+		] on: Exit do: [ :exit | self handleExit: exit ]
+	] forkAt: Processor userSchedulingPriority named: 'Clap commandline handler process'
+]
+
+{ #category : #activation }
+ClapCommandLineHandler >> handleExit: exit [
+	Smalltalk isInteractive
+		ifFalse: [ ^ exit pass ].
+
+	exit isSuccess
+		ifFalse: [ ^ exit resignalAs: (Error new messageText: exit messageText) ]
 ]
 
 { #category : #activation }
