@@ -4,7 +4,7 @@ I represent a class which is a command example for doc generation.
 Class {
 	#name : #ComplexCommandDocExample,
 	#superclass : #Object,
-	#category : 'Clap-Core-DocExample'
+	#category : #'Clap-Examples'
 }
 
 { #category : #'instance creation' }
