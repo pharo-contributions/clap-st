@@ -1,7 +1,7 @@
 Class {
 	#name : #ClapCommandLineExamples,
 	#superclass : #Object,
-	#category : #'Clap-CommandLine-Examples'
+	#category : #'Clap-Examples'
 }
 
 { #category : #commandline }
