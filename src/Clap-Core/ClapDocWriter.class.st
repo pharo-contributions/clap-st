@@ -15,7 +15,7 @@ ClapDocWriter class >> new: aStream [
 	^ self new stream: aStream
 ]
 
-{ #category : #adding }
+{ #category : #private }
 ClapDocWriter >> addToStream: aString [
 	stream nextPutAll: aString
 ]
@@ -46,11 +46,11 @@ ClapDocWriter >> printArgs: aCommand [
 { #category : #doc }
 ClapDocWriter >> printCategory: aString of: args [
 	"A generic method to print a list of args according to the type"
+	args ifEmpty: [  ^ self ].
 
-	args size = 0
-		ifFalse: [ self addToStream: self newLineString , aString , self newLineString.
-			args
-				do: [ :a | self addToStream: (a accept: self) , String tab , a description , self newLineString ] ]
+	self addToStream: self newLineString , aString , self newLineString.
+	args do: [ :a |
+		self addToStream: (a accept: self) , String tab , a description , self newLineString ]
 ]
 
 { #category : #doc }

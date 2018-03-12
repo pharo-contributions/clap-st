@@ -3,52 +3,45 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'subject',
-		'argv',
-		'newLine'
+		'command'
 	],
-	#category : 'Clap-Tests-Unit'
+	#category : #'Clap-Tests-Integration'
 }
 
 { #category : #running }
 ClapDocWriterTest >> setUp [
-	| pos flag |
 	subject := ClapDocWriter new: '' writeStream.
-	pos := ClapPositional withName: 'class'.
-	pos description: 'Name of a class'.
-	flag := ClapFlag withName: 'force'.
-	flag description: 'force removing'.
-	argv := (ClapCommand withName: 'foo')
-		addPositional: pos;
-		addFlag: flag.
-	newLine := subject newLineString
+	command := (ClapCommand withName: 'foo')
+		addPositional: ((ClapPositional withName: 'class') description: 'Name of a class');
+		addFlag: ((ClapFlag withName: 'force') description: 'force removing')
 ]
 
 { #category : #tests }
 ClapDocWriterTest >> testPrintElementsOf [
-	| expected |
-	expected := newLine , 'OPTIONS:' , newLine.
-	expected := expected , '--force,-f ' , String tab , 'force removing' , newLine.
-	subject printCategory: 'OPTIONS:' of: argv flags.
-	subject stream contents should equal: expected
+	subject printCategory: 'OPTIONS:' of: command flags.
+	subject stream contents lines should equal: {
+		''.
+		'OPTIONS:'.
+		'--force,-f ', String tab, 'force removing'
+	}
 ]
 
 { #category : #tests }
 ClapDocWriterTest >> testPrintUsage [
-	| expected |
-	expected := 'foo --force,-f <class> ' , newLine.
-	subject printUsage: '' of: argv.
-	subject stream contents should equal: expected
+	subject printUsage: '' of: command.
+	subject stream contents lines first should equal: 'foo --force,-f <class> '
 ]
 
 { #category : #tests }
 ClapDocWriterTest >> testPrintUsageOfSubcommandWithMultipleSubcommands [
-	| expected subcommand |
-	expected := 'foo --force,-f <class> git add ' , newLine.
-	expected := expected , 'foo --force,-f <class> git brench ' , newLine.
-	subcommand := (ClapCommand withName: 'git')
+	command addSubcommand: ((ClapCommand withName: 'git')
 		addSubcommand: (ClapCommand withName: 'add');
-		addSubcommand: (ClapCommand withName: 'brench').
-	argv addSubcommand: subcommand.
-	subject printUsage: '' of: argv.
-	subject stream contents should equal: expected
+		addSubcommand: (ClapCommand withName: 'branch')).
+		
+	subject printUsage: '' of: command.
+	
+	subject stream contents lines should equal: #(
+		'foo --force,-f <class> git add '
+		'foo --force,-f <class> git branch '
+	)
 ]
