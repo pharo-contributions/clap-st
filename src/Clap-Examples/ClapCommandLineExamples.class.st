@@ -15,7 +15,6 @@ ClapCommandLineExamples class >> hello [
 			self new
 				doHelloRecipient: (args atName: 'who') value
 				shouting: (args atName: 'shout') value ]
-				
 ]
 
 { #category : #running }

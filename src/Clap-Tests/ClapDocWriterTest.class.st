@@ -10,7 +10,7 @@ Class {
 
 { #category : #running }
 ClapDocWriterTest >> setUp [
-	subject := ClapDocWriter new: '' writeStream.
+	subject := ClapDocWriter on: '' writeStream.
 	command := (ClapCommand withName: 'foo')
 		addPositional: ((ClapPositional withName: 'class') description: 'Name of a class');
 		addFlag: ((ClapFlag withName: 'force') description: 'force removing')
@@ -19,7 +19,7 @@ ClapDocWriterTest >> setUp [
 { #category : #tests }
 ClapDocWriterTest >> testPrintElementsOf [
 	subject printCategory: 'OPTIONS:' of: command flags.
-	subject stream contents lines should equal: {
+	subject contents lines should equal: {
 		''.
 		'OPTIONS:'.
 		'--force,-f ', String tab, 'force removing'
@@ -29,7 +29,7 @@ ClapDocWriterTest >> testPrintElementsOf [
 { #category : #tests }
 ClapDocWriterTest >> testPrintUsage [
 	subject printUsage: '' of: command.
-	subject stream contents lines first should equal: 'foo --force,-f <class> '
+	subject contents lines first should equal: 'foo --force,-f <class> '
 ]
 
 { #category : #tests }
@@ -40,7 +40,7 @@ ClapDocWriterTest >> testPrintUsageOfSubcommandWithMultipleSubcommands [
 		
 	subject printUsage: '' of: command.
 	
-	subject stream contents lines should equal: #(
+	subject contents lines should equal: #(
 		'foo --force,-f <class> git add '
 		'foo --force,-f <class> git branch '
 	)

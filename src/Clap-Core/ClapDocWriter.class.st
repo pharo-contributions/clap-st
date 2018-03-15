@@ -11,13 +11,23 @@ Class {
 }
 
 { #category : #'instance creation' }
-ClapDocWriter class >> new: aStream [
+ClapDocWriter class >> new [
+	^ self on: String new writeStream
+]
+
+{ #category : #'instance creation' }
+ClapDocWriter class >> on: aStream [
 	^ self new stream: aStream
 ]
 
 { #category : #private }
 ClapDocWriter >> addToStream: aString [
 	stream nextPutAll: aString
+]
+
+{ #category : #accessing }
+ClapDocWriter >> contents [
+	^ stream contents
 ]
 
 { #category : #doc }
@@ -104,7 +114,7 @@ ClapDocWriter >> stream [
 	^ stream
 ]
 
-{ #category : #setting }
+{ #category : #accessing }
 ClapDocWriter >> stream: aStream [
 	stream := aStream
 ]
