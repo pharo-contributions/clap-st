@@ -10,7 +10,7 @@ Class {
 
 { #category : #running }
 ClapDocWriterTest >> setUp [
-	subject := ClapDocWriter on: '' writeStream.
+	subject := ClapDocWriter new.
 	command := (ClapCommand withName: 'foo')
 		addPositional: ((ClapPositional withName: 'class') description: 'Name of a class');
 		addFlag: ((ClapFlag withName: 'force') description: 'force removing')
@@ -18,7 +18,7 @@ ClapDocWriterTest >> setUp [
 
 { #category : #tests }
 ClapDocWriterTest >> testPrintElementsOf [
-	subject printCategory: 'OPTIONS:' of: command flags.
+	subject printCategory: 'OPTIONS:' with: command flags.
 	subject contents lines should equal: {
 		''.
 		'OPTIONS:'.
@@ -34,9 +34,10 @@ ClapDocWriterTest >> testPrintUsage [
 
 { #category : #tests }
 ClapDocWriterTest >> testPrintUsageOfSubcommandWithMultipleSubcommands [
-	command addSubcommand: ((ClapCommand withName: 'git')
-		addSubcommand: (ClapCommand withName: 'add');
-		addSubcommand: (ClapCommand withName: 'branch')).
+	command
+		addSubcommand: ((ClapCommand withName: 'git')
+			addSubcommand: (ClapCommand withName: 'add');
+			addSubcommand: (ClapCommand withName: 'branch')).
 		
 	subject printUsage: '' of: command.
 	

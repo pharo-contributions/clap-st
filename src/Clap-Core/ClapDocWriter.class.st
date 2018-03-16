@@ -5,9 +5,10 @@ Class {
 	#name : #ClapDocWriter,
 	#superclass : #Object,
 	#instVars : [
-		'stream'
+		'stream',
+		'newLineString'
 	],
-	#category : 'Clap-Core-DocWriter'
+	#category : #'Clap-Core-Documentation'
 }
 
 { #category : #'instance creation' }
@@ -16,13 +17,9 @@ ClapDocWriter class >> new [
 ]
 
 { #category : #'instance creation' }
-ClapDocWriter class >> on: aStream [
-	^ self new stream: aStream
-]
-
-{ #category : #private }
-ClapDocWriter >> addToStream: aString [
-	stream nextPutAll: aString
+ClapDocWriter class >> on: aFormatter [
+	^ self basicNew
+		initializeOn: aFormatter
 ]
 
 { #category : #accessing }
@@ -30,52 +27,85 @@ ClapDocWriter >> contents [
 	^ stream contents
 ]
 
-{ #category : #doc }
+{ #category : #'old - generating' }
 ClapDocWriter >> generateDoc: aCommand [
-	"The main method to generate doc"
-
-	self addToStream: 'USAGE:' , self newLineString .
-	self printUsage: '' of: aCommand.
-	self printOptions: aCommand.
-	self printArgs: aCommand.
-	self printCommands: aCommand
+	self
+		nextPutAll: 'USAGE:';
+	 	newLine.
+	self
+		printUsage: '' of: aCommand;
+		printOptions: aCommand;
+		printArgs: aCommand;
+		printCommands: aCommand
 ]
 
-{ #category : #private }
+{ #category : #initialization }
+ClapDocWriter >> initializeOn: aStream [
+	self initialize.
+	stream := aStream
+]
+
+{ #category : #printing }
+ClapDocWriter >> newLine [
+	^ self nextPutAll: self newLineString
+]
+
+{ #category : #accessing }
 ClapDocWriter >> newLineString [
-	"Put the line return char in the stream according to the OS"
-	^ OSPlatform current lineEnding
+	^ newLineString ifNil: [ OSPlatform current lineEnding ]
 ]
 
-{ #category : #doc }
+{ #category : #accessing }
+ClapDocWriter >> newLineString: aString [
+	newLineString := aString
+]
+
+{ #category : #printing }
+ClapDocWriter >> nextPut: aCharacter [
+	^ stream nextPut: aCharacter
+]
+
+{ #category : #printing }
+ClapDocWriter >> nextPutAll: aString [
+	^ stream nextPutAll: aString
+]
+
+{ #category : #'old - generating' }
 ClapDocWriter >> printArgs: aCommand [
 	"Prints the list of positionals"
-	self printCategory: 'ARGS:' of: aCommand positionals
+	self printCategory: 'ARGS:' with: aCommand positionals
 ]
 
-{ #category : #doc }
-ClapDocWriter >> printCategory: aString of: args [
+{ #category : #'old - generating' }
+ClapDocWriter >> printCategory: aString with: args [
 	"A generic method to print a list of args according to the type"
-	args ifEmpty: [  ^ self ].
+	args ifEmpty: [ ^ self ].
 
-	self addToStream: self newLineString , aString , self newLineString.
+	self newLine;
+		nextPutAll: aString;
+		newLine.
+	
 	args do: [ :a |
-		self addToStream: (a accept: self) , String tab , a description , self newLineString ]
+		self
+			nextPutAll: (a accept: self);
+			tab;
+		 	nextPutAll: a description;
+			newLine ]
 ]
 
-{ #category : #doc }
+{ #category : #'old - generating' }
 ClapDocWriter >> printCommand: aCommand [
 	"Returns the command name to print it"
 	^ aCommand canonicalName , ' '
 ]
 
-{ #category : #doc }
+{ #category : #'old - generating' }
 ClapDocWriter >> printCommands: aCommand [
 	"Prints the list of subcommands"
-	self printCategory: 'COMMANDS:' of: aCommand subcommands
+	self printCategory: 'COMMANDS:' with: aCommand subcommands
 ]
 
-{ #category : #doc }
+{ #category : #'old - generating' }
 ClapDocWriter >> printFlag: aFlag [
 	"Returns the flag name formatting to print it in the doc"
 	| s |
@@ -84,19 +114,19 @@ ClapDocWriter >> printFlag: aFlag [
 	^ s
 ]
 
-{ #category : #doc }
+{ #category : #'old - generating' }
 ClapDocWriter >> printOptions: aCommand [
 	"Prints the list of flags"
-	self printCategory: 'OPTIONS:' of: aCommand flags
+	self printCategory: 'OPTIONS:' with: aCommand flags
 ]
 
-{ #category : #doc }
+{ #category : #'old - generating' }
 ClapDocWriter >> printPositional: aPositional [
 	"Returns the positional name formatting to print it in the doc"
 	^ '<' , aPositional canonicalName , '> '
 ]
 
-{ #category : #doc }
+{ #category : #'old - generating' }
 ClapDocWriter >> printUsage: aString of: aCommand [
 	"Prints the usage category, i.e all the possible syntaxes"
 
@@ -105,8 +135,20 @@ ClapDocWriter >> printUsage: aString of: aCommand [
 	aCommand flags do: [ :f | aux := aux , (f accept: self) ].
 	aCommand positionals do: [ :p | aux := aux , (p accept: self) ].
 	aCommand subcommands do: [ :sc | self printUsage: aString , aux of: sc ].
-	aCommand subcommands size = 0
-		ifTrue: [ self addToStream: aString , aux , self newLineString  ]
+	aCommand subcommands ifEmpty: [
+		self
+			nextPutAll: aString;
+		 	nextPutAll: aux;
+			newLine ]
+]
+
+{ #category : #documenting }
+ClapDocWriter >> section: titleString with: aBlock [
+	self
+		nextPutAll: titleString;
+		nextPut: $:;
+		newLine.
+	aBlock value
 ]
 
 { #category : #accessing }
@@ -114,22 +156,22 @@ ClapDocWriter >> stream [
 	^ stream
 ]
 
-{ #category : #accessing }
-ClapDocWriter >> stream: aStream [
-	stream := aStream
+{ #category : #printing }
+ClapDocWriter >> tab [
+	^ stream tab
 ]
 
-{ #category : #visiting }
+{ #category : #'old - visiting' }
 ClapDocWriter >> visitCommand: aCommand [
 	^ self printCommand: aCommand
 ]
 
-{ #category : #visiting }
+{ #category : #'old - visiting' }
 ClapDocWriter >> visitFlag: aCommand [
 	^ self printFlag: aCommand
 ]
 
-{ #category : #visiting }
+{ #category : #'old - visiting' }
 ClapDocWriter >> visitPositional: aCommand [
 	^ self printPositional: aCommand
 ]
