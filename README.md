@@ -31,6 +31,30 @@ Metacello new baseline: 'Clap';
    load.
 ```
 
+### Defining and invoking commands
+
+Commands and subcommands are instances of `ClapCommand`. To make a command
+accessible from the command line, return it from a class-side factory method
+with the `<commandline>` pragma. See the `ClapCommandLineExamples class >> hello`.
+
+Clap installs itself as a named command line handler; e.g., to run the `hello`
+example command:
+
+```shell
+$PHARO_VM $PHARO_IMAGE clap hello
+$PHARO_VM $PHARO_IMAGE clap hello --shout you
+```
+
+Commands can also be tested from within the image; running them from an
+interactive session will not quit the image, but any output from the command
+will still go to the standard output:
+
+```smalltalk
+ClapCommandLineHandler new
+    commandLine: (CommandLineArguments withArguments: {'hello'});
+    activate.
+```
+
 [travis]: https://travis-ci.org/cdlm/clap-st
 [travis-status]: https://travis-ci.org/cdlm/clap-st.svg?branch=master
 [coveralls]: https://coveralls.io/github/cdlm/clap-st?branch=master
