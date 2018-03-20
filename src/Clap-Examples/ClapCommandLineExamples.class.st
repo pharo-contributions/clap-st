@@ -8,8 +8,11 @@ Class {
 ClapCommandLineExamples class >> hello [
 	<commandline>
 	^ (ClapCommand withName: 'hello')
-		addFlag: (ClapFlag withName: 'shout');
+		description: 'Provides greetings.';
+		addFlag: ((ClapFlag withName: 'shout')
+			description: 'Greet loudly');
 		addPositional: ((ClapPositional withName: 'who')
+			description: 'Recipient of the greetings';
 			defaultMeaning: [ 'world' ]);
 		meaning: [ :args |
 			self new

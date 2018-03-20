@@ -14,6 +14,11 @@ ClapDocumentationFormatter class >> on: aStream [
 		initializeOn: aStream
 ]
 
+{ #category : #accessing }
+ClapDocumentationFormatter >> contents [
+	^ stream contents
+]
+
 { #category : #initialization }
 ClapDocumentationFormatter >> initializeOn: aStream [
 	self initialize.
@@ -46,6 +51,11 @@ ClapDocumentationFormatter >> section: titleString with: contentsBlock [
 			nextPutAll: titleString; nextPut: $:;
 			newLine;
 			nextPutAll: contents contents ]
+]
+
+{ #category : #accessing }
+ClapDocumentationFormatter >> space [
+	^ stream space
 ]
 
 { #category : #formattting }
