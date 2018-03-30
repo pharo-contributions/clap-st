@@ -39,6 +39,14 @@ ClapPositional >> matchPremiseOn: aStream [
 		ifFalse: [ self matchWord: aStream next ]
 ]
 
+{ #category : #documenting }
+ClapPositional >> synopsisOn: aStream [
+	^ aStream
+			nextPut: $<;
+			nextPutAll: self canonicalName;
+			nextPut: $>
+]
+
 { #category : #matching }
 ClapPositional >> with: premiseMatch matchOn: aStream [ 
 	^ premiseMatch

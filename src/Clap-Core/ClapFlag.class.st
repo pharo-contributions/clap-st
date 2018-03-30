@@ -56,3 +56,10 @@ ClapFlag >> shortForm [
 ClapFlag >> shortName [
 	^ self canonicalName copyFrom: 1 to: 1
 ]
+
+{ #category : #documenting }
+ClapFlag >> synopsisOn: aStream [
+	aStream
+		nextPutAll: '--';
+		nextPutAll: self canonicalName
+]

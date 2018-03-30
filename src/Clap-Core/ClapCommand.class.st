@@ -98,6 +98,11 @@ ClapCommand >> subcommands [
 	^ subcommands
 ]
 
+{ #category : #documenting }
+ClapCommand >> synopsisOn: aStream [
+	aStream nextPutAll: self canonicalName
+]
+
 { #category : #matching }
 ClapCommand >> with: partialMatch detectMatchOn: aStream ifFound: foundBlock ifNone: noneBlock [
 	^ self

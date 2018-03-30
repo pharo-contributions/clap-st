@@ -77,7 +77,7 @@ ClapDocumenter >> section: titleString listing: parameters [
 		text: titleString;
 		newLine;
 		tabularize: (parameters collect:
-			[ :each | each canonicalName -> each description ])
+			[ :each | each synopsis -> each description ])
 ]
 
 { #category : #documenting }

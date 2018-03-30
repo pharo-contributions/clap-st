@@ -118,6 +118,16 @@ ClapParameter >> printOn: aStream [
 		nextPut: $)
 ]
 
+{ #category : #documenting }
+ClapParameter >> synopsis [
+	^ String streamContents: [ :aStream | self synopsisOn: aStream ]
+]
+
+{ #category : #documenting }
+ClapParameter >> synopsisOn: aStream [
+	^ self subclassResponsibility
+]
+
 { #category : #matching }
 ClapParameter >> with: premiseMatch matchOn: aStream [ 
 	^ self subclassResponsibility
