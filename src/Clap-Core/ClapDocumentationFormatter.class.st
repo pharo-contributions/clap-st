@@ -15,6 +15,16 @@ ClapDocumentationFormatter class >> on: aStream [
 ]
 
 { #category : #accessing }
+ClapDocumentationFormatter >> columnIndent [
+	^ 16
+]
+
+{ #category : #accessing }
+ClapDocumentationFormatter >> columnSeparation [
+	^ 3
+]
+
+{ #category : #accessing }
 ClapDocumentationFormatter >> contents [
 	^ stream contents
 ]
@@ -23,6 +33,11 @@ ClapDocumentationFormatter >> contents [
 ClapDocumentationFormatter >> initializeOn: aStream [
 	self initialize.
 	stream := aStream
+]
+
+{ #category : #accessing }
+ClapDocumentationFormatter >> listIndent [
+	^ 4
 ]
 
 { #category : #formattting }
@@ -60,14 +75,17 @@ ClapDocumentationFormatter >> space [
 
 { #category : #formattting }
 ClapDocumentationFormatter >> tabularize: associations [
-	| termWidth |
-	termWidth := associations inject: 0 into: [ :width :each | width max: each size ].
 	associations do: [ :each |
+		| keyWidth |
+		keyWidth := each key size + self listIndent.
 		stream
-			nextPutAll: each key;
-			space: termWidth - each key size + 2;
-			nextPutAll: each value;
-			newLine ]
+			space: self listIndent;
+			nextPutAll: each key.
+		keyWidth + self columnSeparation > self columnIndent
+			ifTrue: [ self newLine. stream space: self columnIndent ]
+			ifFalse: [ stream space: self columnIndent - keyWidth ].
+		stream nextPutAll: each value.
+		self newLine ]
 ]
 
 { #category : #formattting }

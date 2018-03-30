@@ -34,7 +34,17 @@ ClapDocumenter >> descriptionSummary: aCommand [
 ClapDocumenter >> explain: aCommand [
 	self descriptionSummary: aCommand.
 	formatter newLine.
-	self usage: aCommand
+	self usage: aCommand.
+	self parameterDescriptions: aCommand
+]
+
+{ #category : #documenting }
+ClapDocumenter >> flagSynopsis: each [
+	^ formatter
+		text: '[';
+		text: '--';
+		text: each canonicalName;
+		text: ']'
 ]
 
 { #category : #initialization }
@@ -44,27 +54,46 @@ ClapDocumenter >> initializeOn: aFormatter [
 ]
 
 { #category : #documenting }
+ClapDocumenter >> parameterDescriptions: aCommand [
+	self section: 'Parameters:' listing: aCommand positionals.
+	self section: 'Options:' listing: aCommand flags.
+	self section: 'Commands:' listing: aCommand subcommands
+]
+
+{ #category : #documenting }
+ClapDocumenter >> positional: each [
+	^ formatter
+		text: '[<';
+		text: each canonicalName;
+		text: '>]'
+]
+
+{ #category : #documenting }
+ClapDocumenter >> section: titleString listing: parameters [
+	parameters ifEmpty: [ ^ self ].
+
+	formatter
+		newLine;
+		text: titleString;
+		newLine;
+		tabularize: (parameters collect:
+			[ :each | each canonicalName -> each description ])
+]
+
+{ #category : #documenting }
 ClapDocumenter >> usage: aCommand [
 	formatter
 		text: 'Usage: ';
 		text: aCommand canonicalName.
-	aCommand flags
-		ifNotEmpty: [ :flags | 
-			formatter space; text: '['.
-			flags
-				do: [ :each | formatter text: '--'; text: each canonicalName ]
-				separatedBy: [ formatter text: ',' ].
-			formatter text: ']' ].
-	aCommand positionals
-		ifNotEmpty: [ :positionals | 
-			formatter space; text: '['.
-			positionals
-				do: [ :each |
-					formatter
-						text: '<';
-						text: each canonicalName;
-						text: '>' ]
-				separatedBy: [ formatter space ].
-			formatter text: ']' ].
+	aCommand flags ifNotEmpty: [ :flags | 
+		formatter space.
+		flags
+			do: [ :each | self flagSynopsis: each ]
+			separatedBy: [ formatter space ] ].
+	aCommand positionals ifNotEmpty: [ :positionals | 
+		formatter space.
+		positionals
+			do: [ :each | self positional: each ]
+			separatedBy: [ formatter space ] ].
 	formatter newLine
 ]
