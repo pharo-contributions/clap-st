@@ -1,3 +1,13 @@
+"
+Examples and demos of Clap commands (see class side, protocol commandline).
+
+Arbitrary command instances can be run as do-its, e.g.:
+	ClapCommandLineExamples hello runWith: #('hello' 'Pharo')
+
+Commands registered in the system (returned from a class-side method with the <commandline> pragma) can also be invoked from the host system's command line:
+	$PHARO_VM $IMAGE clap hello Pharo
+
+"
 Class {
 	#name : #ClapCommandLineExamples,
 	#superclass : #Object,

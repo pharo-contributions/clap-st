@@ -86,6 +86,16 @@ ClapCommand >> matchClass [
 	^ ClapCommandMatch
 ]
 
+{ #category : #running }
+ClapCommand >> runOn: aContext [
+	^ (self matchOn: aContext) value
+]
+
+{ #category : #running }
+ClapCommand >> runWith: arguments [
+	^ self runOn: (ClapContext on: arguments)
+]
+
 { #category : #accessing }
 ClapCommand >> subcommandNamed: specName ifNone: aBlock [
 	^ subcommands
