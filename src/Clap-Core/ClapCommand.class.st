@@ -34,6 +34,17 @@ Class {
 	#category : #'Clap-Core-Parameters'
 }
 
+{ #category : #'as yet unclassified' }
+ClapCommand class >> helpCommand [
+	^ (self withName: 'help')
+		description: 'Prints documentation about the given command.';
+		addPositional: ((ClapPositional withName: 'topic')
+			description: 'A subcommand to document (defaults to the current one)';
+			meaning: [ :pos | Halt now ];
+			defaultMeaning: [ :pos | pos halt ]);
+		meaning: [ :args | Halt now: 'run a documenter' ]
+]
+
 { #category : #doc }
 ClapCommand >> accept: aVisitor [
 	^ aVisitor visitCommand: self
