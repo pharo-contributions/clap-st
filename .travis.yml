@@ -3,10 +3,10 @@ sudo: false
 
 os:
   - linux
-
-smalltalk_edge:
-  source: peteruhnak/smalltalkCI
-  branch: master
+  - osx
 
 smalltalk:
   - Pharo-7.0
+  - Pharo64-7.0
+  - Pharo-6.1
+  - Pharo64-6.1
