@@ -8,9 +8,10 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'specification',
-		'word'
+		'word',
+		'parent'
 	],
-	#category : 'Clap-Core-Matches'
+	#category : #'Clap-Core-Matches'
 }
 
 { #category : #'instance creation' }
@@ -35,6 +36,11 @@ ClapMatch >> isMismatch [
 	^ false
 ]
 
+{ #category : #accessing }
+ClapMatch >> parent [
+	^ parent
+]
+
 { #category : #printing }
 ClapMatch >> printOn: aStream [
 	| needsSeparator |
@@ -50,7 +56,15 @@ ClapMatch >> printOn: aStream [
 
 { #category : #adding }
 ClapMatch >> recordIn: parentMatch [
-	parentMatch recordParameterMatch: self
+	parent := parentMatch.
+	parent recordParameterMatch: self
+]
+
+{ #category : #accessing }
+ClapMatch >> rootMatch [
+	^ parent
+		ifNil: [ self ]
+		ifNotNil: [ parent root ]
 ]
 
 { #category : #accessing }

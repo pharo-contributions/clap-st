@@ -14,6 +14,12 @@ ClapFlag class >> basicMeaning [
 	^ #isExplicit
 ]
 
+{ #category : #'as yet unclassified' }
+ClapFlag class >> helpFlag [
+	^ (self withName: 'help')
+		description: 'Prints documentation about the parent command.'
+]
+
 { #category : #doc }
 ClapFlag >> accept: aVisitor [
 	^ aVisitor visitFlag: self

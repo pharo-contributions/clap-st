@@ -12,7 +12,7 @@ ClapPositional class >> basicMeaning [
 	^ [ :match |
 		match isExplicit
 			ifTrue: [ match word ]
-			ifFalse: [ self defaultMeaningOf: match ] ]
+			ifFalse: [ nil ] ]
 ]
 
 { #category : #doc }

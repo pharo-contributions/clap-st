@@ -25,6 +25,11 @@ ClapCommandLineExamples class >> hello [
 			description: 'Recipient of the greetings';
 			defaultMeaning: [ 'world' ]);
 		meaning: [ :args |
+			(args atName: 'help') ifTrue: [
+				(ClapDocumenter on: (ClapDocumentationFormatter on: args context))
+					explain: args parent specification.
+			].
+				
 			self new
 				doHelloRecipient: (args atName: 'who') value
 				shouting: (args atName: 'shout') value ]
