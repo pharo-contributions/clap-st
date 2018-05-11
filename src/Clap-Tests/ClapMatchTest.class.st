@@ -48,6 +48,10 @@ ClapMatchTest >> testMatchesAreNotMismatches [
 
 { #category : #tests }
 ClapMatchTest >> testValue [
+	| meaning |
+	meaning := Mock new.
+	specification stub meaning willReturn: meaning.
 	subject value.
-	specification should receive meaningOf: subject
+	specification should receive meaning.
+	meaning should receive cull: subject
 ]

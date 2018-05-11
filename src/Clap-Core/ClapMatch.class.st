@@ -65,7 +65,12 @@ ClapMatch >> specification: anArgumentSpec [
 
 { #category : #evaluating }
 ClapMatch >> value [
-	^ specification meaningOf: self
+	^ specification meaning cull: self
+]
+
+{ #category : #evaluating }
+ClapMatch >> value: arg [
+	^ specification meaning cull: self cull: arg
 ]
 
 { #category : #accessing }

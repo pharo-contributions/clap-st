@@ -41,14 +41,13 @@ ClapParameter >> canonicalName: aString [
 ]
 
 { #category : #initialization }
-ClapParameter >> defaultMeaning: aBlock [
-	defaultMeaningBlock := aBlock
+ClapParameter >> defaultMeaning [
+	^ defaultMeaningBlock
 ]
 
-{ #category : #evaluating }
-ClapParameter >> defaultMeaningOf: aMatch [
-	^ defaultMeaningBlock
-		ifNotNil: [ defaultMeaningBlock cull: aMatch ]
+{ #category : #initialization }
+ClapParameter >> defaultMeaning: aBlock [
+	defaultMeaningBlock := aBlock
 ]
 
 { #category : #accessing }
@@ -95,13 +94,13 @@ ClapParameter >> matchWord: aString [
 ]
 
 { #category : #initialization }
-ClapParameter >> meaning: aBlock [
-	meaningBlock := aBlock
+ClapParameter >> meaning [
+	^ meaningBlock
 ]
 
-{ #category : #evaluating }
-ClapParameter >> meaningOf: aMatch [
-	^ meaningBlock cull: aMatch
+{ #category : #initialization }
+ClapParameter >> meaning: aBlock [
+	meaningBlock := aBlock
 ]
 
 { #category : #matching }

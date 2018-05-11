@@ -24,7 +24,7 @@ ClapAbsentMatch >> specification: anArgumentSpec [
 
 { #category : #initialization }
 ClapAbsentMatch >> value [
-	^ specification defaultMeaningOf: self
+	^ specification defaultMeaning cull: self
 ]
 
 { #category : #accessing }
