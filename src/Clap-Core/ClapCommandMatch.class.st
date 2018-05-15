@@ -7,6 +7,11 @@ Class {
 	#category : 'Clap-Core-Matches'
 }
 
+{ #category : #'accessing structure variables' }
+ClapCommandMatch >> flags [
+	^ arguments select: [ :each | specification flags includes: each specification ]
+]
+
 { #category : #parsing }
 ClapCommandMatch >> matchedSubcommand [
 	^ nil

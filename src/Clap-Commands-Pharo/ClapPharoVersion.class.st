@@ -3,8 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'stream',
-		'wantsImage',
-		'wantsVirtualMachine'
+		'formats'
 	],
 	#category : #'Clap-Commands-Pharo'
 }
@@ -14,8 +13,10 @@ ClapPharoVersion class >> version [
 	<commandline>
 	^ (ClapCommand withName: 'version')
 		description: 'Displays version information.';
-		"both flags should be merged into a one-of-many kind of flag"
-		addFlag: (ClapFlag withName: 'image');
+		addFlag: (ClapFlag withName: 'full');
+		addFlag: (ClapFlag withName: 'release');
+		addFlag: (ClapFlag withName: 'numeric');
+		addFlag: (ClapFlag withName: 'hash');
 		addFlag: (ClapFlag withName: 'vm');
 		meaning: [ :args |	(self with: args) execute ]
 ]
@@ -23,19 +24,32 @@ ClapPharoVersion class >> version [
 { #category : #'instance creation' }
 ClapPharoVersion class >> with: arguments [
 	^ self new
-		showImage: (arguments atName: #image) value
-		virtualMachine: (arguments atName: #vm) value;
+		setArguments: arguments;
 		yourself
 ]
 
 { #category : #execution }
 ClapPharoVersion >> execute [	
-	self shouldShowImage
-		ifTrue: [ self show: SystemVersion current labeled: 'Image' ].
-	self shouldShowVirtualMachine
-		ifTrue: [ self show: Smalltalk vm version labeled: 'Virtual machine' ].
-
+	self formats do: [ :each |
+		stream
+			nextPutAll: (self perform: each);
+			lf ].
 	stream flush
+]
+
+{ #category : #initialization }
+ClapPharoVersion >> formats [
+	^ formats ifEmpty: [ #(full) ]
+]
+
+{ #category : #execution }
+ClapPharoVersion >> full [
+	^ SystemVersion current imageVersionString
+]
+
+{ #category : #execution }
+ClapPharoVersion >> hash [
+	^ SystemVersion current commitHash
 ]
 
 { #category : #initialization }
@@ -43,19 +57,20 @@ ClapPharoVersion >> initialize [
 	stream := VTermOutputDriver stdout
 ]
 
-{ #category : #testing }
-ClapPharoVersion >> shouldShowImage [
-	^ wantsVirtualMachine ==> wantsImage
+{ #category : #execution }
+ClapPharoVersion >> numeric [
+	^ SystemVersion current highestUpdate printString
 ]
 
-{ #category : #testing }
-ClapPharoVersion >> shouldShowLabels [
-	^ wantsImage == wantsVirtualMachine
+{ #category : #execution }
+ClapPharoVersion >> release [
+	^ SystemVersion current shortVersionString
 ]
 
-{ #category : #testing }
-ClapPharoVersion >> shouldShowVirtualMachine [
-	^ wantsImage ==> wantsVirtualMachine
+{ #category : #initialization }
+ClapPharoVersion >> setArguments: arguments [
+	formats := arguments flags collect: [ :each |
+		each specification canonicalName asSymbol ]
 ]
 
 { #category : #execution }
@@ -71,8 +86,7 @@ ClapPharoVersion >> show: versionString labeled: labelString [
 		lf
 ]
 
-{ #category : #initialization }
-ClapPharoVersion >> showImage: imageBoolean virtualMachine: vmBoolean [
-	wantsImage := imageBoolean.
-	wantsVirtualMachine := vmBoolean
+{ #category : #execution }
+ClapPharoVersion >> vm [
+	^ Smalltalk vm version
 ]
