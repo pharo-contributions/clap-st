@@ -40,9 +40,18 @@ ClapCommand class >> helpCommand [
 		description: 'Prints documentation about the given command.';
 		addPositional: ((ClapPositional withName: 'topic')
 			description: 'A subcommand to document (defaults to the current one)';
-			meaning: [ :pos | Halt now ];
-			defaultMeaning: [ :pos | pos halt ]);
-		meaning: [ :args | Halt now: 'run a documenter' ]
+			meaning: [ :pos |
+				"document the passed subcommand"
+				Halt now
+			];
+			defaultMeaning: [ :pos |
+				"no subcommand passed, document the parent instead"
+				pos halt ]);
+		meaning: [ :match | | stream |
+			stream := VTermOutputDriver stdout.
+			(ClapDocumenter on: (ClapDocumentationFormatter on: stream))
+				explain: match parent specification.
+			stream flush ]
 ]
 
 { #category : #doc }

@@ -15,6 +15,30 @@ Class {
 }
 
 { #category : #commandline }
+ClapCommandLineExamples class >> git [
+	<commandline>
+	^ (ClapCommand withName: 'git')
+		description: 'The stupid content tracker';
+		addSubcommand: ((ClapCommand withName: 'add')
+			description: 'Add file contents to the index');
+		addSubcommand: ((ClapCommand withName: 'branch')
+			description: 'List, create, or delete branches');
+		addSubcommand: ((ClapCommand withName: 'clone')
+			description: 'Clone a repository into a new directory');
+		addSubcommand: ((ClapCommand withName: 'commit')
+			description: 'Record changes to the repository');
+		addSubcommand: ((ClapCommand withName: 'init')
+			description: 'Create an empty Git repository or reinitialize an existing one');
+		addSubcommand: ((ClapCommand withName: 'remote')
+			description: 'Manage set of tracked repositories';
+			addSubcommand: (ClapCommand withName: 'add');
+			addSubcommand: (ClapCommand withName: 'remove');
+			addSubcommand: (ClapCommand withName: 'set-url'));
+		addSubcommand: ((ClapCommand withName: 'status')
+			description: 'Show the working tree status')
+]
+
+{ #category : #commandline }
 ClapCommandLineExamples class >> hello [
 	<commandline>
 	^ (ClapCommand withName: 'hello')

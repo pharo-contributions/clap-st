@@ -14,7 +14,10 @@ ClapCommandMatch >> flags [
 
 { #category : #parsing }
 ClapCommandMatch >> matchedSubcommand [
-	^ nil
+	^ arguments
+		detect: [ :any | specification subcommands includes: any specification ]
+		ifFound: [ :sub | sub matchedSubcommand ]
+		ifNone: [ self ]
 ]
 
 { #category : #parsing }
@@ -32,4 +35,9 @@ ClapCommandMatch >> unboundParameters [
 { #category : #parsing }
 ClapCommandMatch >> unboundSubcommands [
 	^ self unboundParametersAmong: specification subcommands
+]
+
+{ #category : #evaluating }
+ClapCommandMatch >> value: arg [
+	^ self matchedSubcommand evaluateMeaning: arg
 ]

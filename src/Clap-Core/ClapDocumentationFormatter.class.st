@@ -74,16 +74,20 @@ ClapDocumentationFormatter >> space [
 ]
 
 { #category : #formattting }
+ClapDocumentationFormatter >> space: anInteger [
+	anInteger timesRepeat: [ stream space ]
+]
+
+{ #category : #formattting }
 ClapDocumentationFormatter >> tabularize: associations [
 	associations do: [ :each |
 		| keyWidth |
 		keyWidth := each key size + self listIndent.
-		stream
-			space: self listIndent;
-			nextPutAll: each key.
+		self space: self listIndent.
+		stream nextPutAll: each key.
 		keyWidth + self columnSeparation > self columnIndent
-			ifTrue: [ self newLine. stream space: self columnIndent ]
-			ifFalse: [ stream space: self columnIndent - keyWidth ].
+			ifTrue: [ self newLine; space: self columnIndent ]
+			ifFalse: [ self space: self columnIndent - keyWidth ].
 		stream nextPutAll: each value.
 		self newLine ]
 ]

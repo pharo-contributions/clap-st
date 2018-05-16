@@ -21,6 +21,11 @@ ClapMatch class >> of: aSpecification with: aWord [
 		word: aWord
 ]
 
+{ #category : #evaluating }
+ClapMatch >> evaluateMeaning: arg [
+	^ specification meaning cull: self cull: arg
+]
+
 { #category : #testing }
 ClapMatch >> ifMismatch: aBlock [
 	^ self
@@ -79,12 +84,12 @@ ClapMatch >> specification: anArgumentSpec [
 
 { #category : #evaluating }
 ClapMatch >> value [
-	^ specification meaning cull: self
+	^ self value: nil
 ]
 
 { #category : #evaluating }
 ClapMatch >> value: arg [
-	^ specification meaning cull: self cull: arg
+	^ self evaluateMeaning: arg
 ]
 
 { #category : #accessing }
