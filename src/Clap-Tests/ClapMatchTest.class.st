@@ -53,5 +53,5 @@ ClapMatchTest >> testValue [
 	specification stub meaning willReturn: meaning.
 	subject value.
 	specification should receive meaning.
-	meaning should receive cull: subject
+	meaning should receive cull: subject cull: Any
 ]

@@ -15,7 +15,7 @@ Class {
 
 { #category : #evaluating }
 ClapParameter class >> basicMeaning [
-	^ #yourself
+	^ [ :match | match ]
 ]
 
 { #category : #'instance creation' }

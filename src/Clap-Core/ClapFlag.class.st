@@ -11,7 +11,7 @@ Class {
 
 { #category : #evaluating }
 ClapFlag class >> basicMeaning [
-	^ #isExplicit
+	^ [ :match |  match isExplicit ]
 ]
 
 { #category : #'as yet unclassified' }
