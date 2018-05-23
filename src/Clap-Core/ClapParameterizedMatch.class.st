@@ -39,6 +39,14 @@ ClapParameterizedMatch >> atName: canonicalName [
 	^ self at: (specification atName: canonicalName)
 ]
 
+{ #category : #accessing }
+ClapParameterizedMatch >> atName: canonicalName ifFound: foundBlock ifAbsent: absentBlock [
+	^ self
+		at: (specification atName: canonicalName)
+		ifFound: foundBlock
+		ifAbsent: absentBlock
+]
+
 { #category : #testing }
 ClapParameterizedMatch >> includesKey: canonicalName [
 	^ arguments anySatisfy: [ :arg | arg specification canonicalName = canonicalName ]

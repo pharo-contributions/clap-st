@@ -12,6 +12,11 @@ ClapAbsentMatch class >> specification: aParameter [
 	^ self new specification: aParameter
 ]
 
+{ #category : #evaluating }
+ClapAbsentMatch >> evaluateMeaning: arg [
+	^ specification defaultMeaning cull: self cull: arg
+]
+
 { #category : #testing }
 ClapAbsentMatch >> isExplicit [
 	^ false
@@ -22,9 +27,14 @@ ClapAbsentMatch >> specification: anArgumentSpec [
 	specification := anArgumentSpec
 ]
 
-{ #category : #initialization }
+{ #category : #evaluating }
 ClapAbsentMatch >> value [
-	^ specification defaultMeaning cull: self
+	^ self value: nil
+]
+
+{ #category : #evaluating }
+ClapAbsentMatch >> value: arg [
+	^ self evaluateMeaning: arg
 ]
 
 { #category : #accessing }
