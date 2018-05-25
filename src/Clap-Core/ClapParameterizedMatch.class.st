@@ -27,6 +27,13 @@ ClapParameterizedMatch >> at: aSpec ifAbsent: absentBlock [
 ]
 
 { #category : #accessing }
+ClapParameterizedMatch >> at: aSpec ifFound: foundBlock [
+	^ arguments
+		detect: [ :arg | arg specification = aSpec ]
+		ifFound: foundBlock
+]
+
+{ #category : #accessing }
 ClapParameterizedMatch >> at: aSpec ifFound: foundBlock ifAbsent: absentBlock [
 	^ arguments
 		detect: [ :arg | arg specification = aSpec ]
@@ -37,6 +44,14 @@ ClapParameterizedMatch >> at: aSpec ifFound: foundBlock ifAbsent: absentBlock [
 { #category : #accessing }
 ClapParameterizedMatch >> atName: canonicalName [
 	^ self at: (specification atName: canonicalName)
+]
+
+{ #category : #accessing }
+ClapParameterizedMatch >> atName: canonicalName ifFound: foundBlock [
+	^ self
+		at: (specification atName: canonicalName)
+		ifFound: foundBlock
+
 ]
 
 { #category : #accessing }

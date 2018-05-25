@@ -34,20 +34,21 @@ Class {
 	#category : #'Clap-Core-Specifications'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #commands }
 ClapCommand class >> helpCommand [
 	^ (self withName: 'help')
 		description: 'Prints documentation about the given command.';
+
 		addPositional: ((ClapPositional withName: 'topic')
 			description: 'A subcommand to document (defaults to the current one)';
 			meaning: [ :pos :cmd | cmd atName: pos word ];
 			defaultMeaning: [ :pos :cmd | cmd ]);
+
 		meaning: [ :match | | topic stream |
 			topic := (match atName: 'topic') value: match parent specification.
 			stream := VTermOutputDriver stdout.
 			(ClapDocumenter on: (ClapDocumentationFormatter on: stream))
-				explain: topic.
-			stream flush ]
+				explain: topic ]
 ]
 
 { #category : #doc }

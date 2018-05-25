@@ -29,6 +29,11 @@ ClapDocumentationFormatter >> contents [
 	^ stream contents
 ]
 
+{ #category : #flushing }
+ClapDocumentationFormatter >> flush [
+	stream flush
+]
+
 { #category : #initialization }
 ClapDocumentationFormatter >> initializeOn: aStream [
 	self initialize.

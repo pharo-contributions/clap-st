@@ -35,7 +35,8 @@ ClapDocumenter >> explain: aCommand [
 	self descriptionSummary: aCommand.
 	formatter newLine.
 	self usage: aCommand.
-	self parameterDescriptions: aCommand
+	self parameterDescriptions: aCommand.
+	formatter flush
 ]
 
 { #category : #documenting }

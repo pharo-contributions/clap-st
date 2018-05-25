@@ -14,10 +14,14 @@ ClapFlag class >> basicMeaning [
 	^ [ :match |  match isExplicit ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #flags }
 ClapFlag class >> helpFlag [
 	^ (self withName: 'help')
-		description: 'Prints documentation about the parent command.'
+		description: 'Prints documentation about the parent command.';
+		meaning: [ :match |
+			(ClapDocumenter on: (ClapDocumentationFormatter on: VTermOutputDriver stdout))
+				explain: match parent specification.
+			true ]
 ]
 
 { #category : #doc }
