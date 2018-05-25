@@ -10,7 +10,7 @@ Class {
 		'meaningBlock',
 		'defaultMeaningBlock'
 	],
-	#category : #'Clap-Core-Parameters'
+	#category : #'Clap-Core-Specifications'
 }
 
 { #category : #evaluating }

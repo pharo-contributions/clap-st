@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'positionals'
 	],
-	#category : #'Clap-Core-Parameters'
+	#category : #'Clap-Core-Specifications'
 }
 
 { #category : #testing }

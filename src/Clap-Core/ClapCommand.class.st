@@ -31,7 +31,7 @@ Class {
 		'flags',
 		'subcommands'
 	],
-	#category : #'Clap-Core-Parameters'
+	#category : #'Clap-Core-Specifications'
 }
 
 { #category : #'as yet unclassified' }

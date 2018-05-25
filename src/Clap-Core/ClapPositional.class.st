@@ -4,7 +4,7 @@ I represent a positional parameter, i.e. that matches based on its position in t
 Class {
 	#name : #ClapPositional,
 	#superclass : #ClapParameter,
-	#category : 'Clap-Core-Parameters'
+	#category : #'Clap-Core-Specifications'
 }
 
 { #category : #evaluating }

@@ -6,7 +6,7 @@ Flags can appear in any order in the input and are recognized by their form, sta
 Class {
 	#name : #ClapFlag,
 	#superclass : #ClapParameterized,
-	#category : 'Clap-Core-Parameters'
+	#category : #'Clap-Core-Specifications'
 }
 
 { #category : #evaluating }
