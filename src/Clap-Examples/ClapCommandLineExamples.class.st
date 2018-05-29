@@ -49,9 +49,8 @@ ClapCommandLineExamples class >> hello [
 			description: 'Recipient of the greetings';
 			defaultMeaning: [ 'world' ]);
 		meaning: [ :args |
-			args atName: 'help' ifFound: [
-				(ClapDocumenter on: (ClapDocumentationFormatter on: args context))
-					explain: args parent specification.
+			args atName: 'help' ifFound: [ :help |
+				help value.
 				Exit signalSuccess
 			].
 				
