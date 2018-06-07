@@ -7,12 +7,17 @@ Class {
 	#category : 'Clap-Core-Matches'
 }
 
-{ #category : #'accessing structure variables' }
+{ #category : #matching }
+ClapCommandMatch >> concludeMatchOn: aStream [
+	^ specification with: self matchOn: aStream
+]
+
+{ #category : #accessing }
 ClapCommandMatch >> flags [
 	^ arguments select: [ :each | specification flags includes: each specification ]
 ]
 
-{ #category : #parsing }
+{ #category : #accessing }
 ClapCommandMatch >> matchedSubcommand [
 	^ arguments
 		detect: [ :any | specification subcommands includes: any specification ]
@@ -20,19 +25,19 @@ ClapCommandMatch >> matchedSubcommand [
 		ifNone: [ self ]
 ]
 
-{ #category : #parsing }
+{ #category : #accessing }
 ClapCommandMatch >> unboundFlags [
 	^ self unboundParametersAmong: specification flags
 ]
 
-{ #category : #parsing }
+{ #category : #accessing }
 ClapCommandMatch >> unboundParameters [
 	^ self matchedSubcommand
 		ifNotNil: [ self notYetImplemented ]
 		ifNil: [ self unboundFlags , self unboundPositionals , self unboundSubcommands ]
 ]
 
-{ #category : #parsing }
+{ #category : #accessing }
 ClapCommandMatch >> unboundSubcommands [
 	^ self unboundParametersAmong: specification subcommands
 ]

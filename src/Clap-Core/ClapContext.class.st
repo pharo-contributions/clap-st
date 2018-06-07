@@ -9,6 +9,7 @@ Class {
 	#name : #ClapContext,
 	#superclass : #Object,
 	#instVars : [
+		'commandCandidates',
 		'arguments'
 	],
 	#category : #'Clap-Core-Support'
@@ -16,26 +17,105 @@ Class {
 
 { #category : #'instance creation' }
 ClapContext class >> on: argumentStream [ 
+	<deprecated: 'use #with:, pass arguments at command invocation time'>
 	^ self new
 		arguments: argumentStream readStream
 ]
 
-{ #category : #initialization }
-ClapContext >> arguments: aStream [
-	arguments := aStream
+{ #category : #'instance creation' }
+ClapContext class >> with: commandCandidates [ 
+	^ self new
+		candidates: commandCandidates
 ]
 
-{ #category : #testing }
+{ #category : #running }
+ClapContext >> activate [
+	commandCandidates
+		collect: [ :each | each matchPremiseOn: self ]
+		thenDo: [ :premise |
+			premise isMismatch
+				ifFalse: [
+					self evaluate: premise.
+					^ self exitSuccess ] ].
+
+	^ self noneMatched
+]
+
+{ #category : #accessing }
+ClapContext >> arguments [
+	^ arguments
+]
+
+{ #category : #accessing }
+ClapContext >> arguments: aCollection [
+	arguments := aCollection
+]
+
+{ #category : #'testing - deprecated' }
 ClapContext >> atEnd [
-	^ arguments atEnd
+	^ self arguments atEnd
 ]
 
 { #category : #accessing }
+ClapContext >> candidates: commandSpecifications [
+	commandCandidates := commandSpecifications
+]
+
+{ #category : #accessing }
+ClapContext >> documenter [
+	^ ClapDocumenter on: (ClapDocumentationFormatter on: self stdout)
+]
+
+{ #category : #running }
+ClapContext >> evaluate: premiseMatch [
+	[ (premiseMatch concludeMatchOn: self) value ]
+	on: Exit
+	do: [ :exit | self handleExit: exit ]
+]
+
+{ #category : #running }
+ClapContext >> exitSuccess [
+	Exit signalSuccess
+]
+
+{ #category : #running }
+ClapContext >> handleExit: exit [
+	self notYetImplemented 
+]
+
+{ #category : #running }
+ClapContext >> interpret: args [
+	^ self
+		arguments: args;
+		activate
+]
+
+{ #category : #'accessing - deprecated' }
 ClapContext >> next [
-	^ arguments next
+	^ self arguments next
+]
+
+{ #category : #running }
+ClapContext >> noneMatched [
+	self notYetImplemented 
+]
+
+{ #category : #'accessing - deprecated' }
+ClapContext >> peek [
+	^ self arguments peek
 ]
 
 { #category : #accessing }
-ClapContext >> peek [
-	^ arguments peek
+ClapContext >> stderr [
+	^ VTermOutputDriver stderr
+]
+
+{ #category : #accessing }
+ClapContext >> stdin [
+	^ Stdio stdin
+]
+
+{ #category : #accessing }
+ClapContext >> stdout [
+	^ VTermOutputDriver stdout
 ]

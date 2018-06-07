@@ -1,3 +1,6 @@
+"
+A thin layer to hook Clap into the existing command-line system
+"
 Class {
 	#name : #ClapCommandLineHandler,
 	#superclass : #CommandLineHandler,
@@ -11,22 +14,13 @@ ClapCommandLineHandler class >> commandName [
 
 { #category : #activation }
 ClapCommandLineHandler >> activate [
-	[ [ | context match command |
-			context := ClapContext on: self arguments.
-
-			command := self subcommands
-				detect: [ :each |
-					match := each matchPremiseOn: context.
-					match isMismatch not ]
-				ifNone: [ ^ self noneMatched ].
-
-			command with: match matchOn: context.
-			match value.
-	
-			"If we reach here, then all went well"
-			self exitSuccess
-		] on: Exit do: [ :exit | self handleExit: exit ]
-	] forkAt: Processor userSchedulingPriority named: 'Clap commandline handler process'
+	[
+		(ClapContext with: self subcommands)
+			onExit: [ :exit | self handleExit: exit ];
+			interpret: self arguments
+	]
+	forkAt: Processor userSchedulingPriority
+	named: 'Clap commandline handler process'
 ]
 
 { #category : #activation }
