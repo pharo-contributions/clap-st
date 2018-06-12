@@ -67,18 +67,22 @@ ClapParameter >> initialize [
 	defaultMeaningBlock := meaningBlock
 ]
 
+{ #category : #matching }
+ClapParameter >> match: aStreamOrSequenceable [
+	^ self matchOn: aStreamOrSequenceable readStream
+]
+
 { #category : #accessing }
 ClapParameter >> matchClass [
 	^ self subclassResponsibility
 ]
 
 { #category : #matching }
-ClapParameter >> matchOn: aStream [ 
+ClapParameter >> matchOn: aStream [
 	| premise |
 	premise := self matchPremiseOn: aStream.
-	premise isMismatch ifTrue: [ ^ premise ].
-	
-	^ self with: premise matchOn: aStream
+	^ premise
+		ifMatch: [ self with: premise matchOn: aStream ]
 ]
 
 { #category : #matching }
@@ -106,6 +110,25 @@ ClapParameter >> meaning: aBlock [
 { #category : #matching }
 ClapParameter >> mismatch [
 	^ ClapMismatch specification: self
+]
+
+{ #category : #matching }
+ClapParameter >> mismatchWord: aString [
+	^ ClapMismatch of: self with: aString
+]
+
+{ #category : #matching }
+ClapParameter >> newMatchAt: aStream [
+	^ self matchClass
+		of: self
+		with: aStream next
+]
+
+{ #category : #matching }
+ClapParameter >> newMismatchAt: aStream [
+	^ ClapMismatch
+		of: self
+		with: aStream peek
 ]
 
 { #category : #printing }

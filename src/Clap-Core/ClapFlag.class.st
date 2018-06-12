@@ -35,9 +35,7 @@ ClapFlag >> longForm [
 ]
 
 { #category : #matching }
-ClapFlag >> matchCanonicalName: aStream [
-	| word |
-	word := aStream peek.
+ClapFlag >> matchCanonicalName: word [
 	^ word = self longForm or: word = self shortForm
 ]
 

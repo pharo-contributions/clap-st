@@ -93,8 +93,8 @@ ClapCommand >> initialize [
 ]
 
 { #category : #matching }
-ClapCommand >> matchCanonicalName: aStream [
-	^ aStream peek = self canonicalName
+ClapCommand >> matchCanonicalName: word [
+	^ word = self canonicalName
 	
 ]
 
@@ -104,13 +104,10 @@ ClapCommand >> matchClass [
 ]
 
 { #category : #running }
-ClapCommand >> runOn: aContext [
-	^ (self matchOn: aContext) value
-]
-
-{ #category : #running }
 ClapCommand >> runWith: arguments [
-	^ self runOn: (ClapContext on: arguments)
+	"Convenience method for running a command in an interactive context"
+	^ (ClapContext with: self)
+		interpret: arguments
 ]
 
 { #category : #accessing }
@@ -147,7 +144,7 @@ ClapCommand >> with: partialMatch detectMatchOn: aStream ifFound: foundBlock ifN
 ClapCommand >> with: partialMatch matchOn: aStream [
 	| result |
 	result := super with: partialMatch matchOn: aStream.
-	aStream atEnd ifFalse: [ ^ self mismatch ].
+	aStream atEnd ifFalse: [ result leftovers: aStream upToEnd ].
 	
 	^ result
 ]

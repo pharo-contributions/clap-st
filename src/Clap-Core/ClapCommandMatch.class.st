@@ -4,7 +4,10 @@ I represent the successful match of a (sub)command, and its arguments if any.
 Class {
 	#name : #ClapCommandMatch,
 	#superclass : #ClapParameterizedMatch,
-	#category : 'Clap-Core-Matches'
+	#instVars : [
+		'leftovers'
+	],
+	#category : #'Clap-Core-Matches'
 }
 
 { #category : #matching }
@@ -15,6 +18,17 @@ ClapCommandMatch >> concludeMatchOn: aStream [
 { #category : #accessing }
 ClapCommandMatch >> flags [
 	^ arguments select: [ :each | specification flags includes: each specification ]
+]
+
+{ #category : #testing }
+ClapCommandMatch >> isValid [
+	^ leftovers isEmptyOrNil
+		and: [ self matchedSubcommand isValid ]
+]
+
+{ #category : #accesing }
+ClapCommandMatch >> leftovers: words [
+	leftovers := words
 ]
 
 { #category : #accessing }

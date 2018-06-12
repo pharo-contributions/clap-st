@@ -15,30 +15,36 @@ Class {
 	#category : #'Clap-Core-Support'
 }
 
-{ #category : #'instance creation' }
-ClapContext class >> on: argumentStream [ 
-	<deprecated: 'use #with:, pass arguments at command invocation time'>
-	^ self new
-		arguments: argumentStream readStream
+{ #category : #accessing }
+ClapContext class >> pragmaCommands [
+	^ (PragmaCollector filter: [:prg | prg keyword = 'commandline']) reset
+		collect: [ :pragma |
+			| theClass theSelector |
+			theClass := pragma method methodClass.
+			theSelector := pragma method selector.
+			self assert: [ theSelector isUnary ].
+			
+			theClass instanceSide
+				perform: theSelector ]
 ]
 
 { #category : #'instance creation' }
-ClapContext class >> with: commandCandidates [ 
+ClapContext class >> with: commandCandidate [
 	^ self new
-		candidates: commandCandidates
+		candidates: { commandCandidate };
+		yourself
 ]
 
-{ #category : #running }
-ClapContext >> activate [
-	commandCandidates
-		collect: [ :each | each matchPremiseOn: self ]
-		thenDo: [ :premise |
-			premise isMismatch
-				ifFalse: [
-					self evaluate: premise.
-					^ self exitSuccess ] ].
+{ #category : #'instance creation' }
+ClapContext class >> withAll: commandCandidates [ 
+	^ self new
+		candidates: commandCandidates;
+		yourself
+]
 
-	^ self noneMatched
+{ #category : #'instance creation' }
+ClapContext class >> withPragmaCommands [ 
+	^ self withAll: self pragmaCommands
 ]
 
 { #category : #accessing }
@@ -46,7 +52,7 @@ ClapContext >> arguments [
 	^ arguments
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ClapContext >> arguments: aCollection [
 	arguments := aCollection
 ]
@@ -56,9 +62,19 @@ ClapContext >> atEnd [
 	^ self arguments atEnd
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ClapContext >> candidates: commandSpecifications [
 	commandCandidates := commandSpecifications
+]
+
+{ #category : #activation }
+ClapContext >> detectMatching: matchBlock ifNone: failBlock [
+	commandCandidates do: [ :each |
+		(each matchOn: self arguments readStream)
+			ifMatch: [ :match |
+				^ matchBlock value: match ] ].
+
+	^ failBlock value
 ]
 
 { #category : #accessing }
@@ -67,27 +83,55 @@ ClapContext >> documenter [
 ]
 
 { #category : #running }
-ClapContext >> evaluate: premiseMatch [
-	[ (premiseMatch concludeMatchOn: self) value ]
-	on: Exit
-	do: [ :exit | self handleExit: exit ]
+ClapContext >> exit: status [
+	^ (Exit status: status) signal
+]
+
+{ #category : #running }
+ClapContext >> exit: status message: message [
+	^ (Exit status: status) signal: message
+]
+
+{ #category : #running }
+ClapContext >> exitFailure: message [
+	^ Exit signalFailure: message
 ]
 
 { #category : #running }
 ClapContext >> exitSuccess [
-	Exit signalSuccess
+	^ Exit signalSuccess
 ]
 
 { #category : #running }
+ClapContext >> exitSuccess: message [
+	^ Exit signalSuccess: message
+]
+
+{ #category : #activation }
 ClapContext >> handleExit: exit [
 	self notYetImplemented 
 ]
 
-{ #category : #running }
-ClapContext >> interpret: args [
-	^ self
-		arguments: args;
-		activate
+{ #category : #initialization }
+ClapContext >> initialize [
+	commandCandidates := 	#().
+	arguments := #()
+]
+
+{ #category : #activation }
+ClapContext >> interpret: argumentsSequence [
+	^ self arguments: argumentsSequence;
+		detectMatching: [ :match |
+			match value: self.
+			self exitSuccess ]
+		ifNone: [ self noneMatched ]
+]
+
+{ #category : #activation }
+ClapContext >> interpret: args onExit: exitBlock [
+	^ [ self interpret: args ]
+		on: Exit
+		do: exitBlock
 ]
 
 { #category : #'accessing - deprecated' }
@@ -95,9 +139,9 @@ ClapContext >> next [
 	^ self arguments next
 ]
 
-{ #category : #running }
+{ #category : #activation }
 ClapContext >> noneMatched [
-	self notYetImplemented 
+	^ self exitFailure: 'Unknown command'
 ]
 
 { #category : #'accessing - deprecated' }

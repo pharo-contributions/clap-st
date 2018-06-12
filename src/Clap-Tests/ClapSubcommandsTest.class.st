@@ -26,11 +26,10 @@ ClapSubcommandsTest >> setUp [
 
 { #category : #running }
 ClapSubcommandsTest >> testFlagValue [
-	| argv match |
+	| match |
 	slowFlag meaning: [ :flag | flag isMismatch not ].
 	
-	argv := ClapContext on: #('clap' 'this' '--slow').
-	match := clap matchOn: argv.
+	match := clap match: #('clap' 'this' '--slow').
 	
 	((match atName: 'this') at: slowFlag) value should be: true.
 
@@ -38,11 +37,10 @@ ClapSubcommandsTest >> testFlagValue [
 
 { #category : #running }
 ClapSubcommandsTest >> testParameterizedFlagValue [
-	| argv match |
+	| match |
 	dirFlag meaning: [ :flag | Path from: (flag atName: 'DIR') value ].
 	
-	argv := ClapContext on: #('clap' '--directory' 'foo/bar/baz').
-	match := clap matchOn: argv.
+	match := clap match: #('clap' '--directory' 'foo/bar/baz').
 	
 	(match at: dirFlag) value should equal: (Path * 'foo' / 'bar' / 'baz').
 
@@ -50,18 +48,17 @@ ClapSubcommandsTest >> testParameterizedFlagValue [
 
 { #category : #running }
 ClapSubcommandsTest >> testRootPositionalAfterSubcommand [
-	| argv match |
-	argv := ClapContext on: #('clap' 'this' '--directory' 'foo/bar/baz').
-	match := clap matchOn: argv.
+	| match |
+	match := clap match: #('clap' 'this' '--directory' 'foo/bar/baz').
 	
-	match should be isMismatch.
+	match should be isMatch.
+	match should not be isValid
 ]
 
 { #category : #running }
 ClapSubcommandsTest >> testRootPositionalBeforeSubcommand [
-	| argv match |
-	argv := ClapContext on: #('clap' '--directory' 'foo/bar/baz' 'this').
-	match := clap matchOn: argv.
+	| match |
+	match := clap match: #('clap' '--directory' 'foo/bar/baz' 'this').
 	
 	match should not be isMismatch.
 	match should be includesKey: 'directory'.
@@ -74,9 +71,8 @@ ClapSubcommandsTest >> testRootPositionalBeforeSubcommand [
 
 { #category : #running }
 ClapSubcommandsTest >> testThis [
-	| argv match |
-	argv := ClapContext on: #('clap' 'this').
-	match := clap matchOn: argv.
+	| match |
+	match := clap match: #('clap' 'this').
 	
 	match should not be isMismatch.
 	match should not be includesKey: 'directory'.
@@ -88,18 +84,26 @@ ClapSubcommandsTest >> testThis [
 
 { #category : #running }
 ClapSubcommandsTest >> testWrongCommandMismatches [
-	| argv match |
-	argv := ClapContext on: #('foo' '-d' 'bar/baz/qux' 'this').
-	match := clap matchOn: argv.
+	| match |
+	match := clap match: #('foo' '-d' 'bar/baz/qux' 'this').
 	
 	match should be isMismatch
 ]
 
 { #category : #running }
-ClapSubcommandsTest >> testWrongFlagMismatches [
-	| argv match |
-	argv := ClapContext on: #('clap' '-f' 'bar/baz/qux' 'this').
-	match := clap matchOn: argv.
+ClapSubcommandsTest >> testWrongFlagMatchesButInvalid [
+	| match |
+	match := clap match: #('clap' '-f' 'bar/baz/qux' 'this').
 	
-	match should be isMismatch
+	match should be isMatch.
+	match should not be isValid
+]
+
+{ #category : #running }
+ClapSubcommandsTest >> testWrongFlagMismatches [
+	| match |
+	match := clap match: #('clap' '-f' 'bar/baz/qux' 'this').
+	
+	match should be isMatch.
+	match should not be isValid
 ]

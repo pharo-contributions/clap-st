@@ -8,6 +8,13 @@ Class {
 }
 
 { #category : #'instance creation' }
+ClapMismatch class >> of: aSpecification with: aWord [
+	^ self new
+		specification: aSpecification;
+		word: aWord
+]
+
+{ #category : #'instance creation' }
 ClapMismatch class >> specification: aParameter [ 
 	^ self new specification: aParameter
 ]
@@ -18,8 +25,8 @@ ClapMismatch >> at: aSpec [
 ]
 
 { #category : #testing }
-ClapMismatch >> ifMismatch: aBlock [
-	^ aBlock cull: self
+ClapMismatch >> ifMatch: matchingBlock ifMismatch: mismatchBlock [
+	^ mismatchBlock cull: self
 ]
 
 { #category : #testing }
@@ -27,9 +34,12 @@ ClapMismatch >> isExplicit [
 	^ false
 ]
 
-{ #category : #testing }
-ClapMismatch >> isMismatch [
-	^ true
+{ #category : #printing }
+ClapMismatch >> printDetailsOn: aStream [
+	aStream
+		nextPutAll: word;
+		nextPutAll: ' ≠ ';
+		print: specification
 ]
 
 { #category : #adding }

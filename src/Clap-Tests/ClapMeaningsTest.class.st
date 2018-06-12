@@ -5,20 +5,15 @@ Class {
 }
 
 { #category : #tests }
-ClapMeaningsTest >> match: aParameter on: arguments [
-	^ aParameter matchOn: (ClapContext on: arguments)
-]
-
-{ #category : #tests }
 ClapMeaningsTest >> testArgFlagBasicMeaning [
 	| flag match |
 	flag := (ClapFlag withName: 'foo')
 		addPositional: (ClapPositional withName: 'bar').
 
-	match := self match: flag on: #('--foo' 'whatever').
+	match := flag match: #('--foo' 'whatever').
 	self assert: match value.
 
-	match := self match: flag on: #().
+	match := flag match: #().
 	self deny: match value.
 
 ]
@@ -31,13 +26,13 @@ ClapMeaningsTest >> testArgFlagCollectionMeaning [
 		addPositional: ((ClapPositional withName: 'baz') defaultMeaning: [#nobaz]);
 		meaningCollection.
 
-	match := self match: flag on: #('--foo' 'whatever 1' 'whatever 2').
+	match := flag match: #('--foo' 'whatever 1' 'whatever 2').
 	self assert: match value asArray equals: #('whatever 1' 'whatever 2').
 
-	match := self match: flag on: #('--foo' 'whatever').
+	match := flag match: #('--foo' 'whatever').
 	self assert: match value asArray equals: #('whatever' nobaz).
 
-	match := self match: flag on: #('--foo').
+	match := flag match: #('--foo').
 	self assert: match value asArray equals: #(nobar nobaz).
 
 ]
@@ -49,13 +44,13 @@ ClapMeaningsTest >> testArgFlagScalarMeaning [
 		addPositional: ((ClapPositional withName: 'bar') defaultMeaning: ['oops']);
 		meaningScalar.
 
-	match := self match: flag on: #('--foo' 'whatever').
+	match := flag match: #('--foo' 'whatever').
 	self assert: match value equals: 'whatever'.
 
-	match := self match: flag on: #('--foo').
+	match := flag match: #('--foo').
 	self assert: match value equals: 'oops'.
 
-	match := self match: flag on: #(). "might be wrong, since this is really a mismatch"
+	match := flag match: #(). "might be wrong, since this is really a mismatch"
 	self assert: match value equals: 'oops'.
 
 ]
@@ -65,10 +60,10 @@ ClapMeaningsTest >> testSimpleFlagBasicMeaning [
 	| flag match |
 	flag := ClapFlag withName: 'foo'.
 
-	match := self match: flag on: #('--foo').
+	match := flag match: #('--foo').
 	self assert: match value.
 
-	match := self match: flag on: #().
+	match := flag match: #().
 	self deny: match value.
 
 ]

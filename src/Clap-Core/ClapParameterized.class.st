@@ -34,16 +34,16 @@ ClapParameterized >> initialize [
 ]
 
 { #category : #matching }
-ClapParameterized >> matchCanonicalName: aStream [
+ClapParameterized >> matchCanonicalName: aString [
 
 	^ self subclassResponsibility
 ]
 
 { #category : #matching }
 ClapParameterized >> matchPremiseOn: aStream [
-	^ (self matchCanonicalName: aStream)
-		ifTrue: [ self matchWord: aStream next]
-		ifFalse: [ self mismatch ]
+	^ (self matchCanonicalName: aStream peek)
+		ifTrue: [ self newMatchAt: aStream]
+		ifFalse: [ self newMismatchAt: aStream ]
 ]
 
 { #category : #accessing }

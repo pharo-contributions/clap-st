@@ -17,10 +17,8 @@ ClapHelloWorldTest >> setUp [
 
 { #category : #tests }
 ClapHelloWorldTest >> testHello [
-	| argv match |
-	argv := ClapContext on: #('hello').
-
-	match := hello matchOn: argv.
+	| match |
+	match := hello match: #('hello').
 
 	match should not be isMismatch.
 	match should not be includesKey: 'shout'.
@@ -29,10 +27,8 @@ ClapHelloWorldTest >> testHello [
 
 { #category : #tests }
 ClapHelloWorldTest >> testHelloWorld [
-	| argv match |
-	argv := ClapContext on: #('hello' 'world').
-
-	match := hello matchOn: argv.
+	| match |
+	match := hello match: #('hello' 'world').
 
 	match should not be isMismatch.
 	match should not be includesKey: 'shout'.
@@ -42,14 +38,13 @@ ClapHelloWorldTest >> testHelloWorld [
 
 { #category : #tests }
 ClapHelloWorldTest >> testLanguageFlag [
-	| argv match lang |
+	| match lang |
 	lang := ClapPositional withName: 'language'.
 	hello addFlag: ((ClapFlag withName: 'lang')
 		addPositional: lang;
 		meaning: [ :flag | (flag at: lang) value]).
-	argv := ClapContext on: #('hello' 'monde' '--lang' 'fr' '--shout').
 
-	match := hello matchOn: argv.
+	match := hello match: #('hello' 'monde' '--lang' 'fr' '--shout').
 
 	match should not be isMismatch.
 	match should be includesKey: 'shout'.
@@ -63,10 +58,8 @@ ClapHelloWorldTest >> testLanguageFlag [
 
 { #category : #tests }
 ClapHelloWorldTest >> testShouting [
-	| argv match |
-	argv := ClapContext on: #('hello' '--shout').
-
-	match := hello matchOn: argv.
+	| match |
+	match := hello match: #('hello' '--shout').
 
 	match should not be isMismatch.
 	match should be includesKey: 'shout'.
@@ -75,10 +68,8 @@ ClapHelloWorldTest >> testShouting [
 
 { #category : #tests }
 ClapHelloWorldTest >> testShoutingAfterthought [
-	| argv match |
-	argv := ClapContext on: #('hello' 'world' '-s').
-
-	match := hello matchOn: argv.
+	| match |
+	match := hello match: #('hello' 'world' '-s').
 
 	match should not be isMismatch.
 	match should be includesKey: 'shout'.
@@ -87,10 +78,8 @@ ClapHelloWorldTest >> testShoutingAfterthought [
 
 { #category : #tests }
 ClapHelloWorldTest >> testShoutingWorld [
-	| argv match |
-	argv := ClapContext on: #('hello' '--shout' 'world').
-
-	match := hello matchOn: argv.
+	| match |
+	match := hello match: #('hello' '--shout' 'world').
 
 	match should not be isMismatch.
 	match should be includesKey: 'shout'.

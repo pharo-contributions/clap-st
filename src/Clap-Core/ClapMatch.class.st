@@ -27,8 +27,22 @@ ClapMatch >> evaluateMeaning: arg [
 ]
 
 { #category : #testing }
+ClapMatch >> ifMatch: aBlock [
+	^ self
+		ifMatch: aBlock
+		ifMismatch: [ self ]
+]
+
+{ #category : #testing }
+ClapMatch >> ifMatch: matchBlock ifMismatch: mismatchBlock [
+	^ matchBlock cull: self
+]
+
+{ #category : #testing }
 ClapMatch >> ifMismatch: aBlock [
 	^ self
+		ifMatch: [ self ]
+		ifMismatch: aBlock
 ]
 
 { #category : #testing }
@@ -37,8 +51,22 @@ ClapMatch >> isExplicit [
 ]
 
 { #category : #testing }
+ClapMatch >> isMatch [
+	^ self
+		ifMatch: [ true ]
+		ifMismatch: [ false ]
+]
+
+{ #category : #testing }
 ClapMatch >> isMismatch [
-	^ false
+	^ self
+		ifMatch: [ false ]
+		ifMismatch: [ true ]
+]
+
+{ #category : #testing }
+ClapMatch >> isValid [
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
@@ -47,15 +75,21 @@ ClapMatch >> parent [
 ]
 
 { #category : #printing }
-ClapMatch >> printOn: aStream [
+ClapMatch >> printDetailsOn: aStream [
 	| needsSeparator |
-	super printOn: aStream.
-	aStream nextPut: $(.
 	needsSeparator := false.
 	self wordsDo: [ :each |
 		needsSeparator ifTrue: [ aStream space ].
 		aStream nextPutAll: each.
-		needsSeparator := true ].
+		needsSeparator := true ]
+
+]
+
+{ #category : #printing }
+ClapMatch >> printOn: aStream [
+	super printOn: aStream.
+	aStream nextPut: $(.
+	self printDetailsOn: aStream.
 	aStream nextPut: $)
 ]
 

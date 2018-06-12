@@ -82,7 +82,8 @@ ClapCommandTest >> testMatchesWithWrongFlag [
 
 	match := subject matchOn: argv.
 
-	match should be isMismatch.
+	match should be isMatch.
+	match should not be isValid
 
 ]
 
