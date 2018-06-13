@@ -52,7 +52,8 @@ ClapSubcommandsTest >> testRootPositionalAfterSubcommand [
 	match := clap match: #('clap' 'this' '--directory' 'foo/bar/baz').
 	
 	match should be isMatch.
-	match should not be isValid
+	match should not be isValid.
+	match matchedSubcommand leftovers should equal: #('--directory' 'foo/bar/baz')
 ]
 
 { #category : #running }
@@ -87,20 +88,12 @@ ClapSubcommandsTest >> testWrongCommandMismatches [
 	| match |
 	match := clap match: #('foo' '-d' 'bar/baz/qux' 'this').
 	
-	match should be isMismatch
+	match should be isMismatch.
+	match word should equal: 'foo'
 ]
 
 { #category : #running }
 ClapSubcommandsTest >> testWrongFlagMatchesButInvalid [
-	| match |
-	match := clap match: #('clap' '-f' 'bar/baz/qux' 'this').
-	
-	match should be isMatch.
-	match should not be isValid
-]
-
-{ #category : #running }
-ClapSubcommandsTest >> testWrongFlagMismatches [
 	| match |
 	match := clap match: #('clap' '-f' 'bar/baz/qux' 'this').
 	

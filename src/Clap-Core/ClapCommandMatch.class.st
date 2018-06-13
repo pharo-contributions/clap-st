@@ -26,6 +26,11 @@ ClapCommandMatch >> isValid [
 		and: [ self matchedSubcommand isValid ]
 ]
 
+{ #category : #acccessing }
+ClapCommandMatch >> leftovers [
+	^ leftovers
+]
+
 { #category : #accesing }
 ClapCommandMatch >> leftovers: words [
 	leftovers := words
