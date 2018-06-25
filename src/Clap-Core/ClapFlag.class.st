@@ -1,7 +1,7 @@
 "
-I represent a flag.
+I represent a flag (also called option).
 
-Flags can appear in any order in the input and are recognized by their form, starting with dashes (e.g. `--foo` in long form or `-f` in short form).
+A flag is recognized by its form, starting with dashes (e.g. `--foo` in long form or `-f` in short form). Often, flags are optional and take a boolean meaning representing their presence or absence, but they can also be used as named parameters or to accept complex values in the form of positionals.
 "
 Class {
 	#name : #ClapFlag,

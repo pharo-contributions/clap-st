@@ -1,10 +1,9 @@
 "
 I represent a command or subcommand.
 
-Commands are recognized by a keyword, possibly with aliases for convenience.
-A command can be nested as a subcommand of another one, and can have any number of subcommands.
+Commands are recognized by a keyword, possibly with aliases for convenience. Besides positionals, commands can have flags, as well as nested (sub)commands.
 
-Sibling subcommands are mutually exclusive: they are a way to organize and select behavior under their parent command.
+Subcommands work like a trie, to organize and select the various behaviors of a complex program. At each level in a given invocation, at most one subcommand will be recognized, most often as the last parameter of its parent command.
 
 
 To create a new instance of this class, you must write this:

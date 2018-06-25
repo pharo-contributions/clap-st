@@ -1,5 +1,7 @@
 "
-I am an abstract class that specifies a parameter that could be recognized in the input.
+My instances represent formal parameters in command-line invocations.
+
+My subclasses implement the various conventional kinds of command-line parameters, and their instances are composed to specify the syntax of a given command.
 "
 Class {
 	#name : #ClapParameter,

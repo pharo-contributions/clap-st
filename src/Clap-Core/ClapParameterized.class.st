@@ -1,5 +1,5 @@
 "
-I am an abstract class specifying a parameter with nested parameters.
+I am an abstract class specifying a parameter with nested positional parameters.
 "
 Class {
 	#name : #ClapParameterized,

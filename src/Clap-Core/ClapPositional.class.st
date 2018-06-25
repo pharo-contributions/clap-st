@@ -1,5 +1,6 @@
 "
-I represent a positional parameter, i.e. that matches based on its position in the input instead of on a keyword.
+I represent a free-form parameter which is passed as a single shell word and recognized based on its position in the input.
+
 "
 Class {
 	#name : #ClapPositional,
