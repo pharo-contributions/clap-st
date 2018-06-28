@@ -3,7 +3,7 @@ I represent a class which represents a failed match.
 "
 Class {
 	#name : #ClapMismatch,
-	#superclass : #ClapMatch,
+	#superclass : #ClapExplicit,
 	#category : #'Clap-Core-Activation'
 }
 
@@ -21,7 +21,7 @@ ClapMismatch class >> specification: aParameter [
 
 { #category : #accessing }
 ClapMismatch >> at: aSpec [
-	^ ClapAbsentMatch specification: aSpec
+	^ ClapImplicit specification: aSpec
 ]
 
 { #category : #testing }

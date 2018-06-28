@@ -1,6 +1,6 @@
 Class {
-	#name : #ClapAbsentMatch,
-	#superclass : #Object,
+	#name : #ClapImplicit,
+	#superclass : #ClapExpression,
 	#instVars : [
 		'specification'
 	],
@@ -8,36 +8,41 @@ Class {
 }
 
 { #category : #'instance creation' }
-ClapAbsentMatch class >> specification: aParameter [ 
+ClapImplicit class >> specification: aParameter [ 
 	^ self new specification: aParameter
 ]
 
 { #category : #evaluating }
-ClapAbsentMatch >> evaluateMeaning: arg [
+ClapImplicit >> evaluateMeaning: arg [
 	^ specification defaultMeaning cull: self cull: arg
 ]
 
 { #category : #testing }
-ClapAbsentMatch >> isExplicit [
+ClapImplicit >> isExplicit [
 	^ false
 ]
 
+{ #category : #accessing }
+ClapImplicit >> specification [
+	^ specification
+]
+
 { #category : #initialization }
-ClapAbsentMatch >> specification: anArgumentSpec [ 
+ClapImplicit >> specification: anArgumentSpec [ 
 	specification := anArgumentSpec
 ]
 
 { #category : #evaluating }
-ClapAbsentMatch >> value [
+ClapImplicit >> value [
 	^ self value: nil
 ]
 
 { #category : #evaluating }
-ClapAbsentMatch >> value: arg [
+ClapImplicit >> value: arg [
 	^ self evaluateMeaning: arg
 ]
 
 { #category : #accessing }
-ClapAbsentMatch >> word [
+ClapImplicit >> word [
 	^ nil
 ]

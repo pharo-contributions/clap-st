@@ -4,77 +4,77 @@ I am an abstract class that represents the successful match of a parameter with 
 I link back to my specification and store the word of input that starts the match.
 "
 Class {
-	#name : #ClapMatch,
-	#superclass : #ClapExpression,
+	#name : #ClapExplicit,
+	#superclass : #ClapImplicit,
 	#instVars : [
 		'word',
 		'parent'
 	],
-	#category : #'Clap-Core-Activation-Matches'
+	#category : #'Clap-Core-Activation'
 }
 
 { #category : #'instance creation' }
-ClapMatch class >> of: aSpecification with: aWord [
+ClapExplicit class >> of: aSpecification with: aWord [
 	^ self new
 		specification: aSpecification;
 		word: aWord
 ]
 
 { #category : #evaluating }
-ClapMatch >> evaluateMeaning: arg [
+ClapExplicit >> evaluateMeaning: arg [
 	^ specification meaning cull: self cull: arg
 ]
 
 { #category : #testing }
-ClapMatch >> ifMatch: aBlock [
+ClapExplicit >> ifMatch: aBlock [
 	^ self
 		ifMatch: aBlock
 		ifMismatch: [ self ]
 ]
 
 { #category : #testing }
-ClapMatch >> ifMatch: matchBlock ifMismatch: mismatchBlock [
+ClapExplicit >> ifMatch: matchBlock ifMismatch: mismatchBlock [
 	^ matchBlock cull: self
 ]
 
 { #category : #testing }
-ClapMatch >> ifMismatch: aBlock [
+ClapExplicit >> ifMismatch: aBlock [
 	^ self
 		ifMatch: [ self ]
 		ifMismatch: aBlock
 ]
 
 { #category : #testing }
-ClapMatch >> isExplicit [
+ClapExplicit >> isExplicit [
 	^ true
 ]
 
 { #category : #testing }
-ClapMatch >> isMatch [
+ClapExplicit >> isMatch [
 	^ self
 		ifMatch: [ true ]
 		ifMismatch: [ false ]
 ]
 
 { #category : #testing }
-ClapMatch >> isMismatch [
+ClapExplicit >> isMismatch [
 	^ self
 		ifMatch: [ false ]
 		ifMismatch: [ true ]
 ]
 
 { #category : #testing }
-ClapMatch >> isValid [
+ClapExplicit >> isValid [
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-ClapMatch >> parent [
+ClapExplicit >> parent [
 	^ parent
 ]
 
 { #category : #printing }
-ClapMatch >> printDetailsOn: aStream [
+ClapExplicit >> printDetailsOn: aStream [
 	| needsSeparator |
 	needsSeparator := false.
 	self wordsDo: [ :each |
@@ -85,7 +85,7 @@ ClapMatch >> printDetailsOn: aStream [
 ]
 
 { #category : #printing }
-ClapMatch >> printOn: aStream [
+ClapExplicit >> printOn: aStream [
 	super printOn: aStream.
 	aStream nextPut: $(.
 	self printDetailsOn: aStream.
@@ -93,49 +93,44 @@ ClapMatch >> printOn: aStream [
 ]
 
 { #category : #adding }
-ClapMatch >> recordIn: parentMatch [
+ClapExplicit >> recordIn: parentMatch [
 	parent := parentMatch.
 	parent recordParameterMatch: self
 ]
 
 { #category : #accessing }
-ClapMatch >> rootMatch [
+ClapExplicit >> rootMatch [
 	^ parent
 		ifNil: [ self ]
 		ifNotNil: [ parent root ]
 ]
 
-{ #category : #accessing }
-ClapMatch >> specification [
-	^ specification
-]
-
-{ #category : #initialization }
-ClapMatch >> specification: anArgumentSpec [
-	specification := anArgumentSpec
+{ #category : #testing }
+ClapExplicit >> validate [
+	^ self
 ]
 
 { #category : #evaluating }
-ClapMatch >> value [
+ClapExplicit >> value [
 	^ self value: nil
 ]
 
 { #category : #evaluating }
-ClapMatch >> value: arg [
+ClapExplicit >> value: arg [
 	^ self evaluateMeaning: arg
 ]
 
 { #category : #accessing }
-ClapMatch >> word [
+ClapExplicit >> word [
 	^ word
 ]
 
 { #category : #initialization }
-ClapMatch >> word: aString [
+ClapExplicit >> word: aString [
 	word := aString
 ]
 
 { #category : #enumerating }
-ClapMatch >> wordsDo: aBlock [
+ClapExplicit >> wordsDo: aBlock [
 	aBlock value: self word
 ]

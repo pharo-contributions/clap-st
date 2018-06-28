@@ -11,7 +11,7 @@ Class {
 
 { #category : #evaluating }
 ClapFlag class >> basicMeaning [
-	^ [ :match |  match isExplicit ]
+	^ [ :match | match isExplicit ]
 ]
 
 { #category : #flags }

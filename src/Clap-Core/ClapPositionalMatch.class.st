@@ -3,6 +3,6 @@ I represent the successful match of a positional parameter.
 "
 Class {
 	#name : #ClapPositionalMatch,
-	#superclass : #ClapMatch,
-	#category : #'Clap-Core-Activation-Matches'
+	#superclass : #ClapExplicit,
+	#category : #'Clap-Core-Activation'
 }

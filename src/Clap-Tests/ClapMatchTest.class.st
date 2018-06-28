@@ -11,7 +11,7 @@ Class {
 
 { #category : #running }
 ClapMatchTest >> classToTest [
-	^ ClapMatch
+	^ ClapExplicit
 ]
 
 { #category : #running }

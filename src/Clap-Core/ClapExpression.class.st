@@ -4,8 +4,10 @@ I represent the concrete manifestation of a formal parameter during a command ac
 Class {
 	#name : #ClapExpression,
 	#superclass : #Object,
-	#instVars : [
-		'specification'
-	],
 	#category : #'Clap-Core-Activation'
 }
+
+{ #category : #evaluating }
+ClapExpression >> evaluateMeaning: arg [
+	^ self subclassResponsibility
+]

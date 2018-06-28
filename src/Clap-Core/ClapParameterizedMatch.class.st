@@ -5,18 +5,18 @@ I implement a dictionary-like protocol for accessing matches for each of my argu
 "
 Class {
 	#name : #ClapParameterizedMatch,
-	#superclass : #ClapMatch,
+	#superclass : #ClapExplicit,
 	#instVars : [
 		'arguments'
 	],
-	#category : #'Clap-Core-Activation-Matches'
+	#category : #'Clap-Core-Activation'
 }
 
 { #category : #accessing }
 ClapParameterizedMatch >> at: aSpec [
 	^ self
 		at: aSpec
-		ifAbsent: [ ClapAbsentMatch specification: aSpec ]
+		ifAbsent: [ ClapImplicit specification: aSpec ]
 ]
 
 { #category : #accessing }

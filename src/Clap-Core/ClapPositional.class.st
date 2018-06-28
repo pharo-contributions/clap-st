@@ -10,10 +10,7 @@ Class {
 
 { #category : #evaluating }
 ClapPositional class >> basicMeaning [
-	^ [ :match |
-		match isExplicit
-			ifTrue: [ match word ]
-			ifFalse: [ nil ] ]
+	^ [ :match | match word ]
 ]
 
 { #category : #doc }
