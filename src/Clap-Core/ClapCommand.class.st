@@ -106,7 +106,7 @@ ClapCommand >> matchClass [
 ClapCommand >> runWith: arguments [
 	"Convenience method for running a command in an interactive context"
 	^ (ClapContext with: self)
-		interpret: arguments
+		activateWith: arguments
 ]
 
 { #category : #accessing }

@@ -10,7 +10,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'commandCandidates',
-		'arguments'
+		'arguments',
+		'session'
 	],
 	#category : #'Clap-Core-Activation'
 }
@@ -48,10 +49,20 @@ ClapContext class >> withPragmaCommands [
 ]
 
 { #category : #activation }
+ClapContext >> activateWith: args [
+	^ self
+		activateWith: args
+		onExit: [ :exit | self handleExit: exit ]
+]
+
+{ #category : #activation }
 ClapContext >> activateWith: args onExit: exitBlock [
-	^ [ self interpret: args ]
-		on: Exit
-		do: exitBlock
+	^ [ self
+			rememberSession;
+			interpret: args
+	]
+	on: Exit
+	do: exitBlock
 ]
 
 { #category : #accessing }
@@ -116,7 +127,20 @@ ClapContext >> exitSuccess: message [
 
 { #category : #activation }
 ClapContext >> handleExit: exit [
-	self notYetImplemented 
+	^ self hasSessionChanged
+		ifTrue: [ self ]
+		ifFalse: [
+			Smalltalk isInteractive
+				ifTrue: [
+					exit isSuccess
+						ifFalse: [ exit resignalAs: (Error new messageText: exit messageText) ] ]
+				ifFalse: [ exit pass ]
+		]
+]
+
+{ #category : #activation }
+ClapContext >> hasSessionChanged [
+	^ session ~~ Smalltalk session
 ]
 
 { #category : #initialization }
@@ -147,6 +171,11 @@ ClapContext >> noneMatched [
 { #category : #'accessing - deprecated' }
 ClapContext >> peek [
 	^ self arguments peek
+]
+
+{ #category : #activation }
+ClapContext >> rememberSession [
+	session := Smalltalk session
 ]
 
 { #category : #accessing }
