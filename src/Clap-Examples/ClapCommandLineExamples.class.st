@@ -1,8 +1,13 @@
 "
-Examples and demos of Clap commands (see class side, protocol commandline).
+Examples and demos of Clap commands (see class side, protocol commandline). Each of those methods builds and returns a command specification, which you can then run or just match against an actual invocation (an array of strings, as would be passed by a shell).
 
 Arbitrary command instances can be run as do-its, e.g.:
-	ClapCommandLineExamples hello runWith: #('hello' 'Pharo')
+	ClapCommandLineExamples hello runWith: #('hello' 'Pharo').
+	ClapCommandLineExamples git runWith: #('git' 'help' 'remote').
+	
+To inspect the matches without activating the commands, replace #runWith: with #match:
+	ClapCommandLineExamples hello match: #('hello' 'Pharo').
+	ClapCommandLineExamples git match: #('git' 'help' 'remote').
 
 Commands registered in the system (returned from a class-side method with the <commandline> pragma) can also be invoked from the host system's command line:
 	$PHARO_VM $IMAGE clap hello Pharo
@@ -16,9 +21,11 @@ Class {
 
 { #category : #commandline }
 ClapCommandLineExamples class >> git [
-	<commandline>
+	"A dummy command (no behavior besides help) to demonstrate subcommands.
+	<commandline> pragma omitted, because doesn't really make sense to play with it outside of a playground."
 	^ (ClapCommand withName: 'git')
 		description: 'The stupid content tracker';
+		addSubcommand: (ClapCommand helpCommand);
 		addSubcommand: ((ClapCommand withName: 'add')
 			description: 'Add file contents to the index');
 		addSubcommand: ((ClapCommand withName: 'branch')
@@ -40,9 +47,12 @@ ClapCommandLineExamples class >> git [
 
 { #category : #commandline }
 ClapCommandLineExamples class >> hello [
+	"The usual Hello, World command, with a couple options to demonstrate what Clap can do."
 	<commandline>
+	
 	^ (ClapCommand withName: 'hello')
 		description: 'Provides greetings.';
+		addFlag: (ClapFlag helpFlag);
 		addFlag: ((ClapFlag withName: 'shout')
 			description: 'Greet loudly');
 		addPositional: ((ClapPositional withName: 'who')
