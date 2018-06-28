@@ -16,7 +16,7 @@ ClapCommandLineHandler class >> commandName [
 ClapCommandLineHandler >> activate [
 	[
 		(ClapContext withPragmaCommands)
-			interpret: self arguments
+			activateWith: self arguments
 			onExit: [ :exit | self handleExit: exit ]
 	]
 	forkAt: Processor userSchedulingPriority

@@ -37,17 +37,17 @@ ClapPharoVersion >> execute [
 	stream flush
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 ClapPharoVersion >> formats [
 	^ formats ifEmpty: [ #(full) ]
 ]
 
-{ #category : #execution }
+{ #category : #formats }
 ClapPharoVersion >> full [
 	^ SystemVersion current imageVersionString
 ]
 
-{ #category : #execution }
+{ #category : #formats }
 ClapPharoVersion >> hash [
 	^ SystemVersion current commitHash
 ]
@@ -57,12 +57,12 @@ ClapPharoVersion >> initialize [
 	stream := VTermOutputDriver stdout
 ]
 
-{ #category : #execution }
+{ #category : #formats }
 ClapPharoVersion >> numeric [
 	^ SystemVersion current highestUpdate printString
 ]
 
-{ #category : #execution }
+{ #category : #formats }
 ClapPharoVersion >> release [
 	^ SystemVersion current shortVersionString
 ]
@@ -73,20 +73,7 @@ ClapPharoVersion >> setArguments: arguments [
 		each specification canonicalName asSymbol ]
 ]
 
-{ #category : #execution }
-ClapPharoVersion >> show: versionString labeled: labelString [
-	
-	self shouldShowLabels ifTrue: [
-		stream
-			nextPutAll: labelString;
-			nextPutAll: ': '; lf ].
-
-	stream
-		print: versionString;
-		lf
-]
-
-{ #category : #execution }
+{ #category : #formats }
 ClapPharoVersion >> vm [
 	^ Smalltalk vm version
 ]

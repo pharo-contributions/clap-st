@@ -5,13 +5,12 @@ I link back to my specification and store the word of input that starts the matc
 "
 Class {
 	#name : #ClapMatch,
-	#superclass : #Object,
+	#superclass : #ClapExpression,
 	#instVars : [
-		'specification',
 		'word',
 		'parent'
 	],
-	#category : #'Clap-Core-Matches'
+	#category : #'Clap-Core-Activation-Matches'
 }
 
 { #category : #'instance creation' }

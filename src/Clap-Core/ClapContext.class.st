@@ -12,7 +12,7 @@ Class {
 		'commandCandidates',
 		'arguments'
 	],
-	#category : #'Clap-Core-Support'
+	#category : #'Clap-Core-Activation'
 }
 
 { #category : #accessing }
@@ -45,6 +45,13 @@ ClapContext class >> withAll: commandCandidates [
 { #category : #'instance creation' }
 ClapContext class >> withPragmaCommands [ 
 	^ self withAll: self pragmaCommands
+]
+
+{ #category : #activation }
+ClapContext >> activateWith: args onExit: exitBlock [
+	^ [ self interpret: args ]
+		on: Exit
+		do: exitBlock
 ]
 
 { #category : #accessing }
@@ -125,13 +132,6 @@ ClapContext >> interpret: argumentsSequence [
 			match value: self.
 			self exitSuccess ]
 		ifNone: [ self noneMatched ]
-]
-
-{ #category : #activation }
-ClapContext >> interpret: args onExit: exitBlock [
-	^ [ self interpret: args ]
-		on: Exit
-		do: exitBlock
 ]
 
 { #category : #'accessing - deprecated' }

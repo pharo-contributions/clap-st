@@ -9,7 +9,7 @@ Class {
 	#instVars : [
 		'arguments'
 	],
-	#category : 'Clap-Core-Matches'
+	#category : #'Clap-Core-Activation-Matches'
 }
 
 { #category : #accessing }

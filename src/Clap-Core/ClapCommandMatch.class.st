@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'leftovers'
 	],
-	#category : #'Clap-Core-Matches'
+	#category : #'Clap-Core-Activation-Matches'
 }
 
 { #category : #matching }
