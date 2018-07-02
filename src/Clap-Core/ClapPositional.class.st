@@ -13,9 +13,9 @@ ClapPositional class >> basicMeaning [
 	^ [ :match | match word ]
 ]
 
-{ #category : #doc }
-ClapPositional >> accept: aVisitor [
-	^ aVisitor visitPositional: self
+{ #category : #adding }
+ClapPositional >> addTo: parentParameter [
+	^ parentParameter addPositional: self
 ]
 
 { #category : #accessing }

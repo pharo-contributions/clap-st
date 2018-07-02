@@ -50,11 +50,6 @@ ClapCommand class >> helpCommand [
 				explain: topic ]
 ]
 
-{ #category : #doc }
-ClapCommand >> accept: aVisitor [
-	^ aVisitor visitCommand: self
-]
-
 { #category : #adding }
 ClapCommand >> addFlag: aFlag [
 	flags add: aFlag
@@ -63,6 +58,11 @@ ClapCommand >> addFlag: aFlag [
 { #category : #adding }
 ClapCommand >> addSubcommand: aCommand [
 	subcommands add: aCommand
+]
+
+{ #category : #adding }
+ClapCommand >> addTo: parentParameter [
+	^ parentParameter addSubcommand: self
 ]
 
 { #category : #accessing }

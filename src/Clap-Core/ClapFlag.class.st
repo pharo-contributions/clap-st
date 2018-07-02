@@ -24,9 +24,9 @@ ClapFlag class >> helpFlag [
 			true ]
 ]
 
-{ #category : #doc }
-ClapFlag >> accept: aVisitor [
-	^ aVisitor visitFlag: self
+{ #category : #adding }
+ClapFlag >> addTo: parentParameter [
+	^ parentParameter addFlag: self
 ]
 
 { #category : #accessing }

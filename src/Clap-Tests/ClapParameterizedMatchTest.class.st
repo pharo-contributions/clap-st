@@ -1,7 +1,7 @@
 Class {
 	#name : #ClapParameterizedMatchTest,
-	#superclass : #ClapMatchTest,
-	#category : 'Clap-Tests-Unit'
+	#superclass : #ClapExplicitTest,
+	#category : #'Clap-Tests-Unit'
 }
 
 { #category : #running }

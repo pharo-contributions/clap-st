@@ -25,24 +25,26 @@ ClapCommandLineExamples class >> git [
 	<commandline> pragma omitted, because doesn't really make sense to play with it outside of a playground."
 	^ (ClapCommand withName: 'git')
 		description: 'The stupid content tracker';
-		addSubcommand: (ClapCommand helpCommand);
-		addSubcommand: ((ClapCommand withName: 'add')
+		add: (ClapCommand helpCommand);
+		add: ((ClapCommand withName: 'add')
 			description: 'Add file contents to the index');
-		addSubcommand: ((ClapCommand withName: 'branch')
+		add: ((ClapCommand withName: 'branch')
 			description: 'List, create, or delete branches');
-		addSubcommand: ((ClapCommand withName: 'clone')
+		add: ((ClapCommand withName: 'clone')
 			description: 'Clone a repository into a new directory');
-		addSubcommand: ((ClapCommand withName: 'commit')
+		add: ((ClapCommand withName: 'commit')
 			description: 'Record changes to the repository');
-		addSubcommand: ((ClapCommand withName: 'init')
+		add: ((ClapCommand withName: 'init')
 			description: 'Create an empty Git repository or reinitialize an existing one');
-		addSubcommand: ((ClapCommand withName: 'remote')
+		add: ((ClapCommand withName: 'remote')
 			description: 'Manage set of tracked repositories';
-			addSubcommand: (ClapCommand withName: 'add');
-			addSubcommand: (ClapCommand withName: 'remove');
-			addSubcommand: (ClapCommand withName: 'set-url'));
-		addSubcommand: ((ClapCommand withName: 'status')
-			description: 'Show the working tree status')
+			add: (ClapCommand withName: 'add');
+			add: (ClapCommand withName: 'remove');
+			add: (ClapCommand withName: 'set-url');
+			yourself);
+		add: ((ClapCommand withName: 'status')
+			description: 'Show the working tree status');
+		yourself
 ]
 
 { #category : #commandline }
@@ -52,10 +54,10 @@ ClapCommandLineExamples class >> hello [
 	
 	^ (ClapCommand withName: 'hello')
 		description: 'Provides greetings.';
-		addFlag: (ClapFlag helpFlag);
-		addFlag: ((ClapFlag withName: 'shout')
+		add: (ClapFlag helpFlag);
+		add: ((ClapFlag withName: 'shout')
 			description: 'Greet loudly');
-		addPositional: ((ClapPositional withName: 'who')
+		add: ((ClapPositional withName: 'who')
 			description: 'Recipient of the greetings';
 			defaultMeaning: [ 'world' ]);
 		meaning: [ :args |

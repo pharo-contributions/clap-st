@@ -16,6 +16,11 @@ ClapParameterized class >> isAbstract [
 ]
 
 { #category : #adding }
+ClapParameterized >> add: aParameter [
+	^ aParameter addTo: self
+]
+
+{ #category : #adding }
 ClapParameterized >> addPositional: aPositional [
 	positionals add: aPositional
 ]

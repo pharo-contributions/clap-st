@@ -27,8 +27,8 @@ ClapParameter class >> withName: aString [
 		yourself
 ]
 
-{ #category : #doc }
-ClapParameter >> accept: aVisitor [
+{ #category : #adding }
+ClapParameter >> addTo: parentParameter [
 	^ self subclassResponsibility
 ]
 

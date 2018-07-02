@@ -1,34 +1,34 @@
 Class {
-	#name : #ClapMatchTest,
+	#name : #ClapExplicitTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'subject',
 		'specification',
 		'word'
 	],
-	#category : 'Clap-Tests-Unit'
+	#category : #'Clap-Tests-Unit'
 }
 
 { #category : #running }
-ClapMatchTest >> classToTest [
+ClapExplicitTest >> classToTest [
 	^ ClapExplicit
 ]
 
 { #category : #running }
-ClapMatchTest >> setUp [
+ClapExplicitTest >> setUp [
 	specification := Mock named: 'spec'.
 	word := Mock named: 'word'.
 	subject := self classToTest of: specification with: word
 ]
 
 { #category : #tests }
-ClapMatchTest >> testAccessing [
+ClapExplicitTest >> testAccessing [
 	subject specification should be: specification.
 	subject word should be: word
 ]
 
 { #category : #tests }
-ClapMatchTest >> testAddingToParentAddsByName [
+ClapExplicitTest >> testAddingToParentAddsByName [
 	| parent specName |
 	specName := Mock new.
 	specification stub canonicalName willReturn: specName.
@@ -41,13 +41,13 @@ ClapMatchTest >> testAddingToParentAddsByName [
 ]
 
 { #category : #tests }
-ClapMatchTest >> testMatchesAreNotMismatches [
+ClapExplicitTest >> testMatchesAreNotMismatches [
 	subject isMismatch should be: false.
 	subject ifMismatch: [ self fail ]
 ]
 
 { #category : #tests }
-ClapMatchTest >> testValue [
+ClapExplicitTest >> testValue [
 	| meaning |
 	meaning := Mock new.
 	specification stub meaning willReturn: meaning.
