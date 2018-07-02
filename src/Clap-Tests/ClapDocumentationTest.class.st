@@ -16,6 +16,6 @@ ClapDocumentationTest >> testHelloShortUsage [
 	self assert: (doc lines first: 3) equals: #(
 		'Provides greetings.'
 		''
-		'Usage: hello [--shout] [<who>]'
+		'Usage: hello [--help] [--shout] [<who>]'
 	)
 ]
