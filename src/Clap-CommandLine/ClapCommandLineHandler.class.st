@@ -15,7 +15,7 @@ ClapCommandLineHandler class >> commandName [
 { #category : #activation }
 ClapCommandLineHandler >> activate [
 	[
-		(ClapContext withPragmaCommands)
+		ClapContext withPragmaCommands beObeyingExits
 			activateWith: self arguments
 			onExit: [ :exit | self handleExit: exit ]
 	]
