@@ -1,4 +1,5 @@
 SmalltalkCISpec {
+  #name : 'Clap',
   #loading : [
     SCIMetacelloLoadSpec {
       #baseline : 'Clap',
