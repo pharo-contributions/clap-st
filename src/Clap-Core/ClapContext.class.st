@@ -11,7 +11,8 @@ Class {
 	#instVars : [
 		'commandCandidates',
 		'arguments',
-		'session'
+		'session',
+		'obeyingExits'
 	],
 	#category : #'Clap-Core-Activation'
 }
@@ -81,6 +82,11 @@ ClapContext >> atEnd [
 ]
 
 { #category : #initialization }
+ClapContext >> beObeyingExits [
+	obeyingExits := true
+]
+
+{ #category : #initialization }
 ClapContext >> candidates: commandSpecifications [
 	commandCandidates := commandSpecifications
 ]
@@ -127,15 +133,13 @@ ClapContext >> exitSuccess: message [
 
 { #category : #activation }
 ClapContext >> handleExit: exit [
-	^ self hasSessionChanged
-		ifTrue: [ self ]
+	self hasSessionChanged ifTrue: [ ^ self ].
+
+	self shouldObeyExit
+		ifTrue: [ exit pass ]
 		ifFalse: [
-			Smalltalk isInteractive
-				ifTrue: [
-					exit isSuccess
-						ifFalse: [ exit resignalAs: (Error new messageText: exit messageText) ] ]
-				ifFalse: [ exit pass ]
-		]
+			exit isSuccess
+				ifFalse: [ exit resignalAs: (Error new messageText: exit messageText) ] ]
 ]
 
 { #category : #activation }
@@ -146,7 +150,8 @@ ClapContext >> hasSessionChanged [
 { #category : #initialization }
 ClapContext >> initialize [
 	commandCandidates := 	#().
-	arguments := #()
+	arguments := #().
+	obeyingExits := false
 ]
 
 { #category : #activation }
@@ -176,6 +181,11 @@ ClapContext >> peek [
 { #category : #activation }
 ClapContext >> rememberSession [
 	session := Smalltalk session
+]
+
+{ #category : #testing }
+ClapContext >> shouldObeyExit [
+	^ obeyingExits and: [ Smalltalk isInteractive not ]
 ]
 
 { #category : #accessing }
