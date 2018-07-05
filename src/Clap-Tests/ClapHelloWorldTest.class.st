@@ -15,7 +15,7 @@ ClapHelloWorldTest >> setUp [
 
 ]
 
-{ #category : #tests }
+{ #category : #'tests - matching' }
 ClapHelloWorldTest >> testHello [
 	| match |
 	match := hello match: #('hello').
@@ -25,7 +25,7 @@ ClapHelloWorldTest >> testHello [
 	match should not be includesKey: 'who'
 ]
 
-{ #category : #tests }
+{ #category : #'tests - matching' }
 ClapHelloWorldTest >> testHelloWorld [
 	| match |
 	match := hello match: #('hello' 'world').
@@ -36,7 +36,7 @@ ClapHelloWorldTest >> testHelloWorld [
 	(match atName: 'who') word should equal: 'world'
 ]
 
-{ #category : #tests }
+{ #category : #'tests - matching' }
 ClapHelloWorldTest >> testLanguageFlag [
 	| match lang |
 	lang := ClapPositional withName: 'language'.
@@ -57,6 +57,17 @@ ClapHelloWorldTest >> testLanguageFlag [
 ]
 
 { #category : #tests }
+ClapHelloWorldTest >> testRunInContext [
+	hello stub.
+
+	(ClapContext with: hello)
+		activateWith: #('hello' 'context').
+		
+	hello should receive matchOn: Any.
+
+]
+
+{ #category : #'tests - matching' }
 ClapHelloWorldTest >> testShouting [
 	| match |
 	match := hello match: #('hello' '--shout').
@@ -66,7 +77,7 @@ ClapHelloWorldTest >> testShouting [
 	match should not be includesKey: 'who'
 ]
 
-{ #category : #tests }
+{ #category : #'tests - matching' }
 ClapHelloWorldTest >> testShoutingAfterthought [
 	| match |
 	match := hello match: #('hello' 'world' '-s').
@@ -76,7 +87,7 @@ ClapHelloWorldTest >> testShoutingAfterthought [
 	match should be includesKey: 'who'
 ]
 
-{ #category : #tests }
+{ #category : #'tests - matching' }
 ClapHelloWorldTest >> testShoutingWorld [
 	| match |
 	match := hello match: #('hello' '--shout' 'world').

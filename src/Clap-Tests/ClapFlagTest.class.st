@@ -1,7 +1,7 @@
 Class {
 	#name : #ClapFlagTest,
-	#superclass : #ClapParameterTest,
-	#category : 'Clap-Tests-Unit'
+	#superclass : #ClapParameterizedTest,
+	#category : #'Clap-Tests-Unit'
 }
 
 { #category : #accessing }

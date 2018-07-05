@@ -1,16 +1,16 @@
 Class {
-	#name : #ClapSubcommandsTest,
+	#name : #ClapMatchesTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'clap',
 		'dirFlag',
 		'slowFlag'
 	],
-	#category : 'Clap-Tests-Integration'
+	#category : #'Clap-Tests-Integration'
 }
 
 { #category : #running }
-ClapSubcommandsTest >> setUp [
+ClapMatchesTest >> setUp [
 	dirFlag := (ClapFlag withName: 'directory')
 		addPositional: (ClapPositional withName: 'DIR').
 	slowFlag := ClapFlag withName: 'slow'.
@@ -25,18 +25,35 @@ ClapSubcommandsTest >> setUp [
 ]
 
 { #category : #running }
-ClapSubcommandsTest >> testFlagValue [
-	| match |
+ClapMatchesTest >> testFlagAbsentValue [
+	| match flagMatch |
 	slowFlag meaning: [ :flag | flag isMismatch not ].
 	
-	match := clap match: #('clap' 'this' '--slow').
+	match := clap match: #('clap' 'this').
 	
-	((match atName: 'this') at: slowFlag) value should be: true.
+	flagMatch := (match atName: 'this') at: slowFlag.
+	flagMatch should not be isExplicit.
+	flagMatch parent parent should be: match.
+	flagMatch value should be: false.
 
 ]
 
 { #category : #running }
-ClapSubcommandsTest >> testParameterizedFlagValue [
+ClapMatchesTest >> testFlagValue [
+	| match flagMatch |
+	slowFlag meaning: [ :flag | flag isMismatch not ].
+	
+	match := clap match: #('clap' 'this' '--slow').
+	
+	flagMatch := ((match atName: 'this') at: slowFlag).
+	flagMatch should be isExplicit.
+	flagMatch parent parent should be: match.
+	flagMatch value should be: true.
+
+]
+
+{ #category : #running }
+ClapMatchesTest >> testParameterizedFlagValue [
 	| match |
 	dirFlag meaning: [ :flag | Path from: (flag atName: 'DIR') value ].
 	
@@ -47,7 +64,7 @@ ClapSubcommandsTest >> testParameterizedFlagValue [
 ]
 
 { #category : #running }
-ClapSubcommandsTest >> testRootPositionalAfterSubcommand [
+ClapMatchesTest >> testRootPositionalAfterSubcommand [
 	| match |
 	match := clap match: #('clap' 'this' '--directory' 'foo/bar/baz').
 	
@@ -57,7 +74,7 @@ ClapSubcommandsTest >> testRootPositionalAfterSubcommand [
 ]
 
 { #category : #running }
-ClapSubcommandsTest >> testRootPositionalBeforeSubcommand [
+ClapMatchesTest >> testRootPositionalBeforeSubcommand [
 	| match |
 	match := clap match: #('clap' '--directory' 'foo/bar/baz' 'this').
 	
@@ -71,7 +88,7 @@ ClapSubcommandsTest >> testRootPositionalBeforeSubcommand [
 ]
 
 { #category : #running }
-ClapSubcommandsTest >> testThis [
+ClapMatchesTest >> testThis [
 	| match |
 	match := clap match: #('clap' 'this').
 	
@@ -84,7 +101,7 @@ ClapSubcommandsTest >> testThis [
 ]
 
 { #category : #running }
-ClapSubcommandsTest >> testWrongCommandMismatches [
+ClapMatchesTest >> testWrongCommandMismatches [
 	| match |
 	match := clap match: #('foo' '-d' 'bar/baz/qux' 'this').
 	
@@ -93,7 +110,7 @@ ClapSubcommandsTest >> testWrongCommandMismatches [
 ]
 
 { #category : #running }
-ClapSubcommandsTest >> testWrongFlagMatchesButInvalid [
+ClapMatchesTest >> testWrongFlagMatchesButInvalid [
 	| match |
 	match := clap match: #('clap' '-f' 'bar/baz/qux' 'this').
 	

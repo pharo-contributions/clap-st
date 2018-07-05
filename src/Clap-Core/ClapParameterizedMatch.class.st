@@ -16,7 +16,7 @@ Class {
 ClapParameterizedMatch >> at: aSpec [
 	^ self
 		at: aSpec
-		ifAbsent: [ ClapImplicit specification: aSpec ]
+		ifAbsent: [ ClapImplicit of: aSpec in: self ]
 ]
 
 { #category : #accessing }

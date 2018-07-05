@@ -7,21 +7,9 @@ Class {
 	#category : #'Clap-Core-Activation'
 }
 
-{ #category : #'instance creation' }
-ClapMismatch class >> of: aSpecification with: aWord [
-	^ self new
-		specification: aSpecification;
-		word: aWord
-]
-
-{ #category : #'instance creation' }
-ClapMismatch class >> specification: aParameter [ 
-	^ self new specification: aParameter
-]
-
 { #category : #accessing }
 ClapMismatch >> at: aSpec [
-	^ ClapImplicit specification: aSpec
+	^ ClapImplicit of: aSpec in: self
 ]
 
 { #category : #testing }

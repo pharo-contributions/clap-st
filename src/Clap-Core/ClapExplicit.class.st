@@ -7,17 +7,16 @@ Class {
 	#name : #ClapExplicit,
 	#superclass : #ClapImplicit,
 	#instVars : [
-		'word',
-		'parent'
+		'word'
 	],
 	#category : #'Clap-Core-Activation'
 }
 
 { #category : #'instance creation' }
 ClapExplicit class >> of: aSpecification with: aWord [
-	^ self new
-		specification: aSpecification;
-		word: aWord
+	^ (self specification: aSpecification)
+		word: aWord;
+		yourself
 ]
 
 { #category : #evaluating }
@@ -68,11 +67,6 @@ ClapExplicit >> isValid [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
-ClapExplicit >> parent [
-	^ parent
-]
-
 { #category : #printing }
 ClapExplicit >> printDetailsOn: aStream [
 	| needsSeparator |
@@ -94,15 +88,8 @@ ClapExplicit >> printOn: aStream [
 
 { #category : #adding }
 ClapExplicit >> recordIn: parentMatch [
-	parent := parentMatch.
-	parent recordParameterMatch: self
-]
-
-{ #category : #accessing }
-ClapExplicit >> rootMatch [
-	^ parent
-		ifNil: [ self ]
-		ifNotNil: [ parent root ]
+	self parent: parentMatch.
+	self parent recordParameterMatch: self
 ]
 
 { #category : #testing }

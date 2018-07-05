@@ -1,12 +1,30 @@
 Class {
 	#name : #ClapCommandTest,
-	#superclass : #ClapParameterTest,
-	#category : 'Clap-Tests-Unit'
+	#superclass : #ClapParameterizedTest,
+	#category : #'Clap-Tests-Unit'
 }
 
 { #category : #accessing }
 ClapCommandTest >> classToTest [
 	^ ClapCommand
+]
+
+{ #category : #tests }
+ClapCommandTest >> testAddFlag [
+	| flag |
+	flag := ClapFlag withName: 'flag'.
+	subject add: flag.
+	
+	subject flags should include: flag
+]
+
+{ #category : #tests }
+ClapCommandTest >> testAddSubcommand [
+	| cmd |
+	cmd := ClapCommand withName: 'cmd'.
+	subject add: cmd.
+	
+	subject subcommands should include: cmd
 ]
 
 { #category : #tests }
