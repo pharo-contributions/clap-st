@@ -18,6 +18,7 @@ ClapPharoVersion class >> version [
 		addFlag: (ClapFlag withName: 'numeric');
 		addFlag: (ClapFlag withName: 'hash');
 		addFlag: (ClapFlag withName: 'vm');
+		addFlag: (ClapFlag withName: 'license');
 		meaning: [ :args |	(self with: args) execute ]
 ]
 
@@ -55,6 +56,11 @@ ClapPharoVersion >> hash [
 { #category : #initialization }
 ClapPharoVersion >> initialize [
 	stream := VTermOutputDriver stdout
+]
+
+{ #category : #formats }
+ClapPharoVersion >> license [
+	^ Smalltalk licenseString
 ]
 
 { #category : #formats }
