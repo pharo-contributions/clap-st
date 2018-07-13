@@ -25,9 +25,7 @@ ClapPositional >> matchClass [
 
 { #category : #matching }
 ClapPositional >> matchOn: aStream [
-	^ (aStream atEnd or: [aStream peek beginsWith: '-'])
-		ifTrue: [ self newMismatchAt: aStream ]
-		ifFalse: [ self newMatchAt: aStream ]
+	^ self matchPremiseOn: aStream
 ]
 
 { #category : #matching }

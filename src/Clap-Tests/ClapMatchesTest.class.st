@@ -40,6 +40,21 @@ ClapMatchesTest >> testFlagAbsentValue [
 ]
 
 { #category : #running }
+ClapMatchesTest >> testFlagOmittedValue [
+	| match flagMatch |
+	clap addFlag: slowFlag. "we need another flag to follow the incomplete one"
+	
+	match := clap match: #('clap' '--directory' '--slow').
+	
+	flagMatch := match at: dirFlag.
+	flagMatch should be isExplicit.
+	flagMatch value should not be: '--slow'.
+	(flagMatch atName: 'DIR') should not be isExplicit.
+	(match at: slowFlag) should be isExplicit.
+
+]
+
+{ #category : #running }
 ClapMatchesTest >> testFlagValue [
 	| match flagMatch |
 	slowFlag meaning: [ :flag | flag isMismatch not ].
