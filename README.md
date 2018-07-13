@@ -35,10 +35,35 @@ Metacello new baseline: 'Clap';
 
 Commands and subcommands are instances of `ClapCommand`. To make a command
 accessible from the command line, return it from a class-side factory method
-with the `<commandline>` pragma. See the `ClapCommandLineExamples class >> hello`.
+with the `<commandline>` pragma. For instance, here's the *hello, world* defined
+in `ClapCommandLineExamples`:
 
-Clap installs itself as a named command line handler; e.g., to run the `hello`
-example command:
+```smalltalk
+hello
+	"The usual Hello, World command, with a couple options to demonstrate what Clap can do."
+	<commandline>
+
+	^ (ClapCommand withName: 'hello')
+		description: 'Provides greetings.';
+		add: (ClapFlag helpFlag);
+		add: ((ClapFlag withName: 'shout')
+			description: 'Greet loudly');
+		add: ((ClapPositional withName: 'who')
+			description: 'Recipient of the greetings';
+			defaultMeaning: [ 'world' ]);
+		meaning: [ :args |
+			args atName: 'help' ifFound: [ :help |
+			help value.
+				Exit signalSuccess
+			].
+
+			self new
+				doHelloRecipient: (args atName: 'who') value
+				shouting: (args atName: 'shout') value ]
+```
+
+For now, Clap installs itself as a named command line handler; e.g., to run the
+`hello` example command:
 
 ```shell
 $PHARO_VM $PHARO_IMAGE clap hello
@@ -50,9 +75,8 @@ interactive session will not quit the image, but any output from the command
 will still go to the standard output:
 
 ```smalltalk
-ClapCommandLineHandler new
-    commandLine: (CommandLineArguments withArguments: {'hello'});
-    activate.
+ClapCommandLineExamples hello
+	runWith: #('hello' '--help').
 ```
 
 [travis]: https://travis-ci.org/cdlm/clap-st
