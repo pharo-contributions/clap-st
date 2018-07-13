@@ -34,6 +34,7 @@ ClapMatchesTest >> testFlagAbsentValue [
 	flagMatch := (match atName: 'this') at: slowFlag.
 	flagMatch should not be isExplicit.
 	flagMatch parent parent should be: match.
+	flagMatch rootMatch should be: match.
 	flagMatch value should be: false.
 
 ]

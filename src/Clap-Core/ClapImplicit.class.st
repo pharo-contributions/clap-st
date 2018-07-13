@@ -46,7 +46,7 @@ ClapImplicit >> parent: aMatch [
 ClapImplicit >> rootMatch [
 	^ parent
 		ifNil: [ self ]
-		ifNotNil: [ parent root ]
+		ifNotNil: [ parent rootMatch ]
 ]
 
 { #category : #accessing }

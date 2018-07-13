@@ -9,13 +9,19 @@ Class {
 	#name : #ClapContext,
 	#superclass : #Object,
 	#instVars : [
-		'commandCandidates',
 		'arguments',
 		'session',
-		'obeyingExits'
+		'obeyingExits',
+		'root'
 	],
 	#category : #'Clap-Core-Activation'
 }
+
+{ #category : #accessing }
+ClapContext class >> defaultRoot [
+	^ ClapRoot new
+	"setup default flags, omnipresent subcommands & basic meanings here"
+]
 
 { #category : #accessing }
 ClapContext class >> pragmaCommands [
@@ -31,17 +37,15 @@ ClapContext class >> pragmaCommands [
 ]
 
 { #category : #'instance creation' }
-ClapContext class >> with: commandCandidate [
+ClapContext class >> with: rootCommand [
 	^ self new
-		candidates: { commandCandidate };
+		root: rootCommand;
 		yourself
 ]
 
 { #category : #'instance creation' }
-ClapContext class >> withAll: commandCandidates [ 
-	^ self new
-		candidates: commandCandidates;
-		yourself
+ClapContext class >> withAll: commandCandidates [
+	^ self with: (self defaultRoot addAll: commandCandidates)
 ]
 
 { #category : #'instance creation' }
@@ -76,29 +80,9 @@ ClapContext >> arguments: aCollection [
 	arguments := aCollection
 ]
 
-{ #category : #'testing - deprecated' }
-ClapContext >> atEnd [
-	^ self arguments atEnd
-]
-
 { #category : #initialization }
 ClapContext >> beObeyingExits [
 	obeyingExits := true
-]
-
-{ #category : #initialization }
-ClapContext >> candidates: commandSpecifications [
-	commandCandidates := commandSpecifications
-]
-
-{ #category : #activation }
-ClapContext >> detectMatching: matchBlock ifNone: failBlock [
-	commandCandidates do: [ :each |
-		(each matchOn: self arguments readStream)
-			ifMatch: [ :match |
-				^ matchBlock value: match ] ].
-
-	^ failBlock value
 ]
 
 { #category : #accessing }
@@ -147,9 +131,16 @@ ClapContext >> hasSessionChanged [
 	^ session ~~ Smalltalk session
 ]
 
+{ #category : #activation }
+ClapContext >> ifMatch: matchBlock ifMismatch: failBlock [
+	^ (self root matchOn: self arguments readStream)
+		ifMatch: matchBlock
+		ifMismatch: failBlock
+
+]
+
 { #category : #initialization }
 ClapContext >> initialize [
-	commandCandidates := 	#().
 	arguments := #().
 	obeyingExits := false
 ]
@@ -157,15 +148,10 @@ ClapContext >> initialize [
 { #category : #activation }
 ClapContext >> interpret: argumentsSequence [
 	^ self arguments: argumentsSequence;
-		detectMatching: [ :match |
+		ifMatch: [ :match |
 			match value: self.
 			self exitSuccess ]
-		ifNone: [ self noneMatched ]
-]
-
-{ #category : #'accessing - deprecated' }
-ClapContext >> next [
-	^ self arguments next
+		ifMismatch: [ self noneMatched ]
 ]
 
 { #category : #activation }
@@ -173,14 +159,19 @@ ClapContext >> noneMatched [
 	^ self exitFailure: 'Unknown command'
 ]
 
-{ #category : #'accessing - deprecated' }
-ClapContext >> peek [
-	^ self arguments peek
-]
-
 { #category : #activation }
 ClapContext >> rememberSession [
 	session := Smalltalk session
+]
+
+{ #category : #accessing }
+ClapContext >> root [
+	^ root ifNil: [ root := ClapRoot new ]
+]
+
+{ #category : #initialization }
+ClapContext >> root: aCommand [
+	root := aCommand
 ]
 
 { #category : #testing }

@@ -22,7 +22,9 @@ ClapHelloWorldTest >> testHello [
 
 	match should not be isMismatch.
 	match should not be includesKey: 'shout'.
-	match should not be includesKey: 'who'
+	match should not be includesKey: 'who'.
+	match rootMatch should be: match
+
 ]
 
 { #category : #'tests - matching' }
@@ -33,7 +35,8 @@ ClapHelloWorldTest >> testHelloWorld [
 	match should not be isMismatch.
 	match should not be includesKey: 'shout'.
 	match should be includesKey: 'who'.
-	(match atName: 'who') word should equal: 'world'
+	(match atName: 'who') word should equal: 'world'.
+	(match atName: 'who') rootMatch should be: match
 ]
 
 { #category : #'tests - matching' }
@@ -52,8 +55,8 @@ ClapHelloWorldTest >> testLanguageFlag [
 	(match atName: 'who') word should equal: 'monde'.
 	match should be includesKey: 'lang'.
 	(match atName: 'lang') should be includesKey: 'language'.
-	(match atName: 'lang') value should equal: 'fr'
-
+	(match atName: 'lang') value should equal: 'fr'.
+	((match atName: 'lang') at: lang) rootMatch should be: match.
 ]
 
 { #category : #tests }
