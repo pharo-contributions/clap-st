@@ -45,7 +45,7 @@ ClapContext class >> with: rootCommand [
 
 { #category : #'instance creation' }
 ClapContext class >> withAll: commandCandidates [
-	^ self with: (self defaultRoot addAll: commandCandidates)
+	^ self with: (self defaultRoot addAll: commandCandidates; yourself)
 ]
 
 { #category : #'instance creation' }

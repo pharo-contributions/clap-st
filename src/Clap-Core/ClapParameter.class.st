@@ -42,7 +42,7 @@ ClapParameter >> canonicalName: aString [
 	canonicalName := aString
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 ClapParameter >> defaultMeaning [
 	^ defaultMeaningBlock
 ]
@@ -57,7 +57,7 @@ ClapParameter >> description [
 	^ description
 ]
 
-{ #category : #setting }
+{ #category : #initialization }
 ClapParameter >> description: aString [
 	description := aString
 ]
@@ -99,7 +99,7 @@ ClapParameter >> matchWord: aString [
 		with: aString
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 ClapParameter >> meaning [
 	^ meaningBlock
 ]

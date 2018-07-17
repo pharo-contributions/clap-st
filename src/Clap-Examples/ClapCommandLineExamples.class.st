@@ -19,7 +19,7 @@ Class {
 	#category : #'Clap-Examples'
 }
 
-{ #category : #commandline }
+{ #category : #'command line' }
 ClapCommandLineExamples class >> git [
 	"A dummy command (no behavior besides help) to demonstrate subcommands.
 	<commandline> pragma omitted, because doesn't really make sense to play with it outside of a playground."
@@ -47,7 +47,7 @@ ClapCommandLineExamples class >> git [
 		yourself
 ]
 
-{ #category : #commandline }
+{ #category : #'command line' }
 ClapCommandLineExamples class >> hello [
 	"The usual Hello, World command, with a couple options to demonstrate what Clap can do."
 	<commandline>

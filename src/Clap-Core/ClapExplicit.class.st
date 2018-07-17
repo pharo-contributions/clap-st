@@ -97,16 +97,6 @@ ClapExplicit >> validate [
 	^ self
 ]
 
-{ #category : #evaluating }
-ClapExplicit >> value [
-	^ self value: nil
-]
-
-{ #category : #evaluating }
-ClapExplicit >> value: arg [
-	^ self evaluateMeaning: arg
-]
-
 { #category : #accessing }
 ClapExplicit >> word [
 	^ word

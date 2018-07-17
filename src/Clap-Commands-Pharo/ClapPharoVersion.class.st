@@ -8,7 +8,7 @@ Class {
 	#category : #'Clap-Commands-Pharo'
 }
 
-{ #category : #versions }
+{ #category : #'command line' }
 ClapPharoVersion class >> version [
 	<commandline>
 	^ (ClapCommand withName: 'version')

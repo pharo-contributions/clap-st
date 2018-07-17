@@ -21,6 +21,11 @@ ClapParameterized >> add: aParameter [
 ]
 
 { #category : #adding }
+ClapParameterized >> addAll: parameters [
+	parameters do: [ :each | each addTo: self ]
+]
+
+{ #category : #adding }
 ClapParameterized >> addPositional: aPositional [
 	positionals add: aPositional
 ]
