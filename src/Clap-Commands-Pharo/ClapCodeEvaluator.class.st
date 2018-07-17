@@ -15,10 +15,16 @@ ClapCodeEvaluator class >> evaluate [
 	^ (ClapCommand withName: 'evaluate')
 		description: 'Evaluate a Pharo expression';
 		add: ((ClapPositional withName: 'EXPR')
-			defaultMeaning: [ Stdio stdin upToEnd ]);
+			meaning: [ :match |
+				"let's copy all the bytes because the VM wrongly assumed some 8-bit encoding…"
+				match word asByteArray utf8Decoded ];
+			defaultMeaning: [
+				(ZnCharacterReadStream
+					on: (ZnBufferedReadStream on: Stdio stdin)
+					encoding: 'utf8') upToEnd ]);
 		meaning: [ :args | (self with: args)	execute ]
 		"save/quit"
-		
+
 ]
 
 { #category : #'instance creation' }
