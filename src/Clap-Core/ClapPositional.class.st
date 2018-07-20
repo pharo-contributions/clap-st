@@ -28,23 +28,10 @@ ClapPositional >> matchClass [
 	^ ClapPositionalMatch
 ]
 
-{ #category : #matching }
-ClapPositional >> matchPremiseOn: aStream [
-	<deprecated: 'remove'>
-	^ (aStream atEnd or: [aStream peek beginsWith: '-'])
-		ifTrue: [ self newMismatchAt: aStream ]
-		ifFalse: [ self newMatchAt: aStream ]
-]
-
 { #category : #documenting }
 ClapPositional >> synopsisOn: aStream [
 	^ aStream
 			nextPut: $<;
 			nextPutAll: self canonicalName;
 			nextPut: $>
-]
-
-{ #category : #matching }
-ClapPositional >> with: premiseMatch matchOn: aStream [ 
-	^ premiseMatch
 ]

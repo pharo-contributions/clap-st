@@ -7,9 +7,19 @@ Class {
 	#category : #'Clap-Core-Activation'
 }
 
+{ #category : #testing }
+ClapSubExpression class >> isAbstract [
+	^ self == ClapSubExpression
+]
+
 { #category : #accessing }
 ClapSubExpression >> context [
 	^ parent context
+]
+
+{ #category : #testing }
+ClapSubExpression >> ifMatch: matchBlock ifMismatch: mismatchBlock [
+	^ matchBlock cull: self
 ]
 
 { #category : #testing }

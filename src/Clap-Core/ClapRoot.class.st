@@ -14,18 +14,6 @@ ClapRoot >> canMatchWith: word [
 ]
 
 { #category : #matching }
-ClapRoot >> matchOn: aStream [
-	<deprecated: 'remove'>
-	^ self newMatchAt: aStream
-]
-
-{ #category : #matching }
-ClapRoot >> matchPremiseOn: aStream [
-	<deprecated: 'remove'>
-	^ self newMatchAt: aStream
-]
-
-{ #category : #matching }
 ClapRoot >> newMatchAt: aStream [
 	^ self matchClass specification: self
 

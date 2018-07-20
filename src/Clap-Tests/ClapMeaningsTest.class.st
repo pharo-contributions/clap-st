@@ -12,10 +12,8 @@ ClapMeaningsTest >> testArgFlagBasicMeaning [
 
 	match := flag match: #('--foo' 'whatever').
 	self assert: match value.
-
-	match := flag match: #().
-	self deny: match value.
-
+	
+	self deny: (flag match: #()) value
 ]
 
 { #category : #tests }
@@ -62,8 +60,6 @@ ClapMeaningsTest >> testSimpleFlagBasicMeaning [
 
 	match := flag match: #('--foo').
 	self assert: match value.
-
-	match := flag match: #().
-	self deny: match value.
-
+	
+	self deny: (flag match: #()) value
 ]

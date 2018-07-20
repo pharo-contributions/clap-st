@@ -103,19 +103,6 @@ ClapParameter >> matchOn: aStream [
 
 ]
 
-{ #category : #matching }
-ClapParameter >> matchPremiseOn: aStream [
-	<deprecated: 'remove'>
-	^ self subclassResponsibility
-]
-
-{ #category : #matching }
-ClapParameter >> matchWord: aString [
-	^ self matchClass
-		of: self
-		with: aString
-]
-
 { #category : #accessing }
 ClapParameter >> meaning [
 	^ meaningBlock
@@ -124,16 +111,6 @@ ClapParameter >> meaning [
 { #category : #initialization }
 ClapParameter >> meaning: aBlock [
 	meaningBlock := aBlock
-]
-
-{ #category : #matching }
-ClapParameter >> mismatch [
-	^ ClapMismatch specification: self
-]
-
-{ #category : #matching }
-ClapParameter >> mismatchWord: aString [
-	^ ClapMismatch of: self with: aString
 ]
 
 { #category : #matching }
@@ -166,11 +143,5 @@ ClapParameter >> synopsis [
 
 { #category : #documenting }
 ClapParameter >> synopsisOn: aStream [
-	^ self subclassResponsibility
-]
-
-{ #category : #matching }
-ClapParameter >> with: premiseMatch matchOn: aStream [
-	<deprecated: 'remove'>
 	^ self subclassResponsibility
 ]

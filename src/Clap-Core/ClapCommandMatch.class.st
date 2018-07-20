@@ -4,21 +4,12 @@ I represent the successful match of a (sub)command, and its arguments if any.
 Class {
 	#name : #ClapCommandMatch,
 	#superclass : #ClapParameterizedMatch,
-	#instVars : [
-		'leftovers'
-	],
 	#category : #'Clap-Core-Activation'
 }
 
 { #category : #accessing }
 ClapCommandMatch >> flags [
 	^ arguments select: [ :each | specification flags includes: each specification ]
-]
-
-{ #category : #testing }
-ClapCommandMatch >> isValid [
-	^ leftovers isEmptyOrNil
-		and: [ self matchedSubcommand isValid ]
 ]
 
 { #category : #accessing }

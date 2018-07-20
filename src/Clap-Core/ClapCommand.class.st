@@ -97,12 +97,6 @@ ClapCommand >> initialize [
 	flags := OrderedCollection new.
 ]
 
-{ #category : #matching }
-ClapCommand >> matchCanonicalName: word [
-	^ word = self canonicalName
-	
-]
-
 { #category : #accessing }
 ClapCommand >> matchClass [
 	^ ClapCommandMatch
@@ -143,13 +137,4 @@ ClapCommand >> with: partialMatch detectMatchOn: aStream ifFound: foundBlock ifN
 					self
 						with: partialMatch detect: subcommands matchOn: aStream
 						ifFound: foundBlock ifNone: noneBlock ] ]
-]
-
-{ #category : #matching }
-ClapCommand >> with: partialMatch matchOn: aStream [
-	| result |
-	result := super with: partialMatch matchOn: aStream.
-	aStream atEnd ifFalse: [ result context leftovers: aStream upToEnd ].
-	
-	^ result
 ]

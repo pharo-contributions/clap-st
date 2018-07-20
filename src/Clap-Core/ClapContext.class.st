@@ -10,10 +10,10 @@ Class {
 	#superclass : #ClapExpression,
 	#instVars : [
 		'arguments',
-		'leftovers',
-		'session',
 		'obeyingExits',
-		'match'
+		'match',
+		'leftovers',
+		'session'
 	],
 	#category : #'Clap-Core-Activation'
 }
@@ -89,7 +89,7 @@ ClapContext >> doMatch [
 	| args |
 	args := self arguments readStream.
 	match := self specification matchOn: args.
-	args atEnd ifFalse: [ leftovers := args upToEnd ]
+	leftovers := args upToEnd
 ]
 
 { #category : #accessing }
@@ -163,7 +163,8 @@ ClapContext >> interpret: argumentsSequence [
 
 { #category : #testing }
 ClapContext >> isValid [
-	^ leftovers isEmpty
+	self flag: 'should recursively check the match'.
+	^ self leftovers isEmpty
 ]
 
 { #category : #accessing }

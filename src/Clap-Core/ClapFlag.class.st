@@ -11,7 +11,8 @@ Class {
 
 { #category : #evaluating }
 ClapFlag class >> basicMeaning [
-	^ [ :match | match isExplicit ]
+	^ [ :match |
+			match isExplicit and: [ match isMatch ] ]
 ]
 
 { #category : #flags }
@@ -38,11 +39,6 @@ ClapFlag >> canMatchWith: word [
 { #category : #accessing }
 ClapFlag >> longForm [
 	^ '--' , self canonicalName
-]
-
-{ #category : #matching }
-ClapFlag >> matchCanonicalName: word [
-	^ word = self longForm or: word = self shortForm
 ]
 
 { #category : #accessing }

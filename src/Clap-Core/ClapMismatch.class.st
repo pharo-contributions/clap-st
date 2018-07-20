@@ -17,11 +17,6 @@ ClapMismatch >> ifMatch: matchingBlock ifMismatch: mismatchBlock [
 	^ mismatchBlock cull: self
 ]
 
-{ #category : #testing }
-ClapMismatch >> isExplicit [
-	^ false
-]
-
 { #category : #printing }
 ClapMismatch >> printDetailsOn: aStream [
 	aStream

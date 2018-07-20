@@ -25,11 +25,6 @@ ClapExplicit >> evaluateMeaning: arg [
 ]
 
 { #category : #testing }
-ClapExplicit >> ifMatch: matchBlock ifMismatch: mismatchBlock [
-	^ matchBlock cull: self
-]
-
-{ #category : #testing }
 ClapExplicit >> isExplicit [
 	^ true
 ]
@@ -57,11 +52,6 @@ ClapExplicit >> printOn: aStream [
 ClapExplicit >> recordIn: parentMatch [
 	self parent: parentMatch.
 	self parent recordParameterMatch: self
-]
-
-{ #category : #testing }
-ClapExplicit >> validate [
-	^ self
 ]
 
 { #category : #accessing }

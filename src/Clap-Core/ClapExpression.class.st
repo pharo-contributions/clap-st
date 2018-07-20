@@ -10,6 +10,11 @@ Class {
 	#category : #'Clap-Core-Activation'
 }
 
+{ #category : #testing }
+ClapExpression class >> isAbstract [
+	^ self == ClapExpression
+]
+
 { #category : #'instance creation' }
 ClapExpression class >> specification: aParameter [ 
 	^ self new
@@ -63,7 +68,7 @@ ClapExpression >> isMismatch [
 
 { #category : #testing }
 ClapExpression >> isValid [
-	^ self subclassResponsibility
+	^ true
 ]
 
 { #category : #accessing }

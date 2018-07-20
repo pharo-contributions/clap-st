@@ -44,19 +44,6 @@ ClapParameterized >> initialize [
 ]
 
 { #category : #matching }
-ClapParameterized >> matchCanonicalName: aString [
-
-	^ self subclassResponsibility
-]
-
-{ #category : #matching }
-ClapParameterized >> matchPremiseOn: aStream [
-	^ (self matchCanonicalName: aStream peek)
-		ifTrue: [ self newMatchAt: aStream]
-		ifFalse: [ self newMismatchAt: aStream ]
-]
-
-{ #category : #matching }
 ClapParameterized >> newMatchAt: aStream [
 	| partialMatch |
 	partialMatch := super newMatchAt: aStream.
@@ -99,14 +86,4 @@ ClapParameterized >> with: partialMatch detectMatchOn: aStream ifFound: foundBlo
 		ifFound: foundBlock
 		ifNone: noneBlock
 
-]
-
-{ #category : #matching }
-ClapParameterized >> with: partialMatch matchOn: aStream [
-	[ self
-		with: partialMatch
-		detectMatchOn: aStream
-		ifFound: [ :arg | arg recordIn: partialMatch ]
-		ifNone: [ ^ partialMatch ]
-	] repeat
 ]

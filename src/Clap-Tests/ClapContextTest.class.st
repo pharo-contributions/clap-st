@@ -14,6 +14,17 @@ ClapContextTest >> setUp [
 ]
 
 { #category : #running }
+ClapContextTest >> testMatch [
+	context
+		arguments: #('hello' 'world');
+		match.
+	
+	context should be isMatch.
+	context should be isValid.
+	context leftovers should be isEmpty
+]
+
+{ #category : #running }
 ClapContextTest >> testRootPositionalAfterSubcommand [
 	context
 		arguments: #('hello' 'world' '--directory' 'foo/bar/baz');
