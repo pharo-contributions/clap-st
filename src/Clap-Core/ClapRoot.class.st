@@ -9,7 +9,19 @@ Class {
 }
 
 { #category : #matching }
+ClapRoot >> canMatchWith: word [
+	^ true
+]
+
+{ #category : #matching }
+ClapRoot >> matchOn: aStream [
+	<deprecated: 'remove'>
+	^ self newMatchAt: aStream
+]
+
+{ #category : #matching }
 ClapRoot >> matchPremiseOn: aStream [
+	<deprecated: 'remove'>
 	^ self newMatchAt: aStream
 ]
 

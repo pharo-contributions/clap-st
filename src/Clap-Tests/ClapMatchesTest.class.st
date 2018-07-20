@@ -1,3 +1,8 @@
+"
+Tests around matching non-trivial commands and parameters.
+
+In the absence of a parent context however, we can't test invalid or extra arguments; see ClapContextTest for this.
+"
 Class {
 	#name : #ClapMatchesTest,
 	#superclass : #TestCase,
@@ -29,12 +34,11 @@ ClapMatchesTest >> testFlagAbsentValue [
 	| match flagMatch |
 	slowFlag meaning: [ :flag | flag isMismatch not ].
 	
-	match := clap match: #('clap' 'this').
+	match := clap matchOn: #('clap' 'this') readStream.
 	
 	flagMatch := (match atName: 'this') at: slowFlag.
 	flagMatch should not be isExplicit.
 	flagMatch parent parent should be: match.
-	flagMatch rootMatch should be: match.
 	flagMatch value should be: false.
 
 ]
@@ -80,16 +84,6 @@ ClapMatchesTest >> testParameterizedFlagValue [
 ]
 
 { #category : #running }
-ClapMatchesTest >> testRootPositionalAfterSubcommand [
-	| match |
-	match := clap match: #('clap' 'this' '--directory' 'foo/bar/baz').
-	
-	match should be isMatch.
-	match should not be isValid.
-	match matchedSubcommand leftovers should equal: #('--directory' 'foo/bar/baz')
-]
-
-{ #category : #running }
 ClapMatchesTest >> testRootPositionalBeforeSubcommand [
 	| match |
 	match := clap match: #('clap' '--directory' 'foo/bar/baz' 'this').
@@ -123,13 +117,4 @@ ClapMatchesTest >> testWrongCommandMismatches [
 	
 	match should be isMismatch.
 	match word should equal: 'foo'
-]
-
-{ #category : #running }
-ClapMatchesTest >> testWrongFlagMatchesButInvalid [
-	| match |
-	match := clap match: #('clap' '-f' 'bar/baz/qux' 'this').
-	
-	match should be isMatch.
-	match should not be isValid
 ]

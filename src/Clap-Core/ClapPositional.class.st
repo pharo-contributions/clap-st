@@ -18,18 +18,19 @@ ClapPositional >> addTo: parentParameter [
 	^ parentParameter addPositional: self
 ]
 
+{ #category : #matching }
+ClapPositional >> canMatchWith: word [
+	^ (word beginsWith: '-') not
+]
+
 { #category : #accessing }
 ClapPositional >> matchClass [
 	^ ClapPositionalMatch
 ]
 
 { #category : #matching }
-ClapPositional >> matchOn: aStream [
-	^ self matchPremiseOn: aStream
-]
-
-{ #category : #matching }
 ClapPositional >> matchPremiseOn: aStream [
+	<deprecated: 'remove'>
 	^ (aStream atEnd or: [aStream peek beginsWith: '-'])
 		ifTrue: [ self newMismatchAt: aStream ]
 		ifFalse: [ self newMatchAt: aStream ]

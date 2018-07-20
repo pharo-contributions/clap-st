@@ -56,6 +56,18 @@ ClapParameterized >> matchPremiseOn: aStream [
 		ifFalse: [ self newMismatchAt: aStream ]
 ]
 
+{ #category : #matching }
+ClapParameterized >> newMatchAt: aStream [
+	| partialMatch |
+	partialMatch := super newMatchAt: aStream.
+	[ self
+		with: partialMatch
+		detectMatchOn: aStream
+		ifFound: [ :arg | arg recordIn: partialMatch ]
+		ifNone: [ ^ partialMatch ]
+	] repeat
+]
+
 { #category : #accessing }
 ClapParameterized >> positionalNamed: specName ifNone: aBlock [
 	^ positionals

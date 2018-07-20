@@ -7,12 +7,13 @@ For example, the command ""eval '1 + 2' "" is represented by this:
 "
 Class {
 	#name : #ClapContext,
-	#superclass : #Object,
+	#superclass : #ClapExpression,
 	#instVars : [
 		'arguments',
+		'leftovers',
 		'session',
 		'obeyingExits',
-		'root'
+		'match'
 	],
 	#category : #'Clap-Core-Activation'
 }
@@ -37,15 +38,8 @@ ClapContext class >> pragmaCommands [
 ]
 
 { #category : #'instance creation' }
-ClapContext class >> with: rootCommand [
-	^ self new
-		root: rootCommand;
-		yourself
-]
-
-{ #category : #'instance creation' }
 ClapContext class >> withAll: commandCandidates [
-	^ self with: (self defaultRoot addAll: commandCandidates; yourself)
+	^ self specification: (self defaultRoot addAll: commandCandidates; yourself)
 ]
 
 { #category : #'instance creation' }
@@ -83,6 +77,19 @@ ClapContext >> arguments: aCollection [
 { #category : #initialization }
 ClapContext >> beObeyingExits [
 	obeyingExits := true
+]
+
+{ #category : #accessing }
+ClapContext >> context [
+	^ self
+]
+
+{ #category : #matching }
+ClapContext >> doMatch [
+	| args |
+	args := self arguments readStream.
+	match := self specification matchOn: args.
+	args atEnd ifFalse: [ leftovers := args upToEnd ]
 ]
 
 { #category : #accessing }
@@ -131,9 +138,9 @@ ClapContext >> hasSessionChanged [
 	^ session ~~ Smalltalk session
 ]
 
-{ #category : #activation }
+{ #category : #testing }
 ClapContext >> ifMatch: matchBlock ifMismatch: failBlock [
-	^ (self root matchOn: self arguments readStream)
+	^ self match
 		ifMatch: matchBlock
 		ifMismatch: failBlock
 
@@ -154,6 +161,22 @@ ClapContext >> interpret: argumentsSequence [
 		ifMismatch: [ self noneMatched ]
 ]
 
+{ #category : #testing }
+ClapContext >> isValid [
+	^ leftovers isEmpty
+]
+
+{ #category : #accessing }
+ClapContext >> leftovers [
+	^ leftovers
+]
+
+{ #category : #accessing }
+ClapContext >> match [
+	^ match ifNil: [ self doMatch ]
+
+]
+
 { #category : #activation }
 ClapContext >> noneMatched [
 	^ self exitFailure: 'Unknown command'
@@ -162,16 +185,6 @@ ClapContext >> noneMatched [
 { #category : #activation }
 ClapContext >> rememberSession [
 	session := Smalltalk session
-]
-
-{ #category : #accessing }
-ClapContext >> root [
-	^ root ifNil: [ root := ClapRoot new ]
-]
-
-{ #category : #initialization }
-ClapContext >> root: aCommand [
-	root := aCommand
 ]
 
 { #category : #testing }

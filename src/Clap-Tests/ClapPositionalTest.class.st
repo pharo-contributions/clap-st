@@ -13,6 +13,7 @@ ClapPositionalTest >> classToTest [
 ClapPositionalTest >> testMatches [
 	| match |
 	argv stub atEnd willReturn: false.
+	argv stub peek willReturn: 'bar'.
 	argv stub next willReturn: 'bar'.
 	
 	match := subject matchOn: argv.

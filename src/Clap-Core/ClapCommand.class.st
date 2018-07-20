@@ -72,6 +72,12 @@ ClapCommand >> atName: specName [
 			[ super atName: specName ] ]
 ]
 
+{ #category : #matching }
+ClapCommand >> canMatchWith: word [
+	^ word = self canonicalName
+	
+]
+
 { #category : #accessing }
 ClapCommand >> flagNamed: specName ifNone: aBlock [
 	^ flags
@@ -105,7 +111,7 @@ ClapCommand >> matchClass [
 { #category : #running }
 ClapCommand >> runWith: arguments [
 	"Convenience method for running a command in an interactive context"
-	^ (ClapContext with: self)
+	^ (ClapContext specification: self)
 		activateWith: arguments
 ]
 
@@ -143,7 +149,7 @@ ClapCommand >> with: partialMatch detectMatchOn: aStream ifFound: foundBlock ifN
 ClapCommand >> with: partialMatch matchOn: aStream [
 	| result |
 	result := super with: partialMatch matchOn: aStream.
-	aStream atEnd ifFalse: [ result leftovers: aStream upToEnd ].
+	aStream atEnd ifFalse: [ result context leftovers: aStream upToEnd ].
 	
 	^ result
 ]

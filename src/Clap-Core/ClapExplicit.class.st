@@ -5,7 +5,7 @@ I link back to my specification and store the word of input that starts the matc
 "
 Class {
 	#name : #ClapExplicit,
-	#superclass : #ClapImplicit,
+	#superclass : #ClapSubExpression,
 	#instVars : [
 		'word'
 	],
@@ -25,46 +25,13 @@ ClapExplicit >> evaluateMeaning: arg [
 ]
 
 { #category : #testing }
-ClapExplicit >> ifMatch: aBlock [
-	^ self
-		ifMatch: aBlock
-		ifMismatch: [ self ]
-]
-
-{ #category : #testing }
 ClapExplicit >> ifMatch: matchBlock ifMismatch: mismatchBlock [
 	^ matchBlock cull: self
 ]
 
 { #category : #testing }
-ClapExplicit >> ifMismatch: aBlock [
-	^ self
-		ifMatch: [ self ]
-		ifMismatch: aBlock
-]
-
-{ #category : #testing }
 ClapExplicit >> isExplicit [
 	^ true
-]
-
-{ #category : #testing }
-ClapExplicit >> isMatch [
-	^ self
-		ifMatch: [ true ]
-		ifMismatch: [ false ]
-]
-
-{ #category : #testing }
-ClapExplicit >> isMismatch [
-	^ self
-		ifMatch: [ false ]
-		ifMismatch: [ true ]
-]
-
-{ #category : #testing }
-ClapExplicit >> isValid [
-	^ self subclassResponsibility
 ]
 
 { #category : #printing }

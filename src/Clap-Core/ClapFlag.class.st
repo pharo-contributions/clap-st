@@ -29,6 +29,12 @@ ClapFlag >> addTo: parentParameter [
 	^ parentParameter addFlag: self
 ]
 
+{ #category : #matching }
+ClapFlag >> canMatchWith: word [
+	^ word = self shortForm
+		or: [ word = self longForm ]
+]
+
 { #category : #accessing }
 ClapFlag >> longForm [
 	^ '--' , self canonicalName

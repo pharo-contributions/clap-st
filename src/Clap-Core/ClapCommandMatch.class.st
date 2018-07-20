@@ -10,11 +10,6 @@ Class {
 	#category : #'Clap-Core-Activation'
 }
 
-{ #category : #matching }
-ClapCommandMatch >> concludeMatchOn: aStream [
-	^ specification with: self matchOn: aStream
-]
-
 { #category : #accessing }
 ClapCommandMatch >> flags [
 	^ arguments select: [ :each | specification flags includes: each specification ]
@@ -24,16 +19,6 @@ ClapCommandMatch >> flags [
 ClapCommandMatch >> isValid [
 	^ leftovers isEmptyOrNil
 		and: [ self matchedSubcommand isValid ]
-]
-
-{ #category : #acccessing }
-ClapCommandMatch >> leftovers [
-	^ leftovers
-]
-
-{ #category : #accesing }
-ClapCommandMatch >> leftovers: words [
-	leftovers := words
 ]
 
 { #category : #accessing }

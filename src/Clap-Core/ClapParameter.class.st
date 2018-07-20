@@ -33,6 +33,22 @@ ClapParameter >> addTo: parentParameter [
 ]
 
 { #category : #accessing }
+ClapParameter >> basicMeaning [
+	^ self class basicMeaning
+]
+
+{ #category : #matching }
+ClapParameter >> canMatchAt: aStream [
+	^ aStream atEnd not
+		and: [ self canMatchWith: aStream peek ]
+]
+
+{ #category : #matching }
+ClapParameter >> canMatchWith: word [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
 ClapParameter >> canonicalName [
 	^ canonicalName
 ]
@@ -65,7 +81,7 @@ ClapParameter >> description: aString [
 { #category : #initialization }
 ClapParameter >> initialize [
 	description := ''.
-	meaningBlock := self class basicMeaning.
+	meaningBlock := self basicMeaning.
 	defaultMeaningBlock := meaningBlock
 ]
 
@@ -81,14 +97,15 @@ ClapParameter >> matchClass [
 
 { #category : #matching }
 ClapParameter >> matchOn: aStream [
-	| premise |
-	premise := self matchPremiseOn: aStream.
-	^ premise
-		ifMatch: [ self with: premise matchOn: aStream ]
+	^ (self canMatchAt: aStream)
+		ifTrue: [ self newMatchAt: aStream ]
+		ifFalse: [ self newMismatchAt: aStream ]
+
 ]
 
 { #category : #matching }
-ClapParameter >> matchPremiseOn: aStream [ 
+ClapParameter >> matchPremiseOn: aStream [
+	<deprecated: 'remove'>
 	^ self subclassResponsibility
 ]
 
@@ -153,6 +170,7 @@ ClapParameter >> synopsisOn: aStream [
 ]
 
 { #category : #matching }
-ClapParameter >> with: premiseMatch matchOn: aStream [ 
+ClapParameter >> with: premiseMatch matchOn: aStream [
+	<deprecated: 'remove'>
 	^ self subclassResponsibility
 ]
