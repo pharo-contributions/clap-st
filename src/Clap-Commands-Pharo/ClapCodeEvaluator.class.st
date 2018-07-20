@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'arguments',
-		'stream'
+		'stream',
+		'context'
 	],
 	#category : #'Clap-Commands-Pharo'
 }
@@ -36,9 +37,12 @@ ClapCodeEvaluator class >> with: arguments [
 
 { #category : #execution }
 ClapCodeEvaluator >> execute [
-	stream
-		print: (Smalltalk compiler evaluate: self source);
-		lf
+	| result |
+	result := Smalltalk compiler evaluate: self source.
+	
+	context hasSessionChanged "we might be waking up after a #save:andQuit:"
+		ifFalse: [ context stdout print: result; lf ]
+
 ]
 
 { #category : #initialization }
