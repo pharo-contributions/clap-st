@@ -43,18 +43,6 @@ ClapParameterized >> initialize [
 	positionals := OrderedCollection new
 ]
 
-{ #category : #matching }
-ClapParameterized >> newMatchAt: aStream [
-	| partialMatch |
-	partialMatch := super newMatchAt: aStream.
-	[ self
-		with: partialMatch
-		detectMatchOn: aStream
-		ifFound: [ :arg | arg recordIn: partialMatch ]
-		ifNone: [ ^ partialMatch ]
-	] repeat
-]
-
 { #category : #accessing }
 ClapParameterized >> positionalNamed: specName ifNone: aBlock [
 	^ positionals
@@ -86,4 +74,14 @@ ClapParameterized >> with: partialMatch detectMatchOn: aStream ifFound: foundBlo
 		ifFound: foundBlock
 		ifNone: noneBlock
 
+]
+
+{ #category : #matching }
+ClapParameterized >> with: partialMatch matchParametersOn: aStream [
+	[ self
+		with: partialMatch
+		detectMatchOn: aStream
+		ifFound: [ :arg | arg recordIn: partialMatch ]
+		ifNone: [ ^ partialMatch ]
+	] repeat
 ]

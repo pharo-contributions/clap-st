@@ -13,23 +13,16 @@ ClapCommandMatch >> flags [
 ]
 
 { #category : #accessing }
-ClapCommandMatch >> matchedSubcommand [
+ClapCommandMatch >> matchedSubcommand: foundBlock ifNone: noneBlock [
 	^ arguments
 		detect: [ :any | specification subcommands includes: any specification ]
-		ifFound: [ :sub | sub matchedSubcommand ]
-		ifNone: [ self ]
+		ifFound: [ :cmd | foundBlock cull: cmd ]
+		ifNone: noneBlock
 ]
 
 { #category : #accessing }
 ClapCommandMatch >> unboundFlags [
 	^ self unboundParametersAmong: specification flags
-]
-
-{ #category : #accessing }
-ClapCommandMatch >> unboundParameters [
-	^ self matchedSubcommand
-		ifNotNil: [ self notYetImplemented ]
-		ifNil: [ self unboundFlags , self unboundPositionals , self unboundSubcommands ]
 ]
 
 { #category : #accessing }
@@ -39,5 +32,6 @@ ClapCommandMatch >> unboundSubcommands [
 
 { #category : #evaluating }
 ClapCommandMatch >> value: arg [
-	^ self matchedSubcommand evaluateMeaning: arg
+	^ (self	matchedSubcommand: [ :sub | sub ] ifNone: [ self ])
+		evaluateMeaning: arg
 ]

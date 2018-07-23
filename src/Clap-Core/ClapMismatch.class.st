@@ -12,9 +12,19 @@ ClapMismatch >> at: aSpec [
 	^ ClapImplicit of: aSpec in: self
 ]
 
+{ #category : #matching }
+ClapMismatch >> completeMatchOn: aStream [
+	self word: aStream peek
+]
+
 { #category : #testing }
 ClapMismatch >> ifMatch: matchingBlock ifMismatch: mismatchBlock [
 	^ mismatchBlock cull: self
+]
+
+{ #category : #testing }
+ClapMismatch >> isValid [
+	^ false
 ]
 
 { #category : #printing }

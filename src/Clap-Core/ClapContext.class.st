@@ -163,8 +163,8 @@ ClapContext >> interpret: argumentsSequence [
 
 { #category : #testing }
 ClapContext >> isValid [
-	self flag: 'should recursively check the match'.
-	^ self leftovers isEmpty
+	^ self match isValid
+		and: [ self leftovers isEmpty ]
 ]
 
 { #category : #accessing }

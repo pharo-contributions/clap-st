@@ -97,10 +97,9 @@ ClapParameter >> matchClass [
 
 { #category : #matching }
 ClapParameter >> matchOn: aStream [
-	^ (self canMatchAt: aStream)
-		ifTrue: [ self newMatchAt: aStream ]
-		ifFalse: [ self newMismatchAt: aStream ]
-
+	^ (self newMatchAt: aStream)
+		completeMatchOn: aStream;
+		yourself
 ]
 
 { #category : #accessing }
@@ -115,16 +114,10 @@ ClapParameter >> meaning: aBlock [
 
 { #category : #matching }
 ClapParameter >> newMatchAt: aStream [
-	^ self matchClass
-		of: self
-		with: aStream next
-]
-
-{ #category : #matching }
-ClapParameter >> newMismatchAt: aStream [
-	^ ClapMismatch
-		of: self
-		with: aStream peek
+	^ ((self canMatchAt: aStream)
+				ifTrue: [ self matchClass ]
+				ifFalse: [ ClapMismatch ])
+			specification: self
 ]
 
 { #category : #printing }
@@ -144,4 +137,9 @@ ClapParameter >> synopsis [
 { #category : #documenting }
 ClapParameter >> synopsisOn: aStream [
 	^ self subclassResponsibility
+]
+
+{ #category : #matching }
+ClapParameter >> with: partialMatch matchWordOn: aStream [
+	partialMatch word: aStream next
 ]

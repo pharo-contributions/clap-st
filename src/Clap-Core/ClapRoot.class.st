@@ -14,7 +14,6 @@ ClapRoot >> canMatchWith: word [
 ]
 
 { #category : #matching }
-ClapRoot >> newMatchAt: aStream [
-	^ self matchClass specification: self
-
+ClapRoot >> with: partialMatch matchWordOn: aStream [
+	"Do nothing, as this always matches without consuming anything"
 ]

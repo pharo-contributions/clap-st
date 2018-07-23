@@ -62,6 +62,15 @@ ClapParameterizedMatch >> atName: canonicalName ifFound: foundBlock ifAbsent: ab
 		ifAbsent: absentBlock
 ]
 
+{ #category : #matching }
+ClapParameterizedMatch >> completeMatchOn: aStream [
+	super completeMatchOn: aStream.
+	specification
+		with: self
+		matchParametersOn: aStream
+
+]
+
 { #category : #testing }
 ClapParameterizedMatch >> includesKey: canonicalName [
 	^ arguments anySatisfy: [ :arg | arg specification canonicalName = canonicalName ]
@@ -70,6 +79,11 @@ ClapParameterizedMatch >> includesKey: canonicalName [
 { #category : #initialization }
 ClapParameterizedMatch >> initialize [
 	arguments := OrderedCollection new
+]
+
+{ #category : #testing }
+ClapParameterizedMatch >> isValid [
+	^ arguments allSatisfy: #isValid
 ]
 
 { #category : #evaluating }
@@ -81,11 +95,6 @@ ClapParameterizedMatch >> positionalValues [
 { #category : #accessing }
 ClapParameterizedMatch >> recordParameterMatch: aMatch [
 	arguments add: aMatch
-]
-
-{ #category : #parsing }
-ClapParameterizedMatch >> unboundParameters [
-	^ self unboundPositionals
 ]
 
 { #category : #parsing }

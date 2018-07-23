@@ -15,3 +15,8 @@ ClapImplicit class >> of: aParameter in: parentMatch [
 ClapImplicit >> isExplicit [
 	^ false
 ]
+
+{ #category : #testing }
+ClapImplicit >> isValid [
+	^ true
+]

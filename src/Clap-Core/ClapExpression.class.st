@@ -68,7 +68,8 @@ ClapExpression >> isMismatch [
 
 { #category : #testing }
 ClapExpression >> isValid [
-	^ true
+	"Semantic validation, post-parse"
+	^ self subclassResponsibility
 ]
 
 { #category : #accessing }

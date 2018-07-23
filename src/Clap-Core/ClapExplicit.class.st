@@ -12,11 +12,16 @@ Class {
 	#category : #'Clap-Core-Activation'
 }
 
-{ #category : #'instance creation' }
-ClapExplicit class >> of: aSpecification with: aWord [
-	^ (self specification: aSpecification)
-		word: aWord;
-		yourself
+{ #category : #testing }
+ClapExplicit class >> isAbstract [
+	^ self == ClapExplicit
+]
+
+{ #category : #matching }
+ClapExplicit >> completeMatchOn: aStream [
+	specification
+		with: self
+		matchWordOn: aStream
 ]
 
 { #category : #evaluating }

@@ -17,13 +17,16 @@ ClapExplicitTest >> classToTest [
 { #category : #running }
 ClapExplicitTest >> setUp [
 	specification := Mock named: 'spec'.
-	word := Mock named: 'word'.
-	subject := self classToTest of: specification with: word
+	subject := self classToTest specification: specification
 ]
 
 { #category : #tests }
 ClapExplicitTest >> testAccessing [
 	subject specification should be: specification.
+
+	word := Mock new.
+	subject word: word.
+	
 	subject word should be: word
 ]
 
