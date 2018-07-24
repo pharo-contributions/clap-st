@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/ztombol/bats-assert
+	branch = master
+	commit = 9f88b4207da750093baabc4e3f41bf68f0dd3630
+	parent = e5ef763e96421c9cbed142068fd82f4696b4027a
+	cmdver = 0.3.1
