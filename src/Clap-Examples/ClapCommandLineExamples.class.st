@@ -53,7 +53,7 @@ ClapCommandLineExamples class >> hello [
 	<commandline>
 	
 	^ (ClapCommand withName: 'hello')
-		description: 'Provides greetings.';
+		description: 'Provides greetings';
 		add: (ClapFlag helpFlag);
 		add: ((ClapFlag withName: 'shout')
 			description: 'Greet loudly');

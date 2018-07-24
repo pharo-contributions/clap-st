@@ -36,10 +36,10 @@ Class {
 { #category : #commands }
 ClapCommand class >> helpCommand [
 	^ (self withName: 'help')
-		description: 'Prints documentation about the given command.';
+		description: 'Prints command documentation';
 
 		addPositional: ((ClapPositional withName: 'topic')
-			description: 'A subcommand to document (defaults to the current one)';
+			description: 'The subcommand to document (defaults to the current one)';
 			meaning: [ :pos :cmd | cmd atName: pos word ];
 			defaultMeaning: [ :pos :cmd | cmd ]);
 

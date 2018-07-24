@@ -14,7 +14,7 @@ ClapDocumentationTest >> testHelloShortUsage [
 	
 	self assert: (doc endsWith: OSPlatform current lineEnding).
 	self assert: (doc lines first: 3) equals: #(
-		'Provides greetings.'
+		'Provides greetings'
 		''
 		'Usage: hello [--help] [--shout] [<who>]'
 	)
