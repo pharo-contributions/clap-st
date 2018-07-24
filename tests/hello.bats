@@ -9,45 +9,50 @@
 
 function clap() { $CLAP clap "$@"; }
 
+load bats-support/load
+load bats-assert/load
+
 @test "implicit argument" {
     run clap hello
-    [ "$output" = 'hello, world.' ]
+    assert_output 'hello, world.'
 }
 
 @test "explicit argument, single word" {
     run clap hello Pharo
-    [ "$output" = 'hello, Pharo.' ]
+    assert_output 'hello, Pharo.'
 }
 
 @test "explicit argument, quoted" {
     run clap hello 'Pharo and friends'
-    [ "$output" = 'hello, Pharo and friends.' ]
+    assert_output 'hello, Pharo and friends.'
 }
 
 @test "several arguments" {
     skip 'only the first positional is used for now'
     run clap hello Pharo friends 'and more'
-    [ "$output" = 'hello, Pharo friends and more.' ]
+    assert_output 'hello, Pharo friends and more.'
 }
 
 @test "implicit shouting" {
     run clap hello -s
-    [ "$output" = 'HELLO, WORLD!' ]
+    assert_output 'HELLO, WORLD!'
 
     run clap hello --shout
-    [ "$output" = 'HELLO, WORLD!' ]
+    assert_output 'HELLO, WORLD!'
 }
 
 @test "explicit shouting" {
     run clap hello -s 'pharo hackers'
-    [ "$output" = 'HELLO, PHARO HACKERS!' ]
+    assert_output 'HELLO, PHARO HACKERS!'
 
     run clap hello --shout loudly
-    [ "$output" = 'HELLO, LOUDLY!' ]
+    assert_output 'HELLO, LOUDLY!'
 }
 
 @test "help" {
     run clap hello --help
-    [ "${lines[0]}" = 'Provides greetings' ]
-    [ "${lines[1]}" = 'Usage: hello [--help] [--shout] [<who>]' ]
+    assert_line --index 0 'Provides greetings'
+    assert_line 'Usage: hello [--help] [--shout] [<who>]'
+    assert_line 'Parameters:'
+    assert_line 'Options:'
 }
