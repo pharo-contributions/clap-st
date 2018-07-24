@@ -13,7 +13,7 @@ before_install:
       sudo apt-get update --quiet
       sudo apt-get install --yes bats bc
       ;;
-    osx) brew install bats bc ;;
+    osx) brew install bats-core bc ;;
     esac
 
 smalltalk:
