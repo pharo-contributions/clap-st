@@ -9,11 +9,12 @@ before_install:
   - |
     case $TRAVIS_OS_NAME in
     linux)
-      sudo apt-add-repository --yes ppa:duggan/bats
-      sudo apt-get update --quiet
-      sudo apt-get install --yes bats bc
+      git clone --depth 1 --branch v1.1.0 https://github.com/bats-core/bats-core.git
+      export PATH="$(pwd)/bats-core/bin:$PATH"
       ;;
-    osx) brew install bats-core bc ;;
+    osx)
+      brew install bats-core
+      ;;
     esac
 
 smalltalk:
