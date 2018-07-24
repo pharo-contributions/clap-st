@@ -24,4 +24,4 @@ smalltalk:
 
 script:
   - "$SMALLTALK_CI_HOME/run.sh"
-  - bats test.bats
+  - bats tests
