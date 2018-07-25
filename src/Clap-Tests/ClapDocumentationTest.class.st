@@ -6,11 +6,10 @@ Class {
 
 { #category : #tests }
 ClapDocumentationTest >> testHelloShortUsage [
-	| command documenter doc |
+	| command doc |
 	command := ClapCommandLineExamples hello.
-	documenter := ClapDocumenter new.
 	
-	doc := documenter explain: command; contents.
+	doc := ClapDocumenter stringFrom: [ :documenter | documenter explain: command ].
 	
 	self assert: (doc endsWith: OSPlatform current lineEnding).
 	self assert: (doc lines first: 3) equals: #(

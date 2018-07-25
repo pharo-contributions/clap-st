@@ -33,8 +33,8 @@ Class {
 	#category : #'Clap-Core-Specifications'
 }
 
-{ #category : #commands }
-ClapCommand class >> helpCommand [
+{ #category : #'predefined commands' }
+ClapCommand class >> forHelp [
 	^ (self withName: 'help')
 		description: 'Prints command documentation';
 
@@ -45,8 +45,8 @@ ClapCommand class >> helpCommand [
 
 		meaning: [ :match | | topic stream |
 			topic := (match atName: 'topic') value: match parent specification.
-			stream := VTermOutputDriver stdout.
-			(ClapDocumenter on: (ClapDocumentationFormatter on: stream))
+			stream := VTermOutputDriver on: match context stdout.
+			(ClapDocumenter on: stream)
 				explain: topic ]
 ]
 

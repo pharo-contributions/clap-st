@@ -15,12 +15,12 @@ ClapFlag class >> basicMeaning [
 			match isExplicit and: [ match isMatch ] ]
 ]
 
-{ #category : #flags }
-ClapFlag class >> helpFlag [
+{ #category : #'predefined flags' }
+ClapFlag class >> forHelp [
 	^ (self withName: 'help')
 		description: 'Prints command documentation';
 		meaning: [ :match |
-			(ClapDocumenter on: (ClapDocumentationFormatter on: VTermOutputDriver stdout))
+			(ClapDocumenter on: match context stdout)
 				explain: match parent specification.
 			true ]
 ]

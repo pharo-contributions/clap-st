@@ -47,17 +47,7 @@ ClapDocumentationFormatter >> listIndent [
 
 { #category : #formattting }
 ClapDocumentationFormatter >> newLine [
-	^ stream nextPutAll: self newLineString
-]
-
-{ #category : #accessing }
-ClapDocumentationFormatter >> newLineString [
-	^ newLineString ifNil: [ OSPlatform current lineEnding ]
-]
-
-{ #category : #accessing }
-ClapDocumentationFormatter >> newLineString: aString [
-	newLineString := aString
+	^ stream newLine
 ]
 
 { #category : #formattting }

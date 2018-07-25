@@ -25,7 +25,7 @@ ClapCommandLineExamples class >> git [
 	<commandline> pragma omitted, because doesn't really make sense to play with it outside of a playground."
 	^ (ClapCommand withName: 'git')
 		description: 'The stupid content tracker';
-		add: (ClapCommand helpCommand);
+		add: (ClapCommand forHelp);
 		add: ((ClapCommand withName: 'add')
 			description: 'Add file contents to the index');
 		add: ((ClapCommand withName: 'branch')
@@ -54,7 +54,7 @@ ClapCommandLineExamples class >> hello [
 	
 	^ (ClapCommand withName: 'hello')
 		description: 'Provides greetings';
-		add: (ClapFlag helpFlag);
+		add: (ClapFlag forHelp);
 		add: ((ClapFlag withName: 'shout')
 			description: 'Greet loudly');
 		add: ((ClapPositional withName: 'who')

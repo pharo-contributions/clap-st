@@ -7,15 +7,33 @@ Class {
 	#category : #'Clap-Core-Documentation'
 }
 
-{ #category : #'instance creation' }
+{ #category : #convenience }
+ClapDocumenter class >> explain: aClapParameter [
+	^ self stringFrom: [ :doc | doc explain: aClapParameter ]
+]
+
+{ #category : #private }
 ClapDocumenter class >> new [
-	^ self on: (ClapDocumentationFormatter on: String new writeStream)
+	"use #on: instead"
+	^ self shouldNotImplement
 ]
 
 { #category : #'instance creation' }
-ClapDocumenter class >> on: aFormatter [
+ClapDocumenter class >> on: aStream [
+	^ self onFormatter: (ClapDocumentationFormatter on: aStream)
+]
+
+{ #category : #'instance creation' }
+ClapDocumenter class >> onFormatter: aFormatter [
 	^ self basicNew
 		initializeOn: aFormatter
+]
+
+{ #category : #convenience }
+ClapDocumenter class >> stringFrom: documenterBlock [
+	^ String streamContents: [ :stream |
+		documenterBlock value: (self on: (ZnNewLineWriterStream on: stream))
+	]
 ]
 
 { #category : #accessing }

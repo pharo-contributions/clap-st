@@ -36,16 +36,3 @@ ClapCommandLineHandler >> handleExit: exit [
 ClapCommandLineHandler >> noneMatched [
 	self exitFailure: 'Unknown command'
 ]
-
-{ #category : #accessing }
-ClapCommandLineHandler >> subcommands [
-	^ (PragmaCollector filter: [:prg | prg keyword = 'commandline']) reset
-		collect: [ :pragma |
-			| theClass theSelector |
-			theClass := pragma method methodClass.
-			theSelector := pragma method selector.
-			self assert: [ theSelector isUnary ].
-			
-			theClass instanceSide
-				perform: theSelector ]
-]
