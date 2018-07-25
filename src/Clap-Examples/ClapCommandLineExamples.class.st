@@ -16,6 +16,9 @@ Commands registered in the system (returned from a class-side method with the <c
 Class {
 	#name : #ClapCommandLineExamples,
 	#superclass : #Object,
+	#instVars : [
+		'arguments'
+	],
 	#category : #'Clap-Examples'
 }
 
@@ -25,7 +28,7 @@ ClapCommandLineExamples class >> git [
 	<commandline> pragma omitted, because doesn't really make sense to play with it outside of a playground."
 	^ (ClapCommand withName: 'git')
 		description: 'The stupid content tracker';
-		add: (ClapCommand forHelp);
+		add: ClapCommand forHelp;
 		add: ((ClapCommand withName: 'add')
 			description: 'Add file contents to the index');
 		add: ((ClapCommand withName: 'branch')
@@ -49,12 +52,12 @@ ClapCommandLineExamples class >> git [
 
 { #category : #'command line' }
 ClapCommandLineExamples class >> hello [
-	"The usual Hello, World command, with a couple options to demonstrate what Clap can do."
+	"The usual Hello-World example, demonstrating a Clap command with a couple options."
 	<commandline>
 	
 	^ (ClapCommand withName: 'hello')
 		description: 'Provides greetings';
-		add: (ClapFlag forHelp);
+		add: ClapFlag forHelp;
 		add: ((ClapFlag withName: 'shout')
 			description: 'Greet loudly');
 		add: ((ClapPositional withName: 'who')
@@ -63,22 +66,39 @@ ClapCommandLineExamples class >> hello [
 		meaning: [ :args |
 			args atName: 'help' ifFound: [ :help |
 				help value.
-				Exit signalSuccess
-			].
-				
-			self new
-				doHelloRecipient: (args atName: 'who') value
-				shouting: (args atName: 'shout') value ]
+				help context exitSuccess ].
+			
+			(self with: args) sayHello ]
+]
+
+{ #category : #'instance creation' }
+ClapCommandLineExamples class >> with: arguments [
+	^ self new
+		setArguments: arguments;
+		yourself
 ]
 
 { #category : #running }
-ClapCommandLineExamples >> doHelloRecipient: who shouting: shouting [
+ClapCommandLineExamples >> sayHello [
+	self
+		sayHelloOn: (VTermOutputDriver on: arguments context stdout)
+		recipient: (arguments atName: 'who') value
+		shouting: (arguments atName: 'shout') value
+]
+
+{ #category : #running }
+ClapCommandLineExamples >> sayHelloOn: aStream recipient: who shouting: shouting [
 	| message |
 	message := 'hello, ' , who.
 	
-	VTermOutputDriver stdout
+	aStream
 		<< (shouting
 			ifTrue: [ message asUppercase , '!' ]
 			ifFalse: [ message , '.' ]);
 		lf
+]
+
+{ #category : #initialization }
+ClapCommandLineExamples >> setArguments: args [
+	arguments := args
 ]
