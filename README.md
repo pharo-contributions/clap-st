@@ -64,17 +64,18 @@ You can also check the `.travis.yml` file for reference.
 
 Commands and subcommands are instances of `ClapCommand`. To make a command
 accessible from the command line, return it from a class-side factory method
-with the `<commandline>` pragma. For instance, here's the *hello, world* defined
-in `ClapCommandLineExamples`:
+with the `<commandline>` pragma. For instance, here's how we declare the
+traditional *hello, world!* example, with the actual behavior delegated the
+instance-side method `ClapCommandLineExamples >> sayHello`:
 
 ```smalltalk
 hello
-	"The usual Hello, World command, with a couple options to demonstrate what Clap can do."
+	"The usual Hello-World example, demonstrating a Clap command with a couple options."
 	<commandline>
 
 	^ (ClapCommand withName: 'hello')
-		description: 'Provides greetings.';
-		add: (ClapFlag helpFlag);
+		description: 'Provides greetings';
+		add: ClapFlag forHelp;
 		add: ((ClapFlag withName: 'shout')
 			description: 'Greet loudly');
 		add: ((ClapPositional withName: 'who')
@@ -82,13 +83,10 @@ hello
 			defaultMeaning: [ 'world' ]);
 		meaning: [ :args |
 			args atName: 'help' ifFound: [ :help |
-			help value.
-				Exit signalSuccess
-			].
+				help value.
+				help context exitSuccess ].
 
-			self new
-				doHelloRecipient: (args atName: 'who') value
-				shouting: (args atName: 'shout') value ]
+			(self with: args) sayHello ]
 ```
 
 For now, Clap installs itself as a named command line handler; e.g., to run the
