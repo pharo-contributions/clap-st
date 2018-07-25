@@ -5,7 +5,8 @@
 Named after and inspired by [clap-rs](https://github.com/kbknapp/clap-rs), but
 this is an independent implementation.
 
-Currently still in the design discovery phase; tests use [Mocketry](http://smalltalkhub.com/#!/~dionisiy/Mocketry).
+Currently still in the initial implementation phase, meaning the main pieces are
+there but many features are still missing and may force changes in the design.
 
 ### Loading instructions
 
@@ -24,12 +25,40 @@ git clone https://github.com/cdlm/clap-st.git
 cd clap-st
 curl get.pharo.org/alpha | bash
 ```
+
 …and then, in the image just downloaded, open a workspace and evaluate:
+
 ```smalltalk
 Metacello new baseline: 'Clap';
    repository: 'gitlocal://./src';
    load.
 ```
+
+Shameless plug: I work with [Fari](https://people.untyped.org/fari.sh) and
+[direnv](https://direnv.net) to automate building and launching the development image:
+
+```shell
+# setup $PHARO
+fari build
+fari run
+```
+
+#### running the tests
+
+In-image tests run the usual way; some of them rely on
+[Mocketry](http://smalltalkhub.com/#!/~dionisiy/Mocketry). Additionally, a few
+more tests exercise the included commands through the whole system, including VM
+startup and shutdown; running those requires
+[Bats](https://github.com/bats-core/bats-core):
+
+```shell
+# $CLAP should contain whatever command launches your VM and image:
+# export CLAP="$PHARO_VM $PHARO_IMAGE"
+# or, with fari: export CLAP="fari run --"
+bats tests
+```
+
+You can also check the `.travis.yml` file for reference.
 
 ### Defining and invoking commands
 

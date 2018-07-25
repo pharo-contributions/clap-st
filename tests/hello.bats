@@ -1,10 +1,12 @@
 #!/usr/bin/env bats
 # -*- mode: bats; -*-
 
-# Get VM & image from CI environment
+# If $CLAP is not defined, try the VM & image environment variables defined by
+# Smalltalk CI, or generic ones as fallback
 : ${CLAP:=$SMALLTALK_CI_VM $SMALLTALK_CI_IMAGE}
+: ${CLAP:=$PHARO_VM $PHARO_IMAGE}
 
-# As special case for fari-based development environment, force the headless VM
+# As special case, in a fari-based development environment, force the headless VM
 [[ "$CLAP" == 'fari run '* ]] && export PHARO=${PHARO%-ui}
 
 function clap() { $CLAP clap "$@"; }
