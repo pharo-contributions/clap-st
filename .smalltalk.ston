@@ -8,9 +8,9 @@ SmalltalkCISpec {
     }
   ],
   #testing : {
-    #categories : [ 'Clap-*' ],
+    #packages : [ 'Clap-*' ],
     #coverage : {
-      #categories : [ 'Clap-*' ]
+      #packages : [ 'Clap-*' ]
     }
   }
 }
