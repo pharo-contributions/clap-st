@@ -5,6 +5,10 @@ os:
   - linux
   - osx
 
+smalltalk:
+  - Pharo-7.0
+  - Pharo64-7.0
+
 before_install:
   - |
     case $TRAVIS_OS_NAME in
@@ -16,12 +20,6 @@ before_install:
       brew install bats-core
       ;;
     esac
-
-smalltalk:
-  - Pharo-7.0
-  - Pharo64-7.0
-  - Pharo-6.1
-  - Pharo64-6.1
 
 script:
   - "$SMALLTALK_CI_HOME/run.sh"
