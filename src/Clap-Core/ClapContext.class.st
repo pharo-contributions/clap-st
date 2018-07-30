@@ -11,6 +11,7 @@ Class {
 	#instVars : [
 		'arguments',
 		'obeyingExits',
+		'stdio',
 		'match',
 		'leftovers',
 		'session'
@@ -95,7 +96,7 @@ ClapContext >> doMatch [
 
 { #category : #accessing }
 ClapContext >> documenter [
-	^ ClapDocumenter on: (ClapDocumentationFormatter on: self stdout)
+	^ ClapDocumenter on: self stdout
 ]
 
 { #category : #running }
@@ -196,15 +197,20 @@ ClapContext >> shouldObeyExit [
 
 { #category : #accessing }
 ClapContext >> stderr [
-	^ VTermOutputDriver stderr
+	^ ZnCharacterWriteStream on: (ZnBufferedWriteStream on: self stdio stderr)
 ]
 
 { #category : #accessing }
 ClapContext >> stdin [
-	^ Stdio stdin
+	^ ZnCharacterReadStream on: (ZnBufferedReadStream on: self stdio stdin) 
+]
+
+{ #category : #accessing }
+ClapContext >> stdio [
+	^ stdio ifNil: [ Stdio ]
 ]
 
 { #category : #accessing }
 ClapContext >> stdout [
-	^ VTermOutputDriver stdout
+	^ ZnNewLineWriterStream on: (ZnCharacterWriteStream on: self stdio stdout)
 ]

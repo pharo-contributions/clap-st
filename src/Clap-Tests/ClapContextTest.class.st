@@ -10,7 +10,8 @@ Class {
 
 { #category : #running }
 ClapContextTest >> setUp [
-	context := ClapContext specification:( hello := ClapCommandLineExamples hello)
+	hello := ClapCommandLineExamples hello.
+	context := ClapContext specification: hello
 ]
 
 { #category : #running }
@@ -30,9 +31,9 @@ ClapContextTest >> testRootPositionalAfterSubcommand [
 		arguments: #('hello' 'world' '--directory' 'foo/bar/baz');
 		match.
 	
-	context leftovers should equal: #('--directory' 'foo/bar/baz').
 	context should be isMatch.
-	context should not be isValid
+	context should not be isValid.
+	context leftovers should equal: #('--directory' 'foo/bar/baz')
 
 ]
 
