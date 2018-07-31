@@ -48,11 +48,19 @@ load helpers
     assert_output 'HELLO, LOUDLY!'
 }
 
-@test "hello help" {
+@test "hello help flag" {
     run silently clap hello --help
     assert_success
     assert_line --index 0 'Provides greetings'
     assert_line 'Usage: hello [--help] [--shout] [<who>]'
     assert_line 'Parameters:'
+    assert_line --regexp '[[:space:]]+<who>[[:space:]]+Recipient of the greetings$'
     assert_line 'Options:'
+    assert_line --regexp '[[:space:]]+--shout[[:space:]]+Greet loudly$'
+}
+
+@test "help hello" {
+    run silently clap help hello
+    assert_success
+    assert_line --index 0 'Provides greetings'
 }

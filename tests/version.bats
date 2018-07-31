@@ -57,8 +57,14 @@ load helpers
     assert_line --index 2 --regexp '^[0-9][0-9][0-9][0-9][0-9]$'
 }
 
-@test "version help" {
-    skip 'unknown flags should fail'
+@test "version help flag" {
     run silently clap version --help
-    assert_failure
+    assert_success
+    assert_line --index 0 --partial 'Displays version information'
+}
+
+@test "help version" {
+    run silently clap help version
+    assert_success
+    assert_line --index 0 --partial 'Displays version information'
 }
