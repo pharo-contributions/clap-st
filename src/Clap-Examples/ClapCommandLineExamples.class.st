@@ -65,8 +65,7 @@ ClapCommandLineExamples class >> hello [
 			defaultMeaning: [ 'world' ]);
 		meaning: [ :args |
 			args atName: 'help' ifFound: [ :help |
-				help value.
-				help context exitSuccess ].
+				help value; exitSuccess ].
 			
 			(self with: args) sayHello ]
 ]

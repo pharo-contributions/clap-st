@@ -9,9 +9,10 @@ Class {
 }
 
 { #category : #'instance creation' }
-ClapDocumentationFormatter class >> on: aStream [
-	^ self basicNew
-		initializeOn: aStream
+ClapDocumentationFormatter class >> on: aCharacterWriteStream [
+	^ self new
+		stream: aCharacterWriteStream;
+		yourself
 ]
 
 { #category : #accessing }
@@ -32,12 +33,6 @@ ClapDocumentationFormatter >> contents [
 { #category : #flushing }
 ClapDocumentationFormatter >> flush [
 	stream flush
-]
-
-{ #category : #initialization }
-ClapDocumentationFormatter >> initializeOn: aStream [
-	self initialize.
-	stream := aStream
 ]
 
 { #category : #accessing }
@@ -71,6 +66,13 @@ ClapDocumentationFormatter >> space [
 { #category : #formattting }
 ClapDocumentationFormatter >> space: anInteger [
 	anInteger timesRepeat: [ stream space ]
+]
+
+{ #category : #initialization }
+ClapDocumentationFormatter >> stream: aStream [
+	stream := 	(aStream respondsTo: #newLine)
+		ifTrue: [ aStream ]
+		ifFalse: [ ZnNewLineWriterStream on: aStream ]
 ]
 
 { #category : #formattting }

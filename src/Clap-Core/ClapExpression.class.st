@@ -33,6 +33,11 @@ ClapExpression >> evaluateMeaning: arg [
 		cull: self cull: arg
 ]
 
+{ #category : #evaluating }
+ClapExpression >> exitSuccess [
+	^ self context exitSuccess
+]
+
 { #category : #testing }
 ClapExpression >> ifMatch: aBlock [
 	^ self

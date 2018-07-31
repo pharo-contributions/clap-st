@@ -19,8 +19,8 @@ ClapDocumenter class >> new [
 ]
 
 { #category : #'instance creation' }
-ClapDocumenter class >> on: aStream [
-	^ self onFormatter: (ClapDocumentationFormatter on: aStream)
+ClapDocumenter class >> on: aCharacterWriteStream [
+	^ self onFormatter: (ClapDocumentationFormatter on: aCharacterWriteStream)
 ]
 
 { #category : #'instance creation' }
@@ -32,7 +32,7 @@ ClapDocumenter class >> onFormatter: aFormatter [
 { #category : #convenience }
 ClapDocumenter class >> stringFrom: documenterBlock [
 	^ String streamContents: [ :stream |
-		documenterBlock value: (self on: (ZnNewLineWriterStream on: stream))
+		documenterBlock value: (self on: stream)
 	]
 ]
 
@@ -70,6 +70,10 @@ ClapDocumenter >> flagSynopsis: each [
 ClapDocumenter >> initializeOn: aFormatter [
 	self initialize.
 	formatter := aFormatter
+]
+
+{ #category : #documenting }
+ClapDocumenter >> noSuchSubcommand: name of: aClapCommand [
 ]
 
 { #category : #documenting }

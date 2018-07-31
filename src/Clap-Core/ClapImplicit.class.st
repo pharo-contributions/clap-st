@@ -18,5 +18,6 @@ ClapImplicit >> isExplicit [
 
 { #category : #testing }
 ClapImplicit >> isValid [
+	self flag: 'could be false if resulted from wrong access...'.
 	^ true
 ]

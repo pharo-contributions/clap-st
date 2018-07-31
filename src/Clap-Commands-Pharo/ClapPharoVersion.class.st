@@ -12,14 +12,19 @@ Class {
 ClapPharoVersion class >> version [
 	<commandline>
 	^ (ClapCommand withName: 'version')
-		description: 'Displays version information.';
-		addFlag: (ClapFlag withName: 'full');
-		addFlag: (ClapFlag withName: 'release');
-		addFlag: (ClapFlag withName: 'numeric');
-		addFlag: (ClapFlag withName: 'hash');
-		addFlag: (ClapFlag withName: 'vm');
-		addFlag: (ClapFlag withName: 'license');
-		meaning: [ :args |	(self with: args) execute ]
+		description: 'Displays version information, in various formats';
+		add: ClapFlag forHelp;
+		add: ((ClapFlag withName: 'full') description: 'full image version (default format)');
+		add: ((ClapFlag withName: 'release') description: 'major.minor alpha/stable');
+		add: ((ClapFlag withName: 'numeric') description: '5-digit sequential integration number');
+		add: ((ClapFlag withName: 'hash') description: 'integration commit hash');
+		add: ((ClapFlag withName: 'vm') description: 'VM build and version');
+		add: ((ClapFlag withName: 'license') description: 'licensing and copyright');
+		meaning: [ :args |
+			args atName: 'help' ifFound: [ :help |
+				help value; exitSuccess ].
+
+			(self with: args) execute ]
 ]
 
 { #category : #'instance creation' }

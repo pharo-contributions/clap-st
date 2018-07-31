@@ -22,6 +22,8 @@ Class {
 { #category : #accessing }
 ClapContext class >> defaultRoot [
 	^ ClapRoot new
+		add: ClapCommand forHelp;
+		yourself
 	"setup default flags, omnipresent subcommands & basic meanings here"
 ]
 

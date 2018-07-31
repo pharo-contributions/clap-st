@@ -20,7 +20,7 @@ ClapFlag class >> forHelp [
 	^ (self withName: 'help')
 		description: 'Prints command documentation';
 		meaning: [ :match |
-			(ClapDocumenter on: match context stdout)
+			(ClapDocumenter on: (ZnCharacterWriteStream on: match context stdout))
 				explain: match parent specification.
 			true ]
 ]

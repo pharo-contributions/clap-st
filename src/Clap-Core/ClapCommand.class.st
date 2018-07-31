@@ -43,11 +43,15 @@ ClapCommand class >> forHelp [
 			meaning: [ :pos :cmd | cmd atName: pos word ];
 			defaultMeaning: [ :pos :cmd | cmd ]);
 
-		meaning: [ :match | | topic stream |
-			topic := (match atName: 'topic') value: match parent specification.
-			stream := VTermOutputDriver on: match context stdout.
-			(ClapDocumenter on: stream)
-				explain: topic ]
+		meaning: [ :match | | doc parent query topic |
+			doc := ClapDocumenter on: (ZnCharacterWriteStream on: match context stdout).
+			parent := match parent specification.
+			query := match atName: 'topic'.
+			topic := query value: parent.
+			topic
+				ifNotNil: [ doc explain: topic ]
+				ifNil: [ doc noSuchSubcommand: query word of: parent ] ]
+
 ]
 
 { #category : #adding }
