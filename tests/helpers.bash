@@ -11,6 +11,10 @@
 function clap() { $CLAP clap "$@"; }
 
 function silently() { "$@" 2>/dev/null; }
+function snitch() { cat >&3; }
+
+export CLAP
+export -f clap silently snitch
 
 load bats-support/load
 load bats-assert/load
