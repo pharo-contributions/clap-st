@@ -82,6 +82,21 @@ ClapContext >> beObeyingExits [
 	obeyingExits := true
 ]
 
+{ #category : #streams }
+ClapContext >> binaryStderr [
+	^ self stdio stderr
+]
+
+{ #category : #streams }
+ClapContext >> binaryStdin [
+	^ self stdio stdin
+]
+
+{ #category : #streams }
+ClapContext >> binaryStdout [
+	^ self stdio stdout
+]
+
 { #category : #accessing }
 ClapContext >> context [
 	^ self
@@ -197,22 +212,43 @@ ClapContext >> shouldObeyExit [
 	^ obeyingExits and: [ Smalltalk isInteractive not ]
 ]
 
-{ #category : #accessing }
+{ #category : #streams }
 ClapContext >> stderr [
-	^ ZnCharacterWriteStream on: (ZnBufferedWriteStream on: self stdio stderr)
+	^ self stderrEncoded: 'utf8'
 ]
 
-{ #category : #accessing }
+{ #category : #streams }
+ClapContext >> stderrEncoded: anEncoding [
+	^ ZnCharacterWriteStream
+		on: self binaryStderr
+		encoding: anEncoding
+]
+
+{ #category : #streams }
 ClapContext >> stdin [
-	^ ZnCharacterReadStream on: (ZnBufferedReadStream on: self stdio stdin) 
+	^ self stdinEncoded: 'utf8'
 ]
 
-{ #category : #accessing }
+{ #category : #streams }
+ClapContext >> stdinEncoded: anEncoding [
+	^ ZnCharacterReadStream
+		on: self binaryStdin
+		encoding: anEncoding
+]
+
+{ #category : #streams }
 ClapContext >> stdio [
 	^ stdio ifNil: [ Stdio ]
 ]
 
-{ #category : #accessing }
+{ #category : #streams }
 ClapContext >> stdout [
-	^ ZnNewLineWriterStream on: (ZnCharacterWriteStream on: self stdio stdout)
+	^ self stdoutEncoded: 'utf8'
+]
+
+{ #category : #streams }
+ClapContext >> stdoutEncoded: anEncoding [
+	^ ZnCharacterWriteStream
+		on: self binaryStdout
+		encoding: anEncoding
 ]

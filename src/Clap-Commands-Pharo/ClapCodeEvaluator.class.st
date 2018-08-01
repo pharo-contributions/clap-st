@@ -2,9 +2,7 @@ Class {
 	#name : #ClapCodeEvaluator,
 	#superclass : #Object,
 	#instVars : [
-		'arguments',
-		'stream',
-		'context'
+		'arguments'
 	],
 	#category : #'Clap-Commands-Pharo'
 }
@@ -17,12 +15,11 @@ ClapCodeEvaluator class >> evaluate [
 		description: 'Evaluate a Pharo expression';
 		add: ((ClapPositional withName: 'EXPR')
 			meaning: [ :match |
-				"let's copy all the bytes because the VM wrongly assumed some 8-bit encoding…"
+				"let's copy all the bytes, twice, because the VM assumes some 8-bit encoding…"
 				match word asByteArray utf8Decoded ];
-			defaultMeaning: [
-				(ZnCharacterReadStream
-					on: (ZnBufferedReadStream on: Stdio stdin)
-					encoding: 'utf8') upToEnd ]);
+			defaultMeaning: [ :match |
+				"in the absence of an explicit argument, read from standard input"
+				match context stdin upToEnd ]);
 		meaning: [ :args | (self with: args)	execute ]
 		"save/quit"
 
@@ -36,18 +33,26 @@ ClapCodeEvaluator class >> with: arguments [
 ]
 
 { #category : #execution }
+ClapCodeEvaluator >> context [
+	^ arguments context
+]
+
+{ #category : #execution }
 ClapCodeEvaluator >> execute [
 	| result |
 	result := Smalltalk compiler evaluate: self source.
 	
-	context hasSessionChanged "we might be waking up after a #save:andQuit:"
-		ifFalse: [ context stdout print: result; lf ]
+	self context hasSessionChanged "we might be waking up after a #save:andQuit:"
+		ifFalse: [ self outputStreamDo: [ :out | out print: result; lf ] ]
 
 ]
 
-{ #category : #initialization }
-ClapCodeEvaluator >> initialize [
-	stream := VTermOutputDriver stdout
+{ #category : #execution }
+ClapCodeEvaluator >> outputStreamDo: aBlock [
+"	ZnBufferedWriteStream
+		on: self context stdout
+		do: [ :out | aBlock value: (ZnNewLineWriterStream on: out) ]"
+		aBlock value: self context stdout
 ]
 
 { #category : #initialization }
