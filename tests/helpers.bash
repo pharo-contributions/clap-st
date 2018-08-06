@@ -11,7 +11,7 @@
 function clap() { $CLAP clap "$@"; }
 
 function silently() { "$@" 2>/dev/null; }
-function snitch() { cat >&3; }
+function snitch() { tee >(cat >&3); }
 
 export CLAP
 export -f clap silently snitch
