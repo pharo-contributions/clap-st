@@ -20,16 +20,6 @@ ClapCommandMatch >> matchedSubcommand: foundBlock ifNone: noneBlock [
 		ifNone: noneBlock
 ]
 
-{ #category : #accessing }
-ClapCommandMatch >> unboundFlags [
-	^ self unboundParametersAmong: specification flags
-]
-
-{ #category : #accessing }
-ClapCommandMatch >> unboundSubcommands [
-	^ self unboundParametersAmong: specification subcommands
-]
-
 { #category : #evaluating }
 ClapCommandMatch >> value: arg [
 	^ (self	matchedSubcommand: [ :sub | sub ] ifNone: [ self ])

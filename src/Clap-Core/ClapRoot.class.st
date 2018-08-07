@@ -8,7 +8,7 @@ Class {
 	#category : #'Clap-Core-Specifications'
 }
 
-{ #category : #matching }
+{ #category : #'matching - testing' }
 ClapRoot >> canMatchWith: word [
 	^ true
 ]

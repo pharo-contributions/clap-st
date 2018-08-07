@@ -76,7 +76,7 @@ ClapCommand >> atName: specName [
 			[ super atName: specName ] ]
 ]
 
-{ #category : #matching }
+{ #category : #'matching - testing' }
 ClapCommand >> canMatchWith: word [
 	^ word = self canonicalName
 	
@@ -106,6 +106,13 @@ ClapCommand >> matchClass [
 	^ ClapCommandMatch
 ]
 
+{ #category : #enumerating }
+ClapCommand >> parametersDo: aBlock [
+	super parametersDo: aBlock.
+	self flags do: aBlock.
+	self subcommands do: aBlock
+]
+
 { #category : #running }
 ClapCommand >> runWith: arguments [
 	"Convenience method for running a command in an interactive context"
@@ -128,17 +135,4 @@ ClapCommand >> subcommands [
 { #category : #documenting }
 ClapCommand >> synopsisOn: aStream [
 	aStream nextPutAll: self canonicalName
-]
-
-{ #category : #matching }
-ClapCommand >> with: partialMatch detectMatchOn: aStream ifFound: foundBlock ifNone: noneBlock [
-	^ self
-		with: partialMatch detect: flags matchOn: aStream
-		ifFound: foundBlock ifNone: [
-			super
-				with: partialMatch detectMatchOn: aStream
-				ifFound: foundBlock ifNone: [
-					self
-						with: partialMatch detect: subcommands matchOn: aStream
-						ifFound: foundBlock ifNone: noneBlock ] ]
 ]

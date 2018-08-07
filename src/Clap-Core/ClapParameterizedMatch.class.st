@@ -65,10 +65,18 @@ ClapParameterizedMatch >> atName: canonicalName ifFound: foundBlock ifAbsent: ab
 { #category : #matching }
 ClapParameterizedMatch >> completeMatchOn: aStream [
 	super completeMatchOn: aStream.
-	specification
-		with: self
-		matchParametersOn: aStream
+	self matchParametersOn: aStream
 
+]
+
+{ #category : #matching }
+ClapParameterizedMatch >> detectMatchOn: aStream ifFound: foundBlock ifNone: noneBlock [
+	self specification parametersDo: [ :param |
+		(param canMatchExtending: self) ifTrue: [
+			| sub |
+			sub := param matchOn: aStream.
+			sub isMismatch ifFalse: [ ^ foundBlock cull: sub ] ] ].
+	^ noneBlock value
 ]
 
 { #category : #testing }
@@ -86,6 +94,15 @@ ClapParameterizedMatch >> isValid [
 	^ arguments allSatisfy: #isValid
 ]
 
+{ #category : #matching }
+ClapParameterizedMatch >> matchParametersOn: aStream [
+	[ self
+		detectMatchOn: aStream
+		ifFound: [ :arg | arg recordIn: self ]
+		ifNone: [ ^ self ]
+	] repeat
+]
+
 { #category : #evaluating }
 ClapParameterizedMatch >> positionalValues [
 	^ specification positionals
@@ -95,24 +112,6 @@ ClapParameterizedMatch >> positionalValues [
 { #category : #accessing }
 ClapParameterizedMatch >> recordParameterMatch: aMatch [
 	arguments add: aMatch
-]
-
-{ #category : #parsing }
-ClapParameterizedMatch >> unboundParametersAmong: parameters [
-	^ parameters
-		select: [ :pos | arguments noneSatisfy: [ :arg | arg specification = pos ] ]
-]
-
-{ #category : #parsing }
-ClapParameterizedMatch >> unboundParametersAmong: parameters do: aBlock [
-	^ parameters do: [ :param |
-		(arguments noneSatisfy: [ :arg | arg specification = param ])
-			ifTrue: [ aBlock cull: param ] ]
-]
-
-{ #category : #parsing }
-ClapParameterizedMatch >> unboundPositionals [
-	^ self unboundParametersAmong: specification positionals
 ]
 
 { #category : #enumerating }

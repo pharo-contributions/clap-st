@@ -18,7 +18,7 @@ ClapPositional >> addTo: parentParameter [
 	^ parentParameter addPositional: self
 ]
 
-{ #category : #matching }
+{ #category : #'matching - testing' }
 ClapPositional >> canMatchWith: word [
 	^ (word beginsWith: '-') not
 ]

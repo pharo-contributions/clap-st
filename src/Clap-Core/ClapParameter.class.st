@@ -9,6 +9,7 @@ Class {
 	#instVars : [
 		'canonicalName',
 		'description',
+		'multiple',
 		'meaningBlock',
 		'defaultMeaningBlock'
 	],
@@ -37,13 +38,21 @@ ClapParameter >> basicMeaning [
 	^ self class basicMeaning
 ]
 
-{ #category : #matching }
+{ #category : #'matching - testing' }
 ClapParameter >> canMatchAt: aStream [
 	^ aStream atEnd not
 		and: [ self canMatchWith: aStream peek ]
 ]
 
-{ #category : #matching }
+{ #category : #'matching - testing' }
+ClapParameter >> canMatchExtending: aParameterizedMatch [
+	^ aParameterizedMatch
+		at: self
+		ifFound: [ self isMultiple ]
+		ifAbsent: [ true ]
+]
+
+{ #category : #'matching - testing' }
 ClapParameter >> canMatchWith: word [
 	^ self subclassResponsibility
 ]
@@ -81,8 +90,14 @@ ClapParameter >> description: aString [
 { #category : #initialization }
 ClapParameter >> initialize [
 	description := ''.
+	multiple := false.
 	meaningBlock := self basicMeaning.
 	defaultMeaningBlock := meaningBlock
+]
+
+{ #category : #testing }
+ClapParameter >> isMultiple [
+	^ multiple
 ]
 
 { #category : #matching }
@@ -110,6 +125,11 @@ ClapParameter >> meaning [
 { #category : #initialization }
 ClapParameter >> meaning: aBlock [
 	meaningBlock := aBlock
+]
+
+{ #category : #initialization }
+ClapParameter >> multiple: aBoolean [
+	multiple := aBoolean
 ]
 
 { #category : #matching }
