@@ -12,6 +12,7 @@ function clap() { $CLAP clap "$@"; }
 
 function silently() { "$@" 2>/dev/null; }
 function snitch() { tee >(cat >&3); }
+function not_on_travis() { [ "$TRAVIS" = true ] || "$@"; }
 
 export CLAP
 export -f clap silently snitch
