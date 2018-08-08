@@ -14,14 +14,14 @@ load helpers
     output="$( echo 'Object class class class class' | clap evaluate | tr a-z A-Z)"
 
     assert_success
-    not_on_travis assert_output 'METACLASS' # waiting for https://github.com/pharo-project/pharo/pull/1671
+    assert_output 'METACLASS'
 }
 
 @test "evaluate, pipe in" {
     output="$( echo 'Object class class class class' | clap evaluate )"
 
     assert_success
-    not_on_travis assert_output 'Metaclass' # waiting for https://github.com/pharo-project/pharo/pull/1671
+    assert_output 'Metaclass'
 }
 
 @test "evaluate, pipe out" {
