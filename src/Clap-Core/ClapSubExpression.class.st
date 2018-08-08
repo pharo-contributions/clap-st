@@ -12,6 +12,26 @@ ClapSubExpression class >> isAbstract [
 	^ self == ClapSubExpression
 ]
 
+{ #category : #enumerating }
+ClapSubExpression >> allOccurrences [
+	^ self parent
+		occurrencesOf: self specification
+]
+
+{ #category : #enumerating }
+ClapSubExpression >> allOccurrencesCollect: aBlock [
+	^ self parent
+		occurrencesOf: self specification
+		collect: aBlock
+]
+
+{ #category : #enumerating }
+ClapSubExpression >> allOccurrencesDo: aBlock [
+	^ self parent
+		occurrencesOf: self specification
+		do: aBlock
+]
+
 { #category : #accessing }
 ClapSubExpression >> context [
 	^ parent context

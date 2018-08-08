@@ -77,12 +77,13 @@ ClapMatchesTest >> testMultiplePositional [
 	| match |
 	clap add: ((ClapPositional withName: 'list') multiple: true).
 	
-	match := clap match: #('clap' '-d' 'a/b/c' 'foo' 'bar' 'baz').
+	match := clap match: #('clap' 'foo' 'bar' 'baz' '-d' 'a/b/c').
 	
 	match should not be isMismatch.
 	match should be includesKey: 'directory'.
 	match should be includesKey: 'list'.
-	(match occurrencesNamed: 'list' collect: #value) should equal: #('foo' 'bar' 'baz')
+	(match occurrencesNamed: 'list' collect: #value) should equal: #('foo' 'bar' 'baz').
+	((match atName: 'list') allOccurrencesCollect: #value) should equal: #('foo' 'bar' 'baz').
 ]
 
 { #category : #running }
