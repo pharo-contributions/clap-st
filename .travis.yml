@@ -22,5 +22,5 @@ before_install:
     esac
 
 script:
-  - "$SMALLTALK_CI_HOME/run.sh"
+  - smalltalkci
   - bats tests
