@@ -17,16 +17,16 @@ Class {
 { #category : #running }
 ClapMatchesTest >> setUp [
 	dirFlag := (ClapFlag withName: 'directory')
-		addPositional: (ClapPositional withName: 'DIR').
+		add: (ClapPositional withName: 'DIR').
 	slowFlag := ClapFlag withName: 'slow'.
 	
 	clap := (ClapCommand withName: 'clap')
-		addFlag: dirFlag;
-		addSubcommand: ((ClapCommand withName: 'this')
-			addFlag: slowFlag);
-		addSubcommand: ((ClapCommand withName: 'that')
-			addFlag: (ClapFlag withName: 'encore');
-			addPositional: (ClapPositional withName: 'clappee'))
+		add: dirFlag;
+		add: ((ClapCommand withName: 'this')
+			add: slowFlag);
+		add: ((ClapCommand withName: 'that')
+			add: (ClapFlag withName: 'encore');
+			add: (ClapPositional withName: 'clappee'))
 ]
 
 { #category : #running }
@@ -46,7 +46,7 @@ ClapMatchesTest >> testFlagAbsentValue [
 { #category : #running }
 ClapMatchesTest >> testFlagOmittedValue [
 	| match flagMatch |
-	clap addFlag: slowFlag. "we need another flag to follow the incomplete one"
+	clap add: slowFlag. "we need another flag to follow the incomplete one"
 	
 	match := clap match: #('clap' '--directory' '--slow').
 	
@@ -70,6 +70,19 @@ ClapMatchesTest >> testFlagValue [
 	flagMatch parent parent should be: match.
 	flagMatch value should be: true.
 
+]
+
+{ #category : #running }
+ClapMatchesTest >> testMultiplePositional [
+	| match |
+	clap add: ((ClapPositional withName: 'list') multiple: true).
+	
+	match := clap match: #('clap' '-d' 'a/b/c' 'foo' 'bar' 'baz').
+	
+	match should not be isMismatch.
+	match should be includesKey: 'directory'.
+	match should be includesKey: 'list'.
+	(match occurrencesNamed: 'list' collect: #value) should equal: #('foo' 'bar' 'baz')
 ]
 
 { #category : #running }

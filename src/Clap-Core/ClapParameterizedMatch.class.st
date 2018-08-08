@@ -103,13 +103,51 @@ ClapParameterizedMatch >> matchParametersOn: aStream [
 	] repeat
 ]
 
+{ #category : #accessing }
+ClapParameterizedMatch >> occurrencesNamed: canonicalName [
+	^ self occurrencesOf: (specification atName: canonicalName)
+]
+
+{ #category : #enumerating }
+ClapParameterizedMatch >> occurrencesNamed: canonicalName collect: aBlock [
+	^ self
+		occurrencesOf: (specification atName: canonicalName)
+		collect: aBlock
+]
+
+{ #category : #enumerating }
+ClapParameterizedMatch >> occurrencesNamed: canonicalName do: aBlock [
+	^ self
+		occurrencesOf: (specification atName: canonicalName)
+		do: aBlock
+]
+
+{ #category : #accessing }
+ClapParameterizedMatch >> occurrencesOf: aSpec [
+	^ arguments select: [ :arg | arg specification = aSpec ]
+]
+
+{ #category : #enumerating }
+ClapParameterizedMatch >> occurrencesOf: aSpec collect: aBlock [
+	^ arguments
+		select: [ :arg | arg specification = aSpec ]
+		thenCollect: aBlock
+]
+
+{ #category : #enumerating }
+ClapParameterizedMatch >> occurrencesOf: aSpec do: aBlock [
+	^ arguments
+		select: [ :arg | arg specification = aSpec ]
+		thenDo: aBlock
+]
+
 { #category : #evaluating }
 ClapParameterizedMatch >> positionalValues [
 	^ specification positionals
 		collect: [ :each | (self at: each) value ]
 ]
 
-{ #category : #accessing }
+{ #category : #matching }
 ClapParameterizedMatch >> recordParameterMatch: aMatch [
 	arguments add: aMatch
 ]
