@@ -12,11 +12,13 @@ ClapCodeEvaluator class >> evaluate [
 	<commandline>
 	
 	^ (ClapCommand withName: 'evaluate')
+		aliases: #('eval');
 		description: 'Evaluate a Pharo expression';
 		add: ((ClapPositional withName: 'EXPR')
+			multiple: true;
 			meaning: [ :match |
 				"let's copy all the bytes, twice, because the VM assumes some 8-bit encoding…"
-				match word asByteArray utf8Decoded ];
+				String space join: (match allOccurrencesCollect: #word) ];
 			defaultMeaning: [ :match |
 				"in the absence of an explicit argument, read from standard input"
 				match context stdin upToEnd ]);
@@ -49,10 +51,7 @@ ClapCodeEvaluator >> execute [
 
 { #category : #execution }
 ClapCodeEvaluator >> outputStreamDo: aBlock [
-"	ZnBufferedWriteStream
-		on: self context stdout
-		do: [ :out | aBlock value: (ZnNewLineWriterStream on: out) ]"
-		aBlock value: self context stdout
+	aBlock value: self context stdout
 ]
 
 { #category : #initialization }

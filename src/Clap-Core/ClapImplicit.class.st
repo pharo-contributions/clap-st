@@ -11,6 +11,21 @@ ClapImplicit class >> of: aParameter in: parentMatch [
 		yourself
 ]
 
+{ #category : #enumerating }
+ClapImplicit >> allOccurrences [
+	^ Array with: self
+]
+
+{ #category : #enumerating }
+ClapImplicit >> allOccurrencesCollect: aBlock [
+	^ Array with: (aBlock value: self)
+]
+
+{ #category : #enumerating }
+ClapImplicit >> allOccurrencesDo: aBlock [
+	aBlock value: self
+]
+
 { #category : #testing }
 ClapImplicit >> isExplicit [
 	^ false
