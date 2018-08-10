@@ -14,7 +14,7 @@ ClapMismatch >> at: aSpec [
 
 { #category : #matching }
 ClapMismatch >> completeMatchOn: aStream [
-	self word: aStream peek
+	self rawWord: aStream peek
 ]
 
 { #category : #testing }
@@ -30,7 +30,7 @@ ClapMismatch >> isValid [
 { #category : #printing }
 ClapMismatch >> printDetailsOn: aStream [
 	aStream
-		nextPutAll: word;
+		nextPutAll: rawWord;
 		nextPutAll: ' ≠ ';
 		print: specification
 ]

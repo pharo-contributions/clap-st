@@ -25,9 +25,9 @@ ClapExplicitTest >> testAccessing [
 	subject specification should be: specification.
 
 	word := Mock new.
-	subject word: word.
+	subject rawWord: word.
 	
-	subject word should be: word
+	subject rawWord should be: word
 ]
 
 { #category : #tests }

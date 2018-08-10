@@ -7,7 +7,7 @@ Class {
 	#name : #ClapExplicit,
 	#superclass : #ClapSubExpression,
 	#instVars : [
-		'word'
+		'rawWord'
 	],
 	#category : #'Clap-Core-Activation'
 }
@@ -53,6 +53,16 @@ ClapExplicit >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
+{ #category : #accessing }
+ClapExplicit >> rawWord [
+	^ rawWord
+]
+
+{ #category : #initialization }
+ClapExplicit >> rawWord: aByteString [
+	rawWord := aByteString
+]
+
 { #category : #adding }
 ClapExplicit >> recordIn: parentMatch [
 	self parent: parentMatch.
@@ -61,12 +71,12 @@ ClapExplicit >> recordIn: parentMatch [
 
 { #category : #accessing }
 ClapExplicit >> word [
-	^ word
+	^ rawWord asByteArray utf8Decoded
 ]
 
-{ #category : #initialization }
-ClapExplicit >> word: aString [
-	word := aString
+{ #category : #accessing }
+ClapExplicit >> wordDecoded: anEncoding [
+	^ rawWord asByteArray decodeWith: anEncoding
 ]
 
 { #category : #enumerating }

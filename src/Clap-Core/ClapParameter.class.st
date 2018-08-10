@@ -161,5 +161,5 @@ ClapParameter >> synopsisOn: aStream [
 
 { #category : #matching }
 ClapParameter >> with: partialMatch matchWordOn: aStream [
-	partialMatch word: aStream next
+	partialMatch rawWord: aStream next
 ]
