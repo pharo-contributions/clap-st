@@ -5,7 +5,8 @@ Class {
 	#name : #ClapParameterized,
 	#superclass : #ClapParameter,
 	#instVars : [
-		'positionals'
+		'positionals',
+		'aliases'
 	],
 	#category : #'Clap-Core-Specifications'
 }
@@ -31,16 +32,33 @@ ClapParameterized >> addPositional: aPositional [
 ]
 
 { #category : #accessing }
+ClapParameterized >> aliases [
+	^ aliases
+]
+
+{ #category : #initialization }
+ClapParameterized >> aliases: aCollection [
+	aliases := aCollection
+]
+
+{ #category : #accessing }
 ClapParameterized >> atName: specName [
 	^ self
 		positionalNamed: specName
 		ifNone: [ nil ]
 ]
 
+{ #category : #testing }
+ClapParameterized >> hasAlias: aString [
+	^ aString = self canonicalName or: [ self aliases includes: aString ]
+	
+]
+
 { #category : #initialization }
 ClapParameterized >> initialize [
 	super initialize.
-	positionals := OrderedCollection new
+	positionals := OrderedCollection new.
+	aliases := #()
 ]
 
 { #category : #enumerating }

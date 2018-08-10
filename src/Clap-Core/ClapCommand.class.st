@@ -78,14 +78,13 @@ ClapCommand >> atName: specName [
 
 { #category : #'matching - testing' }
 ClapCommand >> canMatchWith: word [
-	^ word = self canonicalName
-	
+	^ self hasAlias: word
 ]
 
 { #category : #accessing }
 ClapCommand >> flagNamed: specName ifNone: aBlock [
 	^ flags
-		detect: [ :flag | flag canonicalName = specName ]
+		detect: [ :flag | flag hasAlias: specName ]
 		ifNone: aBlock
 ]
 
@@ -123,7 +122,7 @@ ClapCommand >> runWith: arguments [
 { #category : #accessing }
 ClapCommand >> subcommandNamed: specName ifNone: aBlock [
 	^ subcommands
-		detect: [ :cmd | cmd canonicalName = specName ]
+		detect: [ :cmd | cmd hasAlias: specName ]
 		ifNone: aBlock
 ]
 
