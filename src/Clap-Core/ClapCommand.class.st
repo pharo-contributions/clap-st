@@ -38,13 +38,13 @@ ClapCommand class >> forHelp [
 	^ (self withName: 'help')
 		description: 'Prints command documentation';
 
-		addPositional: ((ClapPositional withName: 'topic')
+		add: ((ClapPositional withName: 'topic')
 			description: 'The subcommand to document (defaults to the current one)';
 			meaning: [ :pos :cmd | cmd atName: pos word ];
 			defaultMeaning: [ :pos :cmd | cmd ]);
 
 		meaning: [ :match | | doc parent query topic |
-			doc := ClapDocumenter on: (ZnCharacterWriteStream on: match context stdout).
+			doc := ClapDocumenter on: match context stdout.
 			parent := match parent specification.
 			query := match atName: 'topic'.
 			topic := query value: parent.

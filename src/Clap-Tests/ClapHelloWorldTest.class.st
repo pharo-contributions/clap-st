@@ -10,8 +10,8 @@ Class {
 { #category : #running }
 ClapHelloWorldTest >> setUp [
 	hello := (ClapCommand withName: 'hello')
-		addFlag: (ClapFlag withName: 'shout');
-		addPositional: (ClapPositional withName: 'who')
+		add: (ClapFlag withName: 'shout');
+		add: (ClapPositional withName: 'who')
 
 ]
 
@@ -41,8 +41,8 @@ ClapHelloWorldTest >> testHelloWorld [
 ClapHelloWorldTest >> testLanguageFlag [
 	| match lang |
 	lang := ClapPositional withName: 'language'.
-	hello addFlag: ((ClapFlag withName: 'lang')
-		addPositional: lang;
+	hello add: ((ClapFlag withName: 'lang')
+		add: lang;
 		meaning: [ :flag | (flag at: lang) value]).
 
 	match := hello match: #('hello' 'monde' '--lang' 'fr' '--shout').

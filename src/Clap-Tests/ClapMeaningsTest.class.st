@@ -8,7 +8,7 @@ Class {
 ClapMeaningsTest >> testArgFlagBasicMeaning [
 	| flag match |
 	flag := (ClapFlag withName: 'foo')
-		addPositional: (ClapPositional withName: 'bar').
+		add: (ClapPositional withName: 'bar').
 
 	match := flag match: #('--foo' 'whatever').
 	self assert: match value.
@@ -20,8 +20,8 @@ ClapMeaningsTest >> testArgFlagBasicMeaning [
 ClapMeaningsTest >> testArgFlagCollectionMeaning [
 	| flag match |
 	flag := (ClapFlag withName: 'foo')
-		addPositional: ((ClapPositional withName: 'bar') defaultMeaning: [#nobar]);
-		addPositional: ((ClapPositional withName: 'baz') defaultMeaning: [#nobaz]);
+		add: ((ClapPositional withName: 'bar') defaultMeaning: [#nobar]);
+		add: ((ClapPositional withName: 'baz') defaultMeaning: [#nobaz]);
 		meaningCollection.
 
 	match := flag match: #('--foo' 'whatever 1' 'whatever 2').
@@ -39,7 +39,7 @@ ClapMeaningsTest >> testArgFlagCollectionMeaning [
 ClapMeaningsTest >> testArgFlagScalarMeaning [
 	| flag match |
 	flag := (ClapFlag withName: 'foo')
-		addPositional: ((ClapPositional withName: 'bar') defaultMeaning: ['oops']);
+		add: ((ClapPositional withName: 'bar') defaultMeaning: ['oops']);
 		meaningScalar.
 
 	match := flag match: #('--foo' 'whatever').

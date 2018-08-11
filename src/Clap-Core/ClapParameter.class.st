@@ -21,6 +21,11 @@ ClapParameter class >> basicMeaning [
 	^ [ :match | match ]
 ]
 
+{ #category : #testing }
+ClapParameter class >> isAbstract [
+	^ self == ClapParameter
+]
+
 { #category : #'instance creation' }
 ClapParameter class >> withName: aString [ 
 	^ self new

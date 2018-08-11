@@ -44,7 +44,7 @@ ClapCommandTest >> testMatches [
 { #category : #tests }
 ClapCommandTest >> testMatchesWithSingleFlag [
 	| match |
-	subject addFlag: (ClapFlag withName: 'bar').
+	subject add: (ClapFlag withName: 'bar').
 	argv stub peek willReturnValueFrom: #('foo' '--bar').
 	argv stub next willReturnValueFrom: #('foo' '--bar').
 	argv stub atEnd willReturn: false.
@@ -59,7 +59,7 @@ ClapCommandTest >> testMatchesWithSingleFlag [
 { #category : #tests }
 ClapCommandTest >> testMatchesWithSinglePositional [
 	| match |
-	subject addPositional: (ClapPositional withName: 'bar').
+	subject add: (ClapPositional withName: 'bar').
 	argv stub peek willReturnValueFrom: #('foo' 'valueforbar').
 	argv stub next willReturnValueFrom: #('foo' 'valueforbar').
 	argv stub atEnd willReturn: false.
@@ -77,7 +77,7 @@ ClapCommandTest >> testMatchesWithSinglePositional [
 { #category : #tests }
 ClapCommandTest >> testMatchesWithSingleSubcommand [
 	| match |
-	subject addSubcommand: (ClapCommand withName: 'bar').
+	subject add: (ClapCommand withName: 'bar').
 	argv stub peek willReturnValueFrom: #('foo' 'bar').
 	argv stub next willReturnValueFrom: #('foo' 'bar').
 	argv stub atEnd willReturn: false.
@@ -93,7 +93,7 @@ ClapCommandTest >> testMatchesWithSingleSubcommand [
 { #category : #tests }
 ClapCommandTest >> testMatchingStopsAtWrongFlag [
 	| match |
-	subject addFlag: (ClapFlag withName: 'bar').
+	subject add: (ClapFlag withName: 'bar').
 	argv stub peek willReturnValueFrom: #('foo' '--notbar' 'Object').
 	argv stub next willReturnValueFrom: #('foo' '--notbar' 'Object').
 	argv stub atEnd willReturn: false.
