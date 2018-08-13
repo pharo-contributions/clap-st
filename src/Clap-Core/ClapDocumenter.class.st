@@ -73,10 +73,6 @@ ClapDocumenter >> initializeOn: aFormatter [
 ]
 
 { #category : #documenting }
-ClapDocumenter >> noSuchSubcommand: name of: aClapCommand [
-]
-
-{ #category : #documenting }
 ClapDocumenter >> parameterDescriptions: aCommand [
 	self section: 'Parameters:' listing: aCommand positionals.
 	self section: 'Options:' listing: aCommand flags.

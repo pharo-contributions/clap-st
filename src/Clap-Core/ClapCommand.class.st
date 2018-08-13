@@ -40,7 +40,7 @@ ClapCommand class >> forHelp [
 
 		add: ((ClapPositional withName: 'topic')
 			description: 'The subcommand to document (defaults to the current one)';
-			meaning: [ :pos :cmd | cmd atName: pos word ];
+			meaning: [ :pos :cmd | cmd subcommandNamed: pos word ifNone: nil ];
 			defaultMeaning: [ :pos :cmd | cmd ]);
 
 		meaning: [ :match | | doc parent query topic |
@@ -49,8 +49,8 @@ ClapCommand class >> forHelp [
 			query := match atName: 'topic'.
 			topic := query value: parent.
 			topic
-				ifNotNil: [ doc explain: topic ]
-				ifNil: [ doc noSuchSubcommand: query word of: parent ] ]
+				ifNil: [ match context exitFailure: 'Unknown subcommand: ' , query word ]
+				ifNotNil: [ doc explain: topic ] ]
 
 ]
 

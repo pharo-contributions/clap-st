@@ -18,7 +18,7 @@ ClapFlag class >> basicMeaning [
 { #category : #'predefined flags' }
 ClapFlag class >> forHelp [
 	^ (self withName: 'help')
-		description: 'Prints command documentation';
+		description: 'Prints this documentation';
 		meaning: [ :match |
 			(ClapDocumenter on: (ZnCharacterWriteStream on: match context stdout))
 				explain: match parent specification.
