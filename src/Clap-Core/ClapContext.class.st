@@ -69,6 +69,12 @@ ClapContext >> activateWith: args onExit: exitBlock [
 	do: exitBlock
 ]
 
+{ #category : #validation }
+ClapContext >> allValidations [
+	^ self validateOn: ClapValidationReport success.
+
+]
+
 { #category : #accessing }
 ClapContext >> arguments [
 	^ arguments
@@ -129,6 +135,11 @@ ClapContext >> exit: status message: message [
 ]
 
 { #category : #running }
+ClapContext >> exitFailure [
+	^ Exit signalFailure
+]
+
+{ #category : #running }
 ClapContext >> exitFailure: message [
 	^ Exit signalFailure: message
 ]
@@ -182,12 +193,6 @@ ClapContext >> interpret: argumentsSequence [
 		ifMismatch: [ self noneMatched ]
 ]
 
-{ #category : #testing }
-ClapContext >> isValid [
-	^ self match isValid
-		and: [ self leftovers isEmpty ]
-]
-
 { #category : #accessing }
 ClapContext >> leftovers [
 	^ leftovers
@@ -221,9 +226,8 @@ ClapContext >> stderr [
 
 { #category : #streams }
 ClapContext >> stderrEncoded: anEncoding [
-	^ ZnCharacterWriteStream
-		on: self binaryStderr
-		encoding: anEncoding
+	^ ZnNewLineWriterStream on:
+		(ZnCharacterWriteStream on: self binaryStderr encoding: anEncoding)
 ]
 
 { #category : #streams }
@@ -250,7 +254,29 @@ ClapContext >> stdout [
 
 { #category : #streams }
 ClapContext >> stdoutEncoded: anEncoding [
-	^ ZnCharacterWriteStream
-		on: self binaryStdout
-		encoding: anEncoding
+	^ ZnNewLineWriterStream on:
+		(ZnCharacterWriteStream on: self binaryStdout encoding: anEncoding)
+]
+
+{ #category : #validation }
+ClapContext >> validateAll [
+	| report |
+	report := self allValidations.
+	report isSuccess ifTrue: [ ^ self ].
+	
+	self stderr print: report; flush.
+	self exitFailure
+]
+
+{ #category : #validation }
+ClapContext >> validateOn: aReport [
+	match validateOn: aReport.
+	
+	self leftovers ifNotEmpty: [
+		aReport add: (ClapValidationDiagnostic
+			subject: self
+			description: 'Unrecognized arguments: ' , (', ' join: self leftovers)	)
+	].
+
+	^ aReport
 ]

@@ -58,10 +58,13 @@ ClapCommandLineExamples class >> hello [
 	^ (ClapCommand withName: 'hello')
 		description: 'Provides greetings';
 		add: ClapFlag forHelp;
+		add: ((ClapFlag withName: 'whisper')
+			description: 'Greet discretely');
 		add: ((ClapFlag withName: 'shout')
 			description: 'Greet loudly');
 		add: ((ClapPositional withName: 'who')
 			description: 'Recipient of the greetings';
+			validations: [ :pos | { pos where word should matchRegex: '.*[^[:punct:]]$' } ];
 			defaultMeaning: [ 'world' ]);
 		meaning: [ :args |
 			args atName: 'help' ifFound: [ :help |
@@ -79,6 +82,7 @@ ClapCommandLineExamples class >> with: arguments [
 
 { #category : #running }
 ClapCommandLineExamples >> sayHello [
+	arguments validateAll.
 	self
 		sayHelloOn: (VTermOutputDriver on: arguments context stdout)
 		recipient: (arguments atName: 'who') value

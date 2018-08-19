@@ -11,7 +11,8 @@ Class {
 		'description',
 		'multiple',
 		'meaningBlock',
-		'defaultMeaningBlock'
+		'defaultMeaningBlock',
+		'validationBlock'
 	],
 	#category : #'Clap-Core-Specifications'
 }
@@ -162,6 +163,26 @@ ClapParameter >> synopsis [
 { #category : #documenting }
 ClapParameter >> synopsisOn: aStream [
 	^ self subclassResponsibility
+]
+
+{ #category : #validation }
+ClapParameter >> validate: aMatch on: aReport [
+	aReport addAll: (self validationDiagnosticsFor: aMatch)
+]
+
+{ #category : #validation }
+ClapParameter >> validationDiagnosticsFor: aMatch [
+	^ validationBlock
+		ifNil: [ #() ]
+		ifNotNil: [
+			[ validationBlock value: aMatch ]
+				on: SpecOfFailed
+				do: #resume ]
+]
+
+{ #category : #initialization }
+ClapParameter >> validations: aBlock [
+	validationBlock := aBlock
 ]
 
 { #category : #matching }

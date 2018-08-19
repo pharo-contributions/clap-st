@@ -22,6 +22,11 @@ ClapExpression class >> specification: aParameter [
 		yourself
 ]
 
+{ #category : #validation }
+ClapExpression >> allValidations [
+	^ self context allValidations
+]
+
 { #category : #accessing }
 ClapExpression >> context [
 	^ self subclassResponsibility
@@ -74,7 +79,8 @@ ClapExpression >> isMismatch [
 { #category : #testing }
 ClapExpression >> isValid [
 	"Semantic validation, post-parse"
-	^ self subclassResponsibility
+	self flag: 'obsolete?'.
+	^ self allValidations isSuccess
 ]
 
 { #category : #accessing }
@@ -85,6 +91,20 @@ ClapExpression >> specification [
 { #category : #initialization }
 ClapExpression >> specification: anArgumentSpec [ 
 	specification := anArgumentSpec
+]
+
+{ #category : #validation }
+ClapExpression >> validateAll [
+	"Validate the activation as a whole, or report and exit."
+	self context validateAll
+]
+
+{ #category : #validation }
+ClapExpression >> validateOn: aReport [
+	"Recursively validate the receiver and any subexpressions, enriching aReport"
+	
+	self specification
+		validate: self on: aReport
 ]
 
 { #category : #evaluating }

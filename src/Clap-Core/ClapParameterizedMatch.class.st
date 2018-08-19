@@ -89,11 +89,6 @@ ClapParameterizedMatch >> initialize [
 	arguments := OrderedCollection new
 ]
 
-{ #category : #testing }
-ClapParameterizedMatch >> isValid [
-	^ arguments allSatisfy: #isValid
-]
-
 { #category : #matching }
 ClapParameterizedMatch >> matchParametersOn: aStream [
 	[ self
@@ -150,6 +145,12 @@ ClapParameterizedMatch >> positionalValues [
 { #category : #matching }
 ClapParameterizedMatch >> recordParameterMatch: aMatch [
 	arguments add: aMatch
+]
+
+{ #category : #validation }
+ClapParameterizedMatch >> validateOn: aReport [
+	super validateOn: aReport.
+	arguments do: [ :each | each validateOn: aReport ]
 ]
 
 { #category : #enumerating }

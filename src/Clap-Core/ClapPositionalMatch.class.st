@@ -6,9 +6,3 @@ Class {
 	#superclass : #ClapExplicit,
 	#category : #'Clap-Core-Activation'
 }
-
-{ #category : #testing }
-ClapPositionalMatch >> isValid [
-	self flag: 'not yet implemented'.
-	^ true
-]
