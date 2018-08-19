@@ -1,7 +1,7 @@
 Class {
 	#name : #BaselineOfClap,
 	#superclass : #BaselineOf,
-	#category : 'BaselineOfClap'
+	#category : #BaselineOfClap
 }
 
 { #category : #baseline }
