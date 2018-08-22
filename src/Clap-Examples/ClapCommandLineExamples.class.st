@@ -17,7 +17,8 @@ Class {
 	#name : #ClapCommandLineExamples,
 	#superclass : #Object,
 	#instVars : [
-		'arguments'
+		'arguments',
+		'outStream'
 	],
 	#category : #'Clap-Examples'
 }
@@ -64,6 +65,7 @@ ClapCommandLineExamples class >> hello [
 			description: 'Greet loudly');
 		add: ((ClapPositional withName: 'who')
 			description: 'Recipient of the greetings';
+			multiple: true;
 			validations: [ :pos | { pos where word should matchRegex: '.*[^[:punct:]]$' } ];
 			defaultMeaning: [ 'world' ]);
 		meaning: [ :args |
@@ -80,28 +82,54 @@ ClapCommandLineExamples class >> with: arguments [
 		yourself
 ]
 
-{ #category : #running }
-ClapCommandLineExamples >> sayHello [
-	arguments validateAll.
-	self
-		sayHelloOn: (VTermOutputDriver on: arguments context stdout)
-		recipient: (arguments atName: 'who') value
-		shouting: (arguments atName: 'shout') value
+{ #category : #'accessing - private' }
+ClapCommandLineExamples >> argumentAt: argumentName [
+	^ (arguments atName: argumentName) value
+]
+
+{ #category : #'accessing - private' }
+ClapCommandLineExamples >> outStream [
+	^ outStream ifNil: [ outStream := VTermOutputDriver on: arguments context stdout ]
+]
+
+{ #category : #accessing }
+ClapCommandLineExamples >> recipients [
+	^ (arguments atName: 'who') allOccurrencesCollect: #value
 ]
 
 { #category : #running }
-ClapCommandLineExamples >> sayHelloOn: aStream recipient: who shouting: shouting [
-	| message |
-	message := 'hello, ' , who.
-	
-	aStream
-		<< (shouting
-			ifTrue: [ message asUppercase , '!' ]
-			ifFalse: [ message , '.' ]);
-		lf
+ClapCommandLineExamples >> sayHello [
+	arguments validateAll.
+	self sayHelloOn: self outStream
+]
+
+{ #category : #running }
+ClapCommandLineExamples >> sayHelloOn: aStream [
+	self recipients do: [ :each |
+		aStream
+			<< (self voice: 'hello, ' , each);
+			lf ]
 ]
 
 { #category : #initialization }
 ClapCommandLineExamples >> setArguments: args [
 	arguments := args
+]
+
+{ #category : #accessing }
+ClapCommandLineExamples >> shouting [
+	^ self argumentAt: 'shout'
+]
+
+{ #category : #running }
+ClapCommandLineExamples >> voice: aString [
+	self shouting ifTrue: [ ^ aString asUppercase , '!' ].
+	self whispering ifTrue: [ ^ '(' , aString asLowercase , ')' ].
+	^ aString , '.'
+
+]
+
+{ #category : #accessing }
+ClapCommandLineExamples >> whispering [
+	^ self argumentAt: 'whisper'
 ]
