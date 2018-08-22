@@ -30,7 +30,7 @@ Class {
 		'flags',
 		'subcommands'
 	],
-	#category : #'Clap-Core-Specifications'
+	#category : #'Clap-Core-Specification'
 }
 
 { #category : #'predefined commands' }

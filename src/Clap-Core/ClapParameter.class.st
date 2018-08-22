@@ -14,7 +14,7 @@ Class {
 		'defaultMeaningBlock',
 		'validationBlock'
 	],
-	#category : #'Clap-Core-Specifications'
+	#category : #'Clap-Core-Specification'
 }
 
 { #category : #evaluating }

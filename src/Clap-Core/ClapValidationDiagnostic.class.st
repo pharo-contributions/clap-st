@@ -5,10 +5,10 @@ Class {
 		'subject',
 		'description'
 	],
-	#category : #'Clap-Core-Activation'
+	#category : #'Clap-Core-Validation'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 ClapValidationDiagnostic class >> subject: aMatch description: aString [
 	^ self new
 		subject: aMatch;

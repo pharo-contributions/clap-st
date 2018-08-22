@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'problems'
 	],
-	#category : #'Clap-Core-Activation'
+	#category : #'Clap-Core-Validation'
 }
 
 { #category : #'instance creation' }

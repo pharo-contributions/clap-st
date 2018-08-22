@@ -5,7 +5,7 @@ I represent a free-form parameter which is passed as a single shell word and rec
 Class {
 	#name : #ClapPositional,
 	#superclass : #ClapParameter,
-	#category : #'Clap-Core-Specifications'
+	#category : #'Clap-Core-Specification'
 }
 
 { #category : #evaluating }

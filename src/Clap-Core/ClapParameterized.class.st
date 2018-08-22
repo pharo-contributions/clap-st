@@ -8,7 +8,7 @@ Class {
 		'positionals',
 		'aliases'
 	],
-	#category : #'Clap-Core-Specifications'
+	#category : #'Clap-Core-Specification'
 }
 
 { #category : #testing }

@@ -6,7 +6,7 @@ A flag is recognized by its form, starting with dashes (e.g. `--foo` in long for
 Class {
 	#name : #ClapFlag,
 	#superclass : #ClapParameterized,
-	#category : #'Clap-Core-Specifications'
+	#category : #'Clap-Core-Specification'
 }
 
 { #category : #evaluating }
