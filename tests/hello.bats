@@ -22,10 +22,17 @@ load helpers
 }
 
 @test "hello, separate words" {
-    skip 'only the first positional is used for now'
-    run silently clap hello Pharo friends 'and more'
+    run silently clap hello Pharo friends 'everyone else'
     assert_success
-    assert_output 'hello, Pharo friends and more.'
+    assert_line --index 0 'hello, Pharo.'
+    assert_line --index 1 'hello, friends.'
+    assert_line --index 2 'hello, everyone else.'
+}
+
+@test "hello, bad format" {
+    run clap hello foo.
+    assert_failure
+    assert_output --partial 'foo.'
 }
 
 @test "hello shouting, no argument" {
@@ -48,11 +55,23 @@ load helpers
     assert_output 'HELLO, LOUDLY!'
 }
 
+@test "hello whispering" {
+    run silently clap hello --whisper 'YOU know who'
+    assert_success
+    assert_output '(hello, you know who)'
+}
+
+@test "hello whispering and shouting" {
+    skip 'not yet implemented'
+    run clap hello --shout --whisper
+    assert_failure
+}
+
 @test "hello help flag" {
     run silently clap hello --help
     assert_success
     assert_line --index 0 'Provides greetings'
-    assert_line 'Usage: hello [--help] [--shout] [<who>]'
+    assert_line 'Usage: hello [--help] [--whisper] [--shout] [<who>]'
     assert_line 'Parameters:'
     assert_line --regexp '[[:space:]]+<who>[[:space:]]+Recipient of the greetings$'
     assert_line 'Options:'
