@@ -1,8 +1,9 @@
 #	first record a screencast with demos/record.sh
 
+export GIFSICLE_OPTS = --colors 256 --resize-method mix --resize-colors 256 --optimize=3
+
 %.gif: %.cast
-	GIFSICLE_OPTS='--colors 64 --optimize=3' \
-		asciicast2gif -t solarized-dark "$<" "$@"
+	asciicast2gif -t solarized-dark "$<" "$@"
 
 %.mp4: %.gif
 	rm -f "$@"
