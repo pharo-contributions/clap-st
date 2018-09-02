@@ -1,7 +1,7 @@
 "-*- mode: smalltalk; -*-"
 Metacello new baseline: #StateSpecs;
-  repository: 'github://cdlm/StateSpecs:resumable-specoffailed-tests';
-  lock.
+  repository: 'github://dionisiydk/StateSpecs:dev';
+  lock; load.
 
 Metacello new baseline: #Clap;
   repository: 'gitlocal://.';
