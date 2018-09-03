@@ -5,7 +5,9 @@
 Named after and inspired by [clap-rs](https://github.com/kbknapp/clap-rs), but
 this is an independent implementation.
 
-<p align="center"><img src="/demos/clap.gif?raw=true"/></p>
+<p align="center">
+  <img src="/demos/clap.gif?raw=true" width="640" height="360" alt="Terminal screencast demo"/>
+</p>
 
 Currently still in the initial implementation phase, meaning the main pieces are
 there but many features are still missing and may force changes in the design.
