@@ -112,13 +112,6 @@ ClapCommand >> parametersDo: aBlock [
 	self subcommands do: aBlock
 ]
 
-{ #category : #running }
-ClapCommand >> runWith: arguments [
-	"Convenience method for running a command in an interactive context"
-	^ (ClapContext specification: self)
-		activateWith: arguments
-]
-
 { #category : #accessing }
 ClapCommand >> subcommandNamed: specName ifNone: aBlock [
 	^ subcommands

@@ -34,6 +34,13 @@ ClapParameter class >> withName: aString [
 		yourself
 ]
 
+{ #category : #activating }
+ClapParameter >> activateWith: arguments [
+	"Convenience method for activating in an interactive context"
+	^ (ClapContext specification: self)
+		activateWith: arguments
+]
+
 { #category : #adding }
 ClapParameter >> addTo: parentParameter [
 	^ self subclassResponsibility
