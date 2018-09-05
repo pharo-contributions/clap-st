@@ -2,41 +2,39 @@ Class {
 	#name : #ClapValidationDiagnostic,
 	#superclass : #Object,
 	#instVars : [
+		'validation',
 		'subject',
-		'description'
+		'success'
 	],
 	#category : #'Clap-Core-Validation'
 }
 
 { #category : #'instance creation' }
-ClapValidationDiagnostic class >> subject: aMatch description: aString [
+ClapValidationDiagnostic class >> of: aValidation subject: aMatch [
 	^ self new
-		subject: aMatch;
-		description: aString;
+		validation: aValidation subject: aMatch;
 		yourself
-]
-
-{ #category : #accessing }
-ClapValidationDiagnostic >> description: aString [
-	description := aString
 ]
 
 { #category : #testing }
 ClapValidationDiagnostic >> isFailure [
-	^ true
+	^ success not
 ]
 
 { #category : #testing }
 ClapValidationDiagnostic >> isSuccess [
-	^ false
+	^ success
 ]
 
 { #category : #printing }
 ClapValidationDiagnostic >> printOn: aStream [
-	aStream nextPutAll: description
+	aStream nextPutAll: validation description
 ]
 
-{ #category : #accessing }
-ClapValidationDiagnostic >> subject: aMatch [
-	subject := aMatch
+{ #category : #initialization }
+ClapValidationDiagnostic >> validation: aValidation subject: anExpression [
+	validation := aValidation.
+	subject := anExpression.
+	success := validation matches: subject
+
 ]
