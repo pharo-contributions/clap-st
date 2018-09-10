@@ -81,7 +81,5 @@ ClapExplicit >> wordDecoded: anEncoding [
 
 { #category : #enumerating }
 ClapExplicit >> wordsDo: aBlock [
-	self word ifNil: [ ^ self "special case for ClapRoot" ].
-	
 	aBlock value: self word
 ]
