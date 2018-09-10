@@ -10,10 +10,15 @@ Class {
 }
 
 { #category : #'instance creation' }
-ClapValidationDiagnostic class >> of: aValidation subject: aMatch [
+ClapValidationDiagnostic class >> of: aValidation subject: anExpression [
 	^ self new
-		validation: aValidation subject: aMatch;
+		validation: aValidation subject: anExpression;
 		yourself
+]
+
+{ #category : #'as yet unclassified' }
+ClapValidationDiagnostic >> description [
+	^ validation failureDescriptionFor: subject
 ]
 
 { #category : #testing }
@@ -28,7 +33,7 @@ ClapValidationDiagnostic >> isSuccess [
 
 { #category : #printing }
 ClapValidationDiagnostic >> printOn: aStream [
-	aStream nextPutAll: validation description
+	aStream nextPutAll: self description
 ]
 
 { #category : #initialization }

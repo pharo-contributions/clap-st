@@ -23,8 +23,12 @@ Class {
 ClapContext class >> defaultRoot [
 	^ (ClapRoot withName: 'clap')
 		description: 'Entry point for commands implemented with Clap';
-		add: ClapCommand forHelp;
 		add: ClapFlag forHelp;
+		add: ClapCommand forHelp;
+		meaning: [ :args |
+			args atName: 'help' ifFound: [ :help |
+				help value; exitSuccess ].
+			args validateAll ];
 		yourself
 	"setup default flags, omnipresent subcommands & basic meanings here"
 ]
@@ -210,6 +214,15 @@ ClapContext >> noneMatched [
 	^ self exitFailure: 'Unknown command'
 ]
 
+{ #category : #printing }
+ClapContext >> printOn: aStream [
+	super printOn: aStream.
+	aStream
+		nextPut: $(;
+		print: arguments;
+		nextPut: $)
+]
+
 { #category : #activation }
 ClapContext >> rememberSession [
 	session := Smalltalk session
@@ -272,12 +285,7 @@ ClapContext >> validateAll [
 { #category : #validation }
 ClapContext >> validateOn: aReport [
 	match validateOn: aReport.
-	
-	self leftovers ifNotEmpty: [
-		aReport add: (ClapValidationDiagnostic
-			subject: self
-			description: 'Unrecognized arguments: ' , (', ' join: self leftovers)	)
-	].
+	aReport add: (ClapLeftoversValidation new validate: self).
 
 	^ aReport
 ]

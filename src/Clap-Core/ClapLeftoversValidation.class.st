@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #validation }
+ClapLeftoversValidation >> description [
+	^ 'Unrecognized arguments'
+]
+
+{ #category : #validation }
 ClapLeftoversValidation >> matches: aClapExpression [
 	^ aClapExpression context leftovers isEmpty
 ]

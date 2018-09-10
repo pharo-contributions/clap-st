@@ -23,6 +23,7 @@ ClapPharoVersion class >> version [
 		meaning: [ :args |
 			args atName: 'help' ifFound: [ :help |
 				help value; exitSuccess ].
+			args validateAll.
 
 			(self with: args) execute ]
 ]
@@ -35,7 +36,7 @@ ClapPharoVersion class >> with: arguments [
 ]
 
 { #category : #execution }
-ClapPharoVersion >> execute [	
+ClapPharoVersion >> execute [
 	self formats do: [ :each |
 		stream
 			nextPutAll: (self perform: each);

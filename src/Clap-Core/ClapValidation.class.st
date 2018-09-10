@@ -10,13 +10,20 @@ ClapValidation >> description [
 ]
 
 { #category : #validation }
+ClapValidation >> failureDescriptionFor: anObject [
+	^ String streamContents: [ :str |
+		str nextPutAll: 'Unrecognized arguments: '.
+		anObject context leftovers
+			do: [ :each | str nextPutAll: each ]
+			separatedBy: [ str nextPutAll: ', ' ] ]
+]
+
+{ #category : #validation }
 ClapValidation >> matches: aClapExpression [
 	^ self subclassResponsibility
 ]
 
 { #category : #validation }
 ClapValidation >> validate: anObject [
-	^ ClapValidationDiagnostic
-		of: self
-		subject: anObject
+	^ ClapValidationDiagnostic of: self subject: anObject
 ]
