@@ -116,7 +116,8 @@ ClapContext >> doMatch [
 	args := self arguments readStream.
 	match := self specification matchOn: args.
 	match parent: self.
-	leftovers := args upToEnd
+	leftovers := args upToEnd.
+	^ match
 ]
 
 { #category : #accessing }
