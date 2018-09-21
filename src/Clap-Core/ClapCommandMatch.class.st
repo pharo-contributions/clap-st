@@ -22,6 +22,7 @@ ClapCommandMatch >> matchedSubcommand: foundBlock ifNone: noneBlock [
 
 { #category : #evaluating }
 ClapCommandMatch >> value: arg [
-	^ (self	matchedSubcommand: [ :sub | sub ] ifNone: [ self ])
-		evaluateMeaning: arg
+	^ self
+		matchedSubcommand: [ :sub | sub value: arg ]
+		ifNone: [ self evaluateMeaning: arg ]
 ]
