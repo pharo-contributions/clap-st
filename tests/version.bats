@@ -18,7 +18,7 @@ load helpers
 @test "version, release" {
     run silently clap version --release
     assert_success
-    assert_output --regexp '^Pharo[0-9]\.[0-9](alpha|stable)$'
+    assert_output --regexp '^Pharo[0-9](\.[0-9])+(alpha|stable)$'
 }
 
 @test "version, numeric" {
