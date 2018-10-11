@@ -20,37 +20,29 @@ ClapMeaningsTest >> testArgFlagBasicMeaning [
 ClapMeaningsTest >> testArgFlagCollectionMeaning [
 	| flag match |
 	flag := (ClapFlag withName: 'foo')
-		add: ((ClapPositional withName: 'bar') defaultMeaning: [#nobar]);
-		add: ((ClapPositional withName: 'baz') defaultMeaning: [#nobaz]);
+		add: ((ClapPositional withName: 'bar') implicitMeaning: [ #nobar ]);
+		add: ((ClapPositional withName: 'baz') implicitMeaning: [ #nobaz ]);
 		meaningCollection.
-
 	match := flag match: #('--foo' 'whatever 1' 'whatever 2').
 	self assert: match value asArray equals: #('whatever 1' 'whatever 2').
-
 	match := flag match: #('--foo' 'whatever').
 	self assert: match value asArray equals: #('whatever' nobaz).
-
 	match := flag match: #('--foo').
-	self assert: match value asArray equals: #(nobar nobaz).
-
+	self assert: match value asArray equals: #(nobar nobaz)
 ]
 
 { #category : #tests }
 ClapMeaningsTest >> testArgFlagScalarMeaning [
 	| flag match |
 	flag := (ClapFlag withName: 'foo')
-		add: ((ClapPositional withName: 'bar') defaultMeaning: ['oops']);
+		add: ((ClapPositional withName: 'bar') implicitMeaning: [ 'oops' ]);
 		meaningScalar.
-
 	match := flag match: #('--foo' 'whatever').
 	self assert: match value equals: 'whatever'.
-
 	match := flag match: #('--foo').
 	self assert: match value equals: 'oops'.
-
-	match := flag match: #(). "might be wrong, since this is really a mismatch"
-	self assert: match value equals: 'oops'.
-
+	match := flag match: #().	"might be wrong, since this is really a mismatch"
+	self assert: match value equals: 'oops'
 ]
 
 { #category : #tests }

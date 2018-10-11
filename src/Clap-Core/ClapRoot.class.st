@@ -15,11 +15,5 @@ ClapRoot >> canMatchWith: word [
 
 { #category : #accessing }
 ClapRoot >> matchClass [
-	^ ClapRootMatch
-]
-
-{ #category : #matching }
-ClapRoot >> with: partialMatch matchWordOn: aStream [
-	"Do nothing, as this always matches without consuming anything"
-	^ partialMatch
+	^ ClapCompositeMatch
 ]

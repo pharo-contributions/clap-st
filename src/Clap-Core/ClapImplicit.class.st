@@ -36,3 +36,8 @@ ClapImplicit >> isValid [
 	self flag: 'could be false if resulted from wrong access...'.
 	^ true
 ]
+
+{ #category : #evaluating }
+ClapImplicit >> value: arg [
+	^ specification valueForImplicit: self with: arg
+]

@@ -3,7 +3,7 @@ I represent a class which represents a failed match.
 "
 Class {
 	#name : #ClapMismatch,
-	#superclass : #ClapExplicit,
+	#superclass : #ClapWordMatch,
 	#category : #'Clap-Core-Activation'
 }
 
@@ -14,7 +14,8 @@ ClapMismatch >> at: aSpec [
 
 { #category : #matching }
 ClapMismatch >> completeMatchOn: aStream [
-	self rawWord: aStream peek
+	word:= aStream peek.
+	startIndex := aStream position + 1.
 ]
 
 { #category : #testing }
@@ -30,7 +31,7 @@ ClapMismatch >> isValid [
 { #category : #printing }
 ClapMismatch >> printDetailsOn: aStream [
 	aStream
-		nextPutAll: rawWord;
+		nextPutAll: word;
 		nextPutAll: ' ≠ ';
 		print: specification
 ]

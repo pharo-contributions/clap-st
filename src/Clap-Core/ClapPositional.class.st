@@ -25,7 +25,7 @@ ClapPositional >> canMatchWith: word [
 
 { #category : #accessing }
 ClapPositional >> matchClass [
-	^ ClapPositionalMatch
+	^ ClapWordMatch
 ]
 
 { #category : #documenting }

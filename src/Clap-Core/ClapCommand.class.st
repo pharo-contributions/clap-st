@@ -100,11 +100,6 @@ ClapCommand >> initialize [
 	flags := OrderedCollection new.
 ]
 
-{ #category : #accessing }
-ClapCommand >> matchClass [
-	^ ClapCommandMatch
-]
-
 { #category : #enumerating }
 ClapCommand >> parametersDo: aBlock [
 	super parametersDo: aBlock.
@@ -127,4 +122,11 @@ ClapCommand >> subcommands [
 { #category : #documenting }
 ClapCommand >> synopsisOn: aStream [
 	aStream nextPutAll: self canonicalName
+]
+
+{ #category : #accessing }
+ClapCommand >> valueFor: aMatch with: arg [
+	^ aMatch
+		matchedSubcommand: [ :sub | sub value: arg ]
+		ifNone: [ super valueFor: aMatch with: arg ]
 ]

@@ -53,7 +53,7 @@ ClapCommandTest >> testMatchesWithSingleFlag [
 	
 	argv should receive next twice.
 	match should not be isMismatch.
-	match should be includesKey: 'bar'
+	match should be includesMatchNamed: 'bar'
 ]
 
 { #category : #tests }
@@ -70,7 +70,7 @@ ClapCommandTest >> testMatchesWithSinglePositional [
 	argv should receive next twice.
 	match should not be isMismatch.
 	match word should equal: 'foo'.
-	match should be includesKey: 'bar'.
+	match should be includesMatchNamed: 'bar'.
 	(match atName: 'bar') word should equal: 'valueforbar'
 ]
 
@@ -87,7 +87,7 @@ ClapCommandTest >> testMatchesWithSingleSubcommand [
 	argv should receive next twice.
 	argv should receive atEnd twice.
 	match should not be isMismatch.
-	match should be includesKey: 'bar'
+	match should be includesMatchNamed: 'bar'
 ]
 
 { #category : #tests }

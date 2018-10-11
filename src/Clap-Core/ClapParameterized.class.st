@@ -61,6 +61,11 @@ ClapParameterized >> initialize [
 	aliases := #()
 ]
 
+{ #category : #accessing }
+ClapParameterized >> matchClass [
+	^ ClapNamedMatch
+]
+
 { #category : #enumerating }
 ClapParameterized >> parametersDo: aBlock [
 	positionals do: aBlock

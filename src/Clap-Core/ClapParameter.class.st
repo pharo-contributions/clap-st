@@ -11,8 +11,8 @@ Class {
 		'description',
 		'multiple',
 		'meaningBlock',
-		'defaultMeaningBlock',
-		'validationBlock'
+		'validationBlock',
+		'implicitMeaningBlock'
 	],
 	#category : #'Clap-Core-Specification'
 }
@@ -58,14 +58,6 @@ ClapParameter >> canMatchAt: aStream [
 ]
 
 { #category : #'matching - testing' }
-ClapParameter >> canMatchExtending: aParameterizedMatch [
-	^ aParameterizedMatch
-		at: self
-		ifFound: [ self isMultiple ]
-		ifAbsent: [ true ]
-]
-
-{ #category : #'matching - testing' }
 ClapParameter >> canMatchWith: word [
 	^ self subclassResponsibility
 ]
@@ -82,12 +74,20 @@ ClapParameter >> canonicalName: aString [
 
 { #category : #accessing }
 ClapParameter >> defaultMeaning [
-	^ defaultMeaningBlock
+	self
+		deprecated: 'Renamed to #implicitMeaning'
+		transformWith: '`@receiver defaultMeaning' -> '`@receiver implicitMeaning'.
+	
+	^ self implicitMeaning
 ]
 
 { #category : #initialization }
 ClapParameter >> defaultMeaning: aBlock [
-	defaultMeaningBlock := aBlock
+	self
+		deprecated: 'Renamed to #implicitMeaning:'
+		transformWith: '`@receiver defaultMeaning: `@block' -> '`@receiver implicitMeaning: `@block'.
+
+	self implicitMeaning: aBlock
 ]
 
 { #category : #accessing }
@@ -100,12 +100,22 @@ ClapParameter >> description: aString [
 	description := aString
 ]
 
+{ #category : #accessing }
+ClapParameter >> implicitMeaning [
+	^ implicitMeaningBlock
+]
+
+{ #category : #initialization }
+ClapParameter >> implicitMeaning: aBlock [
+	implicitMeaningBlock := aBlock
+]
+
 { #category : #initialization }
 ClapParameter >> initialize [
 	description := ''.
 	multiple := false.
 	meaningBlock := self basicMeaning.
-	defaultMeaningBlock := meaningBlock
+	implicitMeaningBlock := meaningBlock
 ]
 
 { #category : #testing }
@@ -192,7 +202,14 @@ ClapParameter >> validations: aBlock [
 	validationBlock := aBlock
 ]
 
-{ #category : #matching }
-ClapParameter >> with: partialMatch matchWordOn: aStream [
-	partialMatch rawWord: aStream next
+{ #category : #accessing }
+ClapParameter >> valueFor: aMatch with: arg [
+	^ self meaning
+		cull: aMatch
+		cull: arg
+]
+
+{ #category : #accessing }
+ClapParameter >> valueForImplicit: aMatch with: arg [
+	^ self implicitMeaning cull: aMatch cull: arg
 ]

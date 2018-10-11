@@ -74,16 +74,24 @@ ClapMatchesTest >> testFlagValue [
 
 { #category : #running }
 ClapMatchesTest >> testMultiplePositional [
-	| match |
-	clap add: ((ClapPositional withName: 'list') multiple: true).
+	| match multi values |
+	multi := (ClapPositional withName: 'list') multiple: true.
+	clap add: multi.
 	
 	match := clap match: #('clap' 'foo' 'bar' 'baz' '-d' 'a/b/c').
 	
 	match should not be isMismatch.
-	match should be includesKey: 'directory'.
-	match should be includesKey: 'list'.
+	match should be includesMatchNamed: 'directory'.
+	match should be includesMatchNamed: 'list'.
+	match should be includesMatchOf: multi.
+	
+	(match occurrencesOf: multi) size should be: 3.
 	(match occurrencesNamed: 'list' collect: #value) should equal: #('foo' 'bar' 'baz').
 	((match atName: 'list') allOccurrencesCollect: #value) should equal: #('foo' 'bar' 'baz').
+	
+	values := 0.
+	match occurrencesNamed: 'list' do: [ :each | values := values + 1 ].
+	values should be: 3
 ]
 
 { #category : #running }
@@ -103,25 +111,32 @@ ClapMatchesTest >> testRootPositionalBeforeSubcommand [
 	match := clap match: #('clap' '--directory' 'foo/bar/baz' 'this').
 	
 	match should not be isMismatch.
-	match should be includesKey: 'directory'.
-	match should be includesKey: 'this'.
-	match should not be includesKey: 'that'.
+	match should be includesMatchNamed: 'directory'.
+	match should be includesMatchNamed: 'this'.
+	match should not be includesMatchNamed: 'that'.
 	((match atName: 'directory') atName: 'DIR') value should equal: 'foo/bar/baz'.
 	(match at: dirFlag) positionalValues should equal: #( 'foo/bar/baz' )
 
 ]
 
 { #category : #running }
-ClapMatchesTest >> testThis [
-	| match |
+ClapMatchesTest >> testSubcommandAccessing [
+	| match found |
 	match := clap match: #('clap' 'this').
 	
 	match should not be isMismatch.
-	match should not be includesKey: 'directory'.
-	match should be includesKey: 'this'.
-	match should not be includesKey: 'that'.
+	match should not be includesMatchNamed: 'directory'.
+	match should be includesMatchNamed: 'this'.
+	match should not be includesMatchNamed: 'that'.
 	(match atName: 'this') should not be isMismatch.
-	(match atName: 'this') should not be includesKey: 'slow'
+	(match atName: 'this') should not be includesMatchNamed: 'slow'.
+	
+	self
+		should: [ match atName: 'this' ifFound: [ Notification signal ] ]
+		raise: Notification.
+	self
+		should: [ match atName: 'this' ifFound: [ Notification signal ] ifAbsent: [ self fail ] ]
+		raise: Notification.
 ]
 
 { #category : #running }

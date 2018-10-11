@@ -54,21 +54,20 @@ ClapCommandLineExamples class >> git [
 { #category : #'command line' }
 ClapCommandLineExamples class >> hello [
 	"The usual Hello-World example, demonstrating a Clap command with a couple options."
+
 	<commandline>
-	
 	^ (ClapCommand withName: 'hello')
 		description: 'Provides greetings';
 		add: ClapFlag forHelp;
-		add: ((ClapFlag withName: 'whisper')
-			description: 'Greet discretely');
-		add: ((ClapFlag withName: 'shout')
-			description: 'Greet loudly');
-		add: ((ClapPositional withName: 'who')
-			description: 'Recipient of the greetings';
-			multiple: true;
-			validations: [ :pos | { pos where word should matchRegex: '.*[^[:punct:]]$' } ];
-			defaultMeaning: [ 'world' ]);
-		meaning: [ :args |
+		add: ((ClapFlag withName: 'whisper') description: 'Greet discretely');
+		add: ((ClapFlag withName: 'shout') description: 'Greet loudly');
+		add:
+			((ClapPositional withName: 'who')
+				description: 'Recipient of the greetings';
+				multiple: true;
+				validations: [ :pos | {(pos where word should matchRegex: '.*[^[:punct:]]$')} ];
+				implicitMeaning: [ 'world' ]);
+		meaning: [ :args | 
 			args atName: 'help' ifFound: [ :help |
 				help value; exitSuccess ].
 			

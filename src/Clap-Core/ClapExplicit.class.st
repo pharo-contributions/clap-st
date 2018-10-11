@@ -1,13 +1,8 @@
-"
-I am an abstract class that represents the successful match of a parameter with part of the input.
-
-I link back to my specification and store the word of input that starts the match.
-"
 Class {
 	#name : #ClapExplicit,
 	#superclass : #ClapSubExpression,
 	#instVars : [
-		'rawWord'
+		'startIndex'
 	],
 	#category : #'Clap-Core-Activation'
 }
@@ -19,14 +14,7 @@ ClapExplicit class >> isAbstract [
 
 { #category : #matching }
 ClapExplicit >> completeMatchOn: aStream [
-	specification
-		with: self
-		matchWordOn: aStream
-]
-
-{ #category : #evaluating }
-ClapExplicit >> evaluateMeaning: arg [
-	^ specification meaning cull: self cull: arg
+	self subclassResponsibility
 ]
 
 { #category : #testing }
@@ -34,52 +22,39 @@ ClapExplicit >> isExplicit [
 	^ true
 ]
 
-{ #category : #printing }
-ClapExplicit >> printDetailsOn: aStream [
-	| needsSeparator |
-	needsSeparator := false.
-	self wordsDo: [ :each |
-		needsSeparator ifTrue: [ aStream space ].
-		aStream nextPutAll: each.
-		needsSeparator := true ]
-
-]
-
-{ #category : #printing }
-ClapExplicit >> printOn: aStream [
-	super printOn: aStream.
-	aStream nextPut: $(.
-	self printDetailsOn: aStream.
-	aStream nextPut: $)
-]
-
-{ #category : #accessing }
-ClapExplicit >> rawWord [
-	^ rawWord
-]
-
-{ #category : #initialization }
-ClapExplicit >> rawWord: aByteString [
-	rawWord := aByteString
-]
-
 { #category : #adding }
 ClapExplicit >> recordIn: parentMatch [
 	self parent: parentMatch.
-	self parent recordParameterMatch: self
+	self parent addChild: self
 ]
 
 { #category : #accessing }
-ClapExplicit >> word [
-	^ rawWord asByteArray utf8Decoded
+ClapExplicit >> span [
+	^ self start to: self stop
 ]
 
 { #category : #accessing }
-ClapExplicit >> wordDecoded: anEncoding [
-	^ rawWord asByteArray decodeWith: anEncoding
+ClapExplicit >> start [
+	^ startIndex
 ]
 
-{ #category : #enumerating }
+{ #category : #accessing }
+ClapExplicit >> stop [
+	^ self subclassResponsibility
+]
+
+{ #category : #evaluating }
+ClapExplicit >> words [
+	^ self context arguments
+		collect: [ :str | str asByteArray utf8Decoded ]
+		from: self start
+		to: self stop
+]
+
+{ #category : #evaluating }
 ClapExplicit >> wordsDo: aBlock [
-	aBlock value: self word
+	^ self context arguments
+		from: self start
+		to: self stop
+		do: [ :str | aBlock value: str asByteArray utf8Decoded ]
 ]

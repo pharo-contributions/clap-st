@@ -41,11 +41,6 @@ ClapFlag >> longForm [
 	^ '--' , self canonicalName
 ]
 
-{ #category : #accessing }
-ClapFlag >> matchClass [
-	^ ClapFlagMatch
-]
-
 { #category : #initialization }
 ClapFlag >> meaningCollection [
 	self meaning: [ :match | match positionalValues ]

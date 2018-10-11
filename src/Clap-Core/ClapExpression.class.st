@@ -33,12 +33,6 @@ ClapExpression >> context [
 ]
 
 { #category : #evaluating }
-ClapExpression >> evaluateMeaning: arg [
-	^ specification defaultMeaning
-		cull: self cull: arg
-]
-
-{ #category : #evaluating }
 ClapExpression >> exitSuccess [
 	^ self context exitSuccess
 ]
@@ -114,5 +108,5 @@ ClapExpression >> value [
 
 { #category : #evaluating }
 ClapExpression >> value: arg [
-	^ self evaluateMeaning: arg
+	^ specification valueFor: self with: arg
 ]
