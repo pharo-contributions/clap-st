@@ -6,8 +6,9 @@ os:
   - osx
 
 smalltalk:
-  - Pharo-7.0
-  - Pharo64-7.0
+  - Pharo32-stable
+  - Pharo64-stable
+  - Pharo64-alpha
 
 before_install:
   - |
