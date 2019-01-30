@@ -6,19 +6,19 @@ load helpers
 @test "version, default format" {
     run silently clap version
     assert_success
-    assert_output --regexp '^Pharo-[0-9]\.[0-9].*\.build\.[0-9]+\.sha\.[[:xdigit:]]+.*$'
+    assert_output --regexp '^Pharo-[0-9]\.[0-9].*build\.[0-9]+\.sha\.[[:xdigit:]]+.*$'
 }
 
 @test "version, full" {
     run silently clap version --full
     assert_success
-    assert_output --regexp '^Pharo-[0-9]\.[0-9].*\.build\.[0-9]+\.sha\.[[:xdigit:]]+.*$'
+    assert_output --regexp '^Pharo-[0-9]\.[0-9].*build\.[0-9]+\.sha\.[[:xdigit:]]+.*$'
 }
 
 @test "version, release" {
     run silently clap version --release
     assert_success
-    assert_output --regexp '^Pharo[0-9](\.[0-9])+(alpha|stable)$'
+    assert_output --regexp '^Pharo[0-9](\.[0-9])+$'
 }
 
 @test "version, numeric" {
