@@ -49,11 +49,9 @@ fari run
 
 #### running the tests
 
-In-image tests run the usual way; some of them rely on
-[Mocketry](http://smalltalkhub.com/#!/~dionisiy/Mocketry). Additionally, a few
-more tests exercise the included commands through the whole system, including VM
-startup and shutdown; running those requires
-[Bats](https://github.com/bats-core/bats-core):
+In-image tests run the usual way. Additionally, a few more tests exercise the
+included commands through the whole system, including VM startup and shutdown;
+running those requires [Bats](https://github.com/bats-core/bats-core):
 
 ```shell
 # $CLAP should contain whatever command launches your VM and image:
