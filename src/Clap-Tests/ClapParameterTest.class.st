@@ -2,10 +2,9 @@ Class {
 	#name : #ClapParameterTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'subject',
-		'argv'
+		'subject'
 	],
-	#category : 'Clap-Tests-Unit'
+	#category : #'Clap-Tests-Unit'
 }
 
 { #category : #testing }
@@ -20,24 +19,30 @@ ClapParameterTest >> classToTest [
 
 { #category : #running }
 ClapParameterTest >> setUp [
-	subject := self classToTest withName: 'foo'.
-	argv := Mock named: 'argv'
+	subject := self classToTest withName: self subjectName
+]
+
+{ #category : #running }
+ClapParameterTest >> subjectName [
+	^ 'foo'
 ]
 
 { #category : #tests }
 ClapParameterTest >> testCanonicalName [
-	subject canonicalName should equal: 'foo'
+	self
+		assert: subject canonicalName
+		equals: self subjectName
 ]
 
 { #category : #tests }
 ClapParameterTest >> testMismatchesAtEnd [
-	| match |
-	argv stub atEnd willReturn: true.
-	argv stub peek willReturn: nil.
+	| argv match |
+	argv := #() readStream.
 	
 	match := subject matchOn: argv.
 	
-	argv should not receive next.
-	match should be isMismatch.
-	match specification should be: subject
+	self assert: match isMismatch.
+	self
+		assert: match specification
+		identicalTo: subject
 ]

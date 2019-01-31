@@ -65,12 +65,14 @@ ClapCommandLineExamples class >> hello [
 			((ClapPositional withName: 'who')
 				description: 'Recipient of the greetings';
 				multiple: true;
-				validations: [ :pos | {(pos where word should matchRegex: '.*[^[:punct:]]$')} ];
 				implicitMeaning: [ 'world' ]);
 		meaning: [ :args | 
-			args atName: 'help' ifFound: [ :help |
-				help value; exitSuccess ].
-			
+			args
+				atName: 'help'
+				ifFound: [ :help | 
+					help
+						value;
+						exitSuccess ].
 			(self with: args) sayHello ]
 ]
 

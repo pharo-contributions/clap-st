@@ -15,5 +15,5 @@ ClapParameterizedTest >> testAddPositional [
 	pos := ClapPositional withName: 'pos'.
 	subject add: pos.
 	
-	subject positionals should include: pos
+	self assert: (subject positionals includes: pos)
 ]

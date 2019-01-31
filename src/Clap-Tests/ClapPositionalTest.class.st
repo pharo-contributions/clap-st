@@ -11,15 +11,15 @@ ClapPositionalTest >> classToTest [
 
 { #category : #tests }
 ClapPositionalTest >> testMatches [
-	| match |
-	argv stub atEnd willReturn: false.
-	argv stub peek willReturn: 'bar'.
-	argv stub next willReturn: 'bar'.
+	| argv match |
+	argv := { 'bar'. #remainder } readStream.
 	
 	match := subject matchOn: argv.
 	
-	argv should receive next once.
-	match should not be isMismatch.
-	match specification should be: subject.
-	match word should equal: 'bar'
+	self deny: match isMismatch.
+	self
+		assert: match specification
+		identicalTo: subject.
+	self assert: match word equals: 'bar'.
+	self assert: argv next equals: #remainder
 ]

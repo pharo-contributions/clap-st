@@ -11,56 +11,64 @@ ClapFlagTest >> classToTest [
 
 { #category : #tests }
 ClapFlagTest >> testMatchesLongForm [
-	| match |
-	argv stub peek willReturn: '--foo'.
-	argv stub next willReturn: '--foo'.
-	argv stub atEnd willReturn: false.
+	| argv flagName match |
+	flagName := '--' , self subjectName.
+	argv := { flagName. #remainder } readStream.
 	
 	match := subject matchOn: argv.
 	
-	argv should receive next once.
-	match should not be isMismatch.
-	match specification should be: subject.
-	match word should equal: '--foo'
+	self deny: match isMismatch.
+	self
+		assert: match specification
+		identicalTo: subject.
+	self assert: match word equals: '--foo'.
+	self assert: argv next equals: #remainder
 ]
 
 { #category : #tests }
 ClapFlagTest >> testMatchesShortForm [
-	| match |
-	argv stub peek willReturn: '-f'.
-	argv stub next willReturn: '-f'.
-	argv stub atEnd willReturn: false.
+	| argv flagName match |
+	flagName := '-' , (self subjectName first: 1).
+	argv := { flagName. #remainder } readStream.
 	
 	match := subject matchOn: argv.
 	
-	argv should receive next once.
-	match should not be isMismatch.
-	match specification should be: subject.
-	match word should equal: '-f'
+	self deny: match isMismatch.
+	self
+		assert: match specification
+		identicalTo: subject.
+	self assert: match word equals: flagName.
+	self assert: argv next equals: #remainder
 ]
 
 { #category : #tests }
 ClapFlagTest >> testMismatchesWrongLongForm [
-	| match |
-	argv stub peek willReturn: '--fooNOT'.
-	argv stub next willReturn: '--fooNOT'.
+	| argv badFlag match |
+	badFlag := '--' , self subjectName , 'NOT'.
+	argv := { badFlag } readStream.
 	
 	match := subject matchOn: argv.
 	
-	argv should not receive next.
-	match should be isMismatch.
-	match specification should be: subject
+	self assert: match isMismatch.
+	self
+		assert: match specification
+		identicalTo: subject.
+	self assert: match word equals: badFlag.
+	self assert: argv next identicalTo: badFlag
 ]
 
 { #category : #tests }
 ClapFlagTest >> testMismatchesWrongShortForm [
-	| match |
-	argv stub peek willReturn: '-F'.
-	argv stub next willReturn: '-F'.
+	| argv badFlag match |
+	badFlag := '-' , (self subjectName first: 1) asUppercase.
+	argv := { badFlag } readStream.
 	
 	match := subject matchOn: argv.
 	
-	argv should not receive next.
-	match should be isMismatch.
-	match specification should be: subject
+	self assert: match isMismatch.
+	self
+		assert: match specification
+		identicalTo: subject.
+	self assert: match word equals: badFlag.
+	self assert: argv next identicalTo: badFlag
 ]

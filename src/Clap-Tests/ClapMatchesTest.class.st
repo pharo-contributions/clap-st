@@ -35,11 +35,13 @@ ClapMatchesTest >> testFlagAbsentValue [
 	slowFlag meaning: [ :flag | flag isMismatch not ].
 	
 	match := clap matchOn: #('clap' 'this') readStream.
-	
 	flagMatch := (match atName: 'this') at: slowFlag.
-	flagMatch should not be isExplicit.
-	flagMatch parent parent should be: match.
-	flagMatch value should be: false.
+
+	self deny: flagMatch isExplicit.
+	self
+		assert: flagMatch parent parent
+		identicalTo: match.
+	self deny: flagMatch value
 
 ]
 
@@ -49,12 +51,14 @@ ClapMatchesTest >> testFlagOmittedValue [
 	clap add: slowFlag. "we need another flag to follow the incomplete one"
 	
 	match := clap match: #('clap' '--directory' '--slow').
-	
 	flagMatch := match at: dirFlag.
-	flagMatch should be isExplicit.
-	flagMatch value should not be: '--slow'.
-	(flagMatch atName: 'DIR') should not be isExplicit.
-	(match at: slowFlag) should be isExplicit.
+
+	self assert: flagMatch isExplicit.
+	self
+		deny: flagMatch value
+		identicalTo: '--slow'.
+	self deny: (flagMatch atName: 'DIR') isExplicit.
+	self assert: (match at: slowFlag) isExplicit.
 
 ]
 
@@ -64,34 +68,32 @@ ClapMatchesTest >> testFlagValue [
 	slowFlag meaning: [ :flag | flag isMismatch not ].
 	
 	match := clap match: #('clap' 'this' '--slow').
-	
 	flagMatch := ((match atName: 'this') at: slowFlag).
-	flagMatch should be isExplicit.
-	flagMatch parent parent should be: match.
-	flagMatch value should be: true.
+	
+	self assert: flagMatch isExplicit.
+	self
+		assert: flagMatch parent parent
+		identicalTo: match.
+	self assert: flagMatch value
 
 ]
 
 { #category : #running }
 ClapMatchesTest >> testMultiplePositional [
-	| match multi values |
-	multi := (ClapPositional withName: 'list') multiple: true.
-	clap add: multi.
+	| match |
+	clap add: ((ClapPositional withName: 'list') multiple: true).
 	
 	match := clap match: #('clap' 'foo' 'bar' 'baz' '-d' 'a/b/c').
 	
-	match should not be isMismatch.
-	match should be includesMatchNamed: 'directory'.
-	match should be includesMatchNamed: 'list'.
-	match should be includesMatchOf: multi.
-	
-	(match occurrencesOf: multi) size should be: 3.
-	(match occurrencesNamed: 'list' collect: #value) should equal: #('foo' 'bar' 'baz').
-	((match atName: 'list') allOccurrencesCollect: #value) should equal: #('foo' 'bar' 'baz').
-	
-	values := 0.
-	match occurrencesNamed: 'list' do: [ :each | values := values + 1 ].
-	values should be: 3
+	self deny: match isMismatch.
+	self assert: (match includesMatchNamed: 'directory').
+	self assert: (match includesMatchNamed: 'list').
+	self
+		assertCollection: (match occurrencesNamed: 'list' collect: #value) asArray
+		equals: #('foo' 'bar' 'baz').
+	self
+		assertCollection: ((match atName: 'list') allOccurrencesCollect: #value) asArray
+		equals: #('foo' 'bar' 'baz').
 ]
 
 { #category : #running }
@@ -101,7 +103,9 @@ ClapMatchesTest >> testParameterizedFlagValue [
 	
 	match := clap match: #('clap' '--directory' 'foo/bar/baz').
 	
-	(match at: dirFlag) value should equal: (Path * 'foo' / 'bar' / 'baz').
+	self
+		assert: (match at: dirFlag) value
+		equals: (Path * 'foo' / 'bar' / 'baz').
 
 ]
 
@@ -110,12 +114,16 @@ ClapMatchesTest >> testRootPositionalBeforeSubcommand [
 	| match |
 	match := clap match: #('clap' '--directory' 'foo/bar/baz' 'this').
 	
-	match should not be isMismatch.
-	match should be includesMatchNamed: 'directory'.
-	match should be includesMatchNamed: 'this'.
-	match should not be includesMatchNamed: 'that'.
-	((match atName: 'directory') atName: 'DIR') value should equal: 'foo/bar/baz'.
-	(match at: dirFlag) positionalValues should equal: #( 'foo/bar/baz' )
+	self deny: match isMismatch.
+	self assert: (match includesMatchNamed: 'directory').
+	self assert: (match includesMatchNamed: 'this').
+	self deny: (match includesMatchNamed: 'that').
+	self
+		assert: ((match atName: 'directory') atName: 'DIR') value
+		equals: 'foo/bar/baz'.
+	self
+		assert: (match at: dirFlag) positionalValues asArray
+		equals: #( 'foo/bar/baz' )
 
 ]
 
@@ -124,12 +132,12 @@ ClapMatchesTest >> testSubcommandAccessing [
 	| match found |
 	match := clap match: #('clap' 'this').
 	
-	match should not be isMismatch.
-	match should not be includesMatchNamed: 'directory'.
-	match should be includesMatchNamed: 'this'.
-	match should not be includesMatchNamed: 'that'.
-	(match atName: 'this') should not be isMismatch.
-	(match atName: 'this') should not be includesMatchNamed: 'slow'.
+	self deny: match isMismatch.
+	self deny: (match includesMatchNamed: 'directory').
+	self assert: (match includesMatchNamed: 'this').
+	self deny: (match includesMatchNamed: 'that').
+	self deny: (match atName: 'this') isMismatch.
+	self deny: ((match atName: 'this') includesMatchNamed: 'slow').
 	
 	self
 		should: [ match atName: 'this' ifFound: [ Notification signal ] ]
@@ -140,10 +148,25 @@ ClapMatchesTest >> testSubcommandAccessing [
 ]
 
 { #category : #running }
+ClapMatchesTest >> testThis [
+	| match |
+	match := clap match: #('clap' 'this').
+	
+	self deny: match isMismatch.
+	self deny: (match includesMatchNamed: 'directory').
+	self assert: (match includesMatchNamed: 'this').
+	self deny: (match includesMatchNamed: 'that').
+	self deny: (match atName: 'this') isMismatch.
+	self deny: ((match atName: 'this') includesMatchNamed: 'slow')
+]
+
+{ #category : #running }
 ClapMatchesTest >> testWrongCommandMismatches [
 	| match |
 	match := clap match: #('foo' '-d' 'bar/baz/qux' 'this').
 	
-	match should be isMismatch.
-	match word should equal: 'foo'
+	self assert: match isMismatch.
+	self
+		assert: match word
+		equals: 'foo'
 ]

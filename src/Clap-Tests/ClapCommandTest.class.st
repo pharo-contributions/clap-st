@@ -15,7 +15,7 @@ ClapCommandTest >> testAddFlag [
 	flag := ClapFlag withName: 'flag'.
 	subject add: flag.
 	
-	subject flags should include: flag
+	self assert: (subject flags includes: flag)
 ]
 
 { #category : #tests }
@@ -24,93 +24,92 @@ ClapCommandTest >> testAddSubcommand [
 	cmd := ClapCommand withName: 'cmd'.
 	subject add: cmd.
 	
-	subject subcommands should include: cmd
+	self assert: (subject subcommands includes: cmd)
 ]
 
 { #category : #tests }
 ClapCommandTest >> testMatches [
-	| match |
-	argv stub peek willReturn: 'foo'.
-	argv stub next willReturn: 'foo'.
-	argv stub atEnd willReturn: false.
+	| arg argv match |
+	arg := self subjectName copy.
+	argv := { arg. #remainder } readStream.
 	
 	match := subject matchOn: argv.
 	
-	argv should receive next.
-	match should not be isMismatch.
-	match word should equal: 'foo'
+	self deny: match isMismatch.
+	self assert: match word equals: arg.
+	self assert: argv next equals: #remainder
 ]
 
 { #category : #tests }
 ClapCommandTest >> testMatchesWithSingleFlag [
-	| match |
+	| argv match |
 	subject add: (ClapFlag withName: 'bar').
-	argv stub peek willReturnValueFrom: #('foo' '--bar').
-	argv stub next willReturnValueFrom: #('foo' '--bar').
-	argv stub atEnd willReturn: false.
+	argv := { self subjectName . '--bar' . #remainder } readStream.
 		
 	match := subject matchOn: argv.
 	
-	argv should receive next twice.
-	match should not be isMismatch.
-	match should be includesMatchNamed: 'bar'
+	self deny: match isMismatch.
+	self assert: (match includesMatchNamed: 'bar').
+	self assert: argv next equals: #remainder
 ]
 
 { #category : #tests }
 ClapCommandTest >> testMatchesWithSinglePositional [
-	| match |
+	| argv match |
 	subject add: (ClapPositional withName: 'bar').
-	argv stub peek willReturnValueFrom: #('foo' 'valueforbar').
-	argv stub next willReturnValueFrom: #('foo' 'valueforbar').
-	argv stub atEnd willReturn: false.
+	argv := { self subjectName copy. 'valueforbar'. #remainder } readStream.
 
 	match := subject matchOn: argv.
 
-	argv should receive atEnd twice.
-	argv should receive next twice.
-	match should not be isMismatch.
-	match word should equal: 'foo'.
-	match should be includesMatchNamed: 'bar'.
-	(match atName: 'bar') word should equal: 'valueforbar'
+	self deny: match isMismatch.
+	self
+		assert: match word
+		equals: self subjectName.
+	self assert: (match includesMatchNamed: 'bar').
+	self
+		assert: (match atName: 'bar') word
+		equals: 'valueforbar'.
+	self assert: argv next equals: #remainder
 ]
 
 { #category : #tests }
 ClapCommandTest >> testMatchesWithSingleSubcommand [
-	| match |
+	| argv match |
 	subject add: (ClapCommand withName: 'bar').
-	argv stub peek willReturnValueFrom: #('foo' 'bar').
-	argv stub next willReturnValueFrom: #('foo' 'bar').
-	argv stub atEnd willReturn: false.
+	argv := { self subjectName. 'bar'. #remainder } readStream.
 	
 	match := subject matchOn: argv.
 	
-	argv should receive next twice.
-	argv should receive atEnd twice.
-	match should not be isMismatch.
-	match should be includesMatchNamed: 'bar'
+	self deny: match isMismatch.
+	self assert: (match includesMatchNamed: 'bar').
+	self assert: argv next equals: #remainder
 ]
 
 { #category : #tests }
 ClapCommandTest >> testMatchingStopsAtWrongFlag [
-	| match |
+	| argv badFlag match |
 	subject add: (ClapFlag withName: 'bar').
-	argv stub peek willReturnValueFrom: #('foo' '--notbar' 'Object').
-	argv stub next willReturnValueFrom: #('foo' '--notbar' 'Object').
-	argv stub atEnd willReturn: false.
+	badFlag := '--notbar'.
+	argv := { self subjectName. badFlag } readStream.
 
 	match := subject matchOn: argv.
 
-	match should be isMatch.
-	argv should receive next once
+	self assert: match isMatch.
+	self
+		assert: argv next
+		identicalTo: badFlag
 ]
 
 { #category : #tests }
 ClapCommandTest >> testMismatchesDifferentAlias [
-	| match |
-	argv stub peek willReturn: 'fooNOT'.
+	| argv badCommand match |
+	badCommand := self subjectName , 'NOT'.
+	argv := { badCommand } readStream.
 	
 	match := subject matchOn: argv.
 	
-	argv should not receive next.
-	match should be isMismatch
+	self assert: match isMismatch.
+	self
+		assert: argv next
+		identicalTo: badCommand
 ]

@@ -12,9 +12,11 @@ ClapDocumentationTest >> testHelloShortUsage [
 	doc := ClapDocumenter stringFrom: [ :documenter | documenter explain: command ].
 	
 	self assert: (doc endsWith: OSPlatform current lineEnding).
-	self assert: (doc lines first: 3) equals: #(
-		'Provides greetings'
-		''
-		'Usage: hello [--help] [--whisper] [--shout] [<who>]'
-	)
+	self
+		assert: (doc lines first: 3)
+		equals: #(
+			'Provides greetings'
+			''
+			'Usage: hello [--help] [--whisper] [--shout] [<who>]'
+		)
 ]

@@ -191,10 +191,7 @@ ClapParameter >> validate: aMatch on: aReport [
 ClapParameter >> validationDiagnosticsFor: aMatch [
 	^ validationBlock
 		ifNil: [ #() ]
-		ifNotNil: [
-			[ validationBlock value: aMatch ]
-				on: SpecOfFailed
-				do: #resume ]
+		ifNotNil: [ validationBlock value: aMatch ]
 ]
 
 { #category : #initialization }

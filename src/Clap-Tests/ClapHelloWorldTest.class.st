@@ -20,9 +20,9 @@ ClapHelloWorldTest >> testHello [
 	| match |
 	match := hello match: #('hello').
 
-	match should not be isMismatch.
-	match should not be includesMatchNamed: 'shout'.
-	match should not be includesMatchNamed: 'who'
+	self deny: match isMismatch.
+	self deny: (match includesMatchNamed: 'shout').
+	self deny: (match includesMatchNamed: 'who')
 ]
 
 { #category : #'tests - matching' }
@@ -30,11 +30,15 @@ ClapHelloWorldTest >> testHelloWorld [
 	| match |
 	match := hello match: #('hello' 'world').
 
-	match should not be isMismatch.
-	match should not be includesMatchNamed: 'shout'.
-	match should be includesMatchNamed: 'who'.
-	(match atName: 'who') word should equal: 'world'.
-	(match atName: 'who') parent should be: match
+	self deny: match isMismatch.
+	self deny: (match includesMatchNamed: 'shout').
+	self assert: (match includesMatchNamed: 'who').
+	self
+		assert: (match atName: 'who') word
+		equals: 'world'.
+	self
+		assert: (match atName: 'who') parent
+		identicalTo: match
 ]
 
 { #category : #'tests - matching' }
@@ -47,13 +51,17 @@ ClapHelloWorldTest >> testLanguageFlag [
 
 	match := hello match: #('hello' 'monde' '--lang' 'fr' '--shout').
 
-	match should not be isMismatch.
-	match should be includesMatchNamed: 'shout'.
-	match should be includesMatchNamed: 'who'.
-	(match atName: 'who') word should equal: 'monde'.
-	match should be includesMatchNamed: 'lang'.
-	(match atName: 'lang') should be includesMatchNamed: 'language'.
-	(match atName: 'lang') value should equal: 'fr'.
+	self deny: match isMismatch.
+	self assert: (match includesMatchNamed: 'shout').
+	self assert: (match includesMatchNamed: 'who').
+	self
+		assert: (match atName: 'who') word
+		equals: 'monde'.
+	self assert: (match includesMatchNamed: 'lang').
+	self assert: ((match atName: 'lang') includesMatchNamed: 'language').
+	self
+		assert: (match atName: 'lang') value
+		equals: 'fr'.
 	self flag: 'needs a context'. "((match atName: 'lang') at: lang) context should be: match."
 ]
 
@@ -62,9 +70,9 @@ ClapHelloWorldTest >> testShouting [
 	| match |
 	match := hello match: #('hello' '--shout').
 
-	match should not be isMismatch.
-	match should be includesMatchNamed: 'shout'.
-	match should not be includesMatchNamed: 'who'
+	self deny: match isMismatch.
+	self assert: (match includesMatchNamed: 'shout').
+	self deny: (match includesMatchNamed: 'who')
 ]
 
 { #category : #'tests - matching' }
@@ -72,9 +80,9 @@ ClapHelloWorldTest >> testShoutingAfterthought [
 	| match |
 	match := hello match: #('hello' 'world' '-s').
 
-	match should not be isMismatch.
-	match should be includesMatchNamed: 'shout'.
-	match should be includesMatchNamed: 'who'
+	self deny: match isMismatch.
+	self assert: (match includesMatchNamed: 'shout').
+	self assert: (match includesMatchNamed: 'who')
 ]
 
 { #category : #'tests - matching' }
@@ -82,7 +90,7 @@ ClapHelloWorldTest >> testShoutingWorld [
 	| match |
 	match := hello match: #('hello' '--shout' 'world').
 
-	match should not be isMismatch.
-	match should be includesMatchNamed: 'shout'.
-	match should be includesMatchNamed: 'who'
+	self deny: match isMismatch.
+	self assert: (match includesMatchNamed: 'shout').
+	self assert: (match includesMatchNamed: 'who')
 ]
