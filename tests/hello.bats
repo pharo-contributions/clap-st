@@ -30,6 +30,7 @@ load helpers
 }
 
 @test "hello, bad format" {
+    skip 'not implemented yet (relies on validations)'
     run clap hello foo.
     assert_failure
     assert_output --partial 'foo.'
@@ -62,7 +63,7 @@ load helpers
 }
 
 @test "hello whispering and shouting" {
-    skip 'not yet implemented'
+    skip 'not yet implemented (relies on validations)'
     run clap hello --shout --whisper
     assert_failure
 }
