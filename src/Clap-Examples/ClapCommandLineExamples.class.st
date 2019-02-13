@@ -62,6 +62,13 @@ ClapCommandLineExamples class >> hello [
 		add: ((ClapFlag withName: 'whisper') description: 'Greet discretely');
 		add: ((ClapFlag withName: 'shout') description: 'Greet loudly');
 		add:
+			((ClapFlag withName: 'language')
+				description: 'Select language of greeting';
+				add: ((ClapPositional withName: 'langCode')
+					meaning: [ :pos | pos word asSymbol ];
+					implicitMeaning: [ #en ]);
+				meaning: [ :flag | (flag atName: 'langCode') value ]);
+		add:
 			((ClapPositional withName: 'who')
 				description: 'Recipient of the greetings';
 				multiple: true;
@@ -88,6 +95,36 @@ ClapCommandLineExamples >> argumentAt: argumentName [
 	^ (arguments atName: argumentName) value
 ]
 
+{ #category : #running }
+ClapCommandLineExamples >> defaultLanguage [
+	^ #en
+]
+
+{ #category : #running }
+ClapCommandLineExamples >> greeting [
+	| langs |
+	langs := self greetingTranslations.
+	^ langs at: self language
+		ifAbsent: [ langs at: self defaultLanguage ]
+]
+
+{ #category : #running }
+ClapCommandLineExamples >> greetingTranslations [
+	^ {
+		#en -> 'hello'.
+		#eo -> 'saluton'.
+		#es -> 'hola'.
+		#fr -> 'bonjour'.
+		#uk -> 'pryvit'.
+		#pt -> 'olá'
+	} asDictionary
+]
+
+{ #category : #running }
+ClapCommandLineExamples >> language [
+	^ self argumentAt: 'language'
+]
+
 { #category : #'accessing - private' }
 ClapCommandLineExamples >> outStream [
 	^ outStream ifNil: [ outStream := VTermOutputDriver on: arguments context stdout ]
@@ -100,7 +137,7 @@ ClapCommandLineExamples >> recipients [
 
 { #category : #running }
 ClapCommandLineExamples >> sayHello [
-	arguments validateAll.
+	"arguments validateAll."
 	self sayHelloOn: self outStream
 ]
 
@@ -108,7 +145,7 @@ ClapCommandLineExamples >> sayHello [
 ClapCommandLineExamples >> sayHelloOn: aStream [
 	self recipients do: [ :each |
 		aStream
-			<< (self voice: 'hello, ' , each);
+			<< (self voice: self greeting , ', ' , each);
 			lf ]
 ]
 
