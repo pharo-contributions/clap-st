@@ -8,6 +8,8 @@ Class {
 BaselineOfClap >> baseline: spec [
 	<baseline>
 	spec for: #common do: [ spec
+		baseline: 'Okay' with: [ spec repository: 'github://cdlm/okay-st' ];
+
 		package: 'Clap-Core';
 		package: 'Clap-CommandLine' with: [ spec requires: #('Clap-Core') ];
 		package: 'Clap-Tests' with: [ spec requires: #('Clap-Core' 'Clap-Examples') ];
