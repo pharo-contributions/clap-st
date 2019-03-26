@@ -5,4 +5,4 @@ Metacello new baseline: #StateSpecs;
 
 Metacello new baseline: #Clap;
   repository: 'gitlocal://.';
-  onLock: #honor; load.
+  onLock: [:ex :old :new | ex honor]; load.
