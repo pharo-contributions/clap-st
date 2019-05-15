@@ -40,7 +40,7 @@ ClapCodeEvaluator class >> with: arguments [
 		yourself
 ]
 
-{ #category : #execution }
+{ #category : #accessing }
 ClapCodeEvaluator >> context [
 	^ arguments context
 ]
@@ -65,7 +65,7 @@ ClapCodeEvaluator >> setArguments: args [
 	arguments := args
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 ClapCodeEvaluator >> source [
 	^ (arguments atName: 'EXPR') value
 ]
