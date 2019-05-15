@@ -38,11 +38,12 @@ ClapTestRunner class >> with: arguments [
 
 { #category : #private }
 ClapTestRunner >> buildSuite [
-	| packages |
-	packages := self packages.
-	suite := TestSuite named: packages size printString , ' packages'.
-	packages
-		do: [ :each | suite addTest: (SUnitSuiteBuilder new visit: each) ]
+	| packageSuites |
+	packageSuites := self packages
+		collect: [ :each | SUnitSuiteBuilder new visit: each ]
+		thenReject: [ :each | each tests isEmpty ].
+	suite := (TestSuite named: packageSuites size printString , ' packages')
+		addTests: packageSuites
 ]
 
 { #category : #accessing }
