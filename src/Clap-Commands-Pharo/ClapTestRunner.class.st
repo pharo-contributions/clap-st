@@ -87,17 +87,6 @@ ClapTestRunner >> packages [
 		as: Set
 ]
 
-{ #category : #execution }
-ClapTestRunner >> runPackage: package [
-	| suite |
-	suite := TestSuite named: package name.
-	package definedClasses do: [ :each |
-		each isTestCase
-			ifTrue: [ each addToSuiteFromSelectors: suite ] ].
-	^ self runSuite: suite
-		 
-]
-
 { #category : #initialization }
 ClapTestRunner >> setArguments: args [
 	arguments := args
