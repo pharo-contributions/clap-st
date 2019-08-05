@@ -10,6 +10,12 @@ smalltalk:
   - Pharo64-stable
   - Pharo64-alpha
 
+matrix:
+  fast_finish: true
+  allow_failures:
+    - smalltalk: Pharo64-alpha
+      os: linux
+
 before_install:
   - |
     case $TRAVIS_OS_NAME in

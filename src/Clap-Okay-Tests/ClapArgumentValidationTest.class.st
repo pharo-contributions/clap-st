@@ -1,7 +1,7 @@
 Class {
 	#name : #ClapArgumentValidationTest,
 	#superclass : #TestCase,
-	#category : #'Clap-Tests-Validations'
+	#category : #'Clap-Okay-Tests'
 }
 
 { #category : #tests }
