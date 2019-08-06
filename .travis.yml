@@ -2,13 +2,13 @@ language: smalltalk
 sudo: true
 
 os:
-  - linux
   - osx
+  - linux
 
 smalltalk:
-  - Pharo32-stable
-  - Pharo64-stable
   - Pharo64-alpha
+  - Pharo64-stable
+  - Pharo32-stable
 
 matrix:
   fast_finish: true
@@ -18,15 +18,8 @@ matrix:
 
 before_install:
   - |
-    case $TRAVIS_OS_NAME in
-    linux)
-      git clone --depth 1 --branch v1.1.0 https://github.com/bats-core/bats-core.git
-      export PATH="$(pwd)/bats-core/bin:$PATH"
-      ;;
-    osx)
-      brew install bats-core
-      ;;
-    esac
+    git clone --depth 1 --branch v1.1.0 https://github.com/bats-core/bats-core.git
+    export PATH="$(pwd)/bats-core/bin:$PATH"
 
 script:
   - smalltalkci
