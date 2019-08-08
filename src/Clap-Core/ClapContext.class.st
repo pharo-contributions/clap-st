@@ -16,7 +16,8 @@ Class {
 		'stdio',
 		'match',
 		'leftovers',
-		'session'
+		'session',
+		'exit'
 	],
 	#category : #'Clap-Core-Activation'
 }
@@ -116,6 +117,11 @@ ClapContext >> context [
 	^ self
 ]
 
+{ #category : #streams }
+ClapContext >> defaultStdio [
+	^ ClapPluggableStdio onByteArrays
+]
+
 { #category : #matching }
 ClapContext >> doMatch [
 	| args |
@@ -162,14 +168,12 @@ ClapContext >> exitSuccess: message [
 ]
 
 { #category : #activation }
-ClapContext >> handleExit: exit [
+ClapContext >> handleExit: exitException [
 	self hasSessionChanged ifTrue: [ ^ self ].
 
+	exit := exitException.
 	self shouldObeyExit
 		ifTrue: [ exit pass ]
-		ifFalse: [
-			exit isSuccess
-				ifFalse: [ exit resignalAs: (Error new messageText: exit messageText) ] ]
 ]
 
 { #category : #activation }
@@ -230,6 +234,11 @@ ClapContext >> rememberSession [
 	session := Smalltalk session
 ]
 
+{ #category : #initialization }
+ClapContext >> setStdio: anStdio [
+	stdio := anStdio
+]
+
 { #category : #testing }
 ClapContext >> shouldObeyExit [
 	^ obeyingExits and: [ Smalltalk isInteractive not ]
@@ -260,7 +269,7 @@ ClapContext >> stdinEncoded: anEncoding [
 
 { #category : #streams }
 ClapContext >> stdio [
-	^ stdio ifNil: [ Stdio ]
+	^ stdio ifNil: [ stdio := self defaultStdio ]
 ]
 
 { #category : #streams }
