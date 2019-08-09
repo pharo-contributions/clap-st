@@ -5,16 +5,10 @@ Class {
 	#name : #ClapPharoVersion,
 	#superclass : #Object,
 	#instVars : [
-		'stream'
+		'arguments'
 	],
 	#category : #'Clap-Commands-Pharo'
 }
-
-{ #category : #'instance creation' }
-ClapPharoVersion class >> showVersionsNamed: formatNames [
-	self new
-		showVersionsNamed: formatNames
-]
 
 { #category : #'command line' }
 ClapPharoVersion class >> version [
@@ -33,8 +27,24 @@ ClapPharoVersion class >> version [
 				help value; exitSuccess ].
 			args validateAll.
 
-			formats := args flags collect: [ :each | each specification canonicalName asSymbol ].
-			self showVersionsNamed: (formats ifEmpty: [ #(full) ]) ]
+			(self with: args) execute ]
+]
+
+{ #category : #'instance creation' }
+ClapPharoVersion class >> with: arguments [
+	^ self new
+		setArguments: arguments;
+		yourself
+]
+
+{ #category : #accessing }
+ClapPharoVersion >> context [
+	^ arguments context
+]
+
+{ #category : #execution }
+ClapPharoVersion >> execute [
+	self showVersionsNamed: self formats
 ]
 
 { #category : #accessing }
@@ -47,6 +57,13 @@ ClapPharoVersion >> formatStringFor: formatName [
 	^ self perform: (self formatSelectorFor: formatName)
 ]
 
+{ #category : #accessing }
+ClapPharoVersion >> formats [
+	^ (arguments flags
+		collect: [ :each | each specification canonicalName asSymbol ])
+		ifEmpty: [ #(full) ]
+]
+
 { #category : #'version strings' }
 ClapPharoVersion >> fullVersionString [
 	^ SystemVersion current imageVersionString
@@ -55,11 +72,6 @@ ClapPharoVersion >> fullVersionString [
 { #category : #'version strings' }
 ClapPharoVersion >> hashVersionString [
 	^ SystemVersion current commitHash
-]
-
-{ #category : #initialization }
-ClapPharoVersion >> initialize [
-	stream := VTermOutputDriver stdout
 ]
 
 { #category : #'version strings' }
@@ -77,17 +89,18 @@ ClapPharoVersion >> releaseVersionString [
 	^ SystemVersion current shortVersionString
 ]
 
-{ #category : #printing }
-ClapPharoVersion >> showVersionNamed: formatName [
-	stream
-		nextPutAll: (self formatStringFor: formatName);
-		lf
+{ #category : #initialization }
+ClapPharoVersion >> setArguments: args [
+	arguments := args
 ]
 
 { #category : #printing }
 ClapPharoVersion >> showVersionsNamed: formatNames [
-	formatNames do: [ :each | self showVersionNamed: each ].
-	stream flush
+	| out |
+	out := self context stdout.
+	formatNames do: [ :each | 
+		out nextPutAll: (self formatStringFor: each); lf ].
+	out flush
 ]
 
 { #category : #'version strings' }
