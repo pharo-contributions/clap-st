@@ -59,23 +59,6 @@ ClapContext class >> withPragmaCommands [
 	^ self withAll: self pragmaCommands
 ]
 
-{ #category : #activation }
-ClapContext >> activateWith: args [
-	^ self
-		activateWith: args
-		onExit: [ :exit | self handleExit: exit ]
-]
-
-{ #category : #activation }
-ClapContext >> activateWith: args onExit: exitBlock [
-	^ [ self
-			rememberSession;
-			interpret: args
-	]
-	on: Exit
-	do: exitBlock
-]
-
 { #category : #validation }
 ClapContext >> allValidations [
 	^ self validateOn: ClapValidationReport success.
@@ -137,6 +120,29 @@ ClapContext >> documenter [
 	^ ClapDocumenter on: self stdout
 ]
 
+{ #category : #activation }
+ClapContext >> execute [
+	^ self executeToExit: [ :exc | self handleExit: exc ]
+]
+
+{ #category : #activation }
+ClapContext >> executeToExit: exitBlock [
+	^ [
+		self rememberSession;
+			ifMatch: [ :m | 
+				m value: self.
+				self exitSuccess ]
+			ifMismatch: [ self noneMatched ]
+	]
+		on: Exit
+		do: exitBlock
+]
+
+{ #category : #accessing }
+ClapContext >> exit [
+	^ exit
+]
+
 { #category : #running }
 ClapContext >> exit: status [
 	^ (Exit status: status) signal
@@ -193,15 +199,6 @@ ClapContext >> ifMatch: matchBlock ifMismatch: failBlock [
 ClapContext >> initialize [
 	arguments := #().
 	obeyingExits := false
-]
-
-{ #category : #activation }
-ClapContext >> interpret: argumentsSequence [
-	^ self arguments: argumentsSequence;
-		ifMatch: [ :match |
-			match value: self.
-			self exitSuccess ]
-		ifMismatch: [ self noneMatched ]
 ]
 
 { #category : #accessing }
