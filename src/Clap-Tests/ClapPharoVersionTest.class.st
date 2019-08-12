@@ -1,21 +1,8 @@
 Class {
 	#name : #ClapPharoVersionTest,
-	#superclass : #TestCase,
-	#instVars : [
-		'context'
-	],
+	#superclass : #ClapPharoCommandsTest,
 	#category : #'Clap-Tests-Commands'
 }
-
-{ #category : #asserting }
-ClapPharoVersionTest >> assertSuccess [
-	self assert: context exit status equals: 0
-]
-
-{ #category : #accessing }
-ClapPharoVersionTest >> outputString [
-	^ context stdio stdout contents utf8Decoded
-]
 
 { #category : #tests }
 ClapPharoVersionTest >> testDefaultFormat [

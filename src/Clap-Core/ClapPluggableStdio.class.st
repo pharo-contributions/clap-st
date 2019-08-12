@@ -11,8 +11,18 @@ Class {
 
 { #category : #'instance creation' }
 ClapPluggableStdio class >> onByteArrays [
+	^ self onByteArraysWithInputBytes: #[]
+]
+
+{ #category : #'instance creation' }
+ClapPluggableStdio class >> onByteArraysWithInput: aString [
+	^ self onByteArraysWithInputBytes: aString utf8Encoded
+]
+
+{ #category : #'instance creation' }
+ClapPluggableStdio class >> onByteArraysWithInputBytes: aByteArray [
 	^ self new
-		initializeInput: #[] readStream
+		initializeInput: aByteArray readStream
 		output: #[] writeStream
 		error: #[] writeStream
 ]
