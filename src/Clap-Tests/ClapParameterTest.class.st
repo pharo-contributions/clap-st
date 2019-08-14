@@ -9,7 +9,7 @@ Class {
 
 { #category : #testing }
 ClapParameterTest class >> isAbstract [
-	^ self == ClapParameterTest
+	^ self = ClapParameterTest
 ]
 
 { #category : #accessing }

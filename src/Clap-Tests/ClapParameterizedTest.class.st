@@ -6,7 +6,7 @@ Class {
 
 { #category : #testing }
 ClapParameterizedTest class >> isAbstract [
-	^ self == ClapParameterizedTest
+	^ self = ClapParameterizedTest
 ]
 
 { #category : #tests }

@@ -30,7 +30,7 @@ ClapFlag >> addTo: parentParameter [
 	^ parentParameter addFlag: self
 ]
 
-{ #category : #matching }
+{ #category : #'matching - testing' }
 ClapFlag >> canMatchWith: word [
 	^ word = self shortForm
 		or: [ word = self longForm ]

@@ -1,3 +1,6 @@
+"
+I am a utility for replacing the normal Stdio during tests and maybe for activating Clap commands from a workspace.
+"
 Class {
 	#name : #ClapPluggableStdio,
 	#superclass : #Object,
