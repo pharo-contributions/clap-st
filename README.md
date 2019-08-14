@@ -47,21 +47,6 @@ fari build
 fari run
 ```
 
-#### running the tests
-
-In-image tests run the usual way. Additionally, a few more tests exercise the
-included commands through the whole system, including VM startup and shutdown;
-running those requires [Bats](https://github.com/bats-core/bats-core):
-
-```shell
-# $CLAP should contain whatever command launches your VM and image:
-# export CLAP="$PHARO_VM $PHARO_IMAGE"
-# or, with fari: export CLAP="fari run --"
-bats tests
-```
-
-You can also check the `.travis.yml` file for reference.
-
 ### Defining and invoking commands
 
 Commands and subcommands are instances of `ClapCommand`. To make a command

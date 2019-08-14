@@ -15,12 +15,3 @@ matrix:
   allow_failures:
     - smalltalk: Pharo64-alpha
       os: linux
-
-before_install:
-  - |
-    git clone --depth 1 --branch v1.1.0 https://github.com/bats-core/bats-core.git
-    export PATH="$(pwd)/bats-core/bin:$PATH"
-
-script:
-  - smalltalkci
-  - bats tests
