@@ -15,9 +15,8 @@ Commands registered in the system (returned from a class-side method with the <c
 "
 Class {
 	#name : #ClapCommandLineExamples,
-	#superclass : #Object,
+	#superclass : #ClapApplication,
 	#instVars : [
-		'arguments',
 		'outStream'
 	],
 	#category : #'Clap-Examples'
@@ -74,20 +73,9 @@ ClapCommandLineExamples class >> hello [
 				multiple: true;
 				implicitMeaning: [ 'world' ]);
 		meaning: [ :args | 
-			args
-				atName: 'help'
-				ifFound: [ :help | 
-					help
-						value;
-						exitSuccess ].
-			(self with: args) sayHello ]
-]
-
-{ #category : #'instance creation' }
-ClapCommandLineExamples class >> with: arguments [
-	^ self new
-		setArguments: arguments;
-		yourself
+			args atName: 'help' ifFound: [ :help | 
+				help value; exitSuccess ].
+			(self with: args) execute ]
 ]
 
 { #category : #'accessing - private' }
@@ -98,6 +86,12 @@ ClapCommandLineExamples >> argumentAt: argumentName [
 { #category : #running }
 ClapCommandLineExamples >> defaultLanguage [
 	^ #en
+]
+
+{ #category : #running }
+ClapCommandLineExamples >> execute [
+	self sayHello
+
 ]
 
 { #category : #running }
@@ -147,11 +141,6 @@ ClapCommandLineExamples >> sayHelloOn: aStream [
 		aStream
 			<< (self voice: self greeting , ', ' , each);
 			lf ]
-]
-
-{ #category : #initialization }
-ClapCommandLineExamples >> setArguments: args [
-	arguments := args
 ]
 
 { #category : #accessing }

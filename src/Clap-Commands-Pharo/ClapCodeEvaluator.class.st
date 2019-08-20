@@ -3,10 +3,7 @@ I evaluate code passed via standard input or as arguments from the command line.
 "
 Class {
 	#name : #ClapCodeEvaluator,
-	#superclass : #Object,
-	#instVars : [
-		'arguments'
-	],
+	#superclass : #ClapApplication,
 	#category : #'Clap-Commands-Pharo'
 }
 
@@ -33,18 +30,6 @@ ClapCodeEvaluator class >> evaluate [
 			(self with: args) execute ]
 ]
 
-{ #category : #'instance creation' }
-ClapCodeEvaluator class >> with: arguments [
-	^ self new
-		setArguments: arguments;
-		yourself
-]
-
-{ #category : #accessing }
-ClapCodeEvaluator >> context [
-	^ arguments context
-]
-
 { #category : #execution }
 ClapCodeEvaluator >> execute [
 	| result |
@@ -53,16 +38,6 @@ ClapCodeEvaluator >> execute [
 	self context hasSessionChanged "we might be waking up after a #save:andQuit:"
 		ifFalse: [ self outputStreamDo: [ :out | out print: result; lf ] ]
 
-]
-
-{ #category : #execution }
-ClapCodeEvaluator >> outputStreamDo: aBlock [
-	aBlock value: self context stdout
-]
-
-{ #category : #initialization }
-ClapCodeEvaluator >> setArguments: args [
-	arguments := args
 ]
 
 { #category : #accessing }

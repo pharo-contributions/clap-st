@@ -1,8 +1,10 @@
+"
+I run unit tests found in specified packages, and display their results to standard output.
+"
 Class {
 	#name : #ClapTestRunner,
-	#superclass : #Object,
+	#superclass : #ClapApplication,
 	#instVars : [
-		'arguments',
 		'suite'
 	],
 	#category : #'Clap-Commands-Pharo'
@@ -29,13 +31,6 @@ ClapTestRunner class >> test [
 			(self with: args) execute ]
 ]
 
-{ #category : #'instance creation' }
-ClapTestRunner class >> with: arguments [
-	^ self new
-		setArguments: arguments;
-		yourself
-]
-
 { #category : #private }
 ClapTestRunner >> buildSuite [
 	| packageSuites |
@@ -46,29 +41,21 @@ ClapTestRunner >> buildSuite [
 		addTests: packageSuites
 ]
 
-{ #category : #accessing }
-ClapTestRunner >> context [
-	^ arguments context
-]
-
 { #category : #execution }
 ClapTestRunner >> execute [
 	| result |
 	self outputStreamDo: [ :out |
 		self suite
 			when: TestAnnouncement
-			do: [ :ann | out nextPutAll: ann test name; lf ].
+			do: [ :ann | out nextPutAll: ann test name; lf ];
+			when: TestCaseAnnouncement
+			do: [ :ann | out space; space; nextPutAll: ann testSelector; lf ].
 		result := [ self suite run ]
 			ensure: [ self suite unsubscribe: TestAnnouncement ].
 		out print: result; lf
 	].
 	
 	self context exitSuccess
-]
-
-{ #category : #execution }
-ClapTestRunner >> outputStreamDo: aBlock [
-	aBlock value: self context stdout
 ]
 
 { #category : #accessing }
@@ -85,11 +72,6 @@ ClapTestRunner >> packages [
 			RPackage organizer packages
 				select: [ :package | regex matches: package name ]]
 		as: Set
-]
-
-{ #category : #initialization }
-ClapTestRunner >> setArguments: args [
-	arguments := args
 ]
 
 { #category : #accessing }

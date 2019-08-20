@@ -3,10 +3,7 @@ I report release and version information about the image and VM, in various form
 "
 Class {
 	#name : #ClapPharoVersion,
-	#superclass : #Object,
-	#instVars : [
-		'arguments'
-	],
+	#superclass : #ClapApplication,
 	#category : #'Clap-Commands-Pharo'
 }
 
@@ -28,18 +25,6 @@ ClapPharoVersion class >> version [
 			args validateAll.
 
 			(self with: args) execute ]
-]
-
-{ #category : #'instance creation' }
-ClapPharoVersion class >> with: arguments [
-	^ self new
-		setArguments: arguments;
-		yourself
-]
-
-{ #category : #accessing }
-ClapPharoVersion >> context [
-	^ arguments context
 ]
 
 { #category : #execution }
@@ -87,11 +72,6 @@ ClapPharoVersion >> numericVersionString [
 { #category : #'version strings' }
 ClapPharoVersion >> releaseVersionString [
 	^ SystemVersion current shortVersionString
-]
-
-{ #category : #initialization }
-ClapPharoVersion >> setArguments: args [
-	arguments := args
 ]
 
 { #category : #printing }
