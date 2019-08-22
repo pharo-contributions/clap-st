@@ -19,7 +19,7 @@ ClapPharoVersion class >> version [
 		add: ((ClapFlag withName: 'hash') description: 'Integration commit hash');
 		add: ((ClapFlag withName: 'vm') description: 'VM build and version');
 		add: ((ClapFlag withName: 'license') description: 'Licensing and copyright');
-		meaning: [ :args | | formats |
+		meaning: [ :args |
 			args atName: 'help' ifFound: [ :help |
 				help value; exitSuccess ].
 			args validateAll.
