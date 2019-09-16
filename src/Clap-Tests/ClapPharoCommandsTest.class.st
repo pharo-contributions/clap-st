@@ -14,7 +14,7 @@ ClapPharoCommandsTest class >> isAbstract [
 
 { #category : #asserting }
 ClapPharoCommandsTest >> assertSuccess [
-	self assert: context exit status equals: 0
+	self assert: context exitStatus equals: 0
 ]
 
 { #category : #accessing }

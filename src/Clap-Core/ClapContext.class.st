@@ -17,7 +17,7 @@ Class {
 		'match',
 		'leftovers',
 		'session',
-		'exit'
+		'exitException'
 	],
 	#category : #'Clap-Core-Activation'
 }
@@ -28,12 +28,23 @@ ClapContext class >> defaultRoot [
 		description: 'Entry point for commands implemented with Clap';
 		add: ClapFlag forHelp;
 		add: ClapCommand forHelp;
+
+		add: ((ClapFlag withName: 'save')
+			description: 'Save the image after the command terminates');
+		add: ((ClapFlag withName: 'no-save')
+			description: 'Do not save the image even if the command is stateful');
+		add: ((ClapFlag withName: 'rename')
+			description: 'Rename the image as <NAME> before running the command';
+			add: (ClapPositional withName: 'NAME'));
+
+		add: ((ClapFlag withName: 'keep-alive')
+			description: 'Keep the image running after the command terminates');
+
 		meaning: [ :args |
 			args atName: 'help' ifFound: [ :help |
 				help value; exitSuccess ].
 			args validateAll ];
 		yourself
-	"setup default flags, omnipresent subcommands & basic meanings here"
 ]
 
 { #category : #accessing }
@@ -135,12 +146,14 @@ ClapContext >> executeToExit: exitBlock [
 			ifMismatch: [ self noneMatched ]
 	]
 		on: Exit
-		do: exitBlock
+		do: [ :exception |
+			exitException := exception.
+			exitBlock value: self exitException ]
 ]
 
 { #category : #accessing }
 ClapContext >> exit [
-	^ exit
+	^ self exitSuccess
 ]
 
 { #category : #running }
@@ -153,6 +166,11 @@ ClapContext >> exit: status message: message [
 	^ (Exit status: status) signal: message
 ]
 
+{ #category : #accessing }
+ClapContext >> exitException [
+	^ exitException
+]
+
 { #category : #running }
 ClapContext >> exitFailure [
 	^ Exit signalFailure
@@ -161,6 +179,11 @@ ClapContext >> exitFailure [
 { #category : #running }
 ClapContext >> exitFailure: message [
 	^ Exit signalFailure: message
+]
+
+{ #category : #accessing }
+ClapContext >> exitStatus [
+	^ exitException status
 ]
 
 { #category : #running }
@@ -174,10 +197,9 @@ ClapContext >> exitSuccess: message [
 ]
 
 { #category : #activation }
-ClapContext >> handleExit: exitException [
+ClapContext >> handleExit: exit [
 	self hasSessionChanged ifTrue: [ ^ self ].
 
-	exit := exitException.
 	self shouldObeyExit
 		ifTrue: [ exit pass ]
 ]

@@ -3,7 +3,7 @@ I report release and version information about the image and VM, in various form
 "
 Class {
 	#name : #ClapPharoVersion,
-	#superclass : #ClapApplication,
+	#superclass : #ClapPharoApplication,
 	#category : #'Clap-Commands-Pharo'
 }
 

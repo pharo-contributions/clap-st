@@ -3,7 +3,7 @@ I run unit tests found in specified packages, and display their results to stand
 "
 Class {
 	#name : #ClapTestRunner,
-	#superclass : #ClapApplication,
+	#superclass : #ClapPharoApplication,
 	#instVars : [
 		'suite'
 	],

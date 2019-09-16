@@ -3,7 +3,7 @@ I evaluate code passed via standard input or as arguments from the command line.
 "
 Class {
 	#name : #ClapCodeEvaluator,
-	#superclass : #ClapApplication,
+	#superclass : #ClapPharoApplication,
 	#category : #'Clap-Commands-Pharo'
 }
 
