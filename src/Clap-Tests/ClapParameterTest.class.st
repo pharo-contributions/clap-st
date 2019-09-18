@@ -1,9 +1,6 @@
 Class {
 	#name : #ClapParameterTest,
 	#superclass : #TestCase,
-	#instVars : [
-		'subject'
-	],
 	#category : #'Clap-Tests-Unit'
 }
 
@@ -18,9 +15,14 @@ ClapParameterTest >> classToTest [
 ]
 
 { #category : #running }
+ClapParameterTest >> namedSubject [
+	^ self classToTest withName: self subjectName
+]
+
+{ #category : #running }
 ClapParameterTest >> setUp [
 	super setUp.
-	subject := self classToTest withName: self subjectName
+	subject := self namedSubject
 ]
 
 { #category : #running }
@@ -31,13 +33,21 @@ ClapParameterTest >> subjectName [
 { #category : #tests }
 ClapParameterTest >> testCanonicalName [
 	self
-		assert: subject canonicalName
+		assert: self namedSubject canonicalName
 		equals: self subjectName
 ]
 
 { #category : #tests }
+ClapParameterTest >> testIdentifierDerivedFromCanonicalName [
+	self
+		assert: self namedSubject identifier
+		equals: self subjectName asSymbol
+]
+
+{ #category : #tests }
 ClapParameterTest >> testMismatchesAtEnd [
-	| argv match |
+	| subject argv match |
+	subject := self namedSubject.
 	argv := #() readStream.
 	
 	match := subject matchOn: argv.

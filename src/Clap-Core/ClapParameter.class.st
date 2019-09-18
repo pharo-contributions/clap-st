@@ -7,6 +7,7 @@ Class {
 	#name : #ClapParameter,
 	#superclass : #Object,
 	#instVars : [
+		'identifier',
 		'canonicalName',
 		'description',
 		'multiple',
@@ -22,6 +23,13 @@ ClapParameter class >> basicMeaning [
 	^ [ :match | match ]
 ]
 
+{ #category : #'instance creation' }
+ClapParameter class >> id: anIdentifier [
+	^ self new
+		identifier: anIdentifier;
+		yourself
+]
+
 { #category : #testing }
 ClapParameter class >> isAbstract [
 	^ self == ClapParameter
@@ -29,7 +37,7 @@ ClapParameter class >> isAbstract [
 
 { #category : #'instance creation' }
 ClapParameter class >> withName: aString [ 
-	^ self new
+	^ (self id: aString asSymbol)
 		canonicalName: aString;
 		yourself
 ]
@@ -91,6 +99,16 @@ ClapParameter >> description [
 { #category : #initialization }
 ClapParameter >> description: aString [
 	description := aString
+]
+
+{ #category : #accessing }
+ClapParameter >> identifier [
+	^ identifier
+]
+
+{ #category : #initialization }
+ClapParameter >> identifier: anIdentifier [
+	identifier := anIdentifier
 ]
 
 { #category : #accessing }

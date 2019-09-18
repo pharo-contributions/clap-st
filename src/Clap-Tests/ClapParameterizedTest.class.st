@@ -11,7 +11,8 @@ ClapParameterizedTest class >> isAbstract [
 
 { #category : #tests }
 ClapParameterizedTest >> testAddPositional [
-	| pos |
+	| subject pos |
+	subject := self namedSubject.
 	pos := ClapPositional withName: 'pos'.
 	subject add: pos.
 	

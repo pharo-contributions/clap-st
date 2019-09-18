@@ -11,7 +11,8 @@ ClapCommandTest >> classToTest [
 
 { #category : #tests }
 ClapCommandTest >> testAddFlag [
-	| flag |
+	| subject flag |
+	subject := self namedSubject.
 	flag := ClapFlag withName: 'flag'.
 	subject add: flag.
 	
@@ -20,7 +21,8 @@ ClapCommandTest >> testAddFlag [
 
 { #category : #tests }
 ClapCommandTest >> testAddSubcommand [
-	| cmd |
+	| subject cmd |
+	subject := self namedSubject.
 	cmd := ClapCommand withName: 'cmd'.
 	subject add: cmd.
 	
@@ -29,7 +31,8 @@ ClapCommandTest >> testAddSubcommand [
 
 { #category : #tests }
 ClapCommandTest >> testMatches [
-	| arg argv match |
+	| subject arg argv match |
+	subject := self namedSubject.
 	arg := self subjectName copy.
 	argv := { arg. #remainder } readStream.
 	
@@ -42,7 +45,8 @@ ClapCommandTest >> testMatches [
 
 { #category : #tests }
 ClapCommandTest >> testMatchesWithSingleFlag [
-	| argv match |
+	| subject argv match |
+	subject := self namedSubject.
 	subject add: (ClapFlag withName: 'bar').
 	argv := { self subjectName . '--bar' . #remainder } readStream.
 		
@@ -55,7 +59,8 @@ ClapCommandTest >> testMatchesWithSingleFlag [
 
 { #category : #tests }
 ClapCommandTest >> testMatchesWithSinglePositional [
-	| argv match |
+	| subject argv match |
+	subject := self namedSubject.
 	subject add: (ClapPositional withName: 'bar').
 	argv := { self subjectName copy. 'valueforbar'. #remainder } readStream.
 
@@ -74,7 +79,8 @@ ClapCommandTest >> testMatchesWithSinglePositional [
 
 { #category : #tests }
 ClapCommandTest >> testMatchesWithSingleSubcommand [
-	| argv match |
+	| subject argv match |
+	subject := self namedSubject.
 	subject add: (ClapCommand withName: 'bar').
 	argv := { self subjectName. 'bar'. #remainder } readStream.
 	
@@ -87,7 +93,8 @@ ClapCommandTest >> testMatchesWithSingleSubcommand [
 
 { #category : #tests }
 ClapCommandTest >> testMatchingStopsAtWrongFlag [
-	| argv badFlag match |
+	| subject argv badFlag match |
+	subject := self namedSubject.
 	subject add: (ClapFlag withName: 'bar').
 	badFlag := '--notbar'.
 	argv := { self subjectName. badFlag } readStream.
@@ -102,7 +109,8 @@ ClapCommandTest >> testMatchingStopsAtWrongFlag [
 
 { #category : #tests }
 ClapCommandTest >> testMismatchesDifferentAlias [
-	| argv badCommand match |
+	| subject argv badCommand match |
+	subject := self namedSubject.
 	badCommand := self subjectName , 'NOT'.
 	argv := { badCommand } readStream.
 	
