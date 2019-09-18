@@ -14,18 +14,12 @@ ClapParameterTest >> classToTest [
 	^ self subclassResponsibility
 ]
 
-{ #category : #running }
+{ #category : #'tests - fixture' }
 ClapParameterTest >> namedSubject [
 	^ self classToTest withName: self subjectName
 ]
 
-{ #category : #running }
-ClapParameterTest >> setUp [
-	super setUp.
-	subject := self namedSubject
-]
-
-{ #category : #running }
+{ #category : #'tests - fixture' }
 ClapParameterTest >> subjectName [
 	^ 'foo'
 ]
@@ -56,4 +50,18 @@ ClapParameterTest >> testMismatchesAtEnd [
 	self
 		assert: match specification
 		identicalTo: subject
+]
+
+{ #category : #tests }
+ClapParameterTest >> testSubjectIdentifier [
+	| subject |
+	subject := self classToTest id: #subjectId.
+	subject canonicalName: self subjectName.
+	
+	self
+		assert: subject identifier
+		equals: #subjectId.
+	self
+		assert: subject canonicalName
+		equals: self subjectName
 ]
