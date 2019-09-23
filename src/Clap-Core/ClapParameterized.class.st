@@ -5,6 +5,7 @@ Class {
 	#name : #ClapParameterized,
 	#superclass : #ClapParameter,
 	#instVars : [
+		'parameters',
 		'positionals',
 		'aliases'
 	],
@@ -18,6 +19,10 @@ ClapParameterized class >> isAbstract [
 
 { #category : #adding }
 ClapParameterized >> add: aParameter [
+	parameters
+		at: aParameter identifier
+		ifPresent: [ :param | self signalIdentifierConflictOf: aParameter with: param ]
+		ifAbsentPut: aParameter.
 	^ aParameter addTo: self
 ]
 
@@ -42,6 +47,16 @@ ClapParameterized >> aliases: aCollection [
 ]
 
 { #category : #accessing }
+ClapParameterized >> at: specIdentifier [
+	^ parameters at: specIdentifier
+]
+
+{ #category : #accessing }
+ClapParameterized >> at: specIdentifier ifAbsent: absentBlock [
+	^ parameters at: specIdentifier ifAbsent: absentBlock
+]
+
+{ #category : #accessing }
 ClapParameterized >> atName: specName [
 	^ self
 		positionalNamed: specName
@@ -57,6 +72,7 @@ ClapParameterized >> hasAlias: aString [
 { #category : #initialization }
 ClapParameterized >> initialize [
 	super initialize.
+	parameters := Dictionary new.
 	positionals := OrderedCollection new.
 	aliases := #()
 ]
@@ -81,4 +97,9 @@ ClapParameterized >> positionalNamed: specName ifNone: aBlock [
 { #category : #accessing }
 ClapParameterized >> positionals [
 	^ positionals
+]
+
+{ #category : #private }
+ClapParameterized >> signalIdentifierConflictOf: newParameter with: currentParameter [
+	Error signal: 'Identifier conflict (' , newParameter identifier , ')'
 ]

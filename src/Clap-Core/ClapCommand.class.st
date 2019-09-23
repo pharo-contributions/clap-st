@@ -35,10 +35,11 @@ Class {
 
 { #category : #'predefined commands' }
 ClapCommand class >> forHelp [
-	^ (self withName: 'help')
+	^ (self id: #helpCommand)
 		description: 'Prints command documentation';
+		canonicalName: 'help';
 
-		add: ((ClapPositional withName: 'topic')
+		add: ((ClapPositional id: #topic)
 			description: 'The subcommand to document (defaults to the current one)';
 			meaning: [ :pos :cmd | cmd subcommandNamed: pos word ifNone: nil ];
 			implicitMeaning: [ :pos :cmd | cmd ]);
@@ -46,7 +47,7 @@ ClapCommand class >> forHelp [
 		meaning: [ :match | | doc parent query topic |
 			doc := ClapDocumenter on: match context stdout.
 			parent := match parent specification.
-			query := match atName: 'topic'.
+			query := match at: #topic.
 			topic := query value: parent.
 			topic
 				ifNil: [ match context exitFailure: 'Unknown subcommand: ' , query word ]

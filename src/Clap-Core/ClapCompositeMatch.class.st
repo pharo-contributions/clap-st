@@ -47,6 +47,11 @@ ClapCompositeMatch >> at: aSpec ifFound: foundBlock ifAbsent: absentBlock [
 ]
 
 { #category : #'accessing - children' }
+ClapCompositeMatch >> atId: canonicalName [
+	^ self at: (specification at: canonicalName)
+]
+
+{ #category : #'accessing - children' }
 ClapCompositeMatch >> atName: canonicalName [
 	^ self at: (specification atName: canonicalName)
 ]

@@ -26,7 +26,7 @@ ClapParameter class >> basicMeaning [
 { #category : #'instance creation' }
 ClapParameter class >> id: anIdentifier [
 	^ self new
-		identifier: anIdentifier;
+		identifier: anIdentifier asSymbol;
 		yourself
 ]
 
@@ -36,9 +36,9 @@ ClapParameter class >> isAbstract [
 ]
 
 { #category : #'instance creation' }
-ClapParameter class >> withName: aString [ 
-	^ (self id: aString asSymbol)
-		canonicalName: aString;
+ClapParameter class >> withName: aName [
+	^ (self id: aName)
+		canonicalName: aName;
 		yourself
 ]
 
@@ -83,12 +83,12 @@ ClapParameter >> canMatchWith: word [
 
 { #category : #accessing }
 ClapParameter >> canonicalName [
-	^ canonicalName
+	^ canonicalName ifNil: [ self identifier asString ]
 ]
 
 { #category : #initialization }
-ClapParameter >> canonicalName: aString [ 
-	canonicalName := aString
+ClapParameter >> canonicalName: aName [
+	canonicalName := aName asString
 ]
 
 { #category : #accessing }

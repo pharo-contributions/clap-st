@@ -65,27 +65,35 @@ ClapCommandLineExamples class >> hello [
 				description: 'Select language of greeting';
 				add: ((ClapPositional withName: 'langCode')
 					meaning: [ :pos | pos word asSymbol ];
-					implicitMeaning: [ #en ]);
-				meaning: [ :flag | (flag atName: 'langCode') value ]);
+					implicitMeaning: [ :arg :app | app defaultLanguage ]);
+				meaning: [ :flag :app | (flag atName: 'langCode') value: app ]);
 		add:
 			((ClapPositional withName: 'who')
 				description: 'Recipient of the greetings';
 				multiple: true;
-				implicitMeaning: [ 'world' ]);
+				implicitMeaning: [ :arg :app | app defaultRecipient ]);
 		meaning: [ :args | 
-			args atName: 'help' ifFound: [ :help | 
+			args at: #helpFlag ifFound: [ :help | 
 				help value; exitSuccess ].
 			(self with: args) execute ]
 ]
 
 { #category : #'accessing - private' }
-ClapCommandLineExamples >> argumentAt: argumentName [
-	^ (arguments atName: argumentName) value
+ClapCommandLineExamples >> argumentAt: identifier [
+	^ (arguments atId: identifier) value: self
 ]
 
-{ #category : #running }
+{ #category : #accessing }
 ClapCommandLineExamples >> defaultLanguage [
 	^ #en
+]
+
+{ #category : #accessing }
+ClapCommandLineExamples >> defaultRecipient [
+	^ self
+		translationFor: self language
+		from: self translatedRecipients
+
 ]
 
 { #category : #running }
@@ -94,29 +102,17 @@ ClapCommandLineExamples >> execute [
 
 ]
 
-{ #category : #running }
+{ #category : #accessing }
 ClapCommandLineExamples >> greeting [
-	| langs |
-	langs := self greetingTranslations.
-	^ langs at: self language
-		ifAbsent: [ langs at: self defaultLanguage ]
+	^ self
+		translationFor: self language
+		from: self translatedGreetings
+
 ]
 
-{ #category : #running }
-ClapCommandLineExamples >> greetingTranslations [
-	^ {
-		#en -> 'hello'.
-		#eo -> 'saluton'.
-		#es -> 'hola'.
-		#fr -> 'bonjour'.
-		#uk -> 'pryvit'.
-		#pt -> 'olá'
-	} asDictionary
-]
-
-{ #category : #running }
+{ #category : #accessing }
 ClapCommandLineExamples >> language [
-	^ self argumentAt: 'language'
+	^ self argumentAt: #language
 ]
 
 { #category : #'accessing - private' }
@@ -126,7 +122,7 @@ ClapCommandLineExamples >> outStream [
 
 { #category : #accessing }
 ClapCommandLineExamples >> recipients [
-	^ (arguments atName: 'who') allOccurrencesCollect: #value
+	^ (arguments atId: #who) allOccurrencesCollect: [ :arg | arg value: self ]
 ]
 
 { #category : #running }
@@ -145,7 +141,39 @@ ClapCommandLineExamples >> sayHelloOn: aStream [
 
 { #category : #accessing }
 ClapCommandLineExamples >> shouting [
-	^ self argumentAt: 'shout'
+	^ self argumentAt: #shout
+]
+
+{ #category : #running }
+ClapCommandLineExamples >> translatedGreetings [
+	^ {
+		#de -> 'hallo'.
+		#en -> 'hello'.
+		#eo -> 'saluton'.
+		#es -> 'hola'.
+		#fr -> 'bonjour'.
+		#uk -> 'pryvit'.
+		#pt -> 'olá'.
+	} asDictionary
+]
+
+{ #category : #running }
+ClapCommandLineExamples >> translatedRecipients [
+	^ {
+		#de -> 'welt'.
+		#en -> 'world'.
+		#eo -> 'mondo'.
+		#es -> 'mundo'.
+		#fr -> 'tout le monde'.
+		#uk -> 'svit'.
+		#pt -> 'mundo'.
+	} asDictionary
+]
+
+{ #category : #running }
+ClapCommandLineExamples >> translationFor: lang from: translations [
+	^ translations at: self language
+		ifAbsent: [ translations at: self defaultLanguage ]
 ]
 
 { #category : #running }
@@ -158,5 +186,5 @@ ClapCommandLineExamples >> voice: aString [
 
 { #category : #accessing }
 ClapCommandLineExamples >> whispering [
-	^ self argumentAt: 'whisper'
+	^ self argumentAt: #whisper
 ]
