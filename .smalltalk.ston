@@ -4,6 +4,7 @@ SmalltalkCISpec {
     SCIMetacelloLoadSpec {
       #baseline : 'Clap',
       #directory : 'src',
+      #ignoreImage : true,
       #platforms : [ #pharo ]
     }
   ],
