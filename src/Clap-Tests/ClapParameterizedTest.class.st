@@ -19,7 +19,6 @@ ClapParameterizedTest >> testAddPositional [
 	subject add: pos.
 	
 	self assert: (subject at: #myPositional) identicalTo: pos.
-	self assert: (subject atName: 'ARG') identicalTo: pos.
 	self assert: (subject positionals includes: pos).
 
 ]

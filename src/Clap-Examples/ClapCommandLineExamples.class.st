@@ -52,35 +52,35 @@ ClapCommandLineExamples class >> git [
 
 { #category : #'command line' }
 ClapCommandLineExamples class >> hello [
-	"The usual Hello-World example, demonstrating a Clap command with a couple options."
+	"The usual Hello-World example, demonstrating a Clap command with a couple features."
 
 	<commandline>
-	^ (ClapCommand withName: 'hello')
+	^ (ClapCommand id: #hello)
 		description: 'Provides greetings';
 		add: ClapFlag forHelp;
-		add: ((ClapFlag withName: 'whisper') description: 'Greet discretely');
-		add: ((ClapFlag withName: 'shout') description: 'Greet loudly');
+		add: ((ClapFlag id: #whisper) description: 'Greet discretely');
+		add: ((ClapFlag id: #shout) description: 'Greet loudly');
 		add:
-			((ClapFlag withName: 'language')
+			((ClapFlag id: #language)
 				description: 'Select language of greeting';
-				add: ((ClapPositional withName: 'langCode')
+				add: ((ClapPositional id: #langCode)
 					meaning: [ :pos | pos word asSymbol ];
 					implicitMeaning: [ :arg :app | app defaultLanguage ]);
-				meaning: [ :flag :app | (flag atName: 'langCode') value: app ]);
+				meaning: [ :flag :app | (flag at: #langCode) value: app ]);
 		add:
-			((ClapPositional withName: 'who')
+			((ClapPositional id: #who)
 				description: 'Recipient of the greetings';
 				multiple: true;
 				implicitMeaning: [ :arg :app | app defaultRecipient ]);
 		meaning: [ :args | 
-			args at: #helpFlag ifFound: [ :help | 
+			args at: #helpFlag ifPresent: [ :help | 
 				help value; exitSuccess ].
 			(self with: args) execute ]
 ]
 
 { #category : #'accessing - private' }
 ClapCommandLineExamples >> argumentAt: identifier [
-	^ (arguments atId: identifier) value: self
+	^ (arguments at: identifier) value: self
 ]
 
 { #category : #accessing }
@@ -122,7 +122,7 @@ ClapCommandLineExamples >> outStream [
 
 { #category : #accessing }
 ClapCommandLineExamples >> recipients [
-	^ (arguments atId: #who) allOccurrencesCollect: [ :arg | arg value: self ]
+	^ (arguments at: #who) allOccurrencesCollect: [ :arg | arg value: self ]
 ]
 
 { #category : #running }

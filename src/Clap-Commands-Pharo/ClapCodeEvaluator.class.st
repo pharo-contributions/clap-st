@@ -10,15 +10,15 @@ Class {
 { #category : #'command line' }
 ClapCodeEvaluator class >> evaluate [
 	<commandline>
-	^ (ClapCommand withName: 'evaluate')
+	^ (ClapCommand id: #evaluate)
 		aliases: #('eval');
 		description: 'Print the result of a Pharo expression';
 		add: ClapFlag forHelp;
-		add: ((ClapFlag withName: 'save')
+		add: ((ClapFlag id: #save)
 			description: 'Save the image after evaluation');
-		add: ((ClapFlag withName: 'no-quit')
+		add: ((ClapFlag id: #keepAlive)
 			description: 'Keep image running');
-		add:	((ClapPositional withName: 'EXPR')
+		add:	((ClapPositional id: #EXPR)
 			description: 'The expression to evaluate, joining successive arguments with spaces (if omitted, read the expression from stdin)';
 			multiple: true;
 			meaning: [ :match | "let's copy all the bytes, twice, because the VM assumes some 8-bit encoding…"
@@ -26,7 +26,7 @@ ClapCodeEvaluator class >> evaluate [
 			implicitMeaning: [ :match | "in the absence of an explicit argument, read from standard input"
 				match context stdin upToEnd ]);
 		meaning: [ :args | 
-			args	atName: 'help' ifFound: [ :help | help value; exitSuccess ].
+			args	at: #helpFlag ifPresent: [ :help | help value; exitSuccess ].
 			(self with: args) execute ]
 ]
 
@@ -42,5 +42,5 @@ ClapCodeEvaluator >> execute [
 
 { #category : #accessing }
 ClapCodeEvaluator >> source [
-	^ (arguments atName: 'EXPR') value
+	^ (arguments at: #EXPR) value
 ]

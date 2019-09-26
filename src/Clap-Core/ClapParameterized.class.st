@@ -47,20 +47,29 @@ ClapParameterized >> aliases: aCollection [
 ]
 
 { #category : #accessing }
-ClapParameterized >> at: specIdentifier [
-	^ parameters at: specIdentifier
+ClapParameterized >> at: identifierOrSpec [
+	^ parameters at: identifierOrSpec asClapIdentifier
 ]
 
 { #category : #accessing }
-ClapParameterized >> at: specIdentifier ifAbsent: absentBlock [
-	^ parameters at: specIdentifier ifAbsent: absentBlock
+ClapParameterized >> at: identifierOrSpec ifAbsent: absentBlock [
+	^ parameters at: identifierOrSpec asClapIdentifier
+		ifAbsent: absentBlock
 ]
 
 { #category : #accessing }
-ClapParameterized >> atName: specName [
-	^ self
-		positionalNamed: specName
-		ifNone: [ nil ]
+ClapParameterized >> at: identifierOrSpec ifPresent: presentBlock [
+	^ parameters
+		at: identifierOrSpec asClapIdentifier
+		ifPresent: presentBlock
+]
+
+{ #category : #accessing }
+ClapParameterized >> at: identifierOrSpec ifPresent: presentBlock ifAbsent: absentBlock [
+	^ parameters
+		at: identifierOrSpec asClapIdentifier
+		ifPresent: presentBlock
+		ifAbsent: absentBlock
 ]
 
 { #category : #testing }
@@ -72,7 +81,7 @@ ClapParameterized >> hasAlias: aString [
 { #category : #initialization }
 ClapParameterized >> initialize [
 	super initialize.
-	parameters := Dictionary new.
+	parameters := OrderedDictionary new.
 	positionals := OrderedCollection new.
 	aliases := #()
 ]
@@ -85,13 +94,6 @@ ClapParameterized >> matchClass [
 { #category : #enumerating }
 ClapParameterized >> parametersDo: aBlock [
 	positionals do: aBlock
-]
-
-{ #category : #accessing }
-ClapParameterized >> positionalNamed: specName ifNone: aBlock [
-	^ positionals
-		detect: [ :arg | arg canonicalName = specName ]
-		ifNone: aBlock
 ]
 
 { #category : #accessing }

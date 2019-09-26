@@ -61,7 +61,7 @@ ClapCommandTest >> testMatchesWithSingleFlag [
 ClapCommandTest >> testMatchesWithSinglePositional [
 	| subject argv match |
 	subject := self namedSubject.
-	subject add: (ClapPositional withName: 'bar').
+	subject add: (ClapPositional id: #bar).
 	argv := { self subjectName copy. 'valueforbar'. #remainder } readStream.
 
 	match := subject matchOn: argv.
@@ -70,9 +70,9 @@ ClapCommandTest >> testMatchesWithSinglePositional [
 	self
 		assert: match word
 		equals: self subjectName.
-	self assert: (match includesMatchNamed: 'bar').
+	self assert: (match includesMatchOf: #bar).
 	self
-		assert: (match atName: 'bar') word
+		assert: (match at: #bar) word
 		equals: 'valueforbar'.
 	self assert: argv next equals: #remainder
 ]

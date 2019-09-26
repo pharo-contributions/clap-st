@@ -10,17 +10,17 @@ Class {
 { #category : #'command line' }
 ClapPharoVersion class >> version [
 	<commandline>
-	^ (ClapCommand withName: 'version')
+	^ (ClapCommand id: 'version')
 		description: 'Displays version information, in various formats';
 		add: ClapFlag forHelp;
-		add: ((ClapFlag withName: 'full') description: 'Full image version (default format)');
-		add: ((ClapFlag withName: 'release') description: 'Major.minor alpha/stable');
-		add: ((ClapFlag withName: 'numeric') description: '5-digit sequential integration number');
-		add: ((ClapFlag withName: 'hash') description: 'Integration commit hash');
-		add: ((ClapFlag withName: 'vm') description: 'VM build and version');
-		add: ((ClapFlag withName: 'license') description: 'Licensing and copyright');
+		add: ((ClapFlag id: #full) description: 'Full image version (default format)');
+		add: ((ClapFlag id: #release) description: 'Major.minor alpha/stable');
+		add: ((ClapFlag id: #numeric) description: '5-digit sequential integration number');
+		add: ((ClapFlag id: #hash) description: 'Integration commit hash');
+		add: ((ClapFlag id: #vm) description: 'VM build and version');
+		add: ((ClapFlag id: #license) description: 'Licensing and copyright');
 		meaning: [ :args |
-			args atName: 'help' ifFound: [ :help |
+			args at: #helpFlag ifPresent: [ :help |
 				help value; exitSuccess ].
 			args validateAll.
 

@@ -24,24 +24,24 @@ Class {
 
 { #category : #accessing }
 ClapContext class >> defaultRoot [
-	^ (ClapRoot withName: 'clap')
+	^ (ClapRoot id: #clap)
 		description: 'Entry point for commands implemented with Clap';
 		add: ClapFlag forHelp;
 		add: ClapCommand forHelp;
 
-		add: ((ClapFlag withName: 'save')
+		add: ((ClapFlag id: #save)
 			description: 'Save the image after the command terminates');
-		add: ((ClapFlag withName: 'no-save')
+		add: ((ClapFlag id: #noSave)
 			description: 'Do not save the image even if the command is stateful');
-		add: ((ClapFlag withName: 'rename')
+		add: ((ClapFlag id: #rename)
 			description: 'Rename the image as <NAME> before running the command';
-			add: (ClapPositional withName: 'NAME'));
+			add: (ClapPositional id: #NAME));
 
-		add: ((ClapFlag withName: 'keep-alive')
+		add: ((ClapFlag id: #keepAlive)
 			description: 'Keep the image running after the command terminates');
 
 		meaning: [ :args |
-			args atName: 'help' ifFound: [ :help |
+			args at: #helpFlag ifPresent: [ :help |
 				help value; exitSuccess ].
 			args validateAll ];
 		yourself

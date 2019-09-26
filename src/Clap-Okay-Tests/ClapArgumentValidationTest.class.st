@@ -7,10 +7,10 @@ Class {
 { #category : #tests }
 ClapArgumentValidationTest >> testFailValidationWhenMissingMandatoryArgument [
 	| flag match report |
-	flag := (ClapFlag withName: 'lang')
-		add: (ClapPositional withName: 'langCode');
+	flag := (ClapFlag id: #lang)
+		add: (ClapPositional id: #langCode);
 		validations: [ :arg | {
-			Okay if: [ :it | (it atName: 'langCode') isExplicit ]
+			Okay if: [ :it | (it at: #langCode) isExplicit ]
 		} collect: [ :each | each validate: arg ] ].
 	
 	match := flag match: #('--lang').
@@ -23,10 +23,10 @@ ClapArgumentValidationTest >> testFailValidationWhenMissingMandatoryArgument [
 { #category : #tests }
 ClapArgumentValidationTest >> testPassValidationWithMandatoryArgument [
 	| flag match report |
-	flag := (ClapFlag withName: 'lang')
-		add: (ClapPositional withName: 'langCode');
+	flag := (ClapFlag id: #lang)
+		add: (ClapPositional id: #langCode);
 		validations: [ :arg | {
-			Okay if: [ :it | (it atName: 'langCode') isExplicit ]
+			Okay if: [ :it | (it at: #langCode) isExplicit ]
 		} collect: [ :each | each validate: arg ] ].
 	
 	match := flag match: #('--lang' 'eo').

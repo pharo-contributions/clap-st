@@ -35,33 +35,33 @@ ClapHelloWorldTest >> testHelloWorld [
 	self deny: (match includesMatchNamed: 'shout').
 	self assert: (match includesMatchNamed: 'who').
 	self
-		assert: (match atName: 'who') word
+		assert: (match at: #who) word
 		equals: 'world'.
 	self
-		assert: (match atName: 'who') parent
+		assert: (match at: #who) parent
 		identicalTo: match
 ]
 
 { #category : #'tests - matching' }
 ClapHelloWorldTest >> testLanguageFlag [
 	| match lang |
-	lang := ClapPositional withName: 'language'.
-	hello add: ((ClapFlag withName: 'lang')
+	lang := ClapPositional id: #language.
+	hello add: ((ClapFlag id: #lang)
 		add: lang;
 		meaning: [ :flag | (flag at: lang) value]).
 
 	match := hello match: #('hello' 'monde' '--lang' 'fr' '--shout').
 
 	self deny: match isMismatch.
-	self assert: (match includesMatchNamed: 'shout').
-	self assert: (match includesMatchNamed: 'who').
+	self assert: (match includesMatchOf: #shout).
+	self assert: (match includesMatchOf: #who).
 	self
-		assert: (match atName: 'who') word
+		assert: (match at: #who) word
 		equals: 'monde'.
-	self assert: (match includesMatchNamed: 'lang').
-	self assert: ((match atName: 'lang') includesMatchNamed: 'language').
+	self assert: (match includesMatchOf: #lang).
+	self assert: ((match at: #lang) includesMatchOf: #language).
 	self
-		assert: (match atName: 'lang') value
+		assert: (match at: #lang) value
 		equals: 'fr'.
 	self flag: 'needs a context'. "((match atName: 'lang') at: lang) context should be: match."
 ]

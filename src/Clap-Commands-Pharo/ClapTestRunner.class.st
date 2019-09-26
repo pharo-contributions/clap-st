@@ -13,18 +13,18 @@ Class {
 { #category : #'command line' }
 ClapTestRunner class >> test [
 	<commandline>
-	^ (ClapCommand withName: 'test')
+	^ (ClapCommand id: #test)
 		add: ClapFlag forHelp;
-		add: ((ClapFlag withName: 'xml')
+		add: ((ClapFlag id: #xml)
 			description: 'Output results in JUnit-compatible XML format');
-		add: ((ClapFlag withName: 'tap')
+		add: ((ClapFlag id: #tap)
 			description: 'Output results in Test-Anything Protocol format');
-		add: ((ClapPositional withName: 'PKG')
+		add: ((ClapPositional id: #PKG)
 			description: 'Run tests from packages matching this pattern';
 			multiple: true;
 			meaning: [ :match | match word asRegex ]);
 		meaning: [ :args |
-			args atName: 'help' ifFound: [ :help |
+			args at: #helpFlag ifPresent: [ :help |
 				help value; exitSuccess ].
 			args validateAll.
 			
@@ -61,7 +61,7 @@ ClapTestRunner >> execute [
 { #category : #accessing }
 ClapTestRunner >> packagePatterns [
 	^ arguments
-		occurrencesNamed: 'PKG'
+		occurrencesOf: #PKG
 		collect: #value
 ]
 

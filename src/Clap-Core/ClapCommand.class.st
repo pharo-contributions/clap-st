@@ -70,23 +70,9 @@ ClapCommand >> addTo: parentParameter [
 	^ parentParameter addSubcommand: self
 ]
 
-{ #category : #accessing }
-ClapCommand >> atName: specName [
-	^ self subcommandNamed: specName ifNone:
-		[ self flagNamed: specName ifNone:
-			[ super atName: specName ] ]
-]
-
 { #category : #'matching - testing' }
 ClapCommand >> canMatchWith: word [
 	^ self hasAlias: word
-]
-
-{ #category : #accessing }
-ClapCommand >> flagNamed: specName ifNone: aBlock [
-	^ flags
-		detect: [ :flag | flag hasAlias: specName ]
-		ifNone: aBlock
 ]
 
 { #category : #accessing }

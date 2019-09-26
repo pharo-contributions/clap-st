@@ -65,6 +65,11 @@ ClapParameter >> addTo: parentParameter [
 	^ self subclassResponsibility
 ]
 
+{ #category : #converting }
+ClapParameter >> asClapIdentifier [
+	^ self identifier
+]
+
 { #category : #accessing }
 ClapParameter >> basicMeaning [
 	^ self class basicMeaning
@@ -109,6 +114,11 @@ ClapParameter >> identifier [
 { #category : #initialization }
 ClapParameter >> identifier: anIdentifier [
 	identifier := anIdentifier
+]
+
+{ #category : #testing }
+ClapParameter >> identifiesClapParameter: aParameter [
+	^ self == aParameter
 ]
 
 { #category : #accessing }

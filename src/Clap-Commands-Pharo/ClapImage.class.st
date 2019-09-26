@@ -22,12 +22,12 @@ ClapImage class >> cleanupCommand [
 { #category : #'command line' }
 ClapImage class >> image [
 	<commandline>
-	^ (ClapCommand withName: 'image')
+	^ (ClapCommand id: #image)
 		description: 'Manage image/changes files';
 		add: self saveCommand;
 		add: self cleanupCommand;
 		meaning: [ :args | 
-			args atName: 'help' ifFound: [ :help | 
+			args at: #helpFlag ifPresent: [ :help | 
 				help value; exitSuccess ].
 			args validateAll.
 			(self with: args) execute ]

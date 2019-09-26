@@ -9,6 +9,7 @@ Class {
 
 { #category : #accessing }
 ClapMismatch >> at: aSpec [
+self flag: 'identifierOrSpec?'.
 	^ ClapImplicit of: aSpec in: self
 ]
 
