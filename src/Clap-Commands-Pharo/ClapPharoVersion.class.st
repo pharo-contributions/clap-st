@@ -10,7 +10,7 @@ Class {
 { #category : #'command line' }
 ClapPharoVersion class >> version [
 	<commandline>
-	^ (ClapCommand id: 'version')
+	^ (ClapCommand id: #version)
 		description: 'Displays version information, in various formats';
 		add: ClapFlag forHelp;
 		add: ((ClapFlag id: #full) description: 'Full image version (default format)');

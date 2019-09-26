@@ -10,9 +10,9 @@ Class {
 { #category : #running }
 ClapHelloWorldTest >> setUp [
 	super setUp.
-	hello := (ClapCommand withName: 'hello')
-		add: (ClapFlag withName: 'shout');
-		add: (ClapPositional withName: 'who')
+	hello := (ClapCommand id: #hello)
+		add: (ClapFlag id: #shout);
+		add: (ClapPositional id: #who)
 
 ]
 
@@ -22,8 +22,8 @@ ClapHelloWorldTest >> testHello [
 	match := hello match: #('hello').
 
 	self deny: match isMismatch.
-	self deny: (match includesMatchNamed: 'shout').
-	self deny: (match includesMatchNamed: 'who')
+	self deny: (match includesMatchOf: #shout).
+	self deny: (match includesMatchOf: #who)
 ]
 
 { #category : #'tests - matching' }
@@ -32,8 +32,8 @@ ClapHelloWorldTest >> testHelloWorld [
 	match := hello match: #('hello' 'world').
 
 	self deny: match isMismatch.
-	self deny: (match includesMatchNamed: 'shout').
-	self assert: (match includesMatchNamed: 'who').
+	self deny: (match includesMatchOf: #shout).
+	self assert: (match includesMatchOf: #who).
 	self
 		assert: (match at: #who) word
 		equals: 'world'.
@@ -72,8 +72,8 @@ ClapHelloWorldTest >> testShouting [
 	match := hello match: #('hello' '--shout').
 
 	self deny: match isMismatch.
-	self assert: (match includesMatchNamed: 'shout').
-	self deny: (match includesMatchNamed: 'who')
+	self assert: (match includesMatchOf: #shout).
+	self deny: (match includesMatchOf: #who)
 ]
 
 { #category : #'tests - matching' }
@@ -82,8 +82,8 @@ ClapHelloWorldTest >> testShoutingAfterthought [
 	match := hello match: #('hello' 'world' '-s').
 
 	self deny: match isMismatch.
-	self assert: (match includesMatchNamed: 'shout').
-	self assert: (match includesMatchNamed: 'who')
+	self assert: (match includesMatchOf: #shout).
+	self assert: (match includesMatchOf: #who)
 ]
 
 { #category : #'tests - matching' }
@@ -92,6 +92,6 @@ ClapHelloWorldTest >> testShoutingWorld [
 	match := hello match: #('hello' '--shout' 'world').
 
 	self deny: match isMismatch.
-	self assert: (match includesMatchNamed: 'shout').
-	self assert: (match includesMatchNamed: 'who')
+	self assert: (match includesMatchOf: #shout).
+	self assert: (match includesMatchOf: #who)
 ]

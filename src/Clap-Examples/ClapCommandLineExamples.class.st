@@ -26,26 +26,26 @@ Class {
 ClapCommandLineExamples class >> git [
 	"A dummy command (no behavior besides help) to demonstrate nested subcommand and as a test subject for the documenter.
 	<commandline> pragma omitted, because doesn't really make sense to make it available outside the image."
-	^ (ClapCommand withName: 'git')
+	^ (ClapCommand id: 'git')
 		description: 'The stupid content tracker';
 		add: ClapCommand forHelp;
-		add: ((ClapCommand withName: 'add')
+		add: ((ClapCommand id: 'add')
 			description: 'Add file contents to the index');
-		add: ((ClapCommand withName: 'branch')
+		add: ((ClapCommand id: 'branch')
 			description: 'List, create, or delete branches');
-		add: ((ClapCommand withName: 'clone')
+		add: ((ClapCommand id: 'clone')
 			description: 'Clone a repository into a new directory');
-		add: ((ClapCommand withName: 'commit')
+		add: ((ClapCommand id: 'commit')
 			description: 'Record changes to the repository');
-		add: ((ClapCommand withName: 'init')
+		add: ((ClapCommand id: 'init')
 			description: 'Create an empty Git repository or reinitialize an existing one');
-		add: ((ClapCommand withName: 'remote')
+		add: ((ClapCommand id: 'remote')
 			description: 'Manage set of tracked repositories';
-			add: (ClapCommand withName: 'add');
-			add: (ClapCommand withName: 'remove');
-			add: (ClapCommand withName: 'set-url');
+			add: (ClapCommand id: 'add');
+			add: (ClapCommand id: 'remove');
+			add: (ClapCommand id: 'set-url');
 			yourself);
-		add: ((ClapCommand withName: 'status')
+		add: ((ClapCommand id: 'status')
 			description: 'Show the working tree status');
 		yourself
 ]

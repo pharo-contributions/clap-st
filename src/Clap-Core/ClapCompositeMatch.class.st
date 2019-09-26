@@ -71,11 +71,6 @@ ClapCompositeMatch >> flags [
 ]
 
 { #category : #testing }
-ClapCompositeMatch >> includesMatchNamed: canonicalName [
-	^ children anySatisfy: [ :arg | arg specification canonicalName = canonicalName ]
-]
-
-{ #category : #testing }
 ClapCompositeMatch >> includesMatchOf: identifierOrSpec [
 	^ children anySatisfy: [ :arg | arg isMatchOf: identifierOrSpec ]
 ]

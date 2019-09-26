@@ -13,7 +13,7 @@ ClapCommandTest >> classToTest [
 ClapCommandTest >> testAddFlag [
 	| subject flag |
 	subject := self namedSubject.
-	flag := ClapFlag withName: 'flag'.
+	flag := ClapFlag id: #flag.
 	subject add: flag.
 	
 	self assert: (subject flags includes: flag)
@@ -23,7 +23,7 @@ ClapCommandTest >> testAddFlag [
 ClapCommandTest >> testAddSubcommand [
 	| subject cmd |
 	subject := self namedSubject.
-	cmd := ClapCommand withName: 'cmd'.
+	cmd := ClapCommand id: #cmd.
 	subject add: cmd.
 	
 	self assert: (subject subcommands includes: cmd)
@@ -47,13 +47,13 @@ ClapCommandTest >> testMatches [
 ClapCommandTest >> testMatchesWithSingleFlag [
 	| subject argv match |
 	subject := self namedSubject.
-	subject add: (ClapFlag withName: 'bar').
+	subject add: (ClapFlag id: #bar).
 	argv := { self subjectName . '--bar' . #remainder } readStream.
 		
 	match := subject matchOn: argv.
 	
 	self deny: match isMismatch.
-	self assert: (match includesMatchNamed: 'bar').
+	self assert: (match includesMatchOf: #bar).
 	self assert: argv next equals: #remainder
 ]
 
@@ -81,13 +81,13 @@ ClapCommandTest >> testMatchesWithSinglePositional [
 ClapCommandTest >> testMatchesWithSingleSubcommand [
 	| subject argv match |
 	subject := self namedSubject.
-	subject add: (ClapCommand withName: 'bar').
+	subject add: (ClapCommand id: #bar).
 	argv := { self subjectName. 'bar'. #remainder } readStream.
 	
 	match := subject matchOn: argv.
 	
 	self deny: match isMismatch.
-	self assert: (match includesMatchNamed: 'bar').
+	self assert: (match includesMatchOf: #bar).
 	self assert: argv next equals: #remainder
 ]
 
@@ -95,7 +95,7 @@ ClapCommandTest >> testMatchesWithSingleSubcommand [
 ClapCommandTest >> testMatchingStopsAtWrongFlag [
 	| subject argv badFlag match |
 	subject := self namedSubject.
-	subject add: (ClapFlag withName: 'bar').
+	subject add: (ClapFlag id: #bar).
 	badFlag := '--notbar'.
 	argv := { self subjectName. badFlag } readStream.
 

@@ -35,13 +35,6 @@ ClapParameter class >> isAbstract [
 	^ self == ClapParameter
 ]
 
-{ #category : #'instance creation' }
-ClapParameter class >> withName: aName [
-	^ (self id: aName)
-		canonicalName: aName;
-		yourself
-]
-
 { #category : #activating }
 ClapParameter >> activateWith: arguments [
 	"Convenience method for activating in an interactive context"

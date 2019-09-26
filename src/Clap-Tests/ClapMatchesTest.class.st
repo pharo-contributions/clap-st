@@ -17,19 +17,19 @@ Class {
 { #category : #running }
 ClapMatchesTest >> setUp [
 	super setUp.
-	dirFlag := (ClapFlag withName: 'directory')
-		add: (ClapPositional withName: 'DIR');
+	dirFlag := (ClapFlag id: #directory)
+		add: (ClapPositional id: #DIR);
 		yourself.
-	slowFlag := ClapFlag withName: 'slow'.
+	slowFlag := ClapFlag id: #slow.
 	
-	clap := (ClapCommand withName: 'clap')
+	clap := (ClapCommand id: #clap)
 		add: dirFlag;
-		add: ((ClapCommand withName: 'this')
+		add: ((ClapCommand id: #this)
 			add: slowFlag; yourself);
 			yourself;
-		add: ((ClapCommand withName: 'that')
-			add: (ClapFlag withName: 'encore');
-			add: (ClapPositional withName: 'clappee');
+		add: ((ClapCommand id: #that)
+			add: (ClapFlag id: #encore);
+			add: (ClapPositional id: #clappee);
 			yourself);
 		yourself
 ]

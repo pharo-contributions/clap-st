@@ -16,7 +16,7 @@ ClapParameterTest >> classToTest [
 
 { #category : #'tests - fixture' }
 ClapParameterTest >> namedSubject [
-	^ self classToTest withName: self subjectName
+	^ self classToTest id: self subjectName asSymbol
 ]
 
 { #category : #'tests - fixture' }
@@ -28,7 +28,7 @@ ClapParameterTest >> subjectName [
 ClapParameterTest >> testCanonicalName [
 	self
 		assert: self namedSubject canonicalName
-		equals: self subjectName
+		equals: self subjectName asString
 ]
 
 { #category : #tests }
