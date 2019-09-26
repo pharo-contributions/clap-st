@@ -9,6 +9,11 @@ ClapParameterTest class >> isAbstract [
 	^ self = ClapParameterTest
 ]
 
+{ #category : #testing }
+ClapParameterTest class >> shouldInheritSelectors [
+	^ true
+]
+
 { #category : #accessing }
 ClapParameterTest >> classToTest [
 	^ self subclassResponsibility

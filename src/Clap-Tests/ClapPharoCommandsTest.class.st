@@ -12,6 +12,11 @@ ClapPharoCommandsTest class >> isAbstract [
 	^ self = ClapPharoCommandsTest
 ]
 
+{ #category : #testing }
+ClapPharoCommandsTest class >> shouldInheritSelectors [
+	^ true
+]
+
 { #category : #asserting }
 ClapPharoCommandsTest >> assertSuccess [
 	self assert: context exitStatus equals: 0
