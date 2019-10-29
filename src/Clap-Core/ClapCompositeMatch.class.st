@@ -98,8 +98,8 @@ ClapCompositeMatch >> matchedSubcommand: foundBlock ifNone: noneBlock [
 ]
 
 { #category : #'accessing - children' }
-ClapCompositeMatch >> occurrencesOf: aSpec [
-	^ children select: [ :child | child specification = aSpec ]
+ClapCompositeMatch >> occurrencesOf: identifierOrSpec [
+	^ children select: [ :child | identifierOrSpec identifiesClapParameter: child specification ]
 ]
 
 { #category : #enumerating }
@@ -110,9 +110,9 @@ ClapCompositeMatch >> occurrencesOf: identifierOrSpec collect: aBlock [
 ]
 
 { #category : #enumerating }
-ClapCompositeMatch >> occurrencesOf: aSpec do: aBlock [
+ClapCompositeMatch >> occurrencesOf: identifierOrSpec do: aBlock [
 	^ children
-		select: [ :child | child specification = aSpec ]
+		select: [ :child | identifierOrSpec identifiesClapParameter: child specification ]
 		thenDo: aBlock
 ]
 
