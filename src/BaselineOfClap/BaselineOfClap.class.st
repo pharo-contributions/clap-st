@@ -14,11 +14,14 @@ BaselineOfClap >> baseline: spec [
 		package: 'Clap-CommandLine' with: [ spec requires: #('Clap-Core') ];
 		package: 'Clap-Commands-Pharo' with: [ spec requires: #('Clap-CommandLine') ];
 		package: 'Clap-Examples' with: [ spec requires: #('Clap-CommandLine') ];
+		package: 'Clap-Examples-Booklet' with: [ spec requires: #('Clap-CommandLine') ];
 		package: 'Clap-Tests' with: [ spec requires: #('Clap-Core' 'Clap-Examples') ];
 		package: 'Clap-Okay-Tests' with: [ spec requires: #('Clap-Core' 'Okay') ];
 
 		group: 'default' with: #(core development);
 		group: 'core' with: #('Clap-Core' 'Clap-CommandLine');
 		group: 'pharo' with: #('Clap-Commands-Pharo');
-		group: 'development' with: #(core pharo 'Clap-Tests' 'Clap-Okay-Tests' 'Clap-Examples') ]
+		group: 'examples' with: #('Clap-Examples' 'Clap-Examples-Booklet');
+		group: 'tests' with: #('Clap-Tests' 'Clap-Okay-Tests');
+		group: 'development' with: #(core pharo examples tests) ]
 ]
