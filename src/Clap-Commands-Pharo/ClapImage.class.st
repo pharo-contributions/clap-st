@@ -39,5 +39,5 @@ ClapImage class >> saveCommand [
 		description: 'Save the image/changes file under a new name';
 		add: (ClapFlag id: #rename);
 		add: (ClapFlag id: #backup);
-		add: (ClapPositional id: #NEW)
+		add: (ClapPositional id: #NAME)
 ]
