@@ -39,7 +39,8 @@ ClapParameter class >> isAbstract [
 ClapParameter class >> withName: nameOrIdentifier [
 	self
 		deprecated: 'Instanciate with #id: instead (passing a unique identifier), then use #canonicalName: to set the user-facing command name, if necessary.'
-		transformWith: '`@receiver withName: `@arg' -> '`@receiver id: `@arg'.
+		transformWith: '`@receiver withName: `@arg'
+			-> '`@receiver id: `@arg'.
 	^ self id: nameOrIdentifier
 ]
 
