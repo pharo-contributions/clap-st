@@ -36,10 +36,12 @@ ClapMatchesTest >> setUp [
 
 { #category : #tests }
 ClapMatchesTest >> testFlagAbsentValue [
-	| match flagMatch |
+	| args argv match flagMatch |
 	slowFlag meaning: [ :flag | flag isMismatch not ].
+	args := #('clap' 'this').
+	argv := args readStream.
 	
-	match := clap matchOn: #('clap' 'this') readStream.
+	match := clap matchOn: argv readStream in: (clap activationWith: args).
 	flagMatch := (match at: #this) at: slowFlag.
 
 	self deny: flagMatch isExplicit.

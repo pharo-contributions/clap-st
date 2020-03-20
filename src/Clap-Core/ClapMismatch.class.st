@@ -15,7 +15,7 @@ ClapMismatch >> at: identifierOrSpec [
 
 { #category : #matching }
 ClapMismatch >> completeMatchOn: aStream [
-	word:= aStream peek.
+	word := aStream peek.
 	startIndex := aStream position + 1.
 ]
 

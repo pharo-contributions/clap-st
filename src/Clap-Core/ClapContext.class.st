@@ -120,8 +120,9 @@ ClapContext >> defaultStdio [
 ClapContext >> doMatch [
 	| args |
 	args := self arguments readStream.
-	match := self specification matchOn: args.
-	match parent: self.
+	match := self specification
+		matchOn: args
+		in: self.
 	leftovers := args upToEnd.
 	^ match
 ]

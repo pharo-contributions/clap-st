@@ -27,6 +27,15 @@ ClapExplicit >> isExplicit [
 	^ true
 ]
 
+{ #category : #printing }
+ClapExplicit >> printOn: aStream [
+	super printOn: aStream.
+	aStream
+		nextPut: $(;
+		nextPutAll: (String space join: self words);
+		nextPut: $)
+]
+
 { #category : #adding }
 ClapExplicit >> recordIn: parentMatch [
 	self parent: parentMatch.

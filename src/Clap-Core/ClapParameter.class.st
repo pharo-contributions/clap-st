@@ -147,8 +147,9 @@ ClapParameter >> isMultiple [
 ]
 
 { #category : #matching }
-ClapParameter >> match: aStreamOrSequenceable [
-	^ self matchOn: aStreamOrSequenceable readStream
+ClapParameter >> match: aSequenceable [
+	"Convenience for tests; this creates an adhoc context."
+	^ (self activationWith: aSequenceable) match
 ]
 
 { #category : #accessing }
@@ -157,8 +158,8 @@ ClapParameter >> matchClass [
 ]
 
 { #category : #matching }
-ClapParameter >> matchOn: aStream [
-	^ (self newMatchAt: aStream)
+ClapParameter >> matchOn: aStream in: aContext [
+	^ (self newMatchAt: aStream in: aContext)
 		completeMatchOn: aStream;
 		yourself
 ]
@@ -179,11 +180,11 @@ ClapParameter >> multiple: aBoolean [
 ]
 
 { #category : #matching }
-ClapParameter >> newMatchAt: aStream [
+ClapParameter >> newMatchAt: aStream in: aContext [
 	^ ((self canMatchAt: aStream)
 				ifTrue: [ self matchClass ]
 				ifFalse: [ ClapMismatch ])
-			specification: self
+			of: self in: aContext
 ]
 
 { #category : #printing }

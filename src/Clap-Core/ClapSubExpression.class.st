@@ -16,6 +16,13 @@ ClapSubExpression class >> isAbstract [
 	^ self == ClapSubExpression
 ]
 
+{ #category : #'instance creation' }
+ClapSubExpression class >> of: aSpecification in: aMatch [ 
+	^ (self specification: aSpecification)
+			parent: aMatch;
+			yourself
+]
+
 { #category : #enumerating }
 ClapSubExpression >> allOccurrences [
 	^ self parent

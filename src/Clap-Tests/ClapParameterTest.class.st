@@ -45,16 +45,16 @@ ClapParameterTest >> testIdentifierDerivedFromCanonicalName [
 
 { #category : #tests }
 ClapParameterTest >> testMismatchesAtEnd [
-	| subject argv match |
+	| subject argv ctx match |
 	subject := self namedSubject.
 	argv := #() readStream.
+	ctx := Object new.
 	
-	match := subject matchOn: argv.
+	match := subject matchOn: argv in: ctx.
 	
 	self assert: match isMismatch.
-	self
-		assert: match specification
-		identicalTo: subject
+	self assert: match specification identicalTo: subject.
+	self assert: match parent identicalTo: ctx
 ]
 
 { #category : #tests }

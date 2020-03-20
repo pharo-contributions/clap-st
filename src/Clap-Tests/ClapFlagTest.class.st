@@ -16,7 +16,7 @@ ClapFlagTest >> testMatchesLongForm [
 	flagName := '--' , self subjectName.
 	argv := { flagName. #remainder } readStream.
 	
-	match := subject matchOn: argv.
+	match := subject matchOn: argv in: Object new.
 	
 	self deny: match isMismatch.
 	self
@@ -33,7 +33,7 @@ ClapFlagTest >> testMatchesShortForm [
 	flagName := '-' , (self subjectName first: 1).
 	argv := { flagName. #remainder } readStream.
 	
-	match := subject matchOn: argv.
+	match := subject matchOn: argv in: Object new.
 	
 	self deny: match isMismatch.
 	self
@@ -50,7 +50,7 @@ ClapFlagTest >> testMismatchesWrongLongForm [
 	badFlag := '--' , self subjectName , 'NOT'.
 	argv := { badFlag } readStream.
 	
-	match := subject matchOn: argv.
+	match := subject matchOn: argv in: Object new.
 	
 	self assert: match isMismatch.
 	self
@@ -67,7 +67,7 @@ ClapFlagTest >> testMismatchesWrongShortForm [
 	badFlag := '-' , (self subjectName first: 1) asUppercase.
 	argv := { badFlag } readStream.
 	
-	match := subject matchOn: argv.
+	match := subject matchOn: argv in: Object new.
 	
 	self assert: match isMismatch.
 	self

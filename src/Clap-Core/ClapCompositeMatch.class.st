@@ -104,7 +104,7 @@ ClapCompositeMatch >> detectMatchOn: aStream ifFound: foundBlock ifNone: noneBlo
 	self specification parametersDo: [ :param |
 		(param isMultiple or: (self includesMatchOf: param) not)
 			ifTrue: [ | sub |
-				sub := param matchOn: aStream.
+				sub := param matchOn: aStream in: self context.
 				sub isMismatch
 					ifFalse: [ ^ foundBlock cull: sub ] ] ].
 	^ noneBlock value
