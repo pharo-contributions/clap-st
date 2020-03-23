@@ -89,9 +89,9 @@ ClapCommand >> initialize [
 
 { #category : #enumerating }
 ClapCommand >> parametersDo: aBlock [
-	super parametersDo: aBlock.
 	self flags do: aBlock.
-	self subcommands do: aBlock
+	self subcommands do: aBlock.
+	super parametersDo: aBlock.
 ]
 
 { #category : #accessing }

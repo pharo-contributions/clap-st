@@ -105,6 +105,14 @@ ClapParameterized >> parametersDo: aBlock [
 	positionals do: aBlock
 ]
 
+{ #category : #enumerating }
+ClapParameterized >> parametersSelect: selectBlock thenDo: doBlock [
+	self parametersDo: [ :each |
+		(selectBlock value: each)
+			ifTrue: [ doBlock value: each ]
+	]
+]
+
 { #category : #accessing }
 ClapParameterized >> positionals [
 	^ positionals

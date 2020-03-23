@@ -101,12 +101,13 @@ ClapCompositeMatch >> completeMatchOn: aStream [
 
 { #category : #matching }
 ClapCompositeMatch >> detectMatchOn: aStream ifFound: foundBlock ifNone: noneBlock [
-	self specification parametersDo: [ :param |
-		(param isMultiple or: (self includesMatchOf: param) not)
-			ifTrue: [ | sub |
-				sub := param matchOn: aStream in: self context.
-				sub isMismatch
-					ifFalse: [ ^ foundBlock cull: sub ] ] ].
+	self specification
+		parametersSelect: [ :each | each isMatchableIn: self ]
+		thenDo: [ :param | 
+			| sub |
+			sub := param matchOn: aStream in: self context.
+			sub isMismatch
+				ifFalse: [ ^ foundBlock cull: sub ] ].
 	^ noneBlock value
 ]
 
@@ -206,7 +207,7 @@ ClapCompositeMatch >> positionalValues [
 { #category : #accessing }
 ClapCompositeMatch >> stop [
 	^ children
-		ifEmpty: [ self start - 1 ]
+		ifEmpty: [ self start ]
 		ifNotEmpty: [ children last stop ]
 	
 ]

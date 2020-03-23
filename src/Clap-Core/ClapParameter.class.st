@@ -142,6 +142,11 @@ ClapParameter >> initialize [
 ]
 
 { #category : #testing }
+ClapParameter >> isMatchableIn: aCompositeMatch [
+	^ self isMultiple or: [ (aCompositeMatch includesMatchOf: self) not ]
+]
+
+{ #category : #testing }
 ClapParameter >> isMultiple [
 	^ multiple
 ]
