@@ -2,4 +2,4 @@
 Metacello new baseline: #Clap;
   repository: 'gitlocal://.';
   onLock: [:ex :old :new | ex honor];
-  ignoreImage; load.
+  ignoreImage; load: 'development-full'.
