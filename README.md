@@ -27,7 +27,7 @@ Metacello new baseline: 'Clap';
 ```shell
 git clone https://github.com/cdlm/clap-st.git
 cd clap-st
-curl get.pharo.org/alpha | bash
+curl get.pharo.org/alpha+vm | bash
 ```
 
 …and then, in the image just downloaded, open a workspace and evaluate:
