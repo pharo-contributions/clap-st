@@ -27,8 +27,8 @@ ClapParameterized >> add: aParameter [
 ]
 
 { #category : #adding }
-ClapParameterized >> addAll: parameters [
-	parameters do: [ :each | each addTo: self ]
+ClapParameterized >> addAll: someParameters [
+	someParameters do: [ :each | self add: each ]
 ]
 
 { #category : #adding }
