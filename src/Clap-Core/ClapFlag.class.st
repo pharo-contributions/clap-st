@@ -68,5 +68,12 @@ ClapFlag >> shortName [
 ClapFlag >> synopsisOn: aStream [
 	aStream
 		nextPutAll: '--';
-		nextPutAll: self canonicalName
+		nextPutAll: self canonicalName.
+		
+	self positionals 
+		ifNotEmpty: [ 
+			aStream
+				nextPutAll: ' <';
+				nextPutAll: (Character space join: (self positionals collect: #canonicalName));
+				nextPut: $> ]
 ]
