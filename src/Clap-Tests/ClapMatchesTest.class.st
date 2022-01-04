@@ -66,7 +66,6 @@ ClapMatchesTest >> testFlagOmittedValue [
 		identicalTo: '--slow'.
 	self deny: (flagMatch at: #DIR) isExplicit.
 	self assert: (match at: slowFlag) isExplicit.
-
 ]
 
 { #category : #tests }
@@ -82,7 +81,6 @@ ClapMatchesTest >> testFlagValue [
 		assert: flagMatch parent parent
 		identicalTo: match.
 	self assert: flagMatch value
-
 ]
 
 { #category : #tests }
@@ -113,7 +111,6 @@ ClapMatchesTest >> testParameterizedFlagValue [
 	self
 		assert: (match at: dirFlag) value
 		equals: (Path * 'foo' / 'bar' / 'baz').
-
 ]
 
 { #category : #tests }
@@ -131,7 +128,6 @@ ClapMatchesTest >> testRootPositionalBeforeSubcommand [
 	self
 		assert: (match at: dirFlag) positionalValues asArray
 		equals: #( 'foo/bar/baz' )
-
 ]
 
 { #category : #tests }

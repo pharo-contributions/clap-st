@@ -73,7 +73,6 @@ ClapContext class >> withPragmaCommands [
 { #category : #validation }
 ClapContext >> allValidations [
 	^ self validateOn: ClapValidationReport success.
-
 ]
 
 { #category : #accessing }
@@ -215,7 +214,6 @@ ClapContext >> ifMatch: matchBlock ifMismatch: failBlock [
 	^ self match
 		ifMatch: matchBlock
 		ifMismatch: failBlock
-
 ]
 
 { #category : #initialization }
@@ -232,7 +230,6 @@ ClapContext >> leftovers [
 { #category : #accessing }
 ClapContext >> match [
 	^ match ifNil: [ self doMatch ]
-
 ]
 
 { #category : #activation }
