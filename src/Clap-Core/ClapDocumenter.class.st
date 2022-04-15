@@ -63,11 +63,10 @@ ClapDocumenter >> explain: aCommand [
 ]
 
 { #category : #documenting }
-ClapDocumenter >> flagSynopsis: each [
+ClapDocumenter >> flagSynopsis: aFlag [
 	^ formatter
 		text: '[';
-		text: '--';
-		text: each canonicalName;
+		text: aFlag synopsis;
 		text: ']'
 ]
 
