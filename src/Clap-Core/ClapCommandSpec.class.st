@@ -1,5 +1,5 @@
 "
-I represent a command or subcommand.
+I represent a command or subcommand specification.
 
 Commands are recognized by a keyword, possibly with aliases for convenience. Besides positionals, commands can have flags, as well as nested (sub)commands.
 
@@ -24,17 +24,18 @@ Example for the eval command:
 		addPositional: ClapPositionnal withName: 'smalltalk 		expression'.
 "
 Class {
-	#name : #ClapCommand,
+	#name : #ClapCommandSpec,
 	#superclass : #ClapParameterized,
 	#instVars : [
 		'flags',
-		'subcommands'
+		'subcommands',
+		'commandClass'
 	],
 	#category : #'Clap-Core-Specification'
 }
 
 { #category : #'predefined commands' }
-ClapCommand class >> forHelp [
+ClapCommandSpec class >> forHelp [
 	^ (self id: #helpCommand)
 		description: 'Prints command documentation';
 		canonicalName: 'help';
@@ -54,64 +55,79 @@ ClapCommand class >> forHelp [
 				ifNotNil: [ doc explain: topic ] ]
 ]
 
+{ #category : #parsing }
+ClapCommandSpec >> addCommandArg: aCommandName in: aClapContext [ 
+	aClapContext addCommandArg: aCommandName
+]
+
 { #category : #adding }
-ClapCommand >> addFlag: aFlag [
+ClapCommandSpec >> addFlag: aFlag [
 	flags add: aFlag
 ]
 
 { #category : #adding }
-ClapCommand >> addSubcommand: aCommand [
+ClapCommandSpec >> addSubcommand: aCommand [
 	subcommands add: aCommand
 ]
 
 { #category : #adding }
-ClapCommand >> addTo: parentParameter [
+ClapCommandSpec >> addTo: parentParameter [
 	^ parentParameter addSubcommand: self
 ]
 
 { #category : #'matching - testing' }
-ClapCommand >> canMatchWith: word [
+ClapCommandSpec >> canMatchWith: word [
 	^ self hasAlias: word
 ]
 
 { #category : #accessing }
-ClapCommand >> flags [
+ClapCommandSpec >> commandClass [
+	^ commandClass
+]
+
+{ #category : #accessing }
+ClapCommandSpec >> commandClass: aClass [
+	commandClass := aClass
+]
+
+{ #category : #accessing }
+ClapCommandSpec >> flags [
 	^ flags
 ]
 
 { #category : #initialization }
-ClapCommand >> initialize [
+ClapCommandSpec >> initialize [
 	super initialize.
 	subcommands := OrderedCollection new.
 	flags := OrderedCollection new.
 ]
 
 { #category : #enumerating }
-ClapCommand >> parametersDo: aBlock [
+ClapCommandSpec >> parametersDo: aBlock [
 	self flags do: aBlock.
 	self subcommands do: aBlock.
 	super parametersDo: aBlock.
 ]
 
 { #category : #accessing }
-ClapCommand >> subcommandNamed: specName ifNone: aBlock [
+ClapCommandSpec >> subcommandNamed: specName ifNone: aBlock [
 	^ subcommands
 		detect: [ :cmd | cmd hasAlias: specName ]
 		ifNone: aBlock
 ]
 
 { #category : #accessing }
-ClapCommand >> subcommands [
+ClapCommandSpec >> subcommands [
 	^ subcommands
 ]
 
 { #category : #documenting }
-ClapCommand >> synopsisOn: aStream [
+ClapCommandSpec >> synopsisOn: aStream [
 	aStream nextPutAll: self canonicalName
 ]
 
 { #category : #accessing }
-ClapCommand >> valueFor: aMatch with: arg [
+ClapCommandSpec >> valueFor: aMatch with: arg [
 	^ aMatch
 		matchedSubcommand: [ :sub | sub value: arg ]
 		ifNone: [ super valueFor: aMatch with: arg ]

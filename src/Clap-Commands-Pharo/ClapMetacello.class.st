@@ -7,10 +7,10 @@ Class {
 { #category : #'command line' }
 ClapMetacello class >> metacello [
 	<commandline>
-	^ (ClapCommand id: #metacello)
+	^ (ClapCommandSpec id: #metacello)
 		description: 'Load code using Metacello';
 		add: ClapFlag forHelp;
-		add: ClapCommand forHelp;
+		add: ClapCommandSpec forHelp;
 		add: ((ClapPositional id: #REPOSITORY)
 			description: 'URL of the repository to load code from');
 		add: ((ClapPositional id: #NAME)

@@ -18,6 +18,7 @@ ClapSubExpression class >> isAbstract [
 
 { #category : #'instance creation' }
 ClapSubExpression class >> of: aSpecification in: aMatch [ 
+
 	^ (self specification: aSpecification)
 			parent: aMatch;
 			yourself

@@ -13,7 +13,7 @@ Class {
 { #category : #'command line' }
 ClapTestRunner class >> test [
 	<commandline>
-	^ (ClapCommand id: #test)
+	^ (ClapCommandSpec id: #test)
 		add: ClapFlag forHelp;
 		add: ((ClapFlag id: #xml)
 			description: 'Output results in JUnit-compatible XML format');

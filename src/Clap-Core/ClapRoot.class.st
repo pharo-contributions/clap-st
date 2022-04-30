@@ -4,7 +4,7 @@ My subcommands are effectively the main commands available to the user.
 "
 Class {
 	#name : #ClapRoot,
-	#superclass : #ClapCommand,
+	#superclass : #ClapCommandSpec,
 	#category : #'Clap-Core-Specification'
 }
 

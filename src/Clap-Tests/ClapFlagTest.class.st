@@ -16,7 +16,7 @@ ClapFlagTest >> testMatchesLongForm [
 	flagName := '--' , self subjectName.
 	argv := { flagName. #remainder } readStream.
 	
-	match := subject matchOn: argv in: Object new.
+	match := subject matchOn: argv in: ClapContext new.
 	
 	self deny: match isMismatch.
 	self
@@ -33,7 +33,7 @@ ClapFlagTest >> testMatchesShortForm [
 	flagName := '-' , (self subjectName first: 1).
 	argv := { flagName. #remainder } readStream.
 	
-	match := subject matchOn: argv in: Object new.
+	match := subject matchOn: argv in: ClapContext new.
 	
 	self deny: match isMismatch.
 	self

@@ -22,12 +22,12 @@ ClapMatchesTest >> setUp [
 		yourself.
 	slowFlag := ClapFlag id: #slow.
 	
-	clap := (ClapCommand id: #clap)
+	clap := (ClapCommandSpec id: #clap)
 		add: dirFlag;
-		add: ((ClapCommand id: #this)
+		add: ((ClapCommandSpec id: #this)
 			add: slowFlag; yourself);
 			yourself;
-		add: ((ClapCommand id: #that)
+		add: ((ClapCommandSpec id: #that)
 			add: (ClapFlag id: #encore);
 			add: (ClapPositional id: #clappee);
 			yourself);

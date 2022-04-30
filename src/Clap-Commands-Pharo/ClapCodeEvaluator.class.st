@@ -10,7 +10,7 @@ Class {
 { #category : #'command line' }
 ClapCodeEvaluator class >> evaluate [
 	<commandline>
-	^ (ClapCommand id: #evaluate)
+	^ (ClapCommandSpec id: #evaluate)
 		aliases: #('eval');
 		description: 'Print the result of a Pharo expression';
 		add: ClapFlag forHelp;

@@ -27,7 +27,7 @@ ClapContext class >> defaultRoot [
 	^ (ClapRoot id: #clap)
 		description: 'Entry point for commands implemented with Clap';
 		add: ClapFlag forHelp;
-		add: ClapCommand forHelp;
+		add: ClapCommandSpec forHelp;
 
 		add: ((ClapFlag id: #save)
 			description: 'Save the image after the command terminates');

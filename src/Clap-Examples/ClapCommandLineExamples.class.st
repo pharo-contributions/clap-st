@@ -27,26 +27,27 @@ Class {
 ClapCommandLineExamples class >> git [
 	"A dummy command (no behavior besides help) to demonstrate nested subcommand and as a test subject for the documenter.
 	<commandline> pragma omitted, because doesn't really make sense to make it available outside the image."
-	^ (ClapCommand id: 'git')
+	^ (ClapCommandSpec id: 'git')
 		description: 'The stupid content tracker';
-		add: ClapCommand forHelp;
-		add: ((ClapCommand id: 'add')
+		commandClass: self;
+		add: ClapCommandSpec forHelp;
+		add: ((ClapCommandSpec id: 'add')
 			description: 'Add file contents to the index');
-		add: ((ClapCommand id: 'branch')
+		add: ((ClapCommandSpec id: 'branch')
 			description: 'List, create, or delete branches');
-		add: ((ClapCommand id: 'clone')
+		add: ((ClapCommandSpec id: 'clone')
 			description: 'Clone a repository into a new directory');
-		add: ((ClapCommand id: 'commit')
+		add: ((ClapCommandSpec id: 'commit')
 			description: 'Record changes to the repository');
-		add: ((ClapCommand id: 'init')
+		add: ((ClapCommandSpec id: 'init')
 			description: 'Create an empty Git repository or reinitialize an existing one');
-		add: ((ClapCommand id: 'remote')
+		add: ((ClapCommandSpec id: 'remote')
 			description: 'Manage set of tracked repositories';
-			add: (ClapCommand id: 'add');
-			add: (ClapCommand id: 'remove');
-			add: (ClapCommand id: 'set-url');
+			add: (ClapCommandSpec id: 'add');
+			add: (ClapCommandSpec id: 'remove');
+			add: (ClapCommandSpec id: 'set-url');
 			yourself);
-		add: ((ClapCommand id: 'status')
+		add: ((ClapCommandSpec id: 'status')
 			description: 'Show the working tree status');
 		yourself
 ]
@@ -56,8 +57,9 @@ ClapCommandLineExamples class >> hello [
 	"The usual Hello-World example, demonstrating a Clap command with a couple features."
 
 	<commandline>
-	^ (ClapCommand id: #hello)
+	^ (ClapCommandSpec id: #hello)
 		description: 'Provides greetings';
+		commandClass: self;
 		add: ClapFlag forHelp;
 		add: ((ClapFlag id: #whisper) description: 'Greet discretely');
 		add: ((ClapFlag id: #shout) description: 'Greet loudly');
