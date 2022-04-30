@@ -15,11 +15,7 @@ ClapValidation >> description [
 
 { #category : #validation }
 ClapValidation >> failureDescriptionFor: anObject [
-	^ String streamContents: [ :str |
-		str nextPutAll: 'Unrecognized arguments: '.
-		anObject context leftovers
-			do: [ :each | str nextPutAll: each ]
-			separatedBy: [ str nextPutAll: ', ' ] ]
+	self subclassResponsibility
 ]
 
 { #category : #validation }
