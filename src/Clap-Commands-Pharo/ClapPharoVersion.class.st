@@ -12,6 +12,7 @@ ClapPharoVersion class >> version [
 	<commandline>
 	^ (ClapCommandSpec id: #version)
 		description: 'Displays version information, in various formats';
+		commandClass: self;
 		add: ClapFlag forHelp;
 		add: ((ClapFlag id: #full) description: 'Full image version (default format)');
 		add: ((ClapFlag id: #release) description: 'Major.minor alpha/stable');

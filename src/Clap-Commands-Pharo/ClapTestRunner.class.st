@@ -14,6 +14,7 @@ Class {
 ClapTestRunner class >> test [
 	<commandline>
 	^ (ClapCommandSpec id: #test)
+		commandClass: self;
 		add: ClapFlag forHelp;
 		add: ((ClapFlag id: #xml)
 			description: 'Output results in JUnit-compatible XML format');

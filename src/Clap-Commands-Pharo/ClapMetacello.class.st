@@ -9,6 +9,7 @@ ClapMetacello class >> metacello [
 	<commandline>
 	^ (ClapCommandSpec id: #metacello)
 		description: 'Load code using Metacello';
+		commandClass: self;
 		add: ClapFlag forHelp;
 		add: ClapCommandSpec forHelp;
 		add: ((ClapPositional id: #REPOSITORY)
