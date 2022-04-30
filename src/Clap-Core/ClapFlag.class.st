@@ -27,6 +27,11 @@ ClapFlag class >> forHelp [
 			true ]
 ]
 
+{ #category : #parsing }
+ClapFlag >> addCommandArg: aFlagId in: aClapContext [ 
+	aClapContext addFlag: aFlagId
+]
+
 { #category : #adding }
 ClapFlag >> addTo: parentParameter [
 	^ parentParameter addFlag: self

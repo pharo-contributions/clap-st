@@ -28,6 +28,11 @@ ClapApplication class >> with: arguments [
 ]
 
 { #category : #accessing }
+ClapApplication >> command [
+	^ arguments at: #command
+]
+
+{ #category : #accessing }
 ClapApplication >> context [
 	^ arguments context
 ]
@@ -37,9 +42,24 @@ ClapApplication >> execute [
 	self subclassResponsibility
 ]
 
+{ #category : #testing }
+ClapApplication >> hasFlag: anIdentifier [ 
+	| flags |
+	
+	flags := arguments at: #flags ifAbsent: [ ^ false ].
+	^ flags includes: anIdentifier
+]
+
 { #category : #execution }
 ClapApplication >> outputStreamDo: aBlock [
 	aBlock value: self context stdout
+]
+
+{ #category : #accessing }
+ClapApplication >> positional: aFlagIdentifier [ 
+	"Get the value of a positional for the flag with given identifier"
+	
+	^ arguments at: aFlagIdentifier
 ]
 
 { #category : #initialization }

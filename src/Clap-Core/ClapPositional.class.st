@@ -13,6 +13,11 @@ ClapPositional class >> basicMeaning [
 	^ [ :match | match word ]
 ]
 
+{ #category : #parsing }
+ClapPositional >> addCommandArg: aString in: aClapContext [ 
+	aClapContext addFlag: self identifier positional: aString
+]
+
 { #category : #adding }
 ClapPositional >> addTo: parentParameter [
 	^ parentParameter addPositional: self

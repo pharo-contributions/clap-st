@@ -17,7 +17,8 @@ Class {
 		'match',
 		'leftovers',
 		'session',
-		'exitException'
+		'exitException',
+		'parsedArguments'
 	],
 	#category : #'Clap-Core-Activation'
 }
@@ -69,6 +70,29 @@ ClapContext class >> withPragmaCommands [
 	^ self withAll: self pragmaCommands
 ]
 
+{ #category : #parsing }
+ClapContext >> addCommandArg: aString [ 
+	parsedArguments 
+		at: #command
+		ifPresent: [ :coll | coll addFirst: aString ]
+		ifAbsentPut: [ OrderedCollection with: aString ]
+]
+
+{ #category : #parsing }
+ClapContext >> addFlag: aFlagId [ 
+	parsedArguments 
+		at: #flags 
+		ifPresent: [ :coll | coll addFirst: aFlagId ]
+		ifAbsentPut: [ OrderedCollection with: aFlagId ]
+]
+
+{ #category : #parsing }
+ClapContext >> addFlag: flagId positional: positionalValue [ 
+	parsedArguments 
+		at: flagId 
+		put: positionalValue
+]
+
 { #category : #validation }
 ClapContext >> allValidations [
 	^ self validateOn: ClapValidationReport success.
@@ -102,6 +126,12 @@ ClapContext >> binaryStdin [
 { #category : #streams }
 ClapContext >> binaryStdout [
 	^ self stdio stdout
+]
+
+{ #category : #accessing }
+ClapContext >> command [
+	self match. "ensure command is matched"
+	^ self specification commandClass with: self parsedArguments.
 ]
 
 { #category : #accessing }
@@ -218,7 +248,8 @@ ClapContext >> ifMatch: matchBlock ifMismatch: failBlock [
 { #category : #initialization }
 ClapContext >> initialize [
 	arguments := #().
-	obeyingExits := false
+	obeyingExits := false.
+	parsedArguments := Dictionary new.
 ]
 
 { #category : #accessing }
@@ -234,6 +265,11 @@ ClapContext >> match [
 { #category : #activation }
 ClapContext >> noneMatched [
 	^ self exitFailure: 'Unknown command'
+]
+
+{ #category : #accessing }
+ClapContext >> parsedArguments [
+	^ parsedArguments
 ]
 
 { #category : #printing }
@@ -312,7 +348,9 @@ ClapContext >> validateAll [
 { #category : #validation }
 ClapContext >> validateOn: aReport [
 	match validateOn: aReport.
-	aReport add: (ClapLeftoversValidation new validate: self).
+	aReport 
+		add: (ClapLeftoversValidation new validate: self);
+		add: (ClapMatchedValidation new validate: self).
 
 	^ aReport
 ]
