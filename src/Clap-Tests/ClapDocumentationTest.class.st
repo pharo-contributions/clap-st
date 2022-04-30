@@ -7,7 +7,7 @@ Class {
 { #category : #tests }
 ClapDocumentationTest >> testFlagWithPositionalShouldPrintBothFlagAndPositional [
 	| command doc lines |
-	command := (ClapCommand id: #testCommand)
+	command := (ClapCommandSpec id: #testCommand)
 		description: 'Test command for flags with positional';
 		add: ClapFlag forHelp;
 		add:
