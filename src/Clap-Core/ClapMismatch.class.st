@@ -47,3 +47,8 @@ ClapMismatch >> printDetailsOn: aStream [
 ClapMismatch >> recordIn: parentMatch [ 
 	"this match failed, so do nothing"
 ]
+
+{ #category : #accessing }
+ClapMismatch >> value [
+	^ self
+]

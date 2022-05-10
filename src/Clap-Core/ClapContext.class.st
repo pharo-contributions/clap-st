@@ -82,15 +82,18 @@ ClapContext >> addCommandArg: aString [
 ClapContext >> addFlag: aFlagId [ 
 	parsedArguments 
 		at: #flags 
-		ifPresent: [ :coll | coll addFirst: aFlagId ]
+		ifPresent: [ :coll | coll add: aFlagId ]
 		ifAbsentPut: [ OrderedCollection with: aFlagId ]
 ]
 
 { #category : #parsing }
-ClapContext >> addFlag: flagId positional: positionalValue [ 
-	parsedArguments 
-		at: flagId 
-		put: positionalValue
+ClapContext >> addFlag: flagId positional: positionalValue multiple: isMultiple [
+	isMultiple
+		ifFalse: [ parsedArguments at: flagId put: positionalValue ]
+		ifTrue: [ parsedArguments 
+						at: flagId 
+						ifPresent: [ :coll | coll add: positionalValue ]
+						ifAbsentPut: [ OrderedCollection with: positionalValue ] ]
 ]
 
 { #category : #validation }
@@ -131,7 +134,9 @@ ClapContext >> binaryStdout [
 { #category : #accessing }
 ClapContext >> command [
 	self match. "ensure command is matched"
-	^ self specification commandClass with: self parsedArguments.
+	^ (self specification commandClass with: self parsedArguments)
+		context: self;
+		yourself
 ]
 
 { #category : #accessing }
@@ -142,6 +147,13 @@ ClapContext >> context [
 { #category : #streams }
 ClapContext >> defaultStdio [
 	^ ClapPluggableStdio onByteArrays
+]
+
+{ #category : #accessing }
+ClapContext >> defaultValueFor: anIdentifier in: application noneBlock: noDefaultValueBlock [
+	^ (self specification at: anIdentifier) implicitMeaning 
+		ifNil: [ noDefaultValueBlock value ]
+		ifNotNil: [ :block | block cull: self match cull: application ]
 ]
 
 { #category : #matching }
@@ -168,14 +180,11 @@ ClapContext >> execute [
 { #category : #activation }
 ClapContext >> executeToExit: exitBlock [
 	^ [
-		self rememberSession;
-			ifMatch: [ :m | 
-				m value: self.
-				self exitSuccess ]
-			ifMismatch: [ self noneMatched ]
-	]
-		on: Exit
-		do: [ :exception |
+		self rememberSession.
+		self command executeWithContext: self.
+		self exitSuccess ]
+	on: Exit
+	do: [ :exception |
 			exitException := exception.
 			exitBlock value: self exitException ]
 ]

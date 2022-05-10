@@ -55,30 +55,26 @@ ClapCommandLineExamples class >> git [
 { #category : #'command line' }
 ClapCommandLineExamples class >> hello [
 	"The usual Hello-World example, demonstrating a Clap command with a couple features."
-
+	<script>
 	<commandline>
 	^ (ClapCommandSpec id: #hello)
 		description: 'Provides greetings';
 		commandClass: self;
-		add: ClapFlag forHelp;
-		add: ((ClapFlag id: #whisper) description: 'Greet discretely');
-		add: ((ClapFlag id: #shout) description: 'Greet loudly');
-		add:
-			((ClapFlag id: #language)
-				description: 'Select language of greeting';
-				add: ((ClapPositional id: #langCode)
-					meaning: [ :pos | pos word asSymbol ];
-					implicitMeaning: [ :arg :app | app defaultLanguage ]);
-				meaning: [ :flag :app | (flag at: #langCode) value: app ]);
-		add:
-			((ClapPositional id: #who)
+		addHelp;
+		addFlag: #whisper description: 'Greet discretely';
+		addFlag: #shout description: 'Greet loudly';
+		addFlag: #language 
+			description: 'Select language of greeting' 
+			positionalSpec: [ :positional |
+				positional
+					symbol;
+					defaultValue: [ :arg :app | app defaultLanguage ] ];
+		addPositional: #who spec: [ :positional |
+			positional
 				description: 'Recipient of the greetings';
 				multiple: true;
-				implicitMeaning: [ :arg :app | app defaultRecipient ]);
-		meaning: [ :args | 
-			args at: #helpFlag ifPresent: [ :help | 
-				help value; exitSuccess ].
-			(self with: args) execute ]
+				defaultValue: [ :arg :app | { app defaultRecipient } ] ];
+		yourself
 ]
 
 { #category : #'accessing - private' }
@@ -112,17 +108,17 @@ ClapCommandLineExamples >> greeting [
 
 { #category : #accessing }
 ClapCommandLineExamples >> language [
-	^ self argumentAt: #language
+	^ self positional: #language
 ]
 
 { #category : #'accessing - private' }
 ClapCommandLineExamples >> outStream [
-	^ outStream ifNil: [ outStream := VTermOutputDriver on: arguments context stdout ]
+	^ outStream ifNil: [ outStream := VTermOutputDriver on: self context stdout ]
 ]
 
 { #category : #accessing }
 ClapCommandLineExamples >> recipients [
-	^ (arguments at: #who) allOccurrencesCollect: [ :arg | arg value: self ]
+	^ self positional: #who
 ]
 
 { #category : #running }
@@ -141,7 +137,7 @@ ClapCommandLineExamples >> sayHelloOn: aStream [
 
 { #category : #accessing }
 ClapCommandLineExamples >> shouting [
-	^ self argumentAt: #shout
+	^ self hasFlag: #shout
 ]
 
 { #category : #running }
@@ -185,5 +181,5 @@ ClapCommandLineExamples >> voice: aString [
 
 { #category : #accessing }
 ClapCommandLineExamples >> whispering [
-	^ self argumentAt: #whisper
+	^ self hasFlag: #whisper
 ]

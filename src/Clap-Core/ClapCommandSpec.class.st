@@ -65,6 +65,65 @@ ClapCommandSpec >> addFlag: aFlag [
 	flags add: aFlag
 ]
 
+{ #category : #api }
+ClapCommandSpec >> addFlag: anIdentifier description: aString [
+	| flag |
+	
+	flag := ClapFlag id: anIdentifier.
+	flag description: aString.
+	self add: flag.
+	^ flag
+]
+
+{ #category : #api }
+ClapCommandSpec >> addFlag: anIdentifier description: aString positionalSpec: aPositionalSpecBlock [
+	
+	| flag positional |
+	
+	flag := self addFlag: anIdentifier description: aString.
+	positional := ClapPositional id: flag positionalIdentifier.
+	aPositionalSpecBlock cull: positional. "apply the positional spec"
+	flag add: positional.
+	^ flag
+	
+]
+
+{ #category : #api }
+ClapCommandSpec >> addFlagWithPositional: anIdentifier description: aString [
+	
+	^ self addFlag: anIdentifier description: aString positionalSpec: [ "nothing to do" ]
+]
+
+{ #category : #api }
+ClapCommandSpec >> addHelp [
+
+	| flag |
+	flag := ClapFlag forHelp.
+	self addFlag: flag.
+	^ flag
+]
+
+{ #category : #api }
+ClapCommandSpec >> addPositional: anIdentifier description: aString [
+	
+	| positional |
+	
+	positional := ClapPositional id: anIdentifier.
+	positional description: aString.
+	self add: positional.
+	^ positional
+]
+
+{ #category : #api }
+ClapCommandSpec >> addPositional: anIdentifier spec: aBlock [
+
+	| positional |
+	positional := ClapPositional id: anIdentifier.
+	aBlock value: positional.
+	self add: positional.
+	^ positional
+]
+
 { #category : #adding }
 ClapCommandSpec >> addSubcommand: aCommand [
 	subcommands add: aCommand

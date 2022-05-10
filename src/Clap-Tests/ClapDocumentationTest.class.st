@@ -39,6 +39,6 @@ ClapDocumentationTest >> testHelloShortUsage [
 	self assert: lines first equals: 'Provides greetings'.
 	self assert: lines second isEmpty.
 	self assert: (lines third beginsWith: 'Usage: hello').
-	self assert: (lines third includesSubstring: '[--language <langCode>]').
+	self assert: (lines third includesSubstring: '[--language <language-value>]').
 	self assert: (lines third endsWith: '[<who>]').
 ]

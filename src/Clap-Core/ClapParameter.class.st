@@ -128,8 +128,6 @@ ClapParameter >> implicitMeaning: aBlock [
 ClapParameter >> initialize [
 	description := ''.
 	multiple := false.
-	meaningBlock := self basicMeaning.
-	implicitMeaningBlock := meaningBlock
 ]
 
 { #category : #testing }
@@ -222,11 +220,10 @@ ClapParameter >> validations: aBlock [
 { #category : #accessing }
 ClapParameter >> valueFor: aMatch with: arg [
 	^ self meaning
-		cull: aMatch
-		cull: arg
+		ifNotNil: [ :meaning | meaning cull: aMatch cull: arg ]
 ]
 
 { #category : #accessing }
 ClapParameter >> valueForImplicit: aMatch with: arg [
-	^ self implicitMeaning cull: aMatch cull: arg
+	^ self implicitMeaning ifNotNil: [ :block | block cull: aMatch cull: arg ]
 ]

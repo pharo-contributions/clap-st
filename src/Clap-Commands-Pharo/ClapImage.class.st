@@ -24,11 +24,7 @@ ClapImage class >> image [
 		commandClass: self;
 		add: self saveCommand;
 		add: self cleanupCommand;
-		meaning: [ :args | 
-			args at: #helpFlag ifPresent: [ :help | 
-				help value; exitSuccess ].
-			args validateAll.
-			(self with: args) execute ]
+		yourself
 ]
 
 { #category : #'command line - subcommands' }
@@ -37,8 +33,8 @@ ClapImage class >> saveCommand [
 	^ (ClapCommandSpec id: #save)
 		  description: 'Save the image/changes file under a new name';
 		  commandClass: self;
-		  add: (ClapFlag id: #rename);
-		  add: (ClapFlag id: #backup);
-		  add: (ClapPositional id: #NAME);
+		  addFlag: #rename;
+		  addFlag: #backup;
+		  addPositional: #NAME;
 		  yourself
 ]

@@ -15,7 +15,8 @@ Class {
 	#name : #ClapApplication,
 	#superclass : #Object,
 	#instVars : [
-		'arguments'
+		'arguments',
+		'context'
 	],
 	#category : #'Clap-Core-Specification'
 }
@@ -34,12 +35,35 @@ ClapApplication >> command [
 
 { #category : #accessing }
 ClapApplication >> context [
-	^ arguments context
+	^ context
+]
+
+{ #category : #accessing }
+ClapApplication >> context: aClapContext [
+	context := aClapContext
 ]
 
 { #category : #execution }
 ClapApplication >> execute [
 	self subclassResponsibility
+]
+
+{ #category : #execution }
+ClapApplication >> executeWithContext: aClapContext [
+	context := aClapContext.
+	(self hasFlag: #help)
+		ifTrue: [ self printHelp. self exitSuccess ]
+		ifFalse: [ self execute ]
+]
+
+{ #category : #execution }
+ClapApplication >> exitSuccess [
+	^ self context exitSuccess
+]
+
+{ #category : #accessing }
+ClapApplication >> flags [ 
+	^ arguments at: #flags ifAbsent: [ #() ]
 ]
 
 { #category : #testing }
@@ -59,7 +83,25 @@ ClapApplication >> outputStreamDo: aBlock [
 ClapApplication >> positional: aFlagIdentifier [ 
 	"Get the value of a positional for the flag with given identifier"
 	
-	^ arguments at: aFlagIdentifier
+	"WARNING: positional does not always have a flag as parent. do not do the check is no flag before positional"
+	
+	
+	^ arguments 
+		at: aFlagIdentifier
+		ifAbsent: [ 
+			arguments 
+				at: (ClapPositional idFrom: aFlagIdentifier)
+				ifAbsent: [ (self hasFlag: aFlagIdentifier) "not matched if true: flag without positional"
+									ifFalse: [ self context 
+										defaultValueFor: aFlagIdentifier 
+										in: self 
+										noneBlock: [ NotFound signal: 'Cannot find ' , aFlagIdentifier ,' flag!' ] ] ] ]
+]
+
+{ #category : #execution }
+ClapApplication >> printHelp [ 
+	(ClapDocumenter on: (ZnCharacterWriteStream on: self context stdout))
+				explain: self context specification.
 ]
 
 { #category : #initialization }

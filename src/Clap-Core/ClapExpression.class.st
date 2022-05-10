@@ -109,6 +109,7 @@ ClapExpression >> validateOn: aReport [
 
 { #category : #evaluating }
 ClapExpression >> value [
+	
 	^ self value: nil
 ]
 

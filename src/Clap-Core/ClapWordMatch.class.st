@@ -28,6 +28,12 @@ ClapWordMatch >> stop [
 ]
 
 { #category : #accessing }
+ClapWordMatch >> value [
+	^ self word
+	"^ self value: nil"
+]
+
+{ #category : #accessing }
 ClapWordMatch >> word [
 	^ word
 ]

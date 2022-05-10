@@ -48,7 +48,7 @@ ClapMatchesTest >> testFlagAbsentValue [
 	self
 		assert: flagMatch parent parent
 		identicalTo: match.
-	self deny: flagMatch value
+	self assert: flagMatch value equals: nil
 
 ]
 
@@ -61,9 +61,7 @@ ClapMatchesTest >> testFlagOmittedValue [
 	flagMatch := match at: dirFlag.
 
 	self assert: flagMatch isExplicit.
-	self
-		deny: flagMatch value
-		identicalTo: '--slow'.
+	self assert: flagMatch value equals: nil.
 	self deny: (flagMatch at: #DIR) isExplicit.
 	self assert: (match at: slowFlag) isExplicit.
 ]

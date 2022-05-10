@@ -14,21 +14,16 @@ ClapCodeEvaluator class >> evaluate [
 		aliases: #('eval');
 		commandClass: self;
 		description: 'Print the result of a Pharo expression';
-		add: ClapFlag forHelp;
-		add: ((ClapFlag id: #save)
-			description: 'Save the image after evaluation');
-		add: ((ClapFlag id: #keepAlive)
-			description: 'Keep image running');
-		add:	((ClapPositional id: #EXPR)
-			description: 'The expression to evaluate, joining successive arguments with spaces (if omitted, read the expression from stdin)';
-			multiple: true;
-			meaning: [ :match | "let's copy all the bytes, twice, because the VM assumes some 8-bit encoding…"
-				String space join: (match allOccurrencesCollect: #word) ];
-			implicitMeaning: [ :match | "in the absence of an explicit argument, read from standard input"
-				match context stdin upToEnd ]);
-		meaning: [ :args | 
-			args	at: #helpFlag ifPresent: [ :help | help value; exitSuccess ].
-			(self with: args) execute ]
+		addHelp;
+		addFlag: #save description: 'Save the image after evaluation';
+		addFlag: #keepAlive description: 'Keep image running';
+		addPositional: #EXPR spec: [ :positional |
+			positional
+				description: 'The expression to evaluate, joining successive arguments with spaces (if omitted, read the expression from stdin)';
+				multiple: true;
+				defaultValue: [ :match | "in the absence of an explicit argument, read from standard input"
+					Array with: match context stdin upToEnd ] ];
+		yourself
 ]
 
 { #category : #execution }
@@ -42,5 +37,5 @@ ClapCodeEvaluator >> execute [
 
 { #category : #accessing }
 ClapCodeEvaluator >> source [
-	^ (arguments at: #EXPR) value
+	^ String space join: (self positional: #EXPR)
 ]
