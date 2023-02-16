@@ -181,7 +181,7 @@ ClapContext >> execute [
 ClapContext >> executeToExit: exitBlock [
 	^ [
 		self rememberSession.
-		self command executeWithContext: self.
+		self command executeOrPrintHelp.
 		self exitSuccess ]
 	on: Exit
 	do: [ :exception |
