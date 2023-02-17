@@ -41,7 +41,7 @@ ClapContextTest >> testCanGetCommandSpecWhenNoSubcommand [
 	self assert: command class equals: context specification commandClass.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ClapContextTest >> testShouldValidationBeKoWhenMismatched [
 	| result |
 	result := context
@@ -54,7 +54,7 @@ ClapContextTest >> testShouldValidationBeKoWhenMismatched [
 	self assert: result class equals: ClapMismatch.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ClapContextTest >> testShouldValidationBeOkWhenMatched [
 	| result |
 	result := context
@@ -68,7 +68,7 @@ ClapContextTest >> testShouldValidationBeOkWhenMatched [
 	self assert: result class equals: ClapCommandLineExamples.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ClapContextTest >> testShouldValidationFailWhenUnexpectedRootPositionalAfterSubcommand [
 	context
 		arguments: #('hello' 'world' '--directory' 'foo/bar/baz');
@@ -81,7 +81,7 @@ ClapContextTest >> testShouldValidationFailWhenUnexpectedRootPositionalAfterSubc
 		equals: #('--directory' 'foo/bar/baz')
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ClapContextTest >> testWrongFlagMatchingButInvalid [
 	context
 		arguments: #('hello' '--inexistent');
