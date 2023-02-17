@@ -29,7 +29,12 @@ ClapApplication class >> with: arguments [
 ]
 
 { #category : #accessing }
-ClapApplication >> command [
+ClapApplication >> commandSpecIdentifiers [
+	^ self commandSpecs collect: [ :spec | spec identifier ]
+]
+
+{ #category : #accessing }
+ClapApplication >> commandSpecs [
 	^ arguments at: #command
 ]
 

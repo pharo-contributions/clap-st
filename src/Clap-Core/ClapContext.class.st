@@ -133,8 +133,11 @@ ClapContext >> binaryStdout [
 
 { #category : #accessing }
 ClapContext >> command [
+	| commandClass |
 	self match. "ensure command is matched"
-	^ (self specification commandClass with: self parsedArguments)
+	
+	commandClass := self lastSubcommand commandClass ifNil: [ ClapApplication ].
+	^ (commandClass with: self parsedArguments)
 		context: self;
 		yourself
 ]
@@ -259,6 +262,17 @@ ClapContext >> initialize [
 	arguments := #().
 	obeyingExits := false.
 	parsedArguments := Dictionary new.
+]
+
+{ #category : #accessing }
+ClapContext >> lastSubcommand [
+	"Returns the last (sub)command specificatition that is found"
+	| commandSpecs |
+	commandSpecs := parsedArguments at: #command ifAbsent: [ ^ self specification ].
+	
+	^ commandSpecs
+		ifNotEmpty: [ :specs | specs last ]
+		ifEmpty: [ self specification ]
 ]
 
 { #category : #accessing }

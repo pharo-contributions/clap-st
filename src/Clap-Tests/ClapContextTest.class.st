@@ -13,6 +13,34 @@ ClapContextTest >> setUp [
 	context := ClapContext specification: ClapCommandLineExamples hello
 ]
 
+{ #category : #tests }
+ClapContextTest >> testCanGetCommandInstanceRelatedToLastSubcommand [
+
+	| command |
+	
+	context := ClapContext specification: ClapCommandLineExamples git.
+	command := context 
+		arguments: #( 'git' 'add');
+		match;
+		validateAll;
+		command.
+
+	self assert: command class equals: ClapGitAddCommandExample.
+]
+
+{ #category : #tests }
+ClapContextTest >> testCanGetCommandSpecWhenNoSubcommand [
+
+	| command |
+	
+	command := context 
+		arguments: #();
+		match;
+		command.
+
+	self assert: command class equals: context specification commandClass.
+]
+
 { #category : #running }
 ClapContextTest >> testShouldValidationBeKoWhenMismatched [
 	| result |

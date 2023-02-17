@@ -13,7 +13,7 @@ ClapCommandTest >> testShouldArgumentsBeOkWhenMatched [
 	context := ClapCommandLineExamples hello activateWith: #('hello' 'world' '--help').
 	command := context command.
 	
-	self assertCollection: command command hasSameElements: #('hello').
+	self assertCollection: command commandSpecIdentifiers hasSameElements: #('hello').
 	self assert: (command hasFlag: 'help').
 	self assertCollection: (command positional: #who) hasSameElements: #('world').
 ]
@@ -93,7 +93,9 @@ ClapCommandTest >> testShouldSubCommandsBeOkWhenMatched [
 		arguments: #('git' 'status');
 		command.
 	
-	self assertCollection: command command hasSameElements: #('git' 'status').
+	self 
+		assertCollection: command commandSpecIdentifiers 
+		hasSameElements: #('git' 'status').
 ]
 
 { #category : #tests }

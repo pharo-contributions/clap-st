@@ -32,7 +32,8 @@ ClapCommandLineExamples class >> git [
 		commandClass: self;
 		add: ClapCommandSpec forHelp;
 		add: ((ClapCommandSpec id: 'add')
-			description: 'Add file contents to the index');
+			description: 'Add file contents to the index';
+			commandClass: ClapGitAddCommandExample);
 		add: ((ClapCommandSpec id: 'branch')
 			description: 'List, create, or delete branches');
 		add: ((ClapCommandSpec id: 'clone')

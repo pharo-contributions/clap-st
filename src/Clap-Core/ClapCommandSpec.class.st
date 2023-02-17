@@ -56,8 +56,9 @@ ClapCommandSpec class >> forHelp [
 ]
 
 { #category : #parsing }
-ClapCommandSpec >> addCommandArg: aCommandName in: aClapContext [ 
-	aClapContext addCommandArg: aCommandName
+ClapCommandSpec >> addCommandArg: aCommandName in: aClapContext [
+	"We add the command spec that already includes aCommandName in its identifier"
+	aClapContext addCommandArg: self
 ]
 
 { #category : #adding }
