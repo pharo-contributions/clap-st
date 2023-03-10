@@ -154,7 +154,7 @@ ClapContext >> defaultStdio [
 
 { #category : #accessing }
 ClapContext >> defaultValueFor: anIdentifier in: application noneBlock: noDefaultValueBlock [
-	^ (self specification at: anIdentifier) implicitMeaning 
+	^ (self lastSubcommand at: anIdentifier) implicitMeaning 
 		ifNil: [ noDefaultValueBlock value ]
 		ifNotNil: [ :block | block cull: self match cull: application ]
 ]

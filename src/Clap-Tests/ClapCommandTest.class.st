@@ -47,7 +47,7 @@ ClapCommandTest >> testShouldGetCollectionWhenAskingForAMultiplePositionalWithOn
 ]
 
 { #category : #tests }
-ClapCommandTest >> testShouldGetDefaultValueWhenAskingForAMissingFlagWithPositionalWithDefaultValueSpecified [
+ClapCommandTest >> testShouldGetDefaultValueWhenAskingForAMissingNestedPositionalWithDefaultValueSpecified [
 	| command |
 	context := ClapContext specification: ClapCommandLineExamples hello.
 	command := context
@@ -58,6 +58,28 @@ ClapCommandTest >> testShouldGetDefaultValueWhenAskingForAMissingFlagWithPositio
 		assert: (command positional: #language)
 		equals: #en
 
+]
+
+{ #category : #tests }
+ClapCommandTest >> testShouldGetDefaultValueWhenAskingForAMissingNestedPositionalWithDefaultValueSpecifiedOnSubcommand [
+	| command spec |
+	spec := (ClapCommandSpec id: #hello)
+		add: ((ClapCommandSpec id: 'world')
+			commandClass: ClapGitAddCommandExample;
+			addFlag: #language 
+				description: 'Select language of greeting' 
+				positionalSpec: [ :positional |
+					positional defaultValue: [ :arg :app | 'fr' ] ];
+			yourself);
+		yourself.
+	context := ClapContext specification: spec.
+	command := context
+		arguments: #('hello' 'world');
+		command.
+	
+	self 
+		assert: (command positional: #language)
+		equals: #fr
 ]
 
 { #category : #tests }
