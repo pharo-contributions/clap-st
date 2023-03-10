@@ -114,3 +114,24 @@ ClapCommandTest >> testShouldThrowNotFoundWhenAskingForAMissingPositional [
 		raise: NotFound
 
 ]
+
+{ #category : #tests }
+ClapCommandTest >> testShouldValidationFailWhenAskingForAPositionalWithMissingValues [
+	| spec match validationReport problem |
+	
+	spec := ClapCommandSpec id: #hello.
+	spec addFlagWithPositional: #foo description: 'some foo'.
+	spec addFlagWithPositional: #bar description: 'some bar'.
+	context := ClapContext specification: spec.
+	match := context
+		arguments: #('hello' '--foo' '--bar');
+		match.
+	validationReport := context allValidations.
+	
+	self deny: match isMismatch.
+	self deny: validationReport isSuccess.
+	problem := validationReport problems first validation.
+	self assert: problem class equals: ClapNestedPositionalValidation.
+	self assertCollection: problem missingValueIdentifiers hasSameElements: #('foo-value' 'bar-value').
+	
+]

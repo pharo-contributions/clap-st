@@ -5,14 +5,18 @@ Class {
 	#name : #ClapValidationReport,
 	#superclass : #Object,
 	#instVars : [
-		'problems'
+		'problems',
+		'context'
 	],
 	#category : #'Clap-Core-Validation'
 }
 
 { #category : #'instance creation' }
-ClapValidationReport class >> success [
+ClapValidationReport class >> on: aClapContext [
+
 	^ self new
+		  context: aClapContext;
+		  yourself
 ]
 
 { #category : #controlling }
@@ -23,6 +27,17 @@ ClapValidationReport >> add: aDiagnostic [
 { #category : #controlling }
 ClapValidationReport >> addAll: diagnostics [
 	diagnostics do: [ :each | self add: each ]
+]
+
+{ #category : #accessing }
+ClapValidationReport >> commandSpecification [
+	^ context specification
+]
+
+{ #category : #initialization }
+ClapValidationReport >> context: aClapContext [
+
+	context := aClapContext
 ]
 
 { #category : #initialization }
@@ -46,4 +61,10 @@ ClapValidationReport >> printOn: aStream [
 		aStream
 			nextPutAll: each printString;
 			cr ]
+]
+
+{ #category : #accessing }
+ClapValidationReport >> problems [
+	
+	^ problems
 ]

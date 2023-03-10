@@ -162,6 +162,21 @@ ClapCommandSpec >> initialize [
 	flags := OrderedCollection new.
 ]
 
+{ #category : #accessing }
+ClapCommandSpec >> nestedPositionalIds [
+	
+	^ self nestedPositionals 
+		flatCollect: [ :flag | flag positionals collect: [ :positional | positional identifier ] ]
+]
+
+{ #category : #accessing }
+ClapCommandSpec >> nestedPositionals [
+	"A Nested positional is a positional nested into a flag, e.g. --lang fr
+	where --lang is a flag and fr is a positional inside the flag."
+	
+	^ self flags select: [ :flag | flag positionals isNotEmpty ]
+]
+
 { #category : #enumerating }
 ClapCommandSpec >> parametersDo: aBlock [
 	self flags do: aBlock.

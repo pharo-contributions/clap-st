@@ -98,7 +98,7 @@ ClapContext >> addFlag: flagId positional: positionalValue multiple: isMultiple 
 
 { #category : #validation }
 ClapContext >> allValidations [
-	^ self validateOn: ClapValidationReport success.
+	^ self validateOn: (ClapValidationReport on: self).
 ]
 
 { #category : #accessing }
@@ -373,7 +373,8 @@ ClapContext >> validateOn: aReport [
 	match validateOn: aReport.
 	aReport 
 		add: (ClapLeftoversValidation new validate: self);
-		add: (ClapMatchedValidation new validate: self).
+		add: (ClapMatchedValidation new validate: self);
+		add: (ClapNestedPositionalValidation new validate: self).
 
 	^ aReport
 ]
