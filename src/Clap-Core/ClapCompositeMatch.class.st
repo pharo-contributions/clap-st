@@ -12,6 +12,12 @@ Class {
 	#category : #'Clap-Core-Activation'
 }
 
+{ #category : #parsing }
+ClapCompositeMatch >> addArgumentTo: aClapContext [ 
+	
+	"nothing to do"
+]
+
 { #category : #matching }
 ClapCompositeMatch >> addChild: aSubExpression [
 	children add: aSubExpression

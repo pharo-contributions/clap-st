@@ -42,6 +42,20 @@ ClapContextTest >> testCanGetCommandSpecWhenNoSubcommand [
 ]
 
 { #category : #tests }
+ClapContextTest >> testCommandMatchesWhenInvokedFromClapRoot [
+	context := ClapContext withPragmaCommands
+		arguments: #('image' 'cleanup');
+		match;
+		yourself.
+	
+	self assert: context isMatch.
+	self assert: context isValid.
+	self 
+		assertCollection: context command commandSpecIdentifiers 
+		hasSameElements: #('image' 'cleanup').
+]
+
+{ #category : #tests }
 ClapContextTest >> testShouldValidationBeKoWhenMismatched [
 	| result |
 	result := context
