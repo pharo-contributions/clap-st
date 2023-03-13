@@ -8,7 +8,7 @@ Class {
 		'report',
 		'writeStream'
 	],
-	#category : #'Clap-Tests-Unit'
+	#category : #'Clap-Core-Validation'
 }
 
 { #category : #initialization }
