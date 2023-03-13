@@ -27,19 +27,15 @@ Class {
 ClapContext class >> defaultRoot [
 	^ (ClapRoot id: #clap)
 		description: 'Entry point for commands implemented with Clap';
-		add: ClapFlag forHelp;
+		addHelp;
 		add: ClapCommandSpec forHelp;
 
-		add: ((ClapFlag id: #save)
-			description: 'Save the image after the command terminates');
-		add: ((ClapFlag id: #noSave)
-			description: 'Do not save the image even if the command is stateful');
-		add: ((ClapFlag id: #rename)
-			description: 'Rename the image as <NAME> before running the command';
-			add: (ClapPositional id: #NAME));
-
-		add: ((ClapFlag id: #keepAlive)
-			description: 'Keep the image running after the command terminates');
+		addFlag: #save description: 'Save the image after the command terminates';
+		addFlag: #noSave description: 'Do not save the image even if the command is stateful';
+		addFlag: #rename 
+			description: 'Rename the image as <NAME> before running the command' 
+			positionalSpec: [ :spec | spec identifier: #NAME];
+		addFlag: #keepAlive description: 'Keep the image running after the command terminates';
 
 		meaning: [ :args |
 			args at: #helpFlag ifPresent: [ :help |
