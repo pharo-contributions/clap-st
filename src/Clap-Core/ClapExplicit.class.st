@@ -59,10 +59,14 @@ ClapExplicit >> stop [
 
 { #category : #evaluating }
 ClapExplicit >> words [
+	
 	^ self context arguments
-		collect: [ :str | str asByteArray utf8Decoded ]
-		from: self start
-		to: self stop
+		ifEmpty: [ #() ]
+		ifNotEmpty:[ :args |
+			args 
+				collect: [ :str | str asByteArray utf8Decoded ]
+				from: self start
+				to: self stop ]
 ]
 
 { #category : #evaluating }
