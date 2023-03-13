@@ -184,6 +184,8 @@ ClapContext >> execute [
 ClapContext >> executeToExit: exitBlock [
 	^ [
 		self rememberSession.
+		self ifMismatch: [ self command printHelp. self exitFailure ].
+		self validateAll.
 		self command executeOrPrintHelp.
 		self exitSuccess ]
 	on: Exit

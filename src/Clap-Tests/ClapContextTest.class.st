@@ -42,6 +42,24 @@ ClapContextTest >> testCanGetCommandSpecWhenNoSubcommand [
 ]
 
 { #category : #tests }
+ClapContextTest >> testClapCommandDoesNotThrowError [
+	"Ensure Root Clap Command mismatch does not raise an error but prints command help"
+	
+	context := ClapContext withPragmaCommands
+		           arguments: #(  );
+		           match;
+		           yourself.
+
+	self deny: context isMatch.
+	self deny: context isValid.
+	context executeToExit: [ :exitException | 
+		"Command did not match, we expect an Exit was signaled"
+		self assert:
+			(context stdio stdout contents utf8Decoded includesSubstring:
+				 'Entry point for commands implemented with Clap') ]
+]
+
+{ #category : #tests }
 ClapContextTest >> testCommandMatchesWhenInvokedFromClapRoot [
 	context := ClapContext withPragmaCommands
 		arguments: #('image' 'cleanup');
