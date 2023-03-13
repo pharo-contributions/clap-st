@@ -1,7 +1,7 @@
 Class {
 	#name : #ClapDocumentationTest,
 	#superclass : #TestCase,
-	#category : #'Clap-Tests-Integration'
+	#category : #'Clap-Tests-Unit'
 }
 
 { #category : #tests }
