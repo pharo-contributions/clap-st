@@ -262,6 +262,12 @@ ClapContext >> initialize [
 	parsedArguments := Dictionary new.
 ]
 
+{ #category : #validation }
+ClapContext >> isValid: aValidation [
+
+	^ aValidation isValidContext: self
+]
+
 { #category : #accessing }
 ClapContext >> lastSubcommand [
 	"Returns the last (sub)command specificatition that is found"
@@ -369,10 +375,8 @@ ClapContext >> validateAll [
 { #category : #validation }
 ClapContext >> validateOn: aReport [
 	match validateOn: aReport.
-	aReport 
-		add: (ClapLeftoversValidation new validate: self);
-		add: (ClapMatchedValidation new validate: self);
-		add: (ClapNestedPositionalValidation new validate: self).
-
+	match validate: ClapLeftoversValidation on: aReport.
+	match validate: ClapMatchedValidation on: aReport.
+	match validate: ClapNestedPositionalValidation on: aReport.
 	^ aReport
 ]

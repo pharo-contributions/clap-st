@@ -47,6 +47,12 @@ ClapFlag >> canMatchWith: word [
 		or: [ word = self longForm ]
 ]
 
+{ #category : #testing }
+ClapFlag >> isFlag [
+
+	^ true
+]
+
 { #category : #accessing }
 ClapFlag >> longForm [
 	^ '--' , self canonicalName

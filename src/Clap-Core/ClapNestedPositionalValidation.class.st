@@ -22,18 +22,19 @@ ClapNestedPositionalValidation >> failureDescriptionFor: anObject [
 	^ self description
 ]
 
-{ #category : #testing }
-ClapNestedPositionalValidation >> matches: aClapContext [
+{ #category : #initialization }
+ClapNestedPositionalValidation >> initialize [ 
 
-	| specifiedFlags |
-	
-	aClapContext isMismatch ifTrue: [ ^ true "cannot validate" ].
-	
-	specifiedFlags := aClapContext match flags.
-	missing := specifiedFlags 
-		select: [ :match | match positionalValues includes: nil ].
-	^ missing isEmpty
+	missing := OrderedCollection new.
+]
 
+{ #category : #validation }
+ClapNestedPositionalValidation >> isValidNamedMatch: aClapNamedMatch [
+
+	| isValid |
+	isValid := aClapNamedMatch isFullMatch.
+	isValid ifFalse: [ missing add: aClapNamedMatch ].
+	^ isValid
 ]
 
 { #category : #accessing }

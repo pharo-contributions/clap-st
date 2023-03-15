@@ -29,6 +29,12 @@ ClapMismatch >> isValid [
 	^ false
 ]
 
+{ #category : #testing }
+ClapMismatch >> isValid: aValidation [
+
+	^ aValidation isValidMismatch: self
+]
+
 { #category : #printing }
 ClapMismatch >> printDetailsOn: aStream [
 	aStream

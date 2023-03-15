@@ -131,6 +131,12 @@ ClapParameter >> initialize [
 ]
 
 { #category : #testing }
+ClapParameter >> isFlag [ 
+
+	^ false
+]
+
+{ #category : #testing }
 ClapParameter >> isMatchableIn: aCompositeMatch [
 	^ self isMultiple or: [ (aCompositeMatch includesMatchOf: self) not ]
 ]
@@ -203,6 +209,16 @@ ClapParameter >> synopsisOn: aStream [
 { #category : #validation }
 ClapParameter >> validate: aMatch on: aReport [
 	aReport addAll: (self validationDiagnosticsFor: aMatch)
+]
+
+{ #category : #validation }
+ClapParameter >> validate: aClapValidationClass on: aReport match: aMatch [
+
+	| diagnostics |
+	diagnostics := aClapValidationClass
+		ifNil: [ self validationDiagnosticsFor: aMatch ]
+		ifNotNil: [ { aClapValidationClass new validate: aMatch } ].
+	aReport addAll: (diagnostics reject: [ :diagnostic | diagnostic isSuccess ])
 ]
 
 { #category : #validation }

@@ -43,6 +43,12 @@ ClapImplicit >> isValid [
 	^ true
 ]
 
+{ #category : #testing }
+ClapImplicit >> isValid: aValidation [
+
+	^ aValidation isValidImplicit: self
+]
+
 { #category : #evaluating }
 ClapImplicit >> value: arg [
 	^ specification valueForImplicit: self with: arg

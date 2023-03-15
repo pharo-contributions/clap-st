@@ -22,6 +22,12 @@ ClapWordMatch >> completeMatchOn: aStream [
 	self addArgumentTo: self context.
 ]
 
+{ #category : #testing }
+ClapWordMatch >> isValid: aValidation [
+
+	^ aValidation isValidWordMatch: self
+]
+
 { #category : #accessing }
 ClapWordMatch >> stop [
 	^ self start

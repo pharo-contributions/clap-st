@@ -88,6 +88,12 @@ ClapCompositeMatch >> initialize [
 	children := OrderedCollection new
 ]
 
+{ #category : #validation }
+ClapCompositeMatch >> isValid: aValidation [
+
+	^ aValidation isValidCompositeMatch: self
+]
+
 { #category : #matching }
 ClapCompositeMatch >> matchChildrenOn: aStream [
 	[ self
@@ -135,6 +141,12 @@ ClapCompositeMatch >> stop [
 	^ children
 		ifEmpty: [ self start - 1 ]
 		ifNotEmpty: [ children last stop ]
+]
+
+{ #category : #validation }
+ClapCompositeMatch >> validate: aClapValidationClass on: aReport [
+	super validate: aClapValidationClass on: aReport.
+	children do: [ :each | each validate: aClapValidationClass on: aReport ]
 ]
 
 { #category : #validation }

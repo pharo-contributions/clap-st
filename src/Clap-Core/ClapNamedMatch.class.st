@@ -23,6 +23,20 @@ ClapNamedMatch >> completeMatchOn: aStream [
 	self addArgumentTo: self context.
 ]
 
+{ #category : #testing }
+ClapNamedMatch >> isFullMatch [
+
+	^ (self specification isFlag and: [ self specification hasPositional ])
+		ifTrue: [ children size = self specification positionals size ]
+		ifFalse: [ true ]
+]
+
+{ #category : #testing }
+ClapNamedMatch >> isValid: aValidation [
+
+	^ aValidation isValidNamedMatch: self
+]
+
 { #category : #matching }
 ClapNamedMatch >> word [
 	^ keyword

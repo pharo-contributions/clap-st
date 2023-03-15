@@ -5,20 +5,22 @@ Class {
 }
 
 { #category : #tests }
-ClapValidationTest >> testErrorReportingWhenNestedPositionalNotInArguments [
+ClapValidationTest >> testErrorReportingWhenMissingNestedPositional [
 
 	| spec context match validationReport errorString |
 	spec := ClapCommandSpec id: #hello.
 	spec addFlagWithPositional: #foo description: 'some foo'.
+	spec addFlagWithPositional: #bar description: 'some bar'.
 	context := ClapContext specification: spec.
 	match := context
-		         arguments: #( 'hello' );
+		         arguments: #( 'hello' '--foo' '--bar' );
 		         match.
 	validationReport := context allValidations.
 
-	errorString := (ClapValidationErrorPrinter on: validationReport) printString.
-	self assert: validationReport isSuccess.	
-	self assert: errorString equals: ''
+	errorString := (ClapValidationErrorPrinter on: validationReport) printString.	
+	self assert: (errorString includesSubstring: 'Usage: hello [--foo <foo-value>] [--bar <bar-value>]').
+	self assert: (errorString includesSubstring: 'Missing positional value for foo-value').
+	self assert: (errorString includesSubstring: 'Missing positional value for bar-value').
 ]
 
 { #category : #tests }
@@ -37,19 +39,18 @@ ClapValidationTest >> testErrorReportingWhenNotMatched [
 ]
 
 { #category : #tests }
-ClapValidationTest >> testNoErrorReportingWhenMissingNestedPositional [
+ClapValidationTest >> testNoErrorReportingWhenNestedPositionalNotInArguments [
 
 	| spec context match validationReport errorString |
 	spec := ClapCommandSpec id: #hello.
 	spec addFlagWithPositional: #foo description: 'some foo'.
-	spec addFlagWithPositional: #bar description: 'some bar'.
 	context := ClapContext specification: spec.
 	match := context
-		         arguments: #( 'hello' '--foo' '--bar' );
+		         arguments: #( 'hello' );
 		         match.
 	validationReport := context allValidations.
 
-	errorString := (ClapValidationErrorPrinter on: validationReport) printString.	
-	self assert: (errorString includesSubstring: 'Usage: hello [--foo <foo-value>] [--bar <bar-value>]').
-	self assert: (errorString includesSubstring: 'Missing positional value for foo-value, bar-value').
+	errorString := (ClapValidationErrorPrinter on: validationReport) printString.
+	self assert: validationReport isSuccess.	
+	self assert: errorString equals: ''
 ]

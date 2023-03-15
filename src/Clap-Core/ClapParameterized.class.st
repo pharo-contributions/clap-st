@@ -78,6 +78,12 @@ ClapParameterized >> hasAlias: aString [
 	
 ]
 
+{ #category : #testing }
+ClapParameterized >> hasPositional [
+
+	^ self positionals notEmpty
+]
+
 { #category : #initialization }
 ClapParameterized >> initialize [
 	super initialize.

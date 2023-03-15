@@ -154,6 +154,8 @@ ClapCommandTest >> testShouldValidationFailWhenAskingForAPositionalWithMissingVa
 	self deny: validationReport isSuccess.
 	problem := validationReport problems first validation.
 	self assert: problem class equals: ClapNestedPositionalValidation.
-	self assertCollection: problem missingValueIdentifiers hasSameElements: #('foo-value' 'bar-value').
+	self 
+		assertCollection: (validationReport problems flatCollect: [:pb | pb validation missingValueIdentifiers])
+		hasSameElements: #('foo-value' 'bar-value').
 	
 ]
