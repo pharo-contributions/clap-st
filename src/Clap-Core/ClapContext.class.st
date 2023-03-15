@@ -368,7 +368,8 @@ ClapContext >> validateAll [
 	report := self allValidations.
 	report isSuccess ifTrue: [ ^ self ].
 	
-	self stderr print: report; flush.
+	(ClapValidationErrorPrinter on: report) printOn: self stderr.
+	self stderr flush.
 	self exitFailure
 ]
 

@@ -74,6 +74,23 @@ ClapContextTest >> testCommandMatchesWhenInvokedFromClapRoot [
 ]
 
 { #category : #tests }
+ClapContextTest >> testExecuteToExitPrintsValidationReportWhenValidationFails [
+	"Ensure Root Clap Command mismatch does not raise an error but prints command help"
+	
+	context := ClapContext withPragmaCommands
+		           arguments: #( 'hello' '--language' "missing lang value");
+		           match;
+		           yourself.
+
+	self deny: context isValid.
+	context executeToExit: [ :exitException | | errorString |
+		"Command did not match, we expect an Exit was signaled"
+		errorString := context stdio stderr contents utf8Decoded.
+		self assert: (errorString includesSubstring: 'Usage: hello').
+		self assert: (errorString includesSubstring: 'Missing positional value for language-value'). ]
+]
+
+{ #category : #tests }
 ClapContextTest >> testShouldValidationBeKoWhenMismatched [
 	| result |
 	result := context
