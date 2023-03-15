@@ -35,19 +35,24 @@ ClapValidationErrorPrinter >> printDelimiterLine [
 ]
 
 { #category : #printing }
-ClapValidationErrorPrinter >> printString [
+ClapValidationErrorPrinter >> printOn: aStream [
+
 	report isSuccess ifTrue: [ ^ '' ].
 
-	^ String streamContents: [ :stream | 
-		writeStream := stream.
-		report problems
-			do: [ :problem | 
-					stream 
-						nextPutAll: 'Error: ';
-						nextPutAll: problem description; 
-						cr ].
-		self printDelimiterLine.
-		self printCommandHelp ]
+	writeStream := aStream.
+	report problems do: [ :problem | 
+		aStream
+			nextPutAll: 'Error: ';
+			nextPutAll: problem description;
+			cr ].
+	self printDelimiterLine.
+	self printCommandHelp
+]
+
+{ #category : #printing }
+ClapValidationErrorPrinter >> printString [
+
+	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
 { #category : #initialization }
