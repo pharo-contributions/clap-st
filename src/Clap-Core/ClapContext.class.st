@@ -270,11 +270,9 @@ ClapContext >> isValid: aValidation [
 
 { #category : #accessing }
 ClapContext >> lastSubcommand [
-	"Returns the last (sub)command specificatition that is found"
-	| commandSpecs |
-	commandSpecs := parsedArguments at: #command ifAbsent: [ ^ self specification ].
+	"Returns the last (sub)command specification that is found"
 	
-	^ commandSpecs
+	^ self subcommands
 		ifNotEmpty: [ :specs | specs last ]
 		ifEmpty: [ self specification ]
 ]
@@ -360,6 +358,15 @@ ClapContext >> stdout [
 ClapContext >> stdoutEncoded: anEncoding [
 	^ ZnNewLineWriterStream on:
 		(ZnCharacterWriteStream on: self binaryStdout encoding: anEncoding)
+]
+
+{ #category : #accessing }
+ClapContext >> subcommands [
+	"Returns the list of matched (sub)command specification"
+	
+	^ parsedArguments 
+		at: #command 
+		ifAbsent: [ { self specification } ]
 ]
 
 { #category : #validation }

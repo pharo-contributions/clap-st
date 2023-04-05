@@ -105,7 +105,8 @@ ClapApplication >> positional: aFlagIdentifier [
 { #category : #execution }
 ClapApplication >> printHelp [ 
 	(ClapDocumenter on: (ZnCharacterWriteStream on: self context stdout))
-				explain: self context specification.
+			explainContext: self context
+			
 ]
 
 { #category : #initialization }
