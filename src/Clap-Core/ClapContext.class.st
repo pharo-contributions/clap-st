@@ -232,6 +232,13 @@ ClapContext >> hasFlag: anIdentifier [
 		^ (self lastSubcommand occurrencesOf: anIdentifier) isNotEmpty
 ]
 
+{ #category : #private }
+ClapContext >> hasPositional: aFlagMatch [
+		
+	^ aFlagMatch hasChild 
+		and: [ aFlagMatch child specification isPositional ]
+]
+
 { #category : #activation }
 ClapContext >> hasSessionChanged [
 	^ session ~~ Smalltalk session
@@ -287,7 +294,7 @@ ClapContext >> positional: anIdentifier [
 	identifierMatches := (self lastSubcommand occurrencesOf: anIdentifier)
 		select: [ :identifierMatch | 
 			identifierMatch specification isPositional
-				or: [ identifierMatch specification isFlag and: [ identifierMatch child specification isPositional ] ] ].
+				or: [ identifierMatch specification isFlag and: [ self hasPositional: identifierMatch ] ] ].
 	^ identifierMatches
 		ifEmpty: [ NotFound signal: 'No positional found with id: ', anIdentifier  ] 
 ]

@@ -23,7 +23,7 @@ ClapCompositeMatch >> at: identifierOrSpec [
 		ifAbsent: [
 			specification at: identifierOrSpec
 				ifPresent: [ :spec | ClapImplicit of: spec in: self ]
-				ifAbsent: [ self notYetImplemented ] ]
+				ifAbsent: [ NotFound signal: 'Cannot find ' , identifierOrSpec asSymbol, '!' ] ] 	
 ]
 
 { #category : #'accessing - children' }
@@ -69,6 +69,12 @@ ClapCompositeMatch >> detectMatchOn: aStream ifFound: foundBlock ifNone: noneBlo
 { #category : #'accessing - children' }
 ClapCompositeMatch >> flags [
 	^ children select: [ :each | specification flags includes: each specification ]
+]
+
+{ #category : #testing }
+ClapCompositeMatch >> hasChild [
+
+	^ children isNotEmpty
 ]
 
 { #category : #testing }
