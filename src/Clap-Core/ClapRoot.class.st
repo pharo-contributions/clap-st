@@ -13,6 +13,13 @@ ClapRoot >> canMatchWith: word [
 	^ true
 ]
 
+{ #category : #testing }
+ClapRoot >> isCommand [
+	"A clap root is not a true command but the entry point for Clap commands"
+
+	^ false
+]
+
 { #category : #accessing }
 ClapRoot >> matchClass [
 	^ ClapCompositeMatch

@@ -23,6 +23,18 @@ ClapApplicationTest >> stdoutString [
 ]
 
 { #category : #tests }
+ClapApplicationTest >> testCanGetFlags [
+
+	| command |
+	context := ClapCommandLineExamples hello activateWith: #('hello' 'world' '--shout' '--language' 'fr').
+	command := context command.
+
+	self 
+		assertCollection: command flags 
+		hasSameElements: #('shout' 'language')
+]
+
+{ #category : #tests }
 ClapApplicationTest >> testCanPrintHelp [
 
 	context := ClapCommandLineExamples git activateWith: #().

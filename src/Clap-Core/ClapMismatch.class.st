@@ -55,6 +55,12 @@ ClapMismatch >> recordIn: parentMatch [
 ]
 
 { #category : #accessing }
+ClapMismatch >> subcommands [
+
+	^ #()
+]
+
+{ #category : #accessing }
 ClapMismatch >> value [
 	^ self
 ]

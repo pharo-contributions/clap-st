@@ -15,16 +15,15 @@ Class {
 	#name : #ClapApplication,
 	#superclass : #Object,
 	#instVars : [
-		'arguments',
 		'context'
 	],
 	#category : #'Clap-Core-Specification'
 }
 
 { #category : #'instance creation' }
-ClapApplication class >> with: arguments [
+ClapApplication class >> with: aClapContext [
 	^ self new
-		setArguments: arguments;
+		setContext: aClapContext;
 		yourself
 ]
 
@@ -35,7 +34,9 @@ ClapApplication >> commandSpecIdentifiers [
 
 { #category : #accessing }
 ClapApplication >> commandSpecs [
-	^ arguments at: #command
+
+	^ self context commandMatches collect: [ :match |
+		  match specification ]
 ]
 
 { #category : #accessing }
@@ -43,9 +44,13 @@ ClapApplication >> context [
 	^ context
 ]
 
-{ #category : #accessing }
-ClapApplication >> context: aClapContext [
-	context := aClapContext
+{ #category : #private }
+ClapApplication >> defaultValueFor: aFlagIdentifier [
+
+	^ self context
+		  defaultValueFor: aFlagIdentifier asSymbol
+		  in: self
+		  noneBlock: [ NotFound signal: 'Cannot find ' , aFlagIdentifier asSymbol, '!' ]
 ]
 
 { #category : #execution }
@@ -67,15 +72,14 @@ ClapApplication >> exitSuccess [
 
 { #category : #accessing }
 ClapApplication >> flags [ 
-	^ arguments at: #flags ifAbsent: [ #() ]
+	^ self context flags
+		collect: [ :match | match specification identifier ]
 ]
 
 { #category : #testing }
 ClapApplication >> hasFlag: anIdentifier [ 
-	| flags |
 	
-	flags := arguments at: #flags ifAbsent: [ ^ false ].
-	^ flags includes: anIdentifier
+	^ self context hasFlag: anIdentifier asSymbol
 ]
 
 { #category : #execution }
@@ -85,21 +89,20 @@ ClapApplication >> outputStreamDo: aBlock [
 
 { #category : #accessing }
 ClapApplication >> positional: aFlagIdentifier [ 
-	"Get the value of a positional for the flag with given identifier"
+	"Get the value of a positional with given identifier"
 	
-	"WARNING: positional does not always have a flag as parent. do not do the check is no flag before positional"
+	^ [ self rawPositional: aFlagIdentifier ]
+		on: NotFound 
+		do: [ self defaultValueFor: aFlagIdentifier ]
+]
+
+{ #category : #accessing }
+ClapApplication >> positional: anIdentifier ifPresent: aBlock [
+	"Execute aBlock if a positional with the identifier is found. The positional valu will be passed as first argument of the block"
 	
-	
-	^ arguments 
-		at: aFlagIdentifier
-		ifAbsent: [ 
-			arguments 
-				at: (ClapPositional idFrom: aFlagIdentifier)
-				ifAbsent: [ (self hasFlag: aFlagIdentifier) "not matched if true: flag without positional"
-									ifFalse: [ self context 
-										defaultValueFor: aFlagIdentifier 
-										in: self 
-										noneBlock: [ NotFound signal: 'Cannot find ' , aFlagIdentifier ,' flag!' ] ] ] ]
+	[ aBlock value: (self positional: anIdentifier) ]
+		on: NotFound 
+		do: [ "ignore" ]
 ]
 
 { #category : #execution }
@@ -109,7 +112,23 @@ ClapApplication >> printHelp [
 			
 ]
 
-{ #category : #initialization }
-ClapApplication >> setArguments: args [
-	arguments := args
+{ #category : #private }
+ClapApplication >> rawPositional: anIdentifier [
+	"We get positionals but a NotFound error can be signaled."
+	
+	| matches values |
+	matches := self context positional: anIdentifier asSymbol.
+	values := matches collect: [ :match |
+		          match specification isFlag
+			          ifTrue: [ match child value ]
+			          ifFalse: [ match value ] ].
+		
+	^ matches first specification isMultiple
+		ifTrue: [ values ]
+		ifFalse: [ values first ]
+]
+
+{ #category : #accessing }
+ClapApplication >> setContext: aClapContext [
+	context := aClapContext
 ]

@@ -10,16 +10,10 @@ Class {
 	#category : #'Clap-Core-Activation'
 }
 
-{ #category : #parsing }
-ClapWordMatch >> addArgumentTo: aClapContext [ 
-	self specification addCommandArg: self word in: aClapContext
-]
-
 { #category : #matching }
 ClapWordMatch >> completeMatchOn: aStream [
 	word := aStream next.
-	startIndex := aStream position.
-	self addArgumentTo: self context.
+	startIndex := aStream position
 ]
 
 { #category : #testing }

@@ -31,7 +31,7 @@ ClapValidationReport >> addAll: diagnostics [
 
 { #category : #accessing }
 ClapValidationReport >> commandSpecification [
-	^ context lastSubcommand
+	^ context lastSubcommand specification
 ]
 
 { #category : #initialization }

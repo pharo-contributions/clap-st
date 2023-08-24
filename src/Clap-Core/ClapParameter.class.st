@@ -131,6 +131,12 @@ ClapParameter >> initialize [
 ]
 
 { #category : #testing }
+ClapParameter >> isCommand [
+
+	^ false
+]
+
+{ #category : #testing }
 ClapParameter >> isFlag [ 
 
 	^ false
@@ -144,6 +150,12 @@ ClapParameter >> isMatchableIn: aCompositeMatch [
 { #category : #testing }
 ClapParameter >> isMultiple [
 	^ multiple
+]
+
+{ #category : #testing }
+ClapParameter >> isPositional [ 
+
+	^ false
 ]
 
 { #category : #matching }

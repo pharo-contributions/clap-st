@@ -10,17 +10,19 @@ Class {
 	#category : #'Clap-Core-Activation'
 }
 
-{ #category : #parsing }
-ClapNamedMatch >> addArgumentTo: aClapContext [ 
-	 self specification addCommandArg: self word in: aClapContext
+{ #category : #accessing }
+ClapNamedMatch >> child [
+	"Warning: onyl use this method if you are sure there is at least one child.
+	This method is used to get a positional value"
+
+	^ children first
 ]
 
 { #category : #matching }
 ClapNamedMatch >> completeMatchOn: aStream [
 	keyword := aStream next.
 	startIndex := aStream position.
-	self matchChildrenOn: aStream.
-	self addArgumentTo: self context.
+	self matchChildrenOn: aStream
 ]
 
 { #category : #testing }

@@ -55,12 +55,6 @@ ClapCommandSpec class >> forHelp [
 				ifNotNil: [ doc explain: topic ] ]
 ]
 
-{ #category : #parsing }
-ClapCommandSpec >> addCommandArg: aCommandName in: aClapContext [
-	"We add the command spec that already includes aCommandName in its identifier"
-	aClapContext addCommandArg: self
-]
-
 { #category : #adding }
 ClapCommandSpec >> addFlag: aFlag [
 	flags add: aFlag
@@ -160,6 +154,12 @@ ClapCommandSpec >> initialize [
 	super initialize.
 	subcommands := OrderedCollection new.
 	flags := OrderedCollection new.
+]
+
+{ #category : #testing }
+ClapCommandSpec >> isCommand [
+
+	^ true
 ]
 
 { #category : #accessing }

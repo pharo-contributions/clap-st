@@ -17,8 +17,7 @@ Class {
 		'match',
 		'leftovers',
 		'session',
-		'exitException',
-		'parsedArguments'
+		'exitException'
 	],
 	#category : #'Clap-Core-Activation'
 }
@@ -66,32 +65,6 @@ ClapContext class >> withPragmaCommands [
 	^ self withAll: self pragmaCommands
 ]
 
-{ #category : #parsing }
-ClapContext >> addCommandArg: aString [ 
-	parsedArguments 
-		at: #command
-		ifPresent: [ :coll | coll addFirst: aString ]
-		ifAbsentPut: [ OrderedCollection with: aString ]
-]
-
-{ #category : #parsing }
-ClapContext >> addFlag: aFlagId [ 
-	parsedArguments 
-		at: #flags 
-		ifPresent: [ :coll | coll add: aFlagId ]
-		ifAbsentPut: [ OrderedCollection with: aFlagId ]
-]
-
-{ #category : #parsing }
-ClapContext >> addFlag: flagId positional: positionalValue multiple: isMultiple [
-	isMultiple
-		ifFalse: [ parsedArguments at: flagId put: positionalValue ]
-		ifTrue: [ parsedArguments 
-						at: flagId 
-						ifPresent: [ :coll | coll add: positionalValue ]
-						ifAbsentPut: [ OrderedCollection with: positionalValue ] ]
-]
-
 { #category : #validation }
 ClapContext >> allValidations [
 	^ self validateOn: (ClapValidationReport on: self).
@@ -132,10 +105,15 @@ ClapContext >> command [
 	| commandClass |
 	self match. "ensure command is matched"
 	
-	commandClass := self lastSubcommand commandClass ifNil: [ ClapApplication ].
-	^ (commandClass with: self parsedArguments)
-		context: self;
-		yourself
+	commandClass := self lastSubcommand specification commandClass ifNil: [ ClapApplication ].
+	^ commandClass with: self
+]
+
+{ #category : #accessing }
+ClapContext >> commandMatches [
+	"Returns the list of matches having a command specification"
+ 
+	^ self match subcommands
 ]
 
 { #category : #accessing }
@@ -150,7 +128,7 @@ ClapContext >> defaultStdio [
 
 { #category : #accessing }
 ClapContext >> defaultValueFor: anIdentifier in: application noneBlock: noDefaultValueBlock [
-	^ (self lastSubcommand at: anIdentifier) implicitMeaning 
+	^ (self lastSubcommand at: anIdentifier) specification implicitMeaning 
 		ifNil: [ noDefaultValueBlock value ]
 		ifNotNil: [ :block | block cull: self match cull: application ]
 ]
@@ -235,12 +213,23 @@ ClapContext >> exitSuccess: message [
 	^ Exit signalSuccess: message
 ]
 
+{ #category : #'accessing - structure variables' }
+ClapContext >> flags [
+	^ self lastSubcommand flags
+]
+
 { #category : #activation }
 ClapContext >> handleExit: exit [
 	self hasSessionChanged ifTrue: [ ^ self ].
 
 	self shouldObeyExit
 		ifTrue: [ exit pass ]
+]
+
+{ #category : #testing }
+ClapContext >> hasFlag: anIdentifier [
+
+		^ (self lastSubcommand occurrencesOf: anIdentifier) isNotEmpty
 ]
 
 { #category : #activation }
@@ -258,8 +247,7 @@ ClapContext >> ifMatch: matchBlock ifMismatch: failBlock [
 { #category : #initialization }
 ClapContext >> initialize [
 	arguments := #().
-	obeyingExits := false.
-	parsedArguments := Dictionary new.
+	obeyingExits := false
 ]
 
 { #category : #validation }
@@ -270,11 +258,10 @@ ClapContext >> isValid: aValidation [
 
 { #category : #accessing }
 ClapContext >> lastSubcommand [
-	"Returns the last (sub)command specification that is found"
-	
-	^ self subcommands
-		ifNotEmpty: [ :specs | specs last ]
-		ifEmpty: [ self specification ]
+
+	^ self
+		ifMatch: [ :aMatch | aMatch subcommands last ]
+		ifMismatch: [ self ]
 ]
 
 { #category : #accessing }
@@ -293,8 +280,16 @@ ClapContext >> noneMatched [
 ]
 
 { #category : #accessing }
-ClapContext >> parsedArguments [
-	^ parsedArguments
+ClapContext >> positional: anIdentifier [ 
+		
+	| identifierMatches |
+	
+	identifierMatches := (self lastSubcommand occurrencesOf: anIdentifier)
+		select: [ :identifierMatch | 
+			identifierMatch specification isPositional
+				or: [ identifierMatch specification isFlag and: [ identifierMatch child specification isPositional ] ] ].
+	^ identifierMatches
+		ifEmpty: [ NotFound signal: 'No positional found with id: ', anIdentifier  ] 
 ]
 
 { #category : #printing }
@@ -358,15 +353,6 @@ ClapContext >> stdout [
 ClapContext >> stdoutEncoded: anEncoding [
 	^ ZnNewLineWriterStream on:
 		(ZnCharacterWriteStream on: self binaryStdout encoding: anEncoding)
-]
-
-{ #category : #accessing }
-ClapContext >> subcommands [
-	"Returns the list of matched (sub)command specification"
-	
-	^ parsedArguments 
-		at: #command 
-		ifAbsent: [ { self specification } ]
 ]
 
 { #category : #validation }

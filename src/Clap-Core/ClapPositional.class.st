@@ -19,11 +19,6 @@ ClapPositional class >> idFrom: aFlagId [
 	^ aFlagId , '-value'
 ]
 
-{ #category : #parsing }
-ClapPositional >> addCommandArg: aString in: aClapContext [ 
-	aClapContext addFlag: self identifier positional: aString multiple: self isMultiple
-]
-
 { #category : #adding }
 ClapPositional >> addTo: parentParameter [
 	^ parentParameter addPositional: self
@@ -44,6 +39,12 @@ ClapPositional >> flagId [
 
 	"positional of a flag has an id like xxx-value"
 	^ self identifier copyUpToLast: $-
+]
+
+{ #category : #testing }
+ClapPositional >> isPositional [ 
+
+	^ true
 ]
 
 { #category : #accessing }

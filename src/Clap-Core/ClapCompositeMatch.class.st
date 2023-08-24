@@ -12,12 +12,6 @@ Class {
 	#category : #'Clap-Core-Activation'
 }
 
-{ #category : #parsing }
-ClapCompositeMatch >> addArgumentTo: aClapContext [ 
-	
-	"nothing to do"
-]
-
 { #category : #matching }
 ClapCompositeMatch >> addChild: aSubExpression [
 	children add: aSubExpression
@@ -57,8 +51,7 @@ ClapCompositeMatch >> at: identifierOrSpec ifPresent: foundBlock ifAbsent: absen
 { #category : #matching }
 ClapCompositeMatch >> completeMatchOn: aStream [
 	startIndex := aStream position + 1.
-	self matchChildrenOn: aStream.
-	self addArgumentTo: self context.
+	self matchChildrenOn: aStream
 ]
 
 { #category : #matching }
@@ -141,6 +134,29 @@ ClapCompositeMatch >> stop [
 	^ children
 		ifEmpty: [ self start - 1 ]
 		ifNotEmpty: [ children last stop ]
+]
+
+{ #category : #'accessing - children' }
+ClapCompositeMatch >> subcommand [
+	"answer the direct subcommand if any"
+	
+	^ children 
+		detect: [ :each | each specification isCommand ]
+]
+
+{ #category : #'accessing - children' }
+ClapCompositeMatch >> subcommands [
+	| commands |
+	
+	commands := OrderedCollection new.
+	commands add: self.
+	[ [ commands add: commands last subcommand ] repeat ]
+	on: NotFound, SubscriptOutOfBounds
+	do: [ "we stop the recursion" ].
+	
+	^ commands first specification isCommand
+		ifTrue: [ commands ]
+		ifFalse: [ commands copyWithoutFirst ]
 ]
 
 { #category : #validation }

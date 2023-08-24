@@ -44,9 +44,9 @@ ClapDocumenter class >> stringFrom: documenterBlock [
 { #category : #documenting }
 ClapDocumenter >> commandStringFrom: aClapContext [
 	| commands |
-	commands := (aClapContext subcommands 
-		ifEmpty: [ { aClapContext specification } ])
-		collect: [ :commandSpec | commandSpec canonicalName ].
+	commands := (aClapContext commandMatches
+		ifEmpty: [ { aClapContext } ])
+		collect: [ :command | command specification canonicalName ].
 		
 	^ String space join: commands
 ]
@@ -82,7 +82,7 @@ ClapDocumenter >> explain: aCommand canonicalName: aCanonicalName [
 ClapDocumenter >> explainContext: aClapContext [
 
 	self 
-		explain: aClapContext lastSubcommand 
+		explain: aClapContext lastSubcommand specification
 		canonicalName: (self commandStringFrom: aClapContext)
 ]
 

@@ -61,9 +61,7 @@ ClapTestRunner >> execute [
 
 { #category : #accessing }
 ClapTestRunner >> packagePatterns [
-	^ arguments
-		occurrencesOf: #PKG
-		collect: #value
+	^ self positional: #PKG
 ]
 
 { #category : #accessing }

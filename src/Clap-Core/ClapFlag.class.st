@@ -22,14 +22,6 @@ ClapFlag class >> forHelp [
 		canonicalName: 'help'
 ]
 
-{ #category : #parsing }
-ClapFlag >> addCommandArg: aFlagWordMatch in: aClapContext [
-	"aFlagWordMatch represents the flag shortForm or longForm and is not used. 
-	We use the identifier instead. "
-	
-	aClapContext addFlag: self identifier.
-]
-
 { #category : #adding }
 ClapFlag >> addPositional: aPositional [
 	super addPositional: aPositional.
