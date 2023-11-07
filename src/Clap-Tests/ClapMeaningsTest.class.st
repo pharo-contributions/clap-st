@@ -8,12 +8,13 @@ Class {
 ClapMeaningsTest >> testArgFlagBasicMeaning [
 	| flag match |
 	flag := (ClapFlag id: #foo)
-		add: (ClapPositional id: #bar).
+		add: (ClapPositional id: #bar);
+		yourself.
 
 	match := flag match: #('--foo' 'whatever').
 	
-	self assert: match value.
-	self deny: (flag match: #()) value
+	self assert: match isMatch.
+	self assert: (flag match: #()) isMismatch
 ]
 
 { #category : #tests }
@@ -42,7 +43,7 @@ ClapMeaningsTest >> testArgFlagScalarMeaning [
 	match := flag match: #('--foo').
 	self assert: match value equals: 'oops'.
 	match := flag match: #().	"might be wrong, since this is really a mismatch"
-	self assert: match value equals: 'oops'
+	self assert: match isMismatch.
 ]
 
 { #category : #tests }
@@ -52,6 +53,6 @@ ClapMeaningsTest >> testSimpleFlagBasicMeaning [
 
 	match := flag match: #('--foo').
 	
-	self assert: match value.
-	self deny: (flag match: #()) value
+	self assert: match isMatch.
+	self deny: (flag match: #()) isMatch
 ]

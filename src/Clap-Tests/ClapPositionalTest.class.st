@@ -14,7 +14,7 @@ ClapPositionalTest >> testMatches [
 	| subject argv ctx match |
 	subject := self namedSubject.
 	argv := { 'bar'. #remainder } readStream.
-	ctx := Object new.
+	ctx := ClapContext new.
 	
 	match := subject matchOn: argv in: ctx.
 	

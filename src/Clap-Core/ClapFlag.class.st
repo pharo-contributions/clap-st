@@ -17,14 +17,15 @@ ClapFlag class >> basicMeaning [
 
 { #category : #'predefined flags' }
 ClapFlag class >> forHelp [
-	^ (self id: #helpFlag)
+	^ (self id: #help)
 		description: 'Prints this documentation';
-		canonicalName: 'help';
-		
-		meaning: [ :match |
-			(ClapDocumenter on: (ZnCharacterWriteStream on: match context stdout))
-				explain: match parent specification.
-			true ]
+		canonicalName: 'help'
+]
+
+{ #category : #adding }
+ClapFlag >> addPositional: aPositional [
+	super addPositional: aPositional.
+	implicitMeaningBlock := aPositional implicitMeaning.
 ]
 
 { #category : #adding }
@@ -36,6 +37,12 @@ ClapFlag >> addTo: parentParameter [
 ClapFlag >> canMatchWith: word [
 	^ word = self shortForm
 		or: [ word = self longForm ]
+]
+
+{ #category : #testing }
+ClapFlag >> isFlag [
+
+	^ true
 ]
 
 { #category : #accessing }
@@ -52,6 +59,11 @@ ClapFlag >> meaningCollection [
 ClapFlag >> meaningScalar [
 	"Should only be allowed when there's a single positional"
 	self meaning: [ :match | (match at: self positionals first) value ]
+]
+
+{ #category : #accessing }
+ClapFlag >> positionalIdentifier [
+	^ ClapPositional idFrom: self identifier
 ]
 
 { #category : #accessing }

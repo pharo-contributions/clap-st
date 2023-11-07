@@ -58,6 +58,15 @@ ClapExpression >> ifMismatch: aBlock [
 ]
 
 { #category : #testing }
+ClapExpression >> isFullMatch [
+
+	"This method is used to test if flags with positionals are a full match,
+	i.e. a matched flag has no positional or its positionals are matched.
+	See `ClapNamedMatch >> #isFullMatch` "
+	^ true
+]
+
+{ #category : #testing }
 ClapExpression >> isMatch [
 	^ self
 		ifMatch: [ true ]
@@ -83,6 +92,12 @@ ClapExpression >> isValid [
 	^ self allValidations isSuccess
 ]
 
+{ #category : #validation }
+ClapExpression >> isValid: aValidation [
+	
+	self subclassResponsibility 
+]
+
 { #category : #accessing }
 ClapExpression >> specification [
 	^ specification
@@ -91,6 +106,14 @@ ClapExpression >> specification [
 { #category : #initialization }
 ClapExpression >> specification: anArgumentSpec [ 
 	specification := anArgumentSpec
+]
+
+{ #category : #validation }
+ClapExpression >> validate: aClapValidationClass on: aReport [
+	"Recursively validate the receiver and any subexpressions, enriching aReport"
+	
+	self specification
+		validate: aClapValidationClass on: aReport match: self
 ]
 
 { #category : #validation }
@@ -109,6 +132,7 @@ ClapExpression >> validateOn: aReport [
 
 { #category : #evaluating }
 ClapExpression >> value [
+	
 	^ self value: nil
 ]
 

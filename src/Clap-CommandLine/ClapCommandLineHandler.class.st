@@ -33,8 +33,3 @@ ClapCommandLineHandler >> handleExit: exit [
 	exit isSuccess
 		ifFalse: [ ^ exit resignalAs: (Error new messageText: exit messageText) ]
 ]
-
-{ #category : #activation }
-ClapCommandLineHandler >> noneMatched [
-	self exitFailure: 'Unknown command'
-]

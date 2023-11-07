@@ -1,13 +1,13 @@
 Class {
 	#name : #ClapDocumentationTest,
 	#superclass : #TestCase,
-	#category : #'Clap-Tests-Integration'
+	#category : #'Clap-Tests-Unit'
 }
 
 { #category : #tests }
 ClapDocumentationTest >> testFlagWithPositionalShouldPrintBothFlagAndPositional [
 	| command doc lines |
-	command := (ClapCommand id: #testCommand)
+	command := (ClapCommandSpec id: #testCommand)
 		description: 'Test command for flags with positional';
 		add: ClapFlag forHelp;
 		add:
@@ -39,6 +39,6 @@ ClapDocumentationTest >> testHelloShortUsage [
 	self assert: lines first equals: 'Provides greetings'.
 	self assert: lines second isEmpty.
 	self assert: (lines third beginsWith: 'Usage: hello').
-	self assert: (lines third includesSubstring: '[--language <langCode>]').
+	self assert: (lines third includesSubstring: '[--language <language-value>]').
 	self assert: (lines third endsWith: '[<who>]').
 ]

@@ -29,6 +29,12 @@ ClapMismatch >> isValid [
 	^ false
 ]
 
+{ #category : #testing }
+ClapMismatch >> isValid: aValidation [
+
+	^ aValidation isValidMismatch: self
+]
+
 { #category : #printing }
 ClapMismatch >> printDetailsOn: aStream [
 	aStream
@@ -46,4 +52,15 @@ ClapMismatch >> printDetailsOn: aStream [
 { #category : #adding }
 ClapMismatch >> recordIn: parentMatch [ 
 	"this match failed, so do nothing"
+]
+
+{ #category : #accessing }
+ClapMismatch >> subcommands [
+
+	^ #()
+]
+
+{ #category : #accessing }
+ClapMismatch >> value [
+	^ self
 ]

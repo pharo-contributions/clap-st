@@ -13,6 +13,12 @@ ClapPositional class >> basicMeaning [
 	^ [ :match | match word ]
 ]
 
+{ #category : #computing }
+ClapPositional class >> idFrom: aFlagId [
+
+	^ aFlagId , '-value'
+]
+
 { #category : #adding }
 ClapPositional >> addTo: parentParameter [
 	^ parentParameter addPositional: self
@@ -23,9 +29,34 @@ ClapPositional >> canMatchWith: word [
 	^ (word beginsWith: '-') not
 ]
 
+{ #category : #api }
+ClapPositional >> defaultValue: aBlock [
+	self implicitMeaning: aBlock
+]
+
+{ #category : #accessing }
+ClapPositional >> flagId [
+
+	"positional of a flag has an id like xxx-value"
+	^ self identifier copyUpToLast: $-
+]
+
+{ #category : #testing }
+ClapPositional >> isPositional [ 
+
+	^ true
+]
+
 { #category : #accessing }
 ClapPositional >> matchClass [
 	^ ClapWordMatch
+]
+
+{ #category : #types }
+ClapPositional >> symbol [
+	"tell that I must be converted as a symbol"
+		
+	self flag: 'TODO: convert as symbol'
 ]
 
 { #category : #documenting }

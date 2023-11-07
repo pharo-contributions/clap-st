@@ -4,13 +4,20 @@ My subcommands are effectively the main commands available to the user.
 "
 Class {
 	#name : #ClapRoot,
-	#superclass : #ClapCommand,
+	#superclass : #ClapCommandSpec,
 	#category : #'Clap-Core-Specification'
 }
 
 { #category : #'matching - testing' }
 ClapRoot >> canMatchWith: word [
 	^ true
+]
+
+{ #category : #testing }
+ClapRoot >> isCommand [
+	"A clap root is not a true command but the entry point for Clap commands"
+
+	^ false
 ]
 
 { #category : #accessing }

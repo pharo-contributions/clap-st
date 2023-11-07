@@ -1,124 +1,161 @@
 Class {
 	#name : #ClapCommandTest,
-	#superclass : #ClapParameterizedTest,
-	#category : #'Clap-Tests-Unit'
+	#superclass : #TestCase,
+	#instVars : [
+		'context'
+	],
+	#category : #'Clap-Tests-Integration'
 }
 
-{ #category : #accessing }
-ClapCommandTest >> classToTest [
-	^ ClapCommand
+{ #category : #tests }
+ClapCommandTest >> testShouldArgumentsBeOkWhenMatched [
+	| command |
+	context := ClapCommandLineExamples hello activateWith: #('hello' 'world' '--help').
+	command := context command.
+	
+	self assertCollection: command commandSpecIdentifiers hasSameElements: #('hello').
+	self assert: (command hasFlag: 'help').
+	self assertCollection: (command positional: #who) hasSameElements: #('world').
 ]
 
 { #category : #tests }
-ClapCommandTest >> testAddFlag [
-	| subject flag |
-	subject := self namedSubject.
-	flag := ClapFlag id: #flag.
-	subject add: flag.
+ClapCommandTest >> testShouldGetCollectionWhenAskingForAMultiplePositional [
+	| command |
+	context := ClapContext specification: ClapCommandLineExamples hello.
+	command := context
+		arguments: #('hello' 'foo' 'bar');
+		command.
 	
-	self assert: (subject flags includes: flag)
+	self 
+		assertCollection: (command positional: #who)
+		hasSameElements: #('foo' 'bar') 
+
 ]
 
 { #category : #tests }
-ClapCommandTest >> testAddSubcommand [
-	| subject cmd |
-	subject := self namedSubject.
-	cmd := ClapCommand id: #cmd.
-	subject add: cmd.
+ClapCommandTest >> testShouldGetCollectionWhenAskingForAMultiplePositionalWithOneValue [
+	| command |
+	context := ClapContext specification: ClapCommandLineExamples hello.
+	command := context
+		arguments: #('hello' 'foo');
+		command.
 	
-	self assert: (subject subcommands includes: cmd)
+	self 
+		assertCollection: (command positional: #who)
+		hasSameElements: #('foo') 
+
 ]
 
 { #category : #tests }
-ClapCommandTest >> testMatches [
-	| subject arg argv ctx match |
-	subject := self namedSubject.
-	arg := self subjectName copy.
-	argv := { arg. #remainder } readStream.
-	ctx := Object new.
+ClapCommandTest >> testShouldGetDefaultValueWhenAskingForAMissingNestedPositionalWithDefaultValueSpecified [
+	| command |
+	context := ClapContext specification: ClapCommandLineExamples hello.
+	command := context
+		arguments: #('hello');
+		command.
 	
-	match := subject matchOn: argv in: ctx.
+	self 
+		assert: (command positional: #language)
+		equals: #en
+
+]
+
+{ #category : #tests }
+ClapCommandTest >> testShouldGetDefaultValueWhenAskingForAMissingNestedPositionalWithDefaultValueSpecifiedOnSubcommand [
+	| command spec |
+	spec := (ClapCommandSpec id: #hello)
+		add: ((ClapCommandSpec id: 'world')
+			commandClass: ClapGitAddCommandExample;
+			addFlag: #language 
+				description: 'Select language of greeting' 
+				positionalSpec: [ :positional |
+					positional defaultValue: [ :arg :app | 'fr' ] ];
+			yourself);
+		yourself.
+	context := ClapContext specification: spec.
+	command := context
+		arguments: #('hello' 'world');
+		command.
+	
+	self 
+		assert: (command positional: #language)
+		equals: #fr
+]
+
+{ #category : #tests }
+ClapCommandTest >> testShouldGetFlagPositionalValueWhenAskingForAFlagHavingPositional [
+	| command |
+	context := ClapContext specification: ClapCommandLineExamples hello.
+	command := context
+		arguments: #('hello' '--language' 'fr');
+		command.
+	
+	self 
+		assert: (command positional: #language)
+		equals: #fr
+
+]
+
+{ #category : #tests }
+ClapCommandTest >> testShouldReturnFalseWhenAskingForAMissingFlag [
+	| command |
+	context := ClapContext specification: ClapCommandLineExamples hello.
+	command := context
+		arguments: #('hello' 'world');
+		command.
+	
+	self deny: (command hasFlag: '--help')
+]
+
+{ #category : #tests }
+ClapCommandTest >> testShouldSubCommandsBeOkWhenMatched [
+	| command |
+	context := ClapContext specification: ClapCommandLineExamples git.
+	command := context
+		arguments: #('git' 'status');
+		command.
+	
+	self 
+		assertCollection: command commandSpecIdentifiers 
+		hasSameElements: #('git' 'status').
+]
+
+{ #category : #tests }
+ClapCommandTest >> testShouldThrowNotFoundWhenAskingForAMissingPositional [
+	| spec command |
+	
+	spec := ClapCommandLineExamples hello.
+	spec addFlagWithPositional: #foo description: 'some foo'.
+	context := ClapContext specification: spec.
+	command := context
+		arguments: #('hello');
+		command.
+	
+	self 
+		should: [ command positional: #foo ]
+		raise: NotFound
+
+]
+
+{ #category : #tests }
+ClapCommandTest >> testShouldValidationFailWhenAskingForAPositionalWithMissingValues [
+	| spec match validationReport problem |
+	
+	spec := ClapCommandSpec id: #hello.
+	spec addFlagWithPositional: #foo description: 'some foo'.
+	spec addFlagWithPositional: #bar description: 'some bar'.
+	context := ClapContext specification: spec.
+	match := context
+		arguments: #('hello' '--foo' '--bar');
+		match.
+	validationReport := context allValidations.
 	
 	self deny: match isMismatch.
-	self assert: match specification identicalTo: subject.
-	self assert: match parent identicalTo: ctx.
-	self assert: match word equals: arg.
-	self assert: argv next equals: #remainder
-]
-
-{ #category : #tests }
-ClapCommandTest >> testMatchesWithSingleFlag [
-	| subject argv args match |
-	subject := self namedSubject.
-	subject add: (ClapFlag id: #bar).
-	args := { self subjectName . '--bar' . #remainder }.
-	argv := args readStream.
-		
-	match := subject matchOn: argv in: (subject activationWith: args).
+	self deny: validationReport isSuccess.
+	problem := validationReport problems first validation.
+	self assert: problem class equals: ClapNestedPositionalValidation.
+	self 
+		assertCollection: (validationReport problems flatCollect: [:pb | pb validation missingValueIdentifiers])
+		hasSameElements: #('foo-value' 'bar-value').
 	
-	self deny: match isMismatch.
-	self assert: (match includesMatchOf: #bar).
-	self assert: argv next equals: #remainder
-]
-
-{ #category : #tests }
-ClapCommandTest >> testMatchesWithSinglePositional [
-	| subject args argv match |
-	subject := self namedSubject.
-	subject add: (ClapPositional id: #bar).
-	args := { self subjectName copy. 'valueforbar'. #remainder }.
-	argv := args readStream.
-
-	match := subject matchOn: argv in: (subject activationWith: args).
-
-	self deny: match isMismatch.
-	self assert: match word equals: self subjectName.
-	self assert: (match includesMatchOf: #bar).
-	self
-		assert: (match at: #bar) word
-		equals: 'valueforbar'.
-	self assert: argv next equals: #remainder
-]
-
-{ #category : #tests }
-ClapCommandTest >> testMatchesWithSingleSubcommand [
-	| subject args argv match |
-	subject := self namedSubject.
-	subject add: (ClapCommand id: #bar).
-	args := { self subjectName. 'bar'. #remainder }.
-	argv := args readStream.
-	
-	match := subject matchOn: argv in: (subject activationWith: args).
-	
-	self deny: match isMismatch.
-	self assert: (match includesMatchOf: #bar).
-	self assert: argv next equals: #remainder
-]
-
-{ #category : #tests }
-ClapCommandTest >> testMatchingStopsAtWrongFlag [
-	| subject args argv badFlag match |
-	subject := self namedSubject.
-	subject add: (ClapFlag id: #bar).
-	badFlag := '--notbar'.
-	args := { self subjectName. badFlag }.
-	argv := args readStream.
-
-	match := subject matchOn: argv in: (subject activationWith: args).
-
-	self assert: match isMatch.
-	self assert: argv next identicalTo: badFlag
-]
-
-{ #category : #tests }
-ClapCommandTest >> testMismatchesDifferentAlias [
-	| subject argv badCommand match |
-	subject := self namedSubject.
-	badCommand := self subjectName , 'NOT'.
-	argv := { badCommand } readStream.
-	
-	match := subject matchOn: argv in: Object new.
-	
-	self assert: match isMismatch.
-	self assert: argv next identicalTo: badCommand
 ]

@@ -10,7 +10,7 @@ Class {
 { #category : #running }
 ClapHelloWorldTest >> setUp [
 	super setUp.
-	hello := (ClapCommand id: #hello)
+	hello := (ClapCommandSpec id: #hello)
 		add: (ClapFlag id: #shout);
 		add: (ClapPositional id: #who)
 ]

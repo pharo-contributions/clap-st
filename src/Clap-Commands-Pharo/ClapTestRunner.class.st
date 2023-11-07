@@ -13,7 +13,8 @@ Class {
 { #category : #'command line' }
 ClapTestRunner class >> test [
 	<commandline>
-	^ (ClapCommand id: #test)
+	^ (ClapCommandSpec id: #test)
+		commandClass: self;
 		add: ClapFlag forHelp;
 		add: ((ClapFlag id: #xml)
 			description: 'Output results in JUnit-compatible XML format');
@@ -60,9 +61,7 @@ ClapTestRunner >> execute [
 
 { #category : #accessing }
 ClapTestRunner >> packagePatterns [
-	^ arguments
-		occurrencesOf: #PKG
-		collect: #value
+	^ self positional: #PKG
 ]
 
 { #category : #accessing }
