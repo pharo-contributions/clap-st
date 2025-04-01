@@ -2,24 +2,23 @@
 I run unit tests found in specified packages, and display their results to standard output.
 "
 Class {
-	#name : #ClapTestRunner,
-	#superclass : #ClapPharoApplication,
+	#name : 'ClapTestRunner',
+	#superclass : 'ClapPharoApplication',
 	#instVars : [
 		'suite'
 	],
-	#category : #'Clap-Commands-Pharo'
+	#category : 'Clap-Commands-Pharo',
+	#package : 'Clap-Commands-Pharo'
 }
 
-{ #category : #'command line' }
+{ #category : 'command line' }
 ClapTestRunner class >> test [
 	<commandline>
 	^ (ClapCommandSpec id: #test)
 		commandClass: self;
 		add: ClapFlag forHelp;
-		add: ((ClapFlag id: #xml)
-			description: 'Output results in JUnit-compatible XML format');
-		add: ((ClapFlag id: #tap)
-			description: 'Output results in Test-Anything Protocol format');
+		addFlag: #xml description: 'Output results in JUnit-compatible XML format';
+		addFlag: #tap description: 'Output results in Test-Anything Protocol format';
 		add: ((ClapPositional id: #PKG)
 			description: 'Run tests from packages matching this pattern';
 			multiple: true;
@@ -32,7 +31,7 @@ ClapTestRunner class >> test [
 			(self with: args) execute ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ClapTestRunner >> buildSuite [
 	| packageSuites |
 	packageSuites := self packages
@@ -42,15 +41,17 @@ ClapTestRunner >> buildSuite [
 		addTests: packageSuites
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapTestRunner >> execute [
 	| result |
 	self outputStreamDo: [ :out |
 		self suite
 			when: TestAnnouncement
-			do: [ :ann | out nextPutAll: ann test name; lf ];
+				do: [ :ann | out nextPutAll: ann test name; lf ]
+				for: self;
 			when: TestCaseAnnouncement
-			do: [ :ann | out space; space; nextPutAll: ann testSelector; lf ].
+				do: [ :ann | out space; space; nextPutAll: ann testSelector; lf ]
+				for: self.
 		result := [ self suite run ]
 			ensure: [ self suite unsubscribe: TestAnnouncement ].
 		out print: result; lf
@@ -59,21 +60,21 @@ ClapTestRunner >> execute [
 	self context exitSuccess
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapTestRunner >> packagePatterns [
 	^ self positional: #PKG
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapTestRunner >> packages [
 	^ self packagePatterns
 		flatCollect: [ :regex |
-			RPackage organizer packages
+			self packageOrganizer packages
 				select: [ :package | regex matches: package name ]]
 		as: Set
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapTestRunner >> suite [
 	suite ifNil: [ self buildSuite ].
 	^ suite

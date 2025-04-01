@@ -2,12 +2,13 @@
 I evaluate code passed via standard input or as arguments from the command line.
 "
 Class {
-	#name : #ClapCodeEvaluator,
-	#superclass : #ClapPharoApplication,
-	#category : #'Clap-Commands-Pharo'
+	#name : 'ClapCodeEvaluator',
+	#superclass : 'ClapPharoApplication',
+	#category : 'Clap-Commands-Pharo',
+	#package : 'Clap-Commands-Pharo'
 }
 
-{ #category : #'command line' }
+{ #category : 'command line' }
 ClapCodeEvaluator class >> evaluate [
 	<commandline>
 	^ (ClapCommandSpec id: #evaluate)
@@ -26,7 +27,7 @@ ClapCodeEvaluator class >> evaluate [
 		yourself
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapCodeEvaluator >> execute [
 	| result |
 	result := Smalltalk compiler evaluate: self source.
@@ -35,7 +36,7 @@ ClapCodeEvaluator >> execute [
 		ifFalse: [ self outputStreamDo: [ :out | out print: result; lf ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCodeEvaluator >> source [
 	^ String space join: (self positional: #EXPR)
 ]

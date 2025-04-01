@@ -1,22 +1,26 @@
+"
+I provide commands related to  the image: cleanup and save.
+"
 Class {
-	#name : #ClapImage,
-	#superclass : #ClapApplication,
-	#category : #'Clap-Commands-Pharo'
+	#name : 'ClapImage',
+	#superclass : 'ClapApplication',
+	#category : 'Clap-Commands-Pharo',
+	#package : 'Clap-Commands-Pharo'
 }
 
-{ #category : #'command line - subcommands' }
+{ #category : 'command line - subcommands' }
 ClapImage class >> cleanupCommand [
 
 	^ (ClapCommandSpec id: 'cleanup')
 		  description: 'Clean caches & other temporary data from the image ';
 		  commandClass: self;
-		  add: ((ClapFlag id: 'aggressive') description: 'Also delete resources, change sets, etc');
-		  add: ((ClapFlag id: 'release') description: 'Prepare for release (implies --aggressive)');
-		  add: ((ClapFlag id: 'production') description: 'Unload tests, examples, etc, for production (implies --release)');
+		  addFlag: #aggressive description: 'Also delete resources, change sets, etc';
+		  addFlag: #release  description: 'Prepare for release (implies --aggressive)';
+		  addFlag: #production description: 'Unload tests, examples, etc, for production (implies --release)';
 		  yourself
 ]
 
-{ #category : #'command line' }
+{ #category : 'command line' }
 ClapImage class >> image [
 	<commandline>
 	^ (ClapCommandSpec id: #image)
@@ -27,7 +31,7 @@ ClapImage class >> image [
 		yourself
 ]
 
-{ #category : #'command line - subcommands' }
+{ #category : 'command line - subcommands' }
 ClapImage class >> saveCommand [
 
 	^ (ClapCommandSpec id: #save)

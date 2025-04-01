@@ -1,16 +1,20 @@
+"
+I am an abstract class providing some support to Pharo commands available from command-line.
+"
 Class {
-	#name : #ClapPharoApplication,
-	#superclass : #ClapApplication,
-	#category : #'Clap-Commands-Pharo'
+	#name : 'ClapPharoApplication',
+	#superclass : 'ClapApplication',
+	#category : 'Clap-Commands-Pharo',
+	#package : 'Clap-Commands-Pharo'
 }
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapPharoApplication >> execute [
 
 	self prepareImage
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapPharoApplication >> prepareImage [
 	self positional: #rename ifPresent: [ :rename | 
 		| imageFile |
@@ -22,7 +26,7 @@ ClapPharoApplication >> prepareImage [
 				openSourceFiles ]
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapPharoApplication >> shouldSave [
 	^ (self hasFlag: #save)
 		or: [ (self hasFlag: #noSave) not ]

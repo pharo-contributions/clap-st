@@ -4,20 +4,22 @@ I am a match for a composite parameter specification, and thus cover a (possibly
 I provide methods for querying and accessing the matches of my specification's children parameters.
 "
 Class {
-	#name : #ClapCompositeMatch,
-	#superclass : #ClapExplicit,
+	#name : 'ClapCompositeMatch',
+	#superclass : 'ClapExplicit',
 	#instVars : [
 		'children'
 	],
-	#category : #'Clap-Core-Activation'
+	#category : 'Clap-Core-Activation',
+	#package : 'Clap-Core',
+	#tag : 'Activation'
 }
 
-{ #category : #matching }
+{ #category : 'matching' }
 ClapCompositeMatch >> addChild: aSubExpression [
 	children add: aSubExpression
 ]
 
-{ #category : #'accessing - children' }
+{ #category : 'accessing - children' }
 ClapCompositeMatch >> at: identifierOrSpec [
 	^ self at: identifierOrSpec
 		ifAbsent: [
@@ -26,21 +28,21 @@ ClapCompositeMatch >> at: identifierOrSpec [
 				ifAbsent: [ NotFound signal: 'Cannot find ' , identifierOrSpec asSymbol, '!' ] ] 	
 ]
 
-{ #category : #'accessing - children' }
+{ #category : 'accessing - children' }
 ClapCompositeMatch >> at: identifierOrSpec ifAbsent: absentBlock [
 	^ children
 		detect: [ :child | identifierOrSpec identifiesClapParameter: child specification ]
 		ifNone: absentBlock
 ]
 
-{ #category : #'accessing - children' }
+{ #category : 'accessing - children' }
 ClapCompositeMatch >> at: identifierOrSpec ifPresent: foundBlock [
 	^ children
 		detect: [ :child | identifierOrSpec identifiesClapParameter: child specification ]
 		ifFound: foundBlock
 ]
 
-{ #category : #'accessing - children' }
+{ #category : 'accessing - children' }
 ClapCompositeMatch >> at: identifierOrSpec ifPresent: foundBlock ifAbsent: absentBlock [
 	^ children
 		detect: [ :child | identifierOrSpec identifiesClapParameter: child specification ]
@@ -48,13 +50,13 @@ ClapCompositeMatch >> at: identifierOrSpec ifPresent: foundBlock ifAbsent: absen
 		ifNone: absentBlock
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 ClapCompositeMatch >> completeMatchOn: aStream [
 	startIndex := aStream position + 1.
 	self matchChildrenOn: aStream
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 ClapCompositeMatch >> detectMatchOn: aStream ifFound: foundBlock ifNone: noneBlock [
 	self specification
 		parametersSelect: [ :each | each isMatchableIn: self ]
@@ -66,34 +68,34 @@ ClapCompositeMatch >> detectMatchOn: aStream ifFound: foundBlock ifNone: noneBlo
 	^ noneBlock value
 ]
 
-{ #category : #'accessing - children' }
+{ #category : 'accessing - children' }
 ClapCompositeMatch >> flags [
 	^ children select: [ :each | specification flags includes: each specification ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ClapCompositeMatch >> hasChild [
 
 	^ children isNotEmpty
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ClapCompositeMatch >> includesMatchOf: identifierOrSpec [
 	^ children anySatisfy: [ :arg | arg isMatchOf: identifierOrSpec ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ClapCompositeMatch >> initialize [
 	children := OrderedCollection new
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 ClapCompositeMatch >> isValid: aValidation [
 
 	^ aValidation isValidCompositeMatch: self
 ]
 
-{ #category : #matching }
+{ #category : 'matching' }
 ClapCompositeMatch >> matchChildrenOn: aStream [
 	[ self
 		detectMatchOn: aStream
@@ -102,7 +104,7 @@ ClapCompositeMatch >> matchChildrenOn: aStream [
 	] repeat
 ]
 
-{ #category : #'accessing - children' }
+{ #category : 'accessing - children' }
 ClapCompositeMatch >> matchedSubcommand: foundBlock ifNone: noneBlock [
 	^ children
 		detect: [ :child | specification subcommands includes: child specification ]
@@ -110,39 +112,39 @@ ClapCompositeMatch >> matchedSubcommand: foundBlock ifNone: noneBlock [
 		ifNone: noneBlock
 ]
 
-{ #category : #'accessing - children' }
+{ #category : 'accessing - children' }
 ClapCompositeMatch >> occurrencesOf: identifierOrSpec [
 	^ children select: [ :child | identifierOrSpec identifiesClapParameter: child specification ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 ClapCompositeMatch >> occurrencesOf: identifierOrSpec collect: aBlock [
 	^ children
 		select: [ :child | identifierOrSpec identifiesClapParameter: child specification ]
 		thenCollect: aBlock
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 ClapCompositeMatch >> occurrencesOf: identifierOrSpec do: aBlock [
 	^ children
 		select: [ :child | identifierOrSpec identifiesClapParameter: child specification ]
 		thenDo: aBlock
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 ClapCompositeMatch >> positionalValues [
 	^ specification positionals
 		collect: [ :each | (self at: each) value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCompositeMatch >> stop [
 	^ children
 		ifEmpty: [ self start - 1 ]
 		ifNotEmpty: [ children last stop ]
 ]
 
-{ #category : #'accessing - children' }
+{ #category : 'accessing - children' }
 ClapCompositeMatch >> subcommand [
 	"answer the direct subcommand if any"
 	
@@ -150,7 +152,7 @@ ClapCompositeMatch >> subcommand [
 		detect: [ :each | each specification isCommand ]
 ]
 
-{ #category : #'accessing - children' }
+{ #category : 'accessing - children' }
 ClapCompositeMatch >> subcommands [
 	| commands |
 	
@@ -165,13 +167,13 @@ ClapCompositeMatch >> subcommands [
 		ifFalse: [ commands copyWithoutFirst ]
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 ClapCompositeMatch >> validate: aClapValidationClass on: aReport [
 	super validate: aClapValidationClass on: aReport.
 	children do: [ :each | each validate: aClapValidationClass on: aReport ]
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 ClapCompositeMatch >> validateOn: aReport [
 	super validateOn: aReport.
 	children do: [ :each | each validateOn: aReport ]

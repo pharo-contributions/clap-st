@@ -1,10 +1,14 @@
+"
+I allow to load code with Metacello from command line.
+"
 Class {
-	#name : #ClapMetacello,
-	#superclass : #ClapPharoApplication,
-	#category : #'Clap-Commands-Pharo'
+	#name : 'ClapMetacello',
+	#superclass : 'ClapPharoApplication',
+	#category : 'Clap-Commands-Pharo',
+	#package : 'Clap-Commands-Pharo'
 }
 
-{ #category : #'command line' }
+{ #category : 'command line' }
 ClapMetacello class >> metacello [
 	<commandline>
 	^ (ClapCommandSpec id: #metacello)
@@ -19,12 +23,12 @@ ClapMetacello class >> metacello [
 		yourself
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 ClapMetacello >> baselineName [
 	^ self positional: #NAME
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapMetacello >> execute [
 	self outputStreamDo: [ :out | 
 		out
@@ -33,17 +37,17 @@ ClapMetacello >> execute [
 			newLine ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapMetacello >> groups [
 	^ $, split: (self positional: #version)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapMetacello >> repositoryUrl [
 	^ self positional: #REPOSITORY
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapMetacello >> version [
 	^ self positional: #groups
 ]
