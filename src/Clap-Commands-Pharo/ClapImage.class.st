@@ -1,10 +1,14 @@
+"
+I provide commands related to  the image: cleanup and save.
+"
 Class {
-	#name : #ClapImage,
-	#superclass : #ClapApplication,
-	#category : #'Clap-Commands-Pharo'
+	#name : 'ClapImage',
+	#superclass : 'ClapApplication',
+	#category : 'Clap-Commands-Pharo',
+	#package : 'Clap-Commands-Pharo'
 }
 
-{ #category : #'command line - subcommands' }
+{ #category : 'command line - subcommands' }
 ClapImage class >> cleanupCommand [
 
 	^ (ClapCommandSpec id: 'cleanup')
@@ -16,7 +20,7 @@ ClapImage class >> cleanupCommand [
 		  yourself
 ]
 
-{ #category : #'command line' }
+{ #category : 'command line' }
 ClapImage class >> image [
 	<commandline>
 	^ (ClapCommandSpec id: #image)
@@ -27,7 +31,7 @@ ClapImage class >> image [
 		yourself
 ]
 
-{ #category : #'command line - subcommands' }
+{ #category : 'command line - subcommands' }
 ClapImage class >> saveCommand [
 
 	^ (ClapCommandSpec id: #save)

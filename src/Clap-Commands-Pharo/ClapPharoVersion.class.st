@@ -2,12 +2,13 @@
 I report release and version information about the image and VM, in various formats.
 "
 Class {
-	#name : #ClapPharoVersion,
-	#superclass : #ClapPharoApplication,
-	#category : #'Clap-Commands-Pharo'
+	#name : 'ClapPharoVersion',
+	#superclass : 'ClapPharoApplication',
+	#category : 'Clap-Commands-Pharo',
+	#package : 'Clap-Commands-Pharo'
 }
 
-{ #category : #'command line' }
+{ #category : 'command line' }
 ClapPharoVersion class >> version [
 	<commandline>
 	
@@ -24,52 +25,52 @@ ClapPharoVersion class >> version [
 		yourself
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapPharoVersion >> execute [
 	self showVersionsNamed: self formats
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapPharoVersion >> formatSelectorFor: formatName [
 	^ formatName asSymbol , #VersionString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapPharoVersion >> formatStringFor: formatName [
 	^ self perform: (self formatSelectorFor: formatName)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapPharoVersion >> formats [
 	^ self flags ifEmpty: [ #(full) ]
 ]
 
-{ #category : #'version strings' }
+{ #category : 'version strings' }
 ClapPharoVersion >> fullVersionString [
 	^ SystemVersion current imageVersionString
 ]
 
-{ #category : #'version strings' }
+{ #category : 'version strings' }
 ClapPharoVersion >> hashVersionString [
 	^ SystemVersion current commitHash
 ]
 
-{ #category : #'version strings' }
+{ #category : 'version strings' }
 ClapPharoVersion >> licenseVersionString [
 	^ Smalltalk licenseString
 ]
 
-{ #category : #'version strings' }
+{ #category : 'version strings' }
 ClapPharoVersion >> numericVersionString [
 	^ SystemVersion current highestUpdate printString
 ]
 
-{ #category : #'version strings' }
+{ #category : 'version strings' }
 ClapPharoVersion >> releaseVersionString [
 	^ SystemVersion current shortVersionString
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ClapPharoVersion >> showVersionsNamed: formatNames [
 	| out |
 	out := self context stdout.
@@ -78,7 +79,7 @@ ClapPharoVersion >> showVersionsNamed: formatNames [
 	out flush
 ]
 
-{ #category : #'version strings' }
+{ #category : 'version strings' }
 ClapPharoVersion >> vmVersionString [
 	^ Smalltalk vm version
 ]
