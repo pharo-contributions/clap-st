@@ -17,10 +17,8 @@ ClapTestRunner class >> test [
 	^ (ClapCommandSpec id: #test)
 		commandClass: self;
 		add: ClapFlag forHelp;
-		add: ((ClapFlag id: #xml)
-			description: 'Output results in JUnit-compatible XML format');
-		add: ((ClapFlag id: #tap)
-			description: 'Output results in Test-Anything Protocol format');
+		addFlag: #xml description: 'Output results in JUnit-compatible XML format';
+		addFlag: #tap description: 'Output results in Test-Anything Protocol format';
 		add: ((ClapPositional id: #PKG)
 			description: 'Run tests from packages matching this pattern';
 			multiple: true;
