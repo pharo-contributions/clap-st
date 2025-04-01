@@ -24,17 +24,19 @@ Example for the eval command:
 		addPositional: ClapPositionnal withName: 'smalltalk 		expression'.
 "
 Class {
-	#name : #ClapCommandSpec,
-	#superclass : #ClapParameterized,
+	#name : 'ClapCommandSpec',
+	#superclass : 'ClapParameterized',
 	#instVars : [
 		'flags',
 		'subcommands',
 		'commandClass'
 	],
-	#category : #'Clap-Core-Specification'
+	#category : 'Clap-Core-Specification',
+	#package : 'Clap-Core',
+	#tag : 'Specification'
 }
 
-{ #category : #'predefined commands' }
+{ #category : 'predefined commands' }
 ClapCommandSpec class >> forHelp [
 	^ (self id: #helpCommand)
 		description: 'Prints command documentation';
@@ -55,12 +57,12 @@ ClapCommandSpec class >> forHelp [
 				ifNotNil: [ doc explain: topic ] ]
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 ClapCommandSpec >> addFlag: aFlag [
 	flags add: aFlag
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ClapCommandSpec >> addFlag: anIdentifier description: aString [
 	| flag |
 	
@@ -70,7 +72,7 @@ ClapCommandSpec >> addFlag: anIdentifier description: aString [
 	^ flag
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ClapCommandSpec >> addFlag: anIdentifier description: aString positionalSpec: aPositionalSpecBlock [
 	
 	| flag positional |
@@ -83,13 +85,13 @@ ClapCommandSpec >> addFlag: anIdentifier description: aString positionalSpec: aP
 	
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ClapCommandSpec >> addFlagWithPositional: anIdentifier description: aString [
 	
 	^ self addFlag: anIdentifier description: aString positionalSpec: [ "nothing to do" ]
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ClapCommandSpec >> addHelp [
 
 	| flag |
@@ -98,7 +100,7 @@ ClapCommandSpec >> addHelp [
 	^ flag
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ClapCommandSpec >> addPositional: anIdentifier description: aString [
 	
 	| positional |
@@ -109,7 +111,7 @@ ClapCommandSpec >> addPositional: anIdentifier description: aString [
 	^ positional
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 ClapCommandSpec >> addPositional: anIdentifier spec: aBlock [
 
 	| positional |
@@ -119,57 +121,57 @@ ClapCommandSpec >> addPositional: anIdentifier spec: aBlock [
 	^ positional
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 ClapCommandSpec >> addSubcommand: aCommand [
 	subcommands add: aCommand
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 ClapCommandSpec >> addTo: parentParameter [
 	^ parentParameter addSubcommand: self
 ]
 
-{ #category : #'matching - testing' }
+{ #category : 'matching - testing' }
 ClapCommandSpec >> canMatchWith: word [
 	^ self hasAlias: word
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandSpec >> commandClass [
 	^ commandClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandSpec >> commandClass: aClass [
 	commandClass := aClass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandSpec >> flags [
 	^ flags
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ClapCommandSpec >> initialize [
 	super initialize.
 	subcommands := OrderedCollection new.
 	flags := OrderedCollection new.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ClapCommandSpec >> isCommand [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandSpec >> nestedPositionalIds [
 	
 	^ self nestedPositionals 
 		flatCollect: [ :flag | flag positionals collect: [ :positional | positional identifier ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandSpec >> nestedPositionals [
 	"A Nested positional is a positional nested into a flag, e.g. --lang fr
 	where --lang is a flag and fr is a positional inside the flag."
@@ -177,31 +179,31 @@ ClapCommandSpec >> nestedPositionals [
 	^ self flags select: [ :flag | flag positionals isNotEmpty ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 ClapCommandSpec >> parametersDo: aBlock [
 	self flags do: aBlock.
 	self subcommands do: aBlock.
 	super parametersDo: aBlock.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandSpec >> subcommandNamed: specName ifNone: aBlock [
 	^ subcommands
 		detect: [ :cmd | cmd hasAlias: specName ]
 		ifNone: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandSpec >> subcommands [
 	^ subcommands
 ]
 
-{ #category : #documenting }
+{ #category : 'documenting' }
 ClapCommandSpec >> synopsisOn: aStream [
 	aStream nextPutAll: self canonicalName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandSpec >> valueFor: aMatch with: arg [
 	^ aMatch
 		matchedSubcommand: [ :sub | sub value: arg ]

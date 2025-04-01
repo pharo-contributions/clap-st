@@ -2,16 +2,18 @@
 I pretty print an informative message explaining errors found according to the command specification.
 "
 Class {
-	#name : #ClapValidationErrorPrinter,
-	#superclass : #Object,
+	#name : 'ClapValidationErrorPrinter',
+	#superclass : 'Object',
 	#instVars : [
 		'report',
 		'writeStream'
 	],
-	#category : #'Clap-Core-Validation'
+	#category : 'Clap-Core-Validation',
+	#package : 'Clap-Core',
+	#tag : 'Validation'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ClapValidationErrorPrinter class >> on: aClapValidationReport [ 
 
 	^ self new
@@ -19,14 +21,14 @@ ClapValidationErrorPrinter class >> on: aClapValidationReport [
 		yourself
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ClapValidationErrorPrinter >> printCommandHelp [
 
 	(ClapDocumenter on: writeStream) 
 		explain: report commandSpecification
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ClapValidationErrorPrinter >> printDelimiterLine [
 
 	writeStream
@@ -34,7 +36,7 @@ ClapValidationErrorPrinter >> printDelimiterLine [
 		cr
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ClapValidationErrorPrinter >> printOn: aStream [
 
 	report isSuccess ifTrue: [ ^ '' ].
@@ -49,13 +51,13 @@ ClapValidationErrorPrinter >> printOn: aStream [
 	self printCommandHelp
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 ClapValidationErrorPrinter >> printString [
 
 	^ String streamContents: [ :stream | self printOn: stream ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ClapValidationErrorPrinter >> validationReport: aClapValidationReport [ 
 	
 	report := aClapValidationReport

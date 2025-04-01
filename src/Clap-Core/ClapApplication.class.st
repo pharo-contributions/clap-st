@@ -12,39 +12,41 @@ somethingCommandline
 			(self with: args) execute ]
 "
 Class {
-	#name : #ClapApplication,
-	#superclass : #Object,
+	#name : 'ClapApplication',
+	#superclass : 'Object',
 	#instVars : [
 		'context'
 	],
-	#category : #'Clap-Core-Specification'
+	#category : 'Clap-Core-Specification',
+	#package : 'Clap-Core',
+	#tag : 'Specification'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 ClapApplication class >> with: aClapContext [
 	^ self new
 		setContext: aClapContext;
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapApplication >> commandSpecIdentifiers [
 	^ self commandSpecs collect: [ :spec | spec identifier ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapApplication >> commandSpecs [
 
 	^ self context commandMatches collect: [ :match |
 		  match specification ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapApplication >> context [
 	^ context
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ClapApplication >> defaultValueFor: aFlagIdentifier [
 
 	^ self context
@@ -53,41 +55,41 @@ ClapApplication >> defaultValueFor: aFlagIdentifier [
 		  noneBlock: [ NotFound signal: 'Cannot find ' , aFlagIdentifier asSymbol, '!' ]
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapApplication >> execute [
 	self subclassResponsibility
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapApplication >> executeOrPrintHelp [
 	(self hasFlag: #help)
 		ifTrue: [ self printHelp. self exitSuccess ]
 		ifFalse: [ self execute ]
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapApplication >> exitSuccess [
 	^ self context exitSuccess
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapApplication >> flags [ 
 	^ self context flags
 		collect: [ :match | match specification identifier ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 ClapApplication >> hasFlag: anIdentifier [ 
 	
 	^ self context hasFlag: anIdentifier asSymbol
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapApplication >> outputStreamDo: aBlock [
 	aBlock value: self context stdout
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapApplication >> positional: aFlagIdentifier [ 
 	"Get the value of a positional with given identifier"
 	
@@ -96,7 +98,7 @@ ClapApplication >> positional: aFlagIdentifier [
 		do: [ self defaultValueFor: aFlagIdentifier ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapApplication >> positional: anIdentifier ifPresent: aBlock [
 	"Execute aBlock if a positional with the identifier is found. The positional valu will be passed as first argument of the block"
 	
@@ -105,14 +107,14 @@ ClapApplication >> positional: anIdentifier ifPresent: aBlock [
 		do: [ "ignore" ]
 ]
 
-{ #category : #execution }
+{ #category : 'execution' }
 ClapApplication >> printHelp [ 
 	(ClapDocumenter on: (ZnCharacterWriteStream on: self context stdout))
 			explainContext: self context
 			
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ClapApplication >> rawPositional: anIdentifier [
 	"We get positionals but a NotFound error can be signaled."
 	
@@ -128,7 +130,7 @@ ClapApplication >> rawPositional: anIdentifier [
 		ifFalse: [ values first ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapApplication >> setContext: aClapContext [
 	context := aClapContext
 ]

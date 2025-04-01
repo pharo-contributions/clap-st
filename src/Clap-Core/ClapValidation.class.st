@@ -3,58 +3,60 @@ I represent a validation criterium that various subjects might have to pass at a
 My subclasses implement specific validations for Clap parameters.
 "
 Class {
-	#name : #ClapValidation,
-	#superclass : #Object,
-	#category : #'Clap-Core-Validation'
+	#name : 'ClapValidation',
+	#superclass : 'Object',
+	#category : 'Clap-Core-Validation',
+	#package : 'Clap-Core',
+	#tag : 'Validation'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapValidation >> description [
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapValidation >> failureDescriptionFor: anObject [
 	self subclassResponsibility
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 ClapValidation >> isValidCompositeMatch: aClapCompositeMatch [ 
 	^ true
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 ClapValidation >> isValidContext: aClapContext [
 	^ true
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 ClapValidation >> isValidImplicit: aClapImplicit [
 	^ true
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 ClapValidation >> isValidMismatch: aClapMisatch [ 
 	^ false
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 ClapValidation >> isValidNamedMatch: aClapNamedMatch [ 
 	^ true
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 ClapValidation >> isValidWordMatch: aClapWordMatch [ 
 	^ true
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 ClapValidation >> matches: aClapExpression [
 
 	^ aClapExpression isValid: self
 ]
 
-{ #category : #validation }
+{ #category : 'validation' }
 ClapValidation >> validate: anObject [
 	^ ClapValidationDiagnostic of: self subject: anObject
 ]
