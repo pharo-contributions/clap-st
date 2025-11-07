@@ -15,15 +15,16 @@ Commands registered in the system (returned from a class-side method with the <c
 ```
 "
 Class {
-	#name : #ClapCommandLineExamples,
-	#superclass : #ClapApplication,
+	#name : 'ClapCommandLineExamples',
+	#superclass : 'ClapApplication',
 	#instVars : [
 		'outStream'
 	],
-	#category : #'Clap-Examples'
+	#category : 'Clap-Examples',
+	#package : 'Clap-Examples'
 }
 
-{ #category : #'command line' }
+{ #category : 'command line' }
 ClapCommandLineExamples class >> git [
 	"A dummy command (no behavior besides help) to demonstrate nested subcommand and as a test subject for the documenter.
 	<commandline> pragma omitted, because doesn't really make sense to make it available outside the image."
@@ -31,6 +32,7 @@ ClapCommandLineExamples class >> git [
 		description: 'The stupid content tracker';
 		commandClass: self;
 		add: ClapCommandSpec forHelp;
+		addFlagWithPositional: #C description: 'Run as if git was started in <path> instead of the current working directory.';
 		add: ((ClapCommandSpec id: 'add')
 			description: 'Add file contents to the index';
 			commandClass: ClapGitAddCommandExample);
@@ -53,7 +55,7 @@ ClapCommandLineExamples class >> git [
 		yourself
 ]
 
-{ #category : #'command line' }
+{ #category : 'command line' }
 ClapCommandLineExamples class >> hello [
 	"The usual Hello-World example, demonstrating a Clap command with a couple features."
 	<script>
@@ -78,57 +80,52 @@ ClapCommandLineExamples class >> hello [
 		yourself
 ]
 
-{ #category : #'accessing - private' }
-ClapCommandLineExamples >> argumentAt: identifier [
-	^ (arguments at: identifier) value: self
-]
-
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandLineExamples >> defaultLanguage [
 	^ #en
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandLineExamples >> defaultRecipient [
 	^ self
 		translationFor: self language
 		from: self translatedRecipients
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ClapCommandLineExamples >> execute [
 	self sayHello
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandLineExamples >> greeting [
 	^ self
 		translationFor: self language
 		from: self translatedGreetings
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandLineExamples >> language [
 	^ self positional: #language
 ]
 
-{ #category : #'accessing - private' }
+{ #category : 'accessing - private' }
 ClapCommandLineExamples >> outStream [
 	^ outStream ifNil: [ outStream := VTermOutputDriver on: self context stdout ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandLineExamples >> recipients [
 	^ self positional: #who
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ClapCommandLineExamples >> sayHello [
 	"arguments validateAll."
 	self sayHelloOn: self outStream
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ClapCommandLineExamples >> sayHelloOn: aStream [
 	self recipients do: [ :each |
 		aStream
@@ -136,12 +133,12 @@ ClapCommandLineExamples >> sayHelloOn: aStream [
 			lf ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandLineExamples >> shouting [
 	^ self hasFlag: #shout
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ClapCommandLineExamples >> translatedGreetings [
 	^ {
 		#de -> 'hallo'.
@@ -154,7 +151,7 @@ ClapCommandLineExamples >> translatedGreetings [
 	} asDictionary
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ClapCommandLineExamples >> translatedRecipients [
 	^ {
 		#de -> 'welt'.
@@ -167,20 +164,20 @@ ClapCommandLineExamples >> translatedRecipients [
 	} asDictionary
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ClapCommandLineExamples >> translationFor: lang from: translations [
 	^ translations at: self language
 		ifAbsent: [ translations at: self defaultLanguage ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 ClapCommandLineExamples >> voice: aString [
 	self shouting ifTrue: [ ^ aString asUppercase , '!' ].
 	self whispering ifTrue: [ ^ '(' , aString asLowercase , ')' ].
 	^ aString , '.'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 ClapCommandLineExamples >> whispering [
 	^ self hasFlag: #whisper
 ]

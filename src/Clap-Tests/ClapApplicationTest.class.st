@@ -1,13 +1,15 @@
 Class {
-	#name : #ClapApplicationTest,
-	#superclass : #TestCase,
+	#name : 'ClapApplicationTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'context'
 	],
-	#category : #'Clap-Tests-Integration'
+	#category : 'Clap-Tests-Integration',
+	#package : 'Clap-Tests',
+	#tag : 'Integration'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapApplicationTest >> assertStdOutIncludes: aString [
 
 	self 
@@ -16,13 +18,13 @@ ClapApplicationTest >> assertStdOutIncludes: aString [
 
 ]
 
-{ #category : #helpers }
+{ #category : 'helpers' }
 ClapApplicationTest >> stdoutString [
 
 	^ context binaryStdout contents utf8Decoded
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapApplicationTest >> testCanGetFlags [
 
 	| command |
@@ -34,7 +36,7 @@ ClapApplicationTest >> testCanGetFlags [
 		hasSameElements: #('shout' 'language')
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapApplicationTest >> testCanPrintHelp [
 
 	context := ClapCommandLineExamples git activateWith: #().
@@ -44,7 +46,7 @@ ClapApplicationTest >> testCanPrintHelp [
 	self assertStdOutIncludes: 'The stupid content tracker'.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapApplicationTest >> testCanPrintHelpWhenSubcommand [
 
 	context := ClapCommandLineExamples git activateWith: #('git' 'add').

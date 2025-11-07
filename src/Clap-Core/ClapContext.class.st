@@ -259,6 +259,12 @@ ClapContext >> initialize [
 	obeyingExits := false
 ]
 
+{ #category : 'testing' }
+ClapContext >> isClapContext [
+
+	^ true
+]
+
 { #category : 'validation' }
 ClapContext >> isValid: aValidation [
 
@@ -291,14 +297,23 @@ ClapContext >> noneMatched [
 { #category : 'accessing' }
 ClapContext >> positional: anIdentifier [ 
 		
+	^ self positional: anIdentifier in: self lastSubcommand
+]
+
+{ #category : 'accessing' }
+ClapContext >> positional: anIdentifier in: aMatch [
+		
 	| identifierMatches |
 	
-	identifierMatches := (self lastSubcommand occurrencesOf: anIdentifier)
+	identifierMatches := (aMatch occurrencesOf: anIdentifier)
 		select: [ :identifierMatch | 
 			identifierMatch specification isPositional
 				or: [ identifierMatch specification isFlag and: [ self hasPositional: identifierMatch ] ] ].
 	^ identifierMatches
-		ifEmpty: [ NotFound signal: 'No positional found with id: ', anIdentifier  ] 
+		ifEmpty: [ 
+			aMatch parent isClapContext
+				ifTrue: [ NotFound signal: 'No positional found with id: ', anIdentifier  ]
+				ifFalse: [ self positional: anIdentifier in: aMatch parent ] ]
 ]
 
 { #category : 'printing' }

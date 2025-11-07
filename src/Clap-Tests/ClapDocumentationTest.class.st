@@ -1,10 +1,12 @@
 Class {
-	#name : #ClapDocumentationTest,
-	#superclass : #TestCase,
-	#category : #'Clap-Tests-Unit'
+	#name : 'ClapDocumentationTest',
+	#superclass : 'TestCase',
+	#category : 'Clap-Tests-Unit',
+	#package : 'Clap-Tests',
+	#tag : 'Unit'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapDocumentationTest >> testFlagWithPositionalShouldPrintBothFlagAndPositional [
 	| command doc lines |
 	command := (ClapCommandSpec id: #testCommand)
@@ -27,7 +29,7 @@ ClapDocumentationTest >> testFlagWithPositionalShouldPrintBothFlagAndPositional 
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapDocumentationTest >> testHelloShortUsage [
 	| command doc lines |
 	command := ClapCommandLineExamples hello.

@@ -1,10 +1,12 @@
 Class {
-	#name : #ClapValidationTest,
-	#superclass : #TestCase,
-	#category : #'Clap-Tests-Unit'
+	#name : 'ClapValidationTest',
+	#superclass : 'TestCase',
+	#category : 'Clap-Tests-Unit',
+	#package : 'Clap-Tests',
+	#tag : 'Unit'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapValidationTest >> testErrorReportingWhenMissingNestedPositional [
 
 	| spec context match validationReport errorString |
@@ -23,7 +25,7 @@ ClapValidationTest >> testErrorReportingWhenMissingNestedPositional [
 	self assert: (errorString includesSubstring: 'Missing positional value for bar-value').
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapValidationTest >> testErrorReportingWhenNotMatched [
 
 	| match context validationReport errorString |
@@ -38,7 +40,7 @@ ClapValidationTest >> testErrorReportingWhenNotMatched [
 	self assert: (errorString includesSubstring: 'Unrecognized arguments: --helpe')
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapValidationTest >> testNoErrorReportingWhenNestedPositionalNotInArguments [
 
 	| spec context match validationReport errorString |

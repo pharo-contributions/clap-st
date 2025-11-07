@@ -1,19 +1,21 @@
 Class {
-	#name : #ClapContextTest,
-	#superclass : #TestCase,
+	#name : 'ClapContextTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'context'
 	],
-	#category : #'Clap-Tests-Integration'
+	#category : 'Clap-Tests-Integration',
+	#package : 'Clap-Tests',
+	#tag : 'Integration'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 ClapContextTest >> setUp [
 	super setUp.
 	context := ClapContext specification: ClapCommandLineExamples hello
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapContextTest >> testCanGetCommandInstanceRelatedToLastSubcommand [
 
 	| command |
@@ -28,7 +30,7 @@ ClapContextTest >> testCanGetCommandInstanceRelatedToLastSubcommand [
 	self assert: command class equals: ClapGitAddCommandExample.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapContextTest >> testCanGetCommandSpecWhenNoSubcommand [
 
 	| command |
@@ -41,7 +43,7 @@ ClapContextTest >> testCanGetCommandSpecWhenNoSubcommand [
 	self assert: command class equals: context specification commandClass.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapContextTest >> testClapCommandDoesNotThrowError [
 	"Ensure Root Clap Command mismatch does not raise an error but prints command help"
 	
@@ -59,7 +61,7 @@ ClapContextTest >> testClapCommandDoesNotThrowError [
 				 'Entry point for commands implemented with Clap') ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapContextTest >> testCommandMatchesWhenInvokedFromClapRoot [
 	context := ClapContext withPragmaCommands
 		arguments: #('image' 'cleanup');
@@ -73,7 +75,7 @@ ClapContextTest >> testCommandMatchesWhenInvokedFromClapRoot [
 		hasSameElements: #('image' 'cleanup').
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapContextTest >> testExecuteToExitPrintsValidationReportWhenValidationFails [
 	"Ensure Root Clap Command mismatch does not raise an error but prints command help"
 	
@@ -90,7 +92,7 @@ ClapContextTest >> testExecuteToExitPrintsValidationReportWhenValidationFails [
 		self assert: (errorString includesSubstring: 'Missing positional value for language-value'). ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapContextTest >> testShouldValidationBeKoWhenMismatched [
 	| result |
 	result := context
@@ -103,7 +105,7 @@ ClapContextTest >> testShouldValidationBeKoWhenMismatched [
 	self assert: result class equals: ClapMismatch.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapContextTest >> testShouldValidationBeOkWhenMatched [
 	| result |
 	result := context
@@ -117,7 +119,7 @@ ClapContextTest >> testShouldValidationBeOkWhenMatched [
 	self assert: result class equals: ClapCommandLineExamples.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapContextTest >> testShouldValidationFailWhenUnexpectedRootPositionalAfterSubcommand [
 	context
 		arguments: #('hello' 'world' '--directory' 'foo/bar/baz');
@@ -130,7 +132,7 @@ ClapContextTest >> testShouldValidationFailWhenUnexpectedRootPositionalAfterSubc
 		equals: #('--directory' 'foo/bar/baz')
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapContextTest >> testWrongFlagMatchingButInvalid [
 	context
 		arguments: #('hello' '--inexistent');

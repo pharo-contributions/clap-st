@@ -1,13 +1,15 @@
 Class {
-	#name : #ClapCommandTest,
-	#superclass : #TestCase,
+	#name : 'ClapCommandTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'context'
 	],
-	#category : #'Clap-Tests-Integration'
+	#category : 'Clap-Tests-Integration',
+	#package : 'Clap-Tests',
+	#tag : 'Integration'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapCommandTest >> testShouldArgumentsBeOkWhenMatched [
 	| command |
 	context := ClapCommandLineExamples hello activateWith: #('hello' 'world' '--help').
@@ -18,7 +20,7 @@ ClapCommandTest >> testShouldArgumentsBeOkWhenMatched [
 	self assertCollection: (command positional: #who) hasSameElements: #('world').
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapCommandTest >> testShouldGetCollectionWhenAskingForAMultiplePositional [
 	| command |
 	context := ClapContext specification: ClapCommandLineExamples hello.
@@ -32,7 +34,7 @@ ClapCommandTest >> testShouldGetCollectionWhenAskingForAMultiplePositional [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapCommandTest >> testShouldGetCollectionWhenAskingForAMultiplePositionalWithOneValue [
 	| command |
 	context := ClapContext specification: ClapCommandLineExamples hello.
@@ -46,7 +48,7 @@ ClapCommandTest >> testShouldGetCollectionWhenAskingForAMultiplePositionalWithOn
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapCommandTest >> testShouldGetDefaultValueWhenAskingForAMissingNestedPositionalWithDefaultValueSpecified [
 	| command |
 	context := ClapContext specification: ClapCommandLineExamples hello.
@@ -60,7 +62,7 @@ ClapCommandTest >> testShouldGetDefaultValueWhenAskingForAMissingNestedPositiona
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapCommandTest >> testShouldGetDefaultValueWhenAskingForAMissingNestedPositionalWithDefaultValueSpecifiedOnSubcommand [
 	| command spec |
 	spec := (ClapCommandSpec id: #hello)
@@ -82,7 +84,7 @@ ClapCommandTest >> testShouldGetDefaultValueWhenAskingForAMissingNestedPositiona
 		equals: #fr
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapCommandTest >> testShouldGetFlagPositionalValueWhenAskingForAFlagHavingPositional [
 	| command |
 	context := ClapContext specification: ClapCommandLineExamples hello.
@@ -96,7 +98,20 @@ ClapCommandTest >> testShouldGetFlagPositionalValueWhenAskingForAFlagHavingPosit
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
+ClapCommandTest >> testShouldGetPositionalWhenPositionalNotDeclaredInLastSubcommand [
+	| command |
+	context := ClapContext specification: ClapCommandLineExamples git.
+	command := context
+		arguments: #('git' '-C' 'someDir' 'status');
+		command.
+	
+	self 
+		assert: (command positional: #C)
+		equals: 'someDir'
+]
+
+{ #category : 'tests' }
 ClapCommandTest >> testShouldReturnFalseWhenAskingForAMissingFlag [
 	| command |
 	context := ClapContext specification: ClapCommandLineExamples hello.
@@ -107,7 +122,7 @@ ClapCommandTest >> testShouldReturnFalseWhenAskingForAMissingFlag [
 	self deny: (command hasFlag: '--help')
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapCommandTest >> testShouldSubCommandsBeOkWhenMatched [
 	| command |
 	context := ClapContext specification: ClapCommandLineExamples git.
@@ -120,7 +135,7 @@ ClapCommandTest >> testShouldSubCommandsBeOkWhenMatched [
 		hasSameElements: #('git' 'status').
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapCommandTest >> testShouldThrowNotFoundWhenAskingForAMissingPositional [
 	| spec command |
 	
@@ -137,7 +152,7 @@ ClapCommandTest >> testShouldThrowNotFoundWhenAskingForAMissingPositional [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ClapCommandTest >> testShouldValidationFailWhenAskingForAPositionalWithMissingValues [
 	| spec match validationReport problem |
 	
